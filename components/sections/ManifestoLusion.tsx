@@ -30,7 +30,7 @@ export default function ManifestoLusion() {
         scrollTrigger: {
           trigger: '#manifesto',
           start: 'top top',
-          end: () => '+=' + window.innerHeight * 3.4,
+          end: () => '+=' + window.innerHeight * 2.2, // era 3.4 — pin encurtado ~35%
           scrub: true,
           pin: true,
           pinSpacing: true,
@@ -100,7 +100,7 @@ export default function ManifestoLusion() {
           scrollTrigger: {
             trigger: '#manifesto',
             start: 'top top',
-            end: () => '+=' + window.innerHeight * 2,
+            end: () => '+=' + window.innerHeight * 1.3, // era 2 — pin encurtado ~35%
             scrub: true,
             pin: true,
             pinSpacing: true,

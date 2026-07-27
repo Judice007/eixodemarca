@@ -47,7 +47,9 @@ export default function WorkLusion() {
       // built before the effect plays. Reset first (re-mount / HMR safety).
       // A Work fica ATRÁS do túnel (via -mt): a espiral já POPULADA em repouso (START) é
       // REVELADA quando o manifesto some no fim (não sobe até o topo pra depois começar).
-      // O pin dirige START→1 (climb + grid) em MENOS scroll (2.4 telas, era 3.4).
+      // O pin dirige START→1 (climb + grid) em MENOS scroll (1.6 tela, era 2.4, era 3.4 —
+      // pin geral do site encurtado ~35% pra reduzir o tanto de rolagem quase vazia).
+      const PIN_SCREENS = 1.6
       const START = 0 // espiral em REPOUSO = snake ABAIXO do frame (nada visível) enquanto o
                       // túnel ainda cobre/clareia — nenhum card espia antes da hora.
       const REVEAL_AT = 0.14 // fração do pin em que o TÍTULO aparece — DEPOIS do túnel clarear
@@ -59,7 +61,7 @@ export default function WorkLusion() {
       ScrollTrigger.create({
         trigger: '#work',
         start: 'top top',
-        end: () => '+=' + window.innerHeight * 2.4,
+        end: () => '+=' + window.innerHeight * PIN_SCREENS,
         scrub: true,
         pin: true,
         pinSpacing: true,
@@ -88,7 +90,7 @@ export default function WorkLusion() {
           scrollTrigger: {
             trigger: '#work',
             start: 'top top',
-            end: () => '+=' + window.innerHeight * 2.4,
+            end: () => '+=' + window.innerHeight * PIN_SCREENS,
             scrub: true,
             invalidateOnRefresh: true,
           },
@@ -116,7 +118,7 @@ export default function WorkLusion() {
                 scrollTrigger: {
                   trigger: '#work',
                   start: 'top top',
-                  end: () => '+=' + window.innerHeight * 2.4,
+                  end: () => '+=' + window.innerHeight * PIN_SCREENS,
                   scrub: true,
                   invalidateOnRefresh: true,
                 },

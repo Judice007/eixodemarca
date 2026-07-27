@@ -88,7 +88,7 @@ export default function ReelLusion() {
         scrollTrigger: {
           trigger: '#reel',
           start: 'top top',
-          end: () => '+=' + window.innerHeight * 2.4,
+          end: () => '+=' + window.innerHeight * 1.6, // era 2.4 — pin encurtado ~35%
           scrub: true,
           pin: true,
           pinSpacing: true,
