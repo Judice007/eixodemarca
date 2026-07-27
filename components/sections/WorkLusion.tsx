@@ -59,7 +59,7 @@ export default function WorkLusion() {
                        // aqui, passando o bastão pro título (que sobe+some). Aumente = respira mais.
       spiralReelState.progress = START
       ScrollTrigger.create({
-        trigger: '#work',
+        trigger: root.current ?? undefined,
         start: 'top top',
         end: () => '+=' + window.innerHeight * PIN_SCREENS,
         scrub: true,
@@ -88,7 +88,7 @@ export default function WorkLusion() {
       gsap
         .timeline({
           scrollTrigger: {
-            trigger: '#work',
+            trigger: root.current ?? undefined,
             start: 'top top',
             end: () => '+=' + window.innerHeight * PIN_SCREENS,
             scrub: true,
@@ -116,7 +116,7 @@ export default function WorkLusion() {
             return gsap
               .timeline({
                 scrollTrigger: {
-                  trigger: '#work',
+                  trigger: root.current ?? undefined,
                   start: 'top top',
                   end: () => '+=' + window.innerHeight * PIN_SCREENS,
                   scrub: true,

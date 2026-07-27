@@ -17,7 +17,7 @@ export default function TeamLusion() {
   useGSAP(
     () => {
       if (prefersReducedMotion()) return
-      document.fonts.ready.then(() => revealSectionTitle('.team-headline', '#equipe'))
+      document.fonts.ready.then(() => root.current && revealSectionTitle('.team-headline', root.current))
     },
     { scope: root }
   )

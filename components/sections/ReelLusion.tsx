@@ -33,14 +33,14 @@ export default function ReelLusion() {
       }
 
       // título de seção: reveal letra-a-letra (token unificado)
-      document.fonts.ready.then(() => revealSectionTitle('.reel-headline', '#reel'))
+      document.fonts.ready.then(() => root.current && revealSectionTitle('.reel-headline', root.current))
       gsap.from('.reel-intro-fade', {
         autoAlpha: 0,
         y: 20,
         duration: 0.9,
         stagger: 0.1,
         ease: 'power3.out',
-        scrollTrigger: { trigger: '#reel', start: 'top 68%' },
+        scrollTrigger: { trigger: root.current ?? undefined, start: 'top 68%' },
       })
 
       // the ribbon draws itself in as the section rises into view — starting the moment
@@ -51,7 +51,7 @@ export default function ReelLusion() {
         {
           drawSVG: '100%',
           ease: 'none',
-          scrollTrigger: { trigger: '#reel', start: 'top center', end: 'top top', scrub: true },
+          scrollTrigger: { trigger: root.current ?? undefined, start: 'top center', end: 'top top', scrub: true },
         }
       )
 
@@ -86,7 +86,7 @@ export default function ReelLusion() {
       const tl = gsap.timeline({
         defaults: { ease: 'none' },
         scrollTrigger: {
-          trigger: '#reel',
+          trigger: root.current ?? undefined,
           start: 'top top',
           end: () => '+=' + window.innerHeight * 1.6, // era 2.4 — pin encurtado ~35%
           scrub: true,
@@ -145,7 +145,7 @@ export default function ReelLusion() {
         const tl = gsap.timeline({
           defaults: { ease: 'none' },
           scrollTrigger: {
-            trigger: '#reel',
+            trigger: root.current ?? undefined,
             start: 'top top',
             end: () => '+=' + window.innerHeight,
             scrub: true,

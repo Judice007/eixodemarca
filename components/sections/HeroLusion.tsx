@@ -79,7 +79,7 @@ export default function HeroLusion() {
         {
           drawSVG: '100%',
           ease: 'none',
-          scrollTrigger: { trigger: '#hero', start: 'top top', end: 'center top', scrub: true },
+          scrollTrigger: { trigger: root.current ?? undefined, start: 'top top', end: 'center top', scrub: true },
         }
       )
 
@@ -156,6 +156,7 @@ export default function HeroLusion() {
                         aria-selected={isActive}
                         aria-controls="hero-service-panel"
                         onPointerEnter={() => selectService(index)}
+                        onMouseEnter={() => selectService(index)}
                         onFocus={() => selectService(index)}
                         onClick={() => selectService(index, true)}
                         className={`hero-x-arm absolute flex h-[19%] w-[75%] items-center ${arm.position} ${arm.alignment} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white`}

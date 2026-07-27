@@ -28,7 +28,7 @@ export default function ManifestoLusion() {
 
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: '#manifesto',
+          trigger: root.current ?? undefined,
           start: 'top top',
           end: () => '+=' + window.innerHeight * 2.2, // era 3.4 — pin encurtado ~35%
           scrub: true,
@@ -48,7 +48,10 @@ export default function ManifestoLusion() {
       // a vinheta (escurece bordas) só entra junto com o mergulho — entrada bone fica limpa
       tl.to('.manifesto-vignette', { opacity: 1, ease: 'power2.in', duration: 0.25 }, 0.22)
       tl.fromTo('.manifesto-eyebrow', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.05 }, 0.02)
-      tl.to('.manifesto-eyebrow', { autoAlpha: 0, duration: 0.07 }, 0.68)
+      // Era 0.68: com só UM beat de texto (sai por volta de 0.22), o resto do pin até
+      // ali era só o corredor passando, sem nada em primeiro plano — quase uma tela
+      // inteira de scroll "vazio". Finale entra bem mais cedo agora pra fechar esse vão.
+      tl.to('.manifesto-eyebrow', { autoAlpha: 0, duration: 0.07 }, 0.4)
 
       // beats: revelam PALAVRA A PALAVRA (stagger + scale + easing expo) e saem
       BEATS.forEach((bt, i) => {
@@ -64,20 +67,19 @@ export default function ManifestoLusion() {
       })
 
       // FINALE da marca: assentar suave (sem "pop" de escala) + letter-spacing fechando
-      // (começa em 0.68 — antes só tinha de 0.8 a 1.0 pra "pousar", pouco espaço pro hub respirar)
       tl.fromTo(
         '[data-finale]',
         { autoAlpha: 0, y: 16, scale: 0.96, letterSpacing: '0.22em' },
         { autoAlpha: 1, y: 0, scale: 1, letterSpacing: '-0.02em', ease: 'power2.out', duration: 0.22 },
-        0.68
+        0.4
       )
-      tl.fromTo('.manifesto-finale-path', { drawSVG: '0%' }, { drawSVG: '100%', ease: 'none', duration: 0.3 }, 0.7)
+      tl.fromTo('.manifesto-finale-path', { drawSVG: '0%' }, { drawSVG: '100%', ease: 'none', duration: 0.3 }, 0.42)
 
       // ── EMERGIR = REVELAR a Work atrás. No fim, o túnel INTEIRO (fundo dark + corredor +
       // vinheta + wordmark) faz fade-out, descobrindo a seção Trabalhos pinada logo ATRÁS
       // (z menor, espiral já populada). O túnel "fica claro" mostrando a espiral que já
       // estava lá — sem subir pro topo pra só então começar.
-      tl.to(root.current, { opacity: 0, ease: 'power2.inOut', duration: 0.12 }, 0.85)
+      tl.to(root.current, { opacity: 0, ease: 'power2.inOut', duration: 0.12 }, 0.75)
     },
     { scope: root }
   )
@@ -98,7 +100,7 @@ export default function ManifestoLusion() {
 
         const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: '#manifesto',
+            trigger: root.current ?? undefined,
             start: 'top top',
             end: () => '+=' + window.innerHeight * 1.3, // era 2 — pin encurtado ~35%
             scrub: true,

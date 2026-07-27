@@ -28,9 +28,11 @@ export default function FooterGL() {
     const stopIO = onceNearViewport(canvas, () => {
     if (disposed) return
 
-    // ScrollTrigger: a esfera se forma conforme o footer entra (scrub segue o scroll)
+    // ScrollTrigger: a esfera se forma conforme o footer entra (scrub segue o scroll).
+    // Sobe pelo próprio DOM (closest) em vez de re-consultar '#contato' — mesmo
+    // elemento, sem depender de o seletor global já estar resolvível nesse instante.
     st = ScrollTrigger.create({
-      trigger: '#contato',
+      trigger: canvas.closest('footer') ?? canvas,
       start: 'top bottom',
       end: 'bottom bottom',
       scrub: 0.6,
