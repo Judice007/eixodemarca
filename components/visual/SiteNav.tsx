@@ -24,6 +24,19 @@ export default function SiteNav() {
   const reduce = useReducedMotion()
   const activeId = useScrollSpy(SECTION_IDS)
 
+  // O header fica fixo a página inteira, incluindo sobre o rodapé — perto do fim
+  // ele cobria a primeira linha e duplicava visualmente a logo (a mesma marca
+  // aparece nos dois). Mesmo padrão do BottomNav: some suavemente quando o
+  // rodapé (#contato) entra em vista.
+  const [nearEnd, setNearEnd] = useState(false)
+  useEffect(() => {
+    const footer = document.getElementById('contato')
+    if (!footer) return
+    const io = new IntersectionObserver(([e]) => setNearEnd(!!e?.isIntersecting))
+    io.observe(footer)
+    return () => io.disconnect()
+  }, [])
+
   // Detecção de scroll via GSAP: o useScroll do framer-motion NÃO acompanha sob o
   // ScrollSmoother + normalizeScroll (o scroll nativo é interceptado) → pill/past
   // nunca mudavam e o morph não disparava. Lê o scroll do smoother por frame;
@@ -53,13 +66,18 @@ export default function SiteNav() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-[55] px-[var(--gutter)] py-4 md:py-5">
+    <header
+      className="fixed inset-x-0 top-0 z-[55] px-[var(--gutter)] py-4 md:py-5"
+      style={{ pointerEvents: nearEnd ? 'none' : undefined }}
+    >
       <motion.nav
         initial={false}
         animate={{
           maxWidth: past ? 1160 : 680,
           backgroundColor: 'rgba(24, 5, 37, 0.96)',
           boxShadow: '0 1px 2px rgba(0,0,0,0.18), 0 18px 40px -20px rgba(0,0,0,0.55)',
+          opacity: nearEnd ? 0 : 1,
+          y: nearEnd ? -16 : 0,
         }}
         transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 280, damping: 26, mass: 0.9 }}
         style={{
