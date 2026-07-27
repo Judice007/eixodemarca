@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+@theme {
+  --color-main: #180525;
+  --color-card: #260b45;
+  --color-accent: #ff665c;
+  --color-muted: #806f92;
+
+  --color-dark: #180525;
+  --color-ink: #2a104a;
+  --color-paper: #fff8f2;
+  --color-lavanda: #f4efff;
+  --color-azure: #ff665c;
+  --color-cyan: #e8deff;
+  --color-bone: #fff8f2;
+  --color-bone-2: #eadfff;
+
+  --font-display: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument), Georgia, serif;
+  --font-syncopate: var(--font-syncopate), sans-serif;
+}
+
+/* Noise texture overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* Hide native cursor when custom cursor is active */
+body.cursor-ready * { cursor: none !important; }
+
+/* Intro screen */
+.intro-screen {
+  position: fixed; inset: 0; z-index: 10000; background: #180525;
+  display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 24px;
+  transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.intro-screen.exit { transform: translateY(-100%); }
+.intro-progress { position: absolute; bottom: 0; left: 0; height: 2px; background: #ff665c; transition: width 0.28s linear; }
+
+/* =========================================================
+   LUSION REDESIGN — one world, one scroll
+   ========================================================= */
+:root { --maxw: 1280px; --gutter: 40px; --edge: max(var(--gutter), calc((100vw - var(--maxw)) / 2 + var(--gutter))); }
+html { -webkit-font-smoothing: antialiased; }
+body { background: var(--color-bone); color: var(--color-ink); font-family: var(--font-sans); overflow-x: hidden; }
+::selection { background: var(--color-azure); color: #fff; }
+
+#world { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
+#ribbon-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; pointer-events: none; }
+#smooth-wrapper { position: relative; z-index: 1; }
+#smooth-wrapper[data-smooth="1"] { position: fixed; inset: 0; overflow: hidden; }
+
+/* nav + hero are styled with Tailwind utilities in their components.
+   Only the progress-ring keyframe lives here (referenced via animate-[hero-ring_...]). */
+@keyframes hero-ring { from { stroke-dashoffset: 75.4; } to { stroke-dashoffset: 0; } }
+
+/* Faixa marquee do hero (mobile) — dois tracks idênticos rolam -100% pra emendar sem corte */
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+
+/* reel is styled with Tailwind utilities in ReelLusion (incl. the SVG goo filter). */
+
+/* manifesto + work are styled with Tailwind utilities in their components. */
+
+/* =========================================================
+   SECTION TITLE SYSTEM — um token único de título de seção.
+   Tamanho compacto (máx 52), peso semibold, reveal letra-a-letra.
+   Cor é contextual (text-ink / text-bone na própria seção).
+   O Hero (h1) NÃO usa isto — é o título maior, proposital.
+   ========================================================= */
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-azure);
+}
+.section-eyebrow::before {
+  content: '';
+  flex: none;
+  width: 32px;
+  height: 1px;
+  background: currentColor;
+}
+
+@media (max-width: 820px) {
+  :root { --gutter: 20px; }
+}
+
+/* Aterrissagem do bottom nav: deixa o título abaixo do SiteNav no scroll nativo (reduced-motion) */
+@media (max-width: 1023px) {
+  #hero, #reel, #manifesto, #work, #equipe, #contato { scroll-margin-top: 72px; }
+}
+
+/* Esconde a scrollbar nativa do documento — o ScrollSmoother dirige o scroll e o
+   ScrollRail é o indicador visual. Alveja só html/body, então scrollers internos
+   (com overflow próprio) mantêm a barra deles. */
+html,
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Edge legado */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chromium / Safari */
+  width: 0;
+  height: 0;
+}
