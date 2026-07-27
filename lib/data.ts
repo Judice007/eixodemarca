@@ -31,26 +31,32 @@ export const services = [
   },
 ]
 
+// TODO: caseImage está repetido nos 4 só para teste de layout — trocar Conteúdo/
+// Motion/Performance por exemplos reais de cada frente antes de publicar de vez.
 export const heroServices = [
   {
     title: 'Branding',
     category: 'Identidade & Posicionamento',
-    image: 'https://images.unsplash.com/photo-1634942537034-2531766767d1?auto=format&fit=crop&w=900&q=80',
+    caseImage: '/work/vista-bajeko-branding.jpg',
+    caseLabel: 'Vista Bajeko',
   },
   {
     title: 'Conteúdo',
     category: 'Social & Narrativa',
-    image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=900&q=80',
+    caseImage: '/work/vista-bajeko-branding.jpg',
+    caseLabel: 'Vista Bajeko',
   },
   {
     title: 'Motion',
     category: 'Vídeo & Movimento',
-    image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=900&q=80',
+    caseImage: '/work/vista-bajeko-branding.jpg',
+    caseLabel: 'Vista Bajeko',
   },
   {
     title: 'Performance',
     category: 'Mídia & Crescimento',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80',
+    caseImage: '/work/vista-bajeko-branding.jpg',
+    caseLabel: 'Vista Bajeko',
   },
 ]
 

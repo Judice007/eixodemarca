@@ -18,36 +18,35 @@ const ARMS = [
     position: 'left-1/2 top-1/2 -translate-x-full -translate-y-1/2 rotate-45 origin-right',
     alignment: 'justify-start pl-3 sm:pl-5',
     counter: '-rotate-45',
+    side: 'left',
   },
   {
     position: 'left-1/2 top-1/2 -translate-y-1/2 -rotate-45 origin-left',
     alignment: 'justify-end pr-3 sm:pr-5',
     counter: 'rotate-45',
+    side: 'right',
   },
   {
     position: 'left-1/2 top-1/2 -translate-y-1/2 rotate-45 origin-left',
     alignment: 'justify-end pr-3 sm:pr-5',
     counter: '-rotate-45',
+    side: 'right',
   },
   {
     position: 'left-1/2 top-1/2 -translate-x-full -translate-y-1/2 -rotate-45 origin-right',
     alignment: 'justify-start pl-3 sm:pl-5',
     counter: 'rotate-45',
+    side: 'left',
   },
-]
+] as const
 
-const PANEL_CLIPS = [
-  'polygon(0 0, 86% 0, 100% 14%, 100% 100%, 14% 100%, 0 86%)',
-  'polygon(14% 0, 100% 0, 100% 86%, 86% 100%, 0 100%, 0 14%)',
-  'polygon(0 0, 86% 0, 100% 14%, 100% 86%, 86% 100%, 0 100%)',
-  'polygon(14% 0, 100% 0, 100% 100%, 14% 100%, 0 86%, 0 14%)',
-]
 
 export default function HeroLusion() {
   const root = useRef<HTMLElement>(null)
   const pressable = usePressable()
   const [active, setActive] = useState(0)
   const current = SERVICES[active]!
+  const cardSide = ARMS[active]!.side === 'left' ? 'right' : 'left'
 
   useGSAP(
     () => {
@@ -144,48 +143,31 @@ export default function HeroLusion() {
         </div>
 
         <div className="hero-x-visual relative h-[560px] min-w-0 lg:h-[min(68vh,650px)] lg:min-h-[540px]">
-          <div className="absolute inset-x-0 top-0 bottom-[104px] overflow-hidden bg-dark sm:bottom-[96px]">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current.title}
-                initial={{
-                  opacity: 0,
-                  scale: 1.06,
-                  clipPath: 'polygon(48% 46%, 54% 48%, 52% 55%, 45% 52%)',
-                }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  clipPath: PANEL_CLIPS[active],
-                }}
-                exit={{
-                  opacity: 0,
-                  scale: 1.03,
-                  clipPath: 'polygon(48% 46%, 54% 48%, 52% 55%, 45% 52%)',
-                }}
-                transition={{ duration: 0.52, ease: [0.76, 0, 0.24, 1] }}
-                className="absolute inset-0"
-              >
+          <div className="absolute inset-x-0 top-0 bottom-[104px] overflow-hidden sm:bottom-[96px]">
+            {/* Just the real Eixo mark — no panel, no photo behind it. */}
+            <div className="absolute inset-0 z-10 grid place-items-center p-[10%]">
+              <div className="relative aspect-square w-full max-w-[520px]">
                 <Image
-                  src={current.image}
-                  alt=""
+                  src="/eixo-symbol.png"
+                  alt="Eixo de Marca"
                   fill
-                  priority={active === 0}
-                  sizes="(min-width: 1024px) 58vw, 100vw"
-                  className="object-cover"
+                  priority
+                  sizes="(min-width: 1024px) 40vw, 90vw"
+                  className="object-contain"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(24,5,37,0.38),rgba(24,5,37,0.82))]" />
-              </motion.div>
-            </AnimatePresence>
+              </div>
+            </div>
 
-            <div aria-hidden className="absolute inset-0 opacity-25 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:42px_42px]" />
-
-            <div className="absolute left-5 top-5 z-30 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/65 sm:left-7 sm:top-7">
+            <div className="absolute left-5 top-5 z-30 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted sm:left-7 sm:top-7">
               <span className="h-px w-7 bg-azure" />
               <span className="hidden sm:inline">Passe o cursor pelos braços</span>
               <span className="sm:hidden">Toque nos braços</span>
             </div>
 
+            {/* Hit-zones follow the same four arms as the real X (upper-right
+                arrowhead ↔ lower-left tail is one stroke, upper-left ↔ lower-right
+                is the other) — only a small tag near the tip is visible now, the
+                mark itself is never covered by a filled shape. */}
             <div className="absolute inset-[15%] z-20 sm:inset-[13%]" role="tablist" aria-label="Serviços do Eixo de Marca">
               {SERVICES.map((service, index) => {
                 const arm = ARMS[index]!
@@ -200,14 +182,15 @@ export default function HeroLusion() {
                     onPointerEnter={() => selectService(index)}
                     onFocus={() => selectService(index)}
                     onClick={() => selectService(index, true)}
-                    style={{ clipPath: 'polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%, 9% 50%)' }}
-                    className={`hero-x-arm absolute flex h-[19%] w-[53%] items-center ${arm.position} ${arm.alignment} transition-[background-color,color,filter] duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
-                      isActive
-                        ? 'z-30 bg-azure text-white drop-shadow-[0_12px_22px_rgba(255,102,92,0.36)]'
-                        : 'z-20 bg-[#f2ebff]/90 text-ink hover:bg-white'
-                    }`}
+                    className={`hero-x-arm absolute flex h-[19%] w-[53%] items-center ${arm.position} ${arm.alignment} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white`}
                   >
-                    <span className={`${arm.counter} flex items-center gap-2 whitespace-nowrap`}>
+                    <span
+                      className={`${arm.counter} flex items-center gap-2 whitespace-nowrap rounded-full border px-3 py-1.5 backdrop-blur-sm transition-[background-color,border-color,color] duration-300 ${
+                        isActive
+                          ? 'border-azure/60 bg-azure text-white shadow-[0_10px_24px_-10px_rgba(255,102,92,0.55)]'
+                          : 'border-ink/12 bg-white/70 text-ink/70 hover:border-ink/25 hover:text-ink'
+                      }`}
+                    >
                       <span className="font-mono text-[10px] font-bold tracking-[0.18em] opacity-70">0{index + 1}</span>
                       <span className="hidden font-display text-[11px] font-extrabold uppercase tracking-[0.08em] sm:inline md:text-[12px]">
                         {service.title}
@@ -218,7 +201,29 @@ export default function HeroLusion() {
               })}
             </div>
 
-            <div aria-hidden className="absolute left-1/2 top-1/2 z-40 size-4 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-white shadow-[0_0_0_7px_rgba(24,5,37,0.28)]" />
+            {/* Case preview — appears on the side OPPOSITE the active arm, so it
+                never sits under the cursor/badge you're hovering. */}
+            <AnimatePresence>
+              {current.caseImage && (
+                <motion.div
+                  key={current.title}
+                  initial={{ opacity: 0, x: cardSide === 'right' ? 10 : -10, scale: 0.96 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: cardSide === 'right' ? 10 : -10, scale: 0.96 }}
+                  transition={{ duration: 0.32, ease: [0.76, 0, 0.24, 1] }}
+                  className={`absolute top-1/2 z-30 hidden w-[250px] -translate-y-1/2 overflow-hidden rounded-[14px] border border-ink/10 bg-white shadow-[0_20px_45px_-20px_rgba(24,5,37,0.45)] sm:block ${
+                    cardSide === 'right' ? 'right-2' : 'left-2'
+                  }`}
+                >
+                  <div className="relative aspect-video">
+                    <Image src={current.caseImage} alt={`Exemplo de ${current.title}${current.caseLabel ? ` — ${current.caseLabel}` : ''}`} fill sizes="250px" className="object-cover" />
+                  </div>
+                  {current.caseLabel && (
+                    <p className="px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">{current.caseLabel}</p>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           <div
