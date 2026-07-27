@@ -3,6 +3,7 @@
 import { useRef } from 'react'
 import { gsap, useGSAP, ScrollTrigger } from '@/lib/registerGsap'
 import { prefersReducedMotion } from '@/lib/capability'
+import { whatsappUrl } from '@/lib/data'
 
 // Fecho de marca PINADO (mesmo efeito da landing-1): a seção azure fica fixa e o
 // footer escuro SOBE POR CIMA ao rolar (revelação em camadas, alto contraste).
@@ -46,7 +47,9 @@ export default function ClosingCtaLusion() {
         Vamos tirar sua marca do comum.
       </h2>
       <a
-        href="#contato"
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
         className="mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-7 text-sm font-semibold text-ink shadow-[0_18px_40px_-22px_rgba(0,0,0,0.45)] transition-transform hover:-translate-y-0.5"
       >
         Falar com o Eixo <span aria-hidden>→</span>

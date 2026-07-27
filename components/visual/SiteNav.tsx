@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { gsap, ScrollSmoother } from '@/lib/registerGsap'
 import { useScrollSpy } from '@/hooks/useScrollSpy'
+import { whatsappUrl } from '@/lib/data'
 
 // seções (desktop) — aparecem no header quando a pill "viaja" pra cima (passou da hero)
 const SECTIONS = [
@@ -131,16 +132,17 @@ export default function SiteNav() {
               Contato
             </button>
           ) : null}
-          <button
-            type="button"
-            onClick={() => goTo('contato')}
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             style={{ clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))' }}
             className="group inline-flex items-center gap-1.5 bg-azure px-4 py-2 text-[13px] font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 sm:px-5 sm:py-2.5 sm:text-sm"
           >
             <span className="sm:hidden">Conversar</span>
             <span className="hidden sm:inline">Vamos conversar</span>
             <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
-          </button>
+          </a>
         </div>
       </motion.nav>
     </header>

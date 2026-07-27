@@ -2,11 +2,12 @@
 
 import Image from 'next/image'
 import type { ReactNode } from 'react'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { gsap, useGSAP, ScrollSmoother } from '@/lib/registerGsap'
 import { prefersReducedMotion, isMobileViewport } from '@/lib/capability'
 import { revealSectionTitle } from '@/lib/titleReveal'
 import FooterGL from '@/components/visual/FooterGL'
+import { contactInfo, whatsappUrl, mailtoUrl } from '@/lib/data'
 
 // Dark closing footer — the bookend to the dark-glass nav: ink surface, azure as the
 // single accent, a SplitText CTA, a magnetic primary button, link columns, an
@@ -34,7 +35,6 @@ function Col({ title, children }: { title: string; children: ReactNode }) {
 
 export default function FooterLusion() {
   const root = useRef<HTMLElement>(null)
-  const [copied, setCopied] = useState(false)
 
   useGSAP(
     () => {
@@ -98,13 +98,6 @@ export default function FooterLusion() {
     if (s) s.scrollTo(0, true)
     else window.scrollTo({ top: 0, behavior: 'smooth' })
   }
-  const copyBrief = async () => {
-    const brief = 'Olá, Eixo de Marca. Quero conversar sobre um projeto para a minha marca.'
-    await navigator.clipboard.writeText(brief)
-    setCopied(true)
-    window.setTimeout(() => setCopied(false), 2400)
-  }
-
   return (
     <footer id="contato" ref={root} className="relative z-10 overflow-hidden bg-dark text-bone">
       {/* filete azure no topo */}
@@ -119,18 +112,22 @@ export default function FooterLusion() {
           Vamos criar algo <span className="text-azure">memorável</span>.
         </h2>
 
-        <div className="foot-rise mt-9 flex flex-wrap items-center gap-5 max-lg:flex-col max-lg:items-center">
-          <button
-            type="button"
-            onClick={copyBrief}
+        <div className="foot-rise mt-9 flex flex-wrap items-center gap-4 max-lg:flex-col max-lg:items-center">
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="foot-magnetic group inline-flex items-center gap-2 rounded-full bg-azure px-6 py-3.5 text-sm font-semibold text-white transition-[background-color] duration-200 hover:bg-[#ff837b]"
           >
-            {copied ? 'Briefing copiado' : 'Copiar mensagem inicial'}
+            Falar no WhatsApp
             <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
-          </button>
-          <p className="max-w-[36ch] text-sm leading-relaxed text-bone/60">
-            Cole a mensagem no canal oficial do Eixo de Marca para iniciar a conversa.
-          </p>
+          </a>
+          <a
+            href={mailtoUrl}
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3.5 text-sm font-semibold text-bone/85 transition-colors hover:border-white/35 hover:text-bone"
+          >
+            {contactInfo.email}
+          </a>
         </div>
 
         {/* colunas */}

@@ -103,14 +103,19 @@ export type Testimonial = {
 // Mantido vazio até existirem depoimentos aprovados do Eixo de Marca.
 export const testimonials: Testimonial[] = []
 
-// Dados comerciais ficam vazios até que os canais oficiais sejam confirmados.
 export const contactInfo = {
-  email: '',
-  phone: '',
+  email: 'lipejudice@gmail.com',
+  // WhatsApp — formato internacional (55 + DDD + número), sem símbolos.
+  phone: '552433662420',
   instagram: '',
   linkedin: '',
   facebook: '',
 }
+
+const WHATSAPP_MESSAGE = 'Olá, Eixo de Marca. Quero conversar sobre um projeto para a minha marca.'
+
+export const whatsappUrl = `https://wa.me/${contactInfo.phone}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
+export const mailtoUrl = `mailto:${contactInfo.email}?subject=${encodeURIComponent('Projeto com o Eixo de Marca')}`
 
 export type TeamMember = {
   name: string
