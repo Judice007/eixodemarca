@@ -58,10 +58,23 @@ export function generateMetadata(): Metadata {
   }
 }
 
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Eixo de Marca',
+  url: SITE_URL,
+  logo: `${SITE_URL}/eixo-symbol.png`,
+  description: 'Direção estratégica, identidade, conteúdo, performance e tecnologia para marcas que querem ser lembradas.',
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" className={`${schibsted.variable} ${inter.variable} ${instrument.variable} ${syncopate.variable}`}>
       <body className="antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         {children}
       </body>
     </html>
