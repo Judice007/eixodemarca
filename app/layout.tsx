@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
-import { headers } from 'next/headers'
 import { Schibsted_Grotesk, Inter, Instrument_Serif, Syncopate } from 'next/font/google'
 import './globals.css'
+
+const SITE_URL = 'https://eixodemarca.vercel.app'
 
 const schibsted = Schibsted_Grotesk({
   subsets: ['latin'],
@@ -30,15 +31,11 @@ const syncopate = Syncopate({
   display: 'swap',
 })
 
-export async function generateMetadata(): Promise<Metadata> {
-  const requestHeaders = await headers()
-  const host = requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host') ?? 'eixo-de-marca-studio.judice007.chatgpt.site'
-  const protocol = requestHeaders.get('x-forwarded-proto') ?? (host.includes('localhost') ? 'http' : 'https')
-  const origin = `${protocol}://${host}`
-  const socialImage = `${origin}/og.png`
+export function generateMetadata(): Metadata {
+  const socialImage = `${SITE_URL}/og.jpg`
 
   return {
-    metadataBase: new URL(origin),
+    metadataBase: new URL(SITE_URL),
     title: 'Eixo de Marca — Estratégia & Criatividade',
     description: 'Direção estratégica, identidade, conteúdo, performance e tecnologia para marcas que querem ser lembradas.',
     icons: {
