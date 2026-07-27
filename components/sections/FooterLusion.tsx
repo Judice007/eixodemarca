@@ -27,7 +27,7 @@ const ETAPAS = ['Diagnóstico', 'Direção', 'Execução', 'Evolução']
 function Col({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="foot-rise">
-      <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-bone/40">{title}</h3>
+      <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-bone/65">{title}</h3>
       <ul className="flex flex-col gap-2.5 text-sm font-medium text-bone/70 max-lg:items-center">{children}</ul>
     </div>
   )
@@ -41,16 +41,13 @@ export default function FooterLusion() {
       if (prefersReducedMotion()) return
 
       // título de seção: reveal letra-a-letra (token unificado)
-      document.fonts.ready.then(() => revealSectionTitle('.foot-cta', '#contato'))
+      document.fonts.ready.then(() => root.current && revealSectionTitle('.foot-cta', root.current))
 
-      gsap.from('.foot-rise', {
-        y: 26,
-        opacity: 0,
-        duration: 0.85,
-        stagger: 0.08,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: '#contato', start: 'top 66%' },
-      })
+      // Nav, contato e as colunas (.foot-rise) usados a ficar escondidos até um
+      // scroll-trigger disparar — se o trigger nunca cruzasse (posição
+      // desatualizada por imagens carregando tarde, por ex.), esse conteúdo
+      // essencial sumia de vez. Sem fade-in agora: aparece junto com o resto do
+      // rodapé, sem depender de nenhuma animação rodar.
 
       // wordmark gigante sobe ao entrar
       gsap.from('.foot-word', {
@@ -187,7 +184,7 @@ export default function FooterLusion() {
 
       {/* barra inferior */}
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-[var(--maxw)] flex-col items-center justify-between gap-3 px-[var(--gutter)] py-6 text-xs text-bone/45 sm:flex-row">
+        <div className="mx-auto flex max-w-[var(--maxw)] flex-col items-center justify-between gap-3 px-[var(--gutter)] py-6 text-xs text-bone/65 sm:flex-row">
           <span>© 2026 Eixo de Marca — Brasil</span>
           <button
             type="button"
