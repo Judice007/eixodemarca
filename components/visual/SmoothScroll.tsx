@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { ScrollSmoother } from '@/lib/registerGsap'
+import { ScrollSmoother, ScrollTrigger } from '@/lib/registerGsap'
 import { prefersReducedMotion } from '@/lib/capability'
 
 // Wraps page content in ScrollSmoother's required #smooth-wrapper > #smooth-content.
@@ -25,7 +25,26 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     // reduced-motion fallback keeps native scrolling.
     const wrapper = wrapRef.current
     wrapper?.setAttribute('data-smooth', '1')
+
+    // Safety net: ScrollTrigger caches trigger positions at creation time. On an
+    // image-heavy page, sections below the fold finish loading well after that —
+    // each one shifts document height, so anything with a scroll-tied "start"
+    // point computed earlier can end up wrong (e.g. crossed already, or past the
+    // end of scroll). Real report: footer nav/contact staying invisible — a
+    // reveal whose trigger point never gets crossed just never plays.
+    // ScrollTrigger.refresh() re-measures everything; re-run it whenever the
+    // scrolling content's own height actually changes, not on a timer/guess.
+    const content = document.getElementById('smooth-content')
+    let raf = 0
+    const ro = new ResizeObserver(() => {
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(() => ScrollTrigger.refresh())
+    })
+    if (content) ro.observe(content)
+
     return () => {
+      cancelAnimationFrame(raf)
+      ro.disconnect()
       smoother?.kill()
       wrapper?.removeAttribute('data-smooth')
     }
