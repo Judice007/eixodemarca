@@ -97,6 +97,23 @@ export default function HeroLusion() {
                 panel's height and let the mark spill past the visible area. */}
             <div className="absolute inset-0 grid place-items-center p-[4%] [container-type:size]">
               <div className="relative aspect-square" style={{ width: 'min(100cqw, 100cqh, 640px)' }}>
+                {/* Soft bloom behind the mark — flares up and settles every time you
+                    switch arms, so the X itself reacts to the hover, not just the
+                    little badge. Framer's `key` re-mounts it on every `active`
+                    change, replaying initial→animate as a decaying pulse. */}
+                <motion.div
+                  key={active}
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 z-0"
+                  initial={{ opacity: 0.85, scale: 1.08 }}
+                  animate={{ opacity: 0.3, scale: 1 }}
+                  transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+                  style={{
+                    background: 'radial-gradient(closest-side, rgba(255,102,92,0.55), rgba(255,102,92,0) 70%)',
+                    filter: 'blur(28px)',
+                  }}
+                />
+
                 <Image
                   src="/eixo-symbol.png"
                   alt="Eixo de Marca"
@@ -127,9 +144,9 @@ export default function HeroLusion() {
                         className={`hero-x-arm absolute flex h-[19%] w-[75%] items-center ${arm.position} ${arm.alignment} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white`}
                       >
                         <span
-                          className={`${arm.counter} flex items-center gap-2 whitespace-nowrap rounded-full border px-3 py-1.5 backdrop-blur-sm transition-[background-color,border-color,color] duration-300 ${
+                          className={`${arm.counter} flex items-center gap-2 whitespace-nowrap rounded-full border px-3 py-1.5 backdrop-blur-sm transition-[background-color,border-color,color,transform] duration-300 ease-out ${
                             isActive
-                              ? 'border-azure/60 bg-azure text-white shadow-[0_10px_24px_-10px_rgba(255,102,92,0.55)]'
+                              ? 'scale-105 border-azure/60 bg-azure text-white shadow-[0_10px_24px_-10px_rgba(255,102,92,0.55)]'
                               : 'border-ink/12 bg-white/70 text-ink/70 hover:border-ink/25 hover:text-ink'
                           }`}
                         >
