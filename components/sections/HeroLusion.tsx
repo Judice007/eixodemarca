@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 import { gsap, useGSAP } from '@/lib/registerGsap'
 import { prefersReducedMotion } from '@/lib/capability'
-import { heroServices } from '@/lib/data'
+import { heroServices, whatsappUrl } from '@/lib/data'
 import { haptic } from '@/lib/haptics'
 import { usePressable } from '@/hooks/usePressable'
 import HeroParticles from '@/components/visual/HeroParticles'
@@ -55,8 +55,23 @@ export default function HeroLusion() {
       intro.from('.hero-micro', { autoAlpha: 0, y: 12, duration: 0.6 }, 0.46)
       intro.from('.hero-action', { autoAlpha: 0, y: 14, duration: 0.6 }, 0.56)
       intro.from('.hero-x-visual', { autoAlpha: 0, scale: 0.96, y: 24, duration: 0.9, ease: 'power4.out' }, 0.28)
-      intro.from('.hero-x-arm', { scaleX: 0, duration: 0.7, stagger: 0.06, ease: 'power4.out' }, 0.48)
+      // NOTE: previously scaled the arm hit-zones in from 0 width (`scaleX: 0`).
+      // If this tween ever stalls mid-flight — a backgrounded tab, a slow
+      // device, anything that delays the GSAP ticker — the arm's clickable box
+      // stays collapsed near the center forever, well short of the visible
+      // stroke. Real report: hover worked only right at the badge, not along
+      // the arm. Dropped for the whole hero-x-visual fade/scale above to cover
+      // the reveal instead — arms just appear at full (interactive) size.
       intro.from('.hero-footrow', { autoAlpha: 0, duration: 0.7 }, 0.82)
+
+      // Safety net: this timeline hides the headline, wordmark and the whole X
+      // panel until it plays. If the GSAP ticker ever stalls before it finishes
+      // (backgrounded tab on load is the common real case — browsers throttle
+      // rAF for hidden tabs), that content would stay invisible indefinitely.
+      // Force it to its end state once, well past its own ~2.3s runtime; a
+      // no-op if it already finished normally.
+      const forceComplete = window.setTimeout(() => intro.progress(1), 4000)
+      intro.eventCallback('onComplete', () => window.clearTimeout(forceComplete))
 
       gsap.fromTo(
         '.hero-ribbon-path',
@@ -67,6 +82,8 @@ export default function HeroLusion() {
           scrollTrigger: { trigger: '#hero', start: 'top top', end: 'center top', scrub: true },
         }
       )
+
+      return () => window.clearTimeout(forceComplete)
     },
     { scope: root }
   )
@@ -225,8 +242,10 @@ export default function HeroLusion() {
             </a>
             <motion.a
               {...pressable}
-              href="#contato"
-              aria-label="Começar um projeto com o Eixo de Marca"
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Começar um projeto com o Eixo de Marca pelo WhatsApp"
               onClick={() => haptic('confirm')}
               style={{ clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))' }}
               className="inline-flex items-center justify-center gap-2.5 border border-ink/15 bg-white/60 px-6 py-4 text-[15px] font-semibold text-ink transition-[border-color,color,transform] duration-200 hover:-translate-y-0.5 hover:border-azure hover:text-azure"
@@ -235,31 +254,34 @@ export default function HeroLusion() {
               Começar um projeto
             </motion.a>
           </div>
-        </div>
 
-        {/* Case preview — its own grid item anchored to the text column, below
-            the CTAs. Kept out of the visual panel entirely: with the mark now
-            sized to fill that panel, there's no gutter left there for a card
-            without it overlapping the arms. */}
-        <AnimatePresence>
-          {current.caseImage && (
-            <motion.div
-              key={current.title}
-              initial={{ opacity: 0, y: 10, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.96 }}
-              transition={{ duration: 0.32, ease: [0.76, 0, 0.24, 1] }}
-              className="relative z-30 order-3 hidden w-[220px] self-end overflow-hidden rounded-[14px] border border-ink/10 bg-white shadow-[0_20px_45px_-20px_rgba(24,5,37,0.45)] lg:col-start-2 lg:row-start-1 lg:mt-6 lg:block lg:justify-self-start"
-            >
-              <div className="relative aspect-video">
-                <Image src={current.caseImage} alt={`Exemplo de ${current.title}${current.caseLabel ? ` — ${current.caseLabel}` : ''}`} fill sizes="220px" className="object-cover" />
-              </div>
-              {current.caseLabel && (
-                <p className="px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">{current.caseLabel}</p>
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
+          {/* Case preview — a normal child of the text column now, flowing right
+              after the CTAs. It used to be pinned via grid col/row placement,
+              which put it a fixed distance from the row's TOP regardless of how
+              tall the text block actually rendered — on shorter viewports (or
+              with longer copy) it landed on top of the CTA buttons instead of
+              below them. Being part of the document flow means it can never
+              overlap anything above it, on any viewport. */}
+          <AnimatePresence>
+            {current.caseImage && (
+              <motion.div
+                key={current.title}
+                initial={{ opacity: 0, y: 10, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.96 }}
+                transition={{ duration: 0.32, ease: [0.76, 0, 0.24, 1] }}
+                className="relative z-30 mx-auto mt-6 hidden w-[220px] overflow-hidden rounded-[14px] border border-ink/10 bg-white shadow-[0_20px_45px_-20px_rgba(24,5,37,0.45)] lg:mx-0 lg:block"
+              >
+                <div className="relative aspect-video">
+                  <Image src={current.caseImage} alt={`Exemplo de ${current.title}${current.caseLabel ? ` — ${current.caseLabel}` : ''}`} fill sizes="220px" className="object-cover" />
+                </div>
+                {current.caseLabel && (
+                  <p className="px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">{current.caseLabel}</p>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
 
       <div className="hero-footrow absolute inset-x-0 bottom-6 z-[11] mx-auto hidden max-w-[var(--maxw)] grid-cols-[1fr_auto_1fr] items-center gap-6 px-[var(--gutter)] lg:grid">
