@@ -162,6 +162,7 @@ export default function SpiralReelGL({ images = DEFAULT_IMAGES }: { images?: str
         syncSize()
         window.addEventListener('resize', syncSize)
 
+        let lastProgress = -1
         const tick = () => {
           raf = requestAnimationFrame(tick)
           const rect = canvas.getBoundingClientRect()
@@ -169,6 +170,9 @@ export default function SpiralReelGL({ images = DEFAULT_IMAGES }: { images?: str
           if (rect.bottom <= 0 || rect.top >= vh) return
 
           const p = spiralReelState.progress
+          if (p === lastProgress) return // nothing moved since last frame — skip the redraw
+          lastProgress = p
+
           cards.forEach((mesh, i) => {
             const s = cardState(p, i)
             quatFrom(s.spiralRight, s.spiralUp, s.spiralNormal, qA)

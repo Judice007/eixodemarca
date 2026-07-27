@@ -96,6 +96,7 @@ export default function ScrollRail() {
   useEffect(() => {
     if (!enabled) return
     let prev = 0
+    let wasMoving = false
     const tick = () => {
       const track = trackRef.current
       const thumb = thumbRef.current
@@ -108,8 +109,13 @@ export default function ScrollRail() {
         const y = gsap.getProperty(content, 'y') as number
         if (Number.isFinite(y)) scroll = -y
       }
-      const limit = getLimit()
       const velocity = scroll - prev
+      // Idle page: skip the layout reads/writes below every frame — but still run
+      // ONE more tick right after motion stops, so the thumb lands on its exact
+      // resting spot and the velocity-stretch bar relaxes back to scaleY(1).
+      if (velocity === 0 && !wasMoving) return
+      wasMoving = velocity !== 0
+      const limit = getLimit()
       prev = scroll
 
       const trackPx = track.clientHeight
