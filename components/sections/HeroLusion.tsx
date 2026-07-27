@@ -87,7 +87,7 @@ export default function HeroLusion() {
       <HeroRibbon />
 
       <div className="relative z-10 mx-auto grid w-full max-w-[var(--maxw)] grid-cols-1 items-center gap-10 px-[var(--gutter)] pb-16 pt-[118px] lg:grid-cols-[1.3fr_0.7fr] lg:gap-[clamp(44px,6vw,96px)] lg:pb-12 lg:pt-[96px]">
-        <div className="hero-x-visual relative order-2 h-[560px] min-w-0 lg:order-1 lg:h-[min(74vh,760px)] lg:min-h-[560px]">
+        <div className="hero-x-visual relative order-2 h-[560px] min-w-0 lg:order-1 lg:col-start-1 lg:row-start-1 lg:h-[min(74vh,760px)] lg:min-h-[560px]">
           <div className="absolute inset-x-0 top-0 bottom-[104px] overflow-hidden sm:bottom-[96px]">
             {/* Mark + hit-zones share ONE sized/centered box, so the invisible
                 arm buttons always line up with what's actually drawn — hovering
@@ -110,7 +110,7 @@ export default function HeroLusion() {
                     arrowhead ↔ lower-left tail is one stroke, upper-left ↔
                     lower-right is the other) — only a small tag near the tip is
                     visible, the mark itself is never covered by a filled shape. */}
-                <div className="absolute inset-[15%] z-20 sm:inset-[13%]" role="tablist" aria-label="Serviços do Eixo de Marca">
+                <div className="absolute inset-[5%] z-20 sm:inset-[4%]" role="tablist" aria-label="Serviços do Eixo de Marca">
                   {SERVICES.map((service, index) => {
                     const arm = ARMS[index]!
                     const isActive = active === index
@@ -124,7 +124,7 @@ export default function HeroLusion() {
                         onPointerEnter={() => selectService(index)}
                         onFocus={() => selectService(index)}
                         onClick={() => selectService(index, true)}
-                        className={`hero-x-arm absolute flex h-[19%] w-[53%] items-center ${arm.position} ${arm.alignment} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white`}
+                        className={`hero-x-arm absolute flex h-[19%] w-[75%] items-center ${arm.position} ${arm.alignment} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white`}
                       >
                         <span
                           className={`${arm.counter} flex items-center gap-2 whitespace-nowrap rounded-full border px-3 py-1.5 backdrop-blur-sm transition-[background-color,border-color,color] duration-300 ${
@@ -170,7 +170,7 @@ export default function HeroLusion() {
           </div>
         </div>
 
-        <div className="order-1 mx-auto max-w-[560px] text-center lg:order-2 lg:mx-0 lg:max-w-[380px] lg:text-left">
+        <div className="order-1 mx-auto max-w-[560px] text-center lg:order-2 lg:col-start-2 lg:row-start-1 lg:mx-0 lg:max-w-[380px] lg:self-start lg:text-left">
           <p className="hero-kicker mb-5 hidden items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-azure lg:flex">
             <span aria-hidden className="h-px w-8 bg-azure" />
             Hub Estratégico Criativo
