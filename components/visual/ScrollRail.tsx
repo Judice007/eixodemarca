@@ -189,7 +189,7 @@ export default function ScrollRail() {
       <div
         ref={trackRef}
         onPointerDown={onTrackDown}
-        className="relative h-full w-[3px] rounded-full"
+        className="relative h-full w-[5px] rounded-full"
         style={{ background: 'rgb(15 15 18 / 0.16)' }}
       >
         {/* marcadores das seções (mini-nav acessível) */}
@@ -232,7 +232,7 @@ export default function ScrollRail() {
         >
           <span
             ref={barRef}
-            className="h-full w-1 rounded-full bg-azure"
+            className="h-full w-[6px] rounded-full bg-azure"
             style={{
               transformOrigin: 'center',
               boxShadow: '0 0 12px 2px rgb(47 107 255 / 0.55), 0 0 0 1px rgb(255 255 255 / 0.6)',
