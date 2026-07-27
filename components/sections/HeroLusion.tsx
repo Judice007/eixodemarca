@@ -18,27 +18,23 @@ const ARMS = [
     position: 'left-1/2 top-1/2 -translate-x-full -translate-y-1/2 rotate-45 origin-right',
     alignment: 'justify-start pl-3 sm:pl-5',
     counter: '-rotate-45',
-    side: 'left',
   },
   {
     position: 'left-1/2 top-1/2 -translate-y-1/2 -rotate-45 origin-left',
     alignment: 'justify-end pr-3 sm:pr-5',
     counter: 'rotate-45',
-    side: 'right',
   },
   {
     position: 'left-1/2 top-1/2 -translate-y-1/2 rotate-45 origin-left',
     alignment: 'justify-end pr-3 sm:pr-5',
     counter: '-rotate-45',
-    side: 'right',
   },
   {
     position: 'left-1/2 top-1/2 -translate-x-full -translate-y-1/2 -rotate-45 origin-right',
     alignment: 'justify-start pl-3 sm:pl-5',
     counter: 'rotate-45',
-    side: 'left',
   },
-] as const
+]
 
 
 export default function HeroLusion() {
@@ -46,7 +42,6 @@ export default function HeroLusion() {
   const pressable = usePressable()
   const [active, setActive] = useState(0)
   const current = SERVICES[active]!
-  const cardSide = ARMS[active]!.side === 'left' ? 'right' : 'left'
 
   useGSAP(
     () => {
@@ -91,8 +86,91 @@ export default function HeroLusion() {
       <HeroParticles />
       <HeroRibbon />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[var(--maxw)] grid-cols-1 items-center gap-10 px-[var(--gutter)] pb-16 pt-[118px] lg:grid-cols-[0.7fr_1.3fr] lg:gap-[clamp(44px,6vw,96px)] lg:pb-12 lg:pt-[96px]">
-        <div className="mx-auto max-w-[560px] text-center lg:mx-0 lg:max-w-[380px] lg:text-left">
+      <div className="relative z-10 mx-auto grid w-full max-w-[var(--maxw)] grid-cols-1 items-center gap-10 px-[var(--gutter)] pb-16 pt-[118px] lg:grid-cols-[1.3fr_0.7fr] lg:gap-[clamp(44px,6vw,96px)] lg:pb-12 lg:pt-[96px]">
+        <div className="hero-x-visual relative order-2 h-[560px] min-w-0 lg:order-1 lg:h-[min(74vh,760px)] lg:min-h-[560px]">
+          <div className="absolute inset-x-0 top-0 bottom-[104px] overflow-hidden sm:bottom-[96px]">
+            {/* Mark + hit-zones share ONE sized/centered box, so the invisible
+                arm buttons always line up with what's actually drawn — hovering
+                the visible strokes now works, not just the little badge tags.
+                Sized via container-query min() so it's the largest square that
+                fits BOTH dimensions — aspect-square + w-full alone ignored the
+                panel's height and let the mark spill past the visible area. */}
+            <div className="absolute inset-0 grid place-items-center p-[4%] [container-type:size]">
+              <div className="relative aspect-square" style={{ width: 'min(100cqw, 100cqh, 640px)' }}>
+                <Image
+                  src="/eixo-symbol.png"
+                  alt="Eixo de Marca"
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 48vw, 90vw"
+                  className="pointer-events-none relative z-10 object-contain"
+                />
+
+                {/* Hit-zones follow the same four arms as the real X (upper-right
+                    arrowhead ↔ lower-left tail is one stroke, upper-left ↔
+                    lower-right is the other) — only a small tag near the tip is
+                    visible, the mark itself is never covered by a filled shape. */}
+                <div className="absolute inset-[15%] z-20 sm:inset-[13%]" role="tablist" aria-label="Serviços do Eixo de Marca">
+                  {SERVICES.map((service, index) => {
+                    const arm = ARMS[index]!
+                    const isActive = active === index
+                    return (
+                      <button
+                        key={service.title}
+                        type="button"
+                        role="tab"
+                        aria-selected={isActive}
+                        aria-controls="hero-service-panel"
+                        onPointerEnter={() => selectService(index)}
+                        onFocus={() => selectService(index)}
+                        onClick={() => selectService(index, true)}
+                        className={`hero-x-arm absolute flex h-[19%] w-[53%] items-center ${arm.position} ${arm.alignment} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white`}
+                      >
+                        <span
+                          className={`${arm.counter} flex items-center gap-2 whitespace-nowrap rounded-full border px-3 py-1.5 backdrop-blur-sm transition-[background-color,border-color,color] duration-300 ${
+                            isActive
+                              ? 'border-azure/60 bg-azure text-white shadow-[0_10px_24px_-10px_rgba(255,102,92,0.55)]'
+                              : 'border-ink/12 bg-white/70 text-ink/70 hover:border-ink/25 hover:text-ink'
+                          }`}
+                        >
+                          <span className="font-mono text-[10px] font-bold tracking-[0.18em] opacity-70">0{index + 1}</span>
+                          <span className="hidden font-display text-[11px] font-extrabold uppercase tracking-[0.08em] sm:inline md:text-[12px]">
+                            {service.title}
+                          </span>
+                        </span>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute left-5 top-5 z-30 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted sm:left-7 sm:top-7">
+              <span className="h-px w-7 bg-azure" />
+              <span className="hidden sm:inline">Passe o cursor pelos braços</span>
+              <span className="sm:hidden">Toque nos braços</span>
+            </div>
+          </div>
+
+          <div
+            id="hero-service-panel"
+            role="tabpanel"
+            aria-live="polite"
+            className="absolute inset-x-0 bottom-0 flex h-[104px] items-center justify-between gap-6 border-t border-ink/12 bg-bone px-1 sm:h-[96px]"
+          >
+            <div className="min-w-0">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-azure">Eixo ativo — 0{active + 1}</p>
+              <p className="mt-1 truncate font-display text-[clamp(25px,3.1vw,42px)] font-extrabold leading-none tracking-[-0.035em] text-ink">
+                {current.title}
+              </p>
+            </div>
+            <p className="max-w-[19ch] text-right text-[12px] font-semibold uppercase leading-[1.45] tracking-[0.1em] text-muted sm:text-[13px]">
+              {current.category}
+            </p>
+          </div>
+        </div>
+
+        <div className="order-1 mx-auto max-w-[560px] text-center lg:order-2 lg:mx-0 lg:max-w-[380px] lg:text-left">
           <p className="hero-kicker mb-5 hidden items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-azure lg:flex">
             <span aria-hidden className="h-px w-8 bg-azure" />
             Hub Estratégico Criativo
@@ -142,107 +220,29 @@ export default function HeroLusion() {
           </div>
         </div>
 
-        <div className="hero-x-visual relative h-[560px] min-w-0 lg:h-[min(68vh,650px)] lg:min-h-[540px]">
-          <div className="absolute inset-x-0 top-0 bottom-[104px] overflow-hidden sm:bottom-[96px]">
-            {/* Just the real Eixo mark — no panel, no photo behind it. */}
-            <div className="absolute inset-0 z-10 grid place-items-center p-[10%]">
-              <div className="relative aspect-square w-full max-w-[520px]">
-                <Image
-                  src="/eixo-symbol.png"
-                  alt="Eixo de Marca"
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 40vw, 90vw"
-                  className="object-contain"
-                />
+        {/* Case preview — its own grid item anchored to the text column, below
+            the CTAs. Kept out of the visual panel entirely: with the mark now
+            sized to fill that panel, there's no gutter left there for a card
+            without it overlapping the arms. */}
+        <AnimatePresence>
+          {current.caseImage && (
+            <motion.div
+              key={current.title}
+              initial={{ opacity: 0, y: 10, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.96 }}
+              transition={{ duration: 0.32, ease: [0.76, 0, 0.24, 1] }}
+              className="relative z-30 order-3 hidden w-[220px] self-end overflow-hidden rounded-[14px] border border-ink/10 bg-white shadow-[0_20px_45px_-20px_rgba(24,5,37,0.45)] lg:col-start-2 lg:row-start-1 lg:mt-6 lg:block lg:justify-self-start"
+            >
+              <div className="relative aspect-video">
+                <Image src={current.caseImage} alt={`Exemplo de ${current.title}${current.caseLabel ? ` — ${current.caseLabel}` : ''}`} fill sizes="220px" className="object-cover" />
               </div>
-            </div>
-
-            <div className="absolute left-5 top-5 z-30 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted sm:left-7 sm:top-7">
-              <span className="h-px w-7 bg-azure" />
-              <span className="hidden sm:inline">Passe o cursor pelos braços</span>
-              <span className="sm:hidden">Toque nos braços</span>
-            </div>
-
-            {/* Hit-zones follow the same four arms as the real X (upper-right
-                arrowhead ↔ lower-left tail is one stroke, upper-left ↔ lower-right
-                is the other) — only a small tag near the tip is visible now, the
-                mark itself is never covered by a filled shape. */}
-            <div className="absolute inset-[15%] z-20 sm:inset-[13%]" role="tablist" aria-label="Serviços do Eixo de Marca">
-              {SERVICES.map((service, index) => {
-                const arm = ARMS[index]!
-                const isActive = active === index
-                return (
-                  <button
-                    key={service.title}
-                    type="button"
-                    role="tab"
-                    aria-selected={isActive}
-                    aria-controls="hero-service-panel"
-                    onPointerEnter={() => selectService(index)}
-                    onFocus={() => selectService(index)}
-                    onClick={() => selectService(index, true)}
-                    className={`hero-x-arm absolute flex h-[19%] w-[53%] items-center ${arm.position} ${arm.alignment} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white`}
-                  >
-                    <span
-                      className={`${arm.counter} flex items-center gap-2 whitespace-nowrap rounded-full border px-3 py-1.5 backdrop-blur-sm transition-[background-color,border-color,color] duration-300 ${
-                        isActive
-                          ? 'border-azure/60 bg-azure text-white shadow-[0_10px_24px_-10px_rgba(255,102,92,0.55)]'
-                          : 'border-ink/12 bg-white/70 text-ink/70 hover:border-ink/25 hover:text-ink'
-                      }`}
-                    >
-                      <span className="font-mono text-[10px] font-bold tracking-[0.18em] opacity-70">0{index + 1}</span>
-                      <span className="hidden font-display text-[11px] font-extrabold uppercase tracking-[0.08em] sm:inline md:text-[12px]">
-                        {service.title}
-                      </span>
-                    </span>
-                  </button>
-                )
-              })}
-            </div>
-
-            {/* Case preview — appears on the side OPPOSITE the active arm, so it
-                never sits under the cursor/badge you're hovering. */}
-            <AnimatePresence>
-              {current.caseImage && (
-                <motion.div
-                  key={current.title}
-                  initial={{ opacity: 0, x: cardSide === 'right' ? 10 : -10, scale: 0.96 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: cardSide === 'right' ? 10 : -10, scale: 0.96 }}
-                  transition={{ duration: 0.32, ease: [0.76, 0, 0.24, 1] }}
-                  className={`absolute top-1/2 z-30 hidden w-[250px] -translate-y-1/2 overflow-hidden rounded-[14px] border border-ink/10 bg-white shadow-[0_20px_45px_-20px_rgba(24,5,37,0.45)] sm:block ${
-                    cardSide === 'right' ? 'right-2' : 'left-2'
-                  }`}
-                >
-                  <div className="relative aspect-video">
-                    <Image src={current.caseImage} alt={`Exemplo de ${current.title}${current.caseLabel ? ` — ${current.caseLabel}` : ''}`} fill sizes="250px" className="object-cover" />
-                  </div>
-                  {current.caseLabel && (
-                    <p className="px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">{current.caseLabel}</p>
-                  )}
-                </motion.div>
+              {current.caseLabel && (
+                <p className="px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">{current.caseLabel}</p>
               )}
-            </AnimatePresence>
-          </div>
-
-          <div
-            id="hero-service-panel"
-            role="tabpanel"
-            aria-live="polite"
-            className="absolute inset-x-0 bottom-0 flex h-[104px] items-center justify-between gap-6 border-t border-ink/12 bg-bone px-1 sm:h-[96px]"
-          >
-            <div className="min-w-0">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-azure">Eixo ativo — 0{active + 1}</p>
-              <p className="mt-1 truncate font-display text-[clamp(25px,3.1vw,42px)] font-extrabold leading-none tracking-[-0.035em] text-ink">
-                {current.title}
-              </p>
-            </div>
-            <p className="max-w-[19ch] text-right text-[12px] font-semibold uppercase leading-[1.45] tracking-[0.1em] text-muted sm:text-[13px]">
-              {current.category}
-            </p>
-          </div>
-        </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       <div className="hero-footrow absolute inset-x-0 bottom-6 z-[11] mx-auto hidden max-w-[var(--maxw)] grid-cols-[1fr_auto_1fr] items-center gap-6 px-[var(--gutter)] lg:grid">
