@@ -39,6 +39,7 @@ const ARMS = [
 
 export default function HeroLusion() {
   const root = useRef<HTMLElement>(null)
+  const tablistRef = useRef<HTMLDivElement>(null)
   const pressable = usePressable()
   const [active, setActive] = useState(0)
   const current = SERVICES[active]!
@@ -94,6 +95,23 @@ export default function HeroLusion() {
     if (withHaptic) haptic('tick')
   }
 
+  // Robust fallback: track the pointer continuously over the whole tablist and
+  // pick the arm by which quadrant of the X it's in (geometry, not element
+  // hit-testing). Real report: onPointerEnter/onMouseEnter on the individual
+  // buttons never fired for at least one tester — state stuck on the first
+  // arm — even though a dispatched pointer event proved the handler itself
+  // works. Whatever the platform-specific reason enter/leave wasn't firing
+  // for them, mousemove-based tracking sidesteps it entirely.
+  const handleArmsPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = tablistRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const dx = e.clientX - (rect.left + rect.width / 2)
+    const dy = e.clientY - (rect.top + rect.height / 2)
+    const index = dx < 0 ? (dy < 0 ? 0 : 3) : dy < 0 ? 1 : 2
+    selectService(index)
+  }
+
   return (
     <section
       id="hero"
@@ -144,7 +162,13 @@ export default function HeroLusion() {
                     arrowhead ↔ lower-left tail is one stroke, upper-left ↔
                     lower-right is the other) — only a small tag near the tip is
                     visible, the mark itself is never covered by a filled shape. */}
-                <div className="absolute inset-[5%] z-20 sm:inset-[4%]" role="tablist" aria-label="Serviços do Eixo de Marca">
+                <div
+                  ref={tablistRef}
+                  onPointerMove={handleArmsPointerMove}
+                  className="absolute inset-[5%] z-20 sm:inset-[4%]"
+                  role="tablist"
+                  aria-label="Serviços do Eixo de Marca"
+                >
                   {SERVICES.map((service, index) => {
                     const arm = ARMS[index]!
                     const isActive = active === index
