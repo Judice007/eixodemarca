@@ -38,6 +38,9 @@ export function generateMetadata(): Metadata {
     metadataBase: new URL(SITE_URL),
     title: 'Eixo de Marca — Estratégia & Criatividade',
     description: 'Direção estratégica, identidade, conteúdo, performance e tecnologia para marcas que querem ser lembradas.',
+    alternates: {
+      canonical: '/',
+    },
     icons: {
       icon: '/eixo-icon.png',
       apple: '/eixo-icon.png',
