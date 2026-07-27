@@ -21,7 +21,9 @@ export default function ClosingCtaLusion() {
         const st = ScrollTrigger.create({
           trigger: root.current ?? undefined,
           start: 'top top',
-          end: '+=100%',
+          // Era 100%: nada anima durante o pin em si (só existe pro footer subir por
+          // cima) — uma tela inteira parada em uma cor sólida antes do footer aparecer.
+          end: '+=55%',
           pin: true,
           pinSpacing: false, // sem espaçador → o footer sobe por cima do CTA fixo
           anticipatePin: 1,
