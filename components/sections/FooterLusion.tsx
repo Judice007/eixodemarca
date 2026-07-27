@@ -102,7 +102,10 @@ export default function FooterLusion() {
       {/* esfera de partículas que se monta no scroll (ScrollTrigger + three.js) */}
       <FooterGL />
 
-      <div className="relative mx-auto max-w-[var(--maxw)] px-[var(--gutter)] pt-[clamp(52px,9vh,100px)] pb-8 max-lg:flex max-lg:flex-col max-lg:items-center max-lg:text-center max-lg:pb-[128px]">
+      {/* pt floor era 52px — o header fixo (~90px) cobria o logo/título em
+          qualquer viewport com menos de ~1000px de altura, bem comum em
+          notebooks. Levantado pra sempre limpar o header. */}
+      <div className="relative mx-auto max-w-[var(--maxw)] px-[var(--gutter)] pt-[clamp(112px,12vh,150px)] pb-8 max-lg:flex max-lg:flex-col max-lg:items-center max-lg:text-center max-lg:pb-[128px]">
         {/* CTA */}
         <p className="foot-rise section-eyebrow max-lg:hidden">Próximo passo</p>
         <h2 className="foot-cta section-title mt-5 max-w-[15ch] text-bone max-lg:mx-auto">
