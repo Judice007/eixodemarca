@@ -93,14 +93,6 @@ export default function SiteNav() {
           className="flex shrink-0 items-center gap-[9px] font-display text-[15px] font-extrabold tracking-[-0.02em] text-white sm:gap-[11px] sm:text-[18px]"
         >
           <Image
-            src="/eixo-symbol.png"
-            alt=""
-            width={32}
-            height={32}
-            priority
-            className="size-7 sm:size-8"
-          />
-          <Image
             src="/eixo-wordmark.png"
             alt="Eixo de Marca"
             width={1515}
