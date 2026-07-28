@@ -287,135 +287,6 @@ function VideoPortfolioRail() {
   )
 }
 
-function ServiceSceneOverlay({ active }: { active: number }) {
-  const common = 'absolute z-20 border border-white/35 bg-white/82 shadow-[0_12px_35px_-18px_rgba(24,5,37,.75)] backdrop-blur-md'
-
-  if (active === 0) {
-    return (
-      <>
-        <div className={`${common} right-3 top-16 w-[118px] p-3`}>
-          <div className="mb-2 flex items-center justify-between">
-            <span className="h-1.5 w-8 bg-ink/20" />
-            <span className="size-2 bg-azure" />
-          </div>
-          <div className="grid grid-cols-5 gap-1">
-            {Array.from({ length: 20 }, (_, index) => (
-              <span key={index} className={`aspect-square ${[2, 6, 9, 13].includes(index) ? 'bg-azure' : 'bg-ink/10'}`} />
-            ))}
-          </div>
-        </div>
-        <div className={`${common} bottom-16 left-3 flex items-center gap-1.5 px-3 py-2.5`}>
-          <span className="h-1.5 w-9 bg-ink/18" />
-          <span className="h-1.5 w-5 bg-ink/12" />
-          <span className="size-2 bg-azure" />
-        </div>
-      </>
-    )
-  }
-
-  if (active === 1) {
-    return (
-      <>
-        <div className={`${common} left-3 top-16 p-3`}>
-          <div className="grid grid-cols-3 gap-1.5">
-            <span className="size-7 bg-ink" />
-            <span className="size-7 bg-azure" />
-            <span className="size-7 bg-[#e8deff]" />
-          </div>
-        </div>
-        <span className="absolute inset-x-5 top-[48%] z-20 h-px bg-white/65" />
-        <span className="absolute inset-y-20 left-1/2 z-20 w-px bg-white/45" />
-      </>
-    )
-  }
-
-  if (active === 2) {
-    return (
-      <>
-        <div className={`${common} left-4 top-16 grid size-20 place-items-center`}>
-          <span className="font-display text-[36px] font-black leading-none text-ink">X</span>
-        </div>
-        <div className="absolute bottom-16 left-5 z-20 flex gap-1.5">
-          <span className="h-2 w-10 bg-ink" />
-          <span className="h-2 w-6 bg-azure" />
-          <span className="h-2 w-4 bg-white" />
-        </div>
-      </>
-    )
-  }
-
-  if (active === 3) {
-    return (
-      <div className={`${common} inset-x-3 bottom-16 p-3`}>
-        <div className="flex items-end gap-1">
-          {[7, 13, 9, 18, 12, 20, 14, 8, 16, 11, 19, 10].map((height, index) => (
-            <span key={index} className={`w-full ${index < 7 ? 'bg-azure' : 'bg-ink/20'}`} style={{ height }} />
-          ))}
-        </div>
-        <div className="mt-2 flex items-center gap-2">
-          <span className="grid size-5 place-items-center rounded-full bg-ink text-[7px] text-white">▶</span>
-          <span className="h-1 flex-1 bg-ink/12">
-            <span className="block h-full w-3/5 bg-azure" />
-          </span>
-        </div>
-      </div>
-    )
-  }
-
-  if (active === 4) {
-    return (
-      <div className="absolute inset-x-3 top-14 z-20 grid gap-2">
-        {[72, 88, 60].map((width, index) => (
-          <div key={width} className={`${common} relative flex items-center gap-3 p-3`}>
-            <span className={`size-3 ${index === 1 ? 'bg-azure' : 'bg-ink/18'}`} />
-            <span className="h-1.5 bg-ink/16" style={{ width: `${width}%` }} />
-            <span className={`ml-auto size-1.5 ${index === 1 ? 'bg-azure' : 'bg-ink/20'}`} />
-          </div>
-        ))}
-      </div>
-    )
-  }
-
-  if (active === 5) {
-    return (
-      <div className={`${common} inset-x-3 top-14 overflow-hidden`}>
-        <div className="flex items-center gap-1 border-b border-ink/10 px-3 py-2">
-          <span className="size-1.5 bg-azure" />
-          <span className="size-1.5 bg-ink/20" />
-          <span className="size-1.5 bg-ink/20" />
-        </div>
-        <div className="p-4">
-          <span className="block h-2 w-10 bg-azure" />
-          <span className="mt-3 block h-3 w-4/5 bg-ink" />
-          <span className="mt-1.5 block h-3 w-3/5 bg-ink" />
-          <span className="mt-3 block h-1.5 w-full bg-ink/12" />
-          <span className="mt-1.5 block h-1.5 w-4/5 bg-ink/12" />
-          <span className="mt-4 block h-7 w-20 bg-ink" />
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <>
-      <div className={`${common} inset-x-3 top-14 p-3`}>
-        <div className="mb-3 flex items-center justify-between">
-          <span className="h-1.5 w-12 bg-ink/18" />
-          <span className="size-2 bg-azure" />
-        </div>
-        <div className="flex h-14 items-end gap-1.5">
-          {[18, 26, 22, 35, 30, 44].map((height, index) => (
-            <span key={index} className={`w-full ${index === 5 ? 'bg-azure' : 'bg-ink/15'}`} style={{ height }} />
-          ))}
-        </div>
-      </div>
-      <div className={`${common} bottom-16 right-3 grid size-9 place-items-center`}>
-        <span className="size-3 rotate-45 border-b-2 border-r-2 border-azure" />
-      </div>
-    </>
-  )
-}
-
 function ServicePhone({ active, reduce }: { active: number; reduce: boolean }) {
   const media = serviceShowcaseMedia[active]!
 
@@ -465,22 +336,8 @@ function ServicePhone({ active, reduce }: { active: number; reduce: boolean }) {
                 className={`${active === 2 ? 'object-contain p-5' : 'object-cover'}`}
               />
             )}
-            <ServiceSceneOverlay active={active} />
-            <div className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-ink/65 to-transparent px-5 pb-10 pt-9">
-              <span className="h-1.5 w-7 bg-white/70" />
-              <span className="font-sans text-[7px] font-bold tracking-[0.14em] text-white/80">0{active + 1}/0{services.length}</span>
-            </div>
-            <div aria-hidden className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-ink/65 to-transparent" />
           </motion.div>
         </AnimatePresence>
-        <div className="absolute inset-x-0 bottom-2 z-30 flex justify-center gap-1.5">
-          {services.map((item, index) => (
-            <span
-              key={item.title}
-              className={`h-1 transition-all duration-300 ${index === active ? 'w-6 bg-azure' : 'w-1 bg-white/45'}`}
-            />
-          ))}
-        </div>
       </div>
     </motion.div>
   )
