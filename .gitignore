@@ -32,3 +32,5 @@ next-env.d.ts
 
 # cloudflare
 .wrangler
+
+.vercel

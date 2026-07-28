@@ -7,7 +7,7 @@ import { corridorState } from '@/lib/corridorState'
 
 // "O Corredor" do Manifesto — capítulo WebGL imersivo (estilo lusion / zarpei, mas
 // AO CONTRÁRIO: emerge do claro e MERGULHA no escuro). A câmera atravessa um tubo de
-// partículas azure/cyan enquanto 6 "portholes" (sprite circular com a foto do serviço,
+// partículas azure/cyan enquanto 7 "portholes" (sprite circular com a foto do serviço,
 // recortada + anel com glow, sempre de frente pra câmera) orbitam o eixo do túnel — um
 // por serviço — num anel inclinado. O canvas é transparente — quem escurece é a camada
 // de fundo (bone → ink) em ManifestoLusion.
@@ -20,7 +20,7 @@ const START_Z = 12
 const TRAVEL = 120
 const COUNT = 2600 // tubo denso o suficiente pra imersão; ainda < zarpei (3600)
 
-// —— órbita do hub: 6 corpos wireframe, um por serviço, num anel inclinado ——
+// —— órbita do hub: 7 corpos wireframe, um por serviço, num anel inclinado ——
 // labels agora são um anel radial fixo (não seguem mais a projeção 3D), então a órbita
 // não precisa de tanto raio só pra evitar colisão — pode ficar mais compacta/próxima.
 const ORBIT_RADIUS = 6
@@ -30,12 +30,13 @@ const ORBIT_SWEEP = Math.PI * 1.6 // quanto o anel gira ao longo do scroll intei
 const SPRITE_SCALE = 2.6 // tamanho (mundo) do porthole revelado por completo
 
 const SERVICES: { label: string; color: number; photo: string }[] = [
-  { label: 'Estratégia', color: 0xff665c, photo: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=200&q=80' },
-  { label: 'Branding', color: 0xe8deff, photo: 'https://images.unsplash.com/photo-1634942537034-2531766767d1?auto=format&fit=crop&w=200&q=80' },
-  { label: 'Performance', color: 0xff665c, photo: 'https://images.unsplash.com/photo-1512314889357-e157c22f938d?auto=format&fit=crop&w=200&q=80' },
-  { label: 'Conteúdo', color: 0xe8deff, photo: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=200&q=80' },
   { label: 'Social Media', color: 0xff665c, photo: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=200&q=80' },
-  { label: 'Tecnologia', color: 0xe8deff, photo: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=200&q=80' },
+  { label: 'Design', color: 0xe8deff, photo: 'https://images.unsplash.com/photo-1634942537034-2531766767d1?auto=format&fit=crop&w=200&q=80' },
+  { label: 'Identidade', color: 0xff665c, photo: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=200&q=80' },
+  { label: 'Vídeo', color: 0xe8deff, photo: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=200&q=80' },
+  { label: 'Gestão', color: 0xff665c, photo: 'https://images.unsplash.com/photo-1512314889357-e157c22f938d?auto=format&fit=crop&w=200&q=80' },
+  { label: 'Landing Pages', color: 0xe8deff, photo: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=200&q=80' },
+  { label: 'Tráfego Pago', color: 0xff665c, photo: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=200&q=80' },
 ]
 
 type OrbitShape = {

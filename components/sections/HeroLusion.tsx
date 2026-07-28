@@ -236,7 +236,7 @@ export default function HeroLusion() {
           </p>
 
           <h1>
-            <span className="sr-only">Eixo de Marca — estratégia que dá direção</span>
+            <span className="sr-only">Eixo de Marca — conteúdo que chama atenção, gestão que faz acontecer</span>
             <span aria-hidden className="block overflow-hidden py-[0.06em]">
               <Image
                 src="/eixo-wordmark.png"
@@ -250,10 +250,10 @@ export default function HeroLusion() {
           </h1>
 
           <p className="hero-subhead mt-6 text-[clamp(21px,2.2vw,31px)] font-semibold leading-[1.08] tracking-[-0.025em] text-ink">
-            Estratégia <span className="font-bold text-azure">&amp;</span> Criatividade
+            Conteúdo <span className="font-bold text-azure">&amp;</span> Gestão
           </p>
           <p className="hero-micro mx-auto mt-4 max-w-[34ch] text-[15px] leading-[1.6] text-muted lg:mx-0">
-            Cada braço do Eixo ativa uma especialidade. Passe o cursor e descubra como conectamos marca, conteúdo, movimento e crescimento.
+            Do planejamento ao post, da identidade ao vídeo, da landing page à mídia: criação e processo trabalhando juntos para cada projeto sair do papel.
           </p>
 
           <div className="hero-action mx-auto mt-8 flex max-w-[430px] flex-col gap-3 sm:flex-row lg:mx-0">

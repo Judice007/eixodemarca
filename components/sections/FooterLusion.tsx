@@ -7,7 +7,7 @@ import { gsap, useGSAP, ScrollSmoother } from '@/lib/registerGsap'
 import { prefersReducedMotion, isMobileViewport } from '@/lib/capability'
 import { revealSectionTitle } from '@/lib/titleReveal'
 import FooterGL from '@/components/visual/FooterGL'
-import { contactInfo, whatsappUrl, mailtoUrl } from '@/lib/data'
+import { contactInfo, whatsappUrl, mailtoUrl, services } from '@/lib/data'
 
 // Dark closing footer — the bookend to the dark-glass nav: ink surface, azure as the
 // single accent, a SplitText CTA, a magnetic primary button, link columns, an
@@ -19,10 +19,10 @@ const NAV = [
   { id: 'hero', label: 'Início' },
   { id: 'reel', label: 'Reel' },
   { id: 'manifesto', label: 'Manifesto' },
-  { id: 'work', label: 'Frentes' },
+  { id: 'work', label: 'Serviços' },
 ]
-const AREAS = ['Estratégia', 'Branding', 'Conteúdo', 'Performance']
-const ETAPAS = ['Diagnóstico', 'Direção', 'Execução', 'Evolução']
+const AREAS = services.map((service) => service.title)
+const ETAPAS = ['Diagnóstico', 'Planejamento', 'Produção', 'Gestão & Otimização']
 
 function Col({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -139,7 +139,7 @@ export default function FooterLusion() {
               <Image src="/eixo-wordmark.png" alt="Eixo de Marca" width={1515} height={573} className="h-[18px] w-auto" />
             </div>
             <p className="mt-4 text-sm leading-relaxed text-bone/55">
-              Estratégia &amp; criatividade para marcas que querem ser lembradas.
+              Social media, design, vídeo e gestão para marcas que querem aparecer e crescer.
             </p>
           </div>
 

@@ -7,10 +7,11 @@
 // (#contato) entra em vista pra não cobrir o CTA final. Respeita safe-area inferior.
 import { useEffect, useId, useState, type ReactElement } from 'react'
 import { animate, motion, useMotionValue, useReducedMotion } from 'framer-motion'
-import { ScrollSmoother } from '@/lib/registerGsap'
+import { ScrollSmoother, ScrollTrigger } from '@/lib/registerGsap'
 import { useScrollSpy } from '@/hooks/useScrollSpy'
 import { haptic } from '@/lib/haptics'
 import { usePressable } from '@/hooks/usePressable'
+import { scrollState } from '@/lib/scrollState'
 
 type IconProps = { className?: string }
 const svg = (children: ReactElement) => {
@@ -35,7 +36,7 @@ const navItems: Item[] = [
   { id: 'hero', label: 'Início', icon: Home, target: 'hero' },
   { id: 'reel', label: 'Reel', icon: Play, target: 'reel' },
   { id: 'manifesto', label: 'Eixo', icon: Studio, target: 'manifesto' },
-  { id: 'work', label: 'Frentes', icon: Grid, target: 'work' },
+  { id: 'work', label: 'Serviços', icon: Grid, target: 'work' },
   { id: 'contato', label: 'Falar', icon: Chat, target: 'contato' },
 ]
 const SPY_IDS = ['hero', 'reel', 'manifesto', 'work']
@@ -78,7 +79,17 @@ function goTo(id: string) {
   const el = document.getElementById(id)
   if (!el) return
   const sm = ScrollSmoother.get()
-  if (sm) sm.scrollTo(el, true, 'top 72px')
+  if (sm) {
+    scrollState.navigating = true
+    window.setTimeout(() => {
+      scrollState.navigating = false
+    }, 1800)
+    const pinned =
+      id === 'work'
+        ? ScrollTrigger.getById('work-services')
+        : ScrollTrigger.getAll().find((trigger) => trigger.vars.pin && trigger.vars.trigger === el)
+    sm.scrollTo(pinned ? pinned.start : el, true, pinned ? undefined : 'top 72px')
+  }
   else el.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 

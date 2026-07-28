@@ -36,8 +36,8 @@ export function generateMetadata(): Metadata {
 
   return {
     metadataBase: new URL(SITE_URL),
-    title: 'Eixo de Marca — Estratégia & Criatividade',
-    description: 'Direção estratégica, identidade, conteúdo, performance e tecnologia para marcas que querem ser lembradas.',
+    title: 'Eixo de Marca — Social Media, Design & Gestão',
+    description: 'Social media, design, identidade visual, edição de vídeo, gestão de projetos, landing pages e tráfego pago para marcas que querem crescer.',
     alternates: {
       canonical: '/',
     },
@@ -46,16 +46,16 @@ export function generateMetadata(): Metadata {
       apple: '/eixo-icon.png',
     },
     openGraph: {
-      title: 'Eixo de Marca — Estratégia & Criatividade',
-      description: 'Direção estratégica, identidade, conteúdo, performance e tecnologia para marcas que querem ser lembradas.',
+      title: 'Eixo de Marca — Social Media, Design & Gestão',
+      description: 'Social media, design, identidade visual, edição de vídeo, gestão de projetos, landing pages e tráfego pago para marcas que querem crescer.',
       type: 'website',
       locale: 'pt_BR',
       images: [{ url: socialImage, width: 1200, height: 630, alt: 'Eixo de Marca' }],
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'Eixo de Marca — Estratégia & Criatividade',
-      description: 'Direção estratégica para marcas que querem ser lembradas.',
+      title: 'Eixo de Marca — Social Media, Design & Gestão',
+      description: 'Conteúdo, design, vídeo e gestão para marcas que querem crescer.',
       images: [socialImage],
     },
   }
@@ -67,7 +67,7 @@ const organizationJsonLd = {
   name: 'Eixo de Marca',
   url: SITE_URL,
   logo: `${SITE_URL}/eixo-symbol.png`,
-  description: 'Direção estratégica, identidade, conteúdo, performance e tecnologia para marcas que querem ser lembradas.',
+  description: 'Social media, design, identidade visual, edição de vídeo, gestão de projetos, landing pages e tráfego pago para marcas que querem crescer.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

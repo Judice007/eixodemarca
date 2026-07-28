@@ -62,6 +62,10 @@ export function useTeamPin({
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
+            // Vem depois da seção de Serviços, que também é pinada. Atualizar
+            // este cálculo por último evita que o Método fixe antes de chegar
+            // ao topo e deixe uma tela vazia entre as duas seções.
+            refreshPriority: -20,
             invalidateOnRefresh: true,
             // BATCH: assenta exatamente no estado "card aberto" de cada time. Um movimento
             // de scroll abre o próximo card inteiro (snap pros pontos i/(n-1)).

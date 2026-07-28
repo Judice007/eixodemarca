@@ -236,14 +236,14 @@ export default function ManifestoLusion() {
           ))}
         </p>
         <p className="manifesto-p2 mt-3 text-[15px] font-semibold leading-snug tracking-[-0.01em] text-ink/80">
-          <span className="w mr-[0.3em] inline-block text-azure">Marketing,</span>
-          <span className="w mr-[0.3em] inline-block">Branding,</span>
-          <span className="w mr-[0.3em] inline-block">Performance,</span>
-          <span className="w mr-[0.3em] inline-block">Audiovisual,</span>
-          <span className="w mr-[0.3em] inline-block">Social</span>
-          <span className="w mr-[0.3em] inline-block">Media</span>
+          <span className="w mr-[0.3em] inline-block text-azure">Social media,</span>
+          <span className="w mr-[0.3em] inline-block">Design,</span>
+          <span className="w mr-[0.3em] inline-block">Identidade visual,</span>
+          <span className="w mr-[0.3em] inline-block">Edição de vídeo,</span>
+          <span className="w mr-[0.3em] inline-block">Gestão de projetos,</span>
+          <span className="w mr-[0.3em] inline-block">Landing pages</span>
           <span className="w mr-[0.3em] inline-block">e</span>
-          <span className="w inline-block">Tecnologia.</span>
+          <span className="w inline-block">Tráfego pago.</span>
         </p>
       </div>
 

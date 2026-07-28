@@ -3,4 +3,5 @@
 export const scrollState = {
   hero: 0, // 0 = globe at rest, 1 = fully expanded
   page: 0, // 0..1 over the whole document — drives the ribbon reveal
+  navigating: false, // evita que auto-animações disputem com cliques no menu
 }

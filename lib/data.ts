@@ -1,95 +1,103 @@
 export const services = [
   {
-    num: '01',
-    title: 'ESTRATÉGIA DE MARCA',
-    image: 'https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=600&q=80',
-    alt: 'Planejamento estratégico',
+    title: 'Social media',
+    text: 'Planejamento, rotina editorial e conteúdo pensado para aproximar marcas e pessoas.',
   },
   {
-    num: '02',
-    title: 'IDENTIDADE VISUAL',
-    image: 'https://images.unsplash.com/photo-1634942537034-2531766767d1?auto=format&fit=crop&w=600&q=80',
-    alt: 'Sistema de identidade visual',
+    title: 'Design',
+    text: 'Peças para campanhas, lançamentos e presença digital com linguagem própria.',
   },
   {
-    num: '03',
-    title: 'CONTEÚDO & MOTION',
-    image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80',
-    alt: 'Conteúdo em movimento',
+    title: 'Identidade visual',
+    text: 'Marcas e sistemas visuais que organizam a comunicação desde o primeiro contato.',
   },
   {
-    num: '04',
-    title: 'PERFORMANCE',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80',
-    alt: 'Estratégia de performance',
+    title: 'Edição de vídeo',
+    text: 'Reels, coberturas, takes e conteúdos verticais com ritmo para prender a atenção.',
   },
   {
-    num: '05',
-    title: 'TECNOLOGIA',
-    image: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=600&q=80',
-    alt: 'Experiências digitais',
+    title: 'Gestão de projetos',
+    text: 'Organização de tarefas, profissionais e processos para o trabalho fluir melhor.',
+  },
+  {
+    title: 'Landing pages',
+    text: 'Páginas estratégicas e responsivas para apresentar ofertas, captar contatos e conduzir à conversão.',
+  },
+  {
+    title: 'Tráfego pago',
+    text: 'Planejamento, gestão e otimização de campanhas para alcançar o público certo e gerar resultados.',
+  },
+] as const
+
+export type AxisService = {
+  key: string
+  title: string
+  subtitle: string
+  description: string
+  bullets: string[]
+}
+
+// Os 7 serviços foram agrupados em 4 eixos visuais para preservar a interação
+// do X e a sequência alternada do scroll. A ordem define o percurso (Social →
+// Design → Vídeo → Projetos & Crescimento) e o lado alterna por índice (par = texto à
+// esquerda, ímpar = texto à direita).
+export const axisServices: AxisService[] = [
+  {
+    key: 'social',
+    title: 'Social media',
+    subtitle: 'Planejamento & Rotina editorial',
+    description: 'Planejamento, rotina editorial e conteúdo pensado para aproximar marcas e pessoas.',
+    bullets: ['Planejamento de conteúdo', 'Rotina editorial', 'Campanhas'],
+  },
+  {
+    key: 'design',
+    title: 'Design & Identidade',
+    subtitle: 'Campanhas & Sistemas visuais',
+    description: 'Peças para campanhas, lançamentos e presença digital com linguagem própria. Marcas e sistemas visuais que organizam a comunicação desde o primeiro contato.',
+    bullets: ['Design', 'Identidade visual', 'Linguagem de marca'],
+  },
+  {
+    key: 'video',
+    title: 'Edição de vídeo',
+    subtitle: 'Reels & Conteúdo vertical',
+    description: 'Reels, coberturas, takes e conteúdos verticais com ritmo para prender a atenção.',
+    bullets: ['Reels e vídeos', 'Coberturas e takes', 'Conteúdo vertical'],
+  },
+  {
+    key: 'growth',
+    title: 'Projetos & Crescimento',
+    subtitle: 'Organização, páginas & mídia',
+    description: 'Organização de tarefas, profissionais e processos para o trabalho fluir melhor. Páginas estratégicas e responsivas para apresentar ofertas e conduzir à conversão. Campanhas para alcançar o público certo e gerar resultados.',
+    bullets: ['Gestão de projetos', 'Landing pages', 'Tráfego pago'],
   },
 ]
 
-// TODO: caseImage está repetido nos 4 só para teste de layout — trocar Conteúdo/
-// Motion/Performance por exemplos reais de cada frente antes de publicar de vez.
+// TODO: caseImage está repetido nos 4 só para teste de layout — trocar pelas
+// imagens aprovadas de cada eixo antes de publicar de vez.
 export const heroServices = [
   {
-    title: 'Branding',
-    category: 'Identidade & Posicionamento',
+    title: 'Social Media',
+    category: 'Planejamento & Conteúdo',
     caseImage: '/work/vista-bajeko-branding.jpg',
     caseLabel: 'Vista Bajeko',
   },
   {
-    title: 'Conteúdo',
-    category: 'Social & Narrativa',
+    title: 'Design',
+    category: 'Campanhas & Identidade',
     caseImage: '/work/vista-bajeko-branding.jpg',
     caseLabel: 'Vista Bajeko',
   },
   {
-    title: 'Motion',
-    category: 'Vídeo & Movimento',
+    title: 'Vídeo',
+    category: 'Reels & Audiovisual',
     caseImage: '/work/vista-bajeko-branding.jpg',
     caseLabel: 'Vista Bajeko',
   },
   {
-    title: 'Performance',
-    category: 'Mídia & Crescimento',
+    title: 'Gestão',
+    category: 'Projetos, Páginas & Tráfego',
     caseImage: '/work/vista-bajeko-branding.jpg',
     caseLabel: 'Vista Bajeko',
-  },
-]
-
-export const portfolio = [
-  {
-    title: 'Marcas que orientam',
-    category: 'Estratégia de marca',
-    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=900&q=80',
-  },
-  {
-    title: 'Sistemas que identificam',
-    category: 'Branding',
-    image: 'https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&w=900&q=80',
-  },
-  {
-    title: 'Histórias que movimentam',
-    category: 'Conteúdo & Motion',
-    image: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=900&q=80',
-  },
-  {
-    title: 'Campanhas que conectam',
-    category: 'Criação',
-    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=80',
-  },
-  {
-    title: 'Decisões que evoluem',
-    category: 'Estratégia digital',
-    image: 'https://images.unsplash.com/photo-1512314889357-e157c22f938d?auto=format&fit=crop&w=900&q=80',
-  },
-  {
-    title: 'Presença que cresce',
-    category: 'Performance',
-    image: 'https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&w=900&q=80',
   },
 ]
 
@@ -117,90 +125,38 @@ const WHATSAPP_MESSAGE = 'Olá, Eixo de Marca. Quero conversar sobre um projeto 
 export const whatsappUrl = `https://wa.me/${contactInfo.phone}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
 export const mailtoUrl = `mailto:${contactInfo.email}?subject=${encodeURIComponent('Projeto com o Eixo de Marca')}`
 
-export type TeamMember = {
-  name: string
-  role: string
-  photo: string
-  oneLiner: string
-  bio: string
-  links?: { linkedin?: string; instagram?: string; behance?: string }
-  skills?: string[]
-  projects?: string[]
-  quote?: string
-}
-
-export type Team = {
+export type MethodStep = {
   key: string
   label: string
-  cover: string
-  members: TeamMember[]
+  description: string
+  bullets: string[]
 }
 
-const capability = (
-  name: string,
-  role: string,
-  photo: string,
-  oneLiner: string,
-  skills: string[]
-): TeamMember => ({
-  name,
-  role,
-  photo,
-  oneLiner,
-  bio: oneLiner,
-  skills,
-})
-
-// A seção apresenta competências e etapas, sem simular nomes ou pessoas reais.
-export const teams: Team[] = [
+// As 4 etapas do método do Eixo (mesmos rótulos usados na coluna "Processo" do
+// rodapé) — processo, não pessoas ou serviços, para não repetir axisServices.
+export const methodSteps: MethodStep[] = [
   {
-    key: 'direcao',
-    label: 'Direção',
-    cover: 'https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=1000&q=80',
-    members: [
-      capability('Diagnóstico', 'Escuta', 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80', 'Entender antes de criar.', ['Pesquisa', 'Imersão']),
-      capability('Posicionamento', 'Estratégia', 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=400&q=80', 'Definir o lugar da marca.', ['Território', 'Mensagem']),
-      capability('Arquitetura', 'Sistema', 'https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=400&q=80', 'Organizar para crescer.', ['Portfólio', 'Jornada']),
-    ],
+    key: 'diagnostico',
+    label: 'Diagnóstico',
+    description: 'Entender a marca, a oferta, o público e os canais antes de definir qualquer entrega.',
+    bullets: ['Briefing', 'Contexto da marca', 'Objetivos'],
   },
   {
-    key: 'marca',
-    label: 'Marca',
-    cover: 'https://images.unsplash.com/photo-1634942537034-2531766767d1?auto=format&fit=crop&w=1000&q=80',
-    members: [
-      capability('Conceito', 'Essência', 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=400&q=80', 'Dar forma a uma ideia central.', ['Conceito', 'Narrativa']),
-      capability('Identidade', 'Expressão', 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=400&q=80', 'Criar reconhecimento.', ['Visual', 'Verbal']),
-      capability('Sistema', 'Consistência', 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=400&q=80', 'Fazer a marca funcionar.', ['Guidelines', 'Aplicações']),
-    ],
+    key: 'planejamento',
+    label: 'Planejamento',
+    description: 'Organizar calendário, campanha, prioridades e responsáveis para o projeto ganhar ritmo.',
+    bullets: ['Rota editorial', 'Cronograma', 'Prioridades'],
   },
   {
-    key: 'conteudo',
-    label: 'Conteúdo',
-    cover: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1000&q=80',
-    members: [
-      capability('Narrativa', 'Voz', 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=400&q=80', 'Transformar estratégia em conversa.', ['Copy', 'Storytelling']),
-      capability('Social', 'Presença', 'https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?auto=format&fit=crop&w=400&q=80', 'Construir relevância no ritmo certo.', ['Calendário', 'Comunidade']),
-      capability('Motion', 'Movimento', 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80', 'Fazer a identidade respirar.', ['Vídeo', 'Animação']),
-    ],
+    key: 'producao',
+    label: 'Produção',
+    description: 'Transformar a estratégia em design, identidade, vídeo, conteúdo e páginas prontas para o público.',
+    bullets: ['Design e identidade', 'Edição de vídeo', 'Landing pages'],
   },
   {
-    key: 'performance',
-    label: 'Performance',
-    cover: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80',
-    members: [
-      capability('Mídia', 'Distribuição', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80', 'Levar a mensagem até as pessoas certas.', ['Ads', 'Segmentação']),
-      capability('Métricas', 'Leitura', 'https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=400&q=80', 'Aprender com cada resposta.', ['Analytics', 'Insights']),
-      capability('Otimização', 'Evolução', 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=400&q=80', 'Melhorar de ciclo em ciclo.', ['Testes', 'Ajustes']),
-    ],
-  },
-  {
-    key: 'tecnologia',
-    label: 'Tecnologia',
-    cover: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1000&q=80',
-    members: [
-      capability('Experiência', 'UX', 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=400&q=80', 'Criar jornadas claras.', ['UX', 'Interface']),
-      capability('Produto', 'Digital', 'https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=400&q=80', 'Transformar estratégia em ferramenta.', ['Web', 'Produto']),
-      capability('Integração', 'Escala', 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=400&q=80', 'Conectar pontos para crescer.', ['Automação', 'Dados']),
-    ],
+    key: 'otimizacao',
+    label: 'Gestão & Otimização',
+    description: 'Acompanhar tarefas, mídia e resultados para ajustar a rota sem perder prazos ou consistência.',
+    bullets: ['Gestão do fluxo', 'Leitura de dados', 'Ajustes contínuos'],
   },
 ]

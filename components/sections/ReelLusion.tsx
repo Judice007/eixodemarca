@@ -10,6 +10,7 @@ import ReelCardGL from '@/components/visual/ReelCardGL'
 import ReelRibbon from '@/components/visual/ReelRibbon'
 import { haptic } from '@/lib/haptics'
 import { MOBILE_MQ } from '@/lib/mobileMotion'
+import { scrollState } from '@/lib/scrollState'
 
 // Reel. The ribbon is a thin wavy band that draws in from the left and STAYS at the
 // top (separate zone). The card is left-anchored just below it and grows right + DOWN
@@ -70,6 +71,7 @@ export default function ReelLusion() {
         }
       }
       const playThrough = (self: { end: number }) => {
+        if (scrollState.navigating) return
         stopAuto()
         const proxy = { y: getY() }
         auto = gsap.to(proxy, {
@@ -194,7 +196,7 @@ export default function ReelLusion() {
               ganham vida.
             </h2>
             <p className="reel-intro-fade max-w-[40ch] text-[15px] leading-[1.55] text-ink/80">
-              Combinamos estratégia, design, conteúdo, movimento e tecnologia para construir marcas coerentes em cada ponto de contato.
+              Unimos social media, design, identidade visual, vídeo, gestão, landing pages e tráfego para transformar ideias em presença digital.
             </p>
           </div>
         </div>
@@ -237,7 +239,7 @@ export default function ReelLusion() {
         <div className="reel-intro-m">
           <h2 className="section-title text-ink">Ideias ousadas, ganham vida.</h2>
           <p className="mt-4 mx-auto max-w-[46ch] text-[15px] leading-[1.55] text-ink/75">
-            Combinamos estratégia, design, conteúdo, movimento e tecnologia para construir marcas coerentes em cada ponto de contato.
+            Unimos social media, design, identidade visual, vídeo, gestão, landing pages e tráfego para transformar ideias em presença digital.
           </p>
         </div>
         <div

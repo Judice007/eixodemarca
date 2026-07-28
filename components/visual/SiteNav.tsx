@@ -4,16 +4,17 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { gsap, ScrollSmoother } from '@/lib/registerGsap'
+import { gsap, ScrollSmoother, ScrollTrigger } from '@/lib/registerGsap'
 import { useScrollSpy } from '@/hooks/useScrollSpy'
 import { whatsappUrl } from '@/lib/data'
+import { scrollState } from '@/lib/scrollState'
 
 // seções (desktop) — aparecem no header quando a pill "viaja" pra cima (passou da hero)
 const SECTIONS = [
   { id: 'hero', label: 'Início' },
   { id: 'reel', label: 'Reel' },
   { id: 'manifesto', label: 'Manifesto' },
-  { id: 'work', label: 'Frentes' },
+  { id: 'work', label: 'Serviços' },
   { id: 'equipe', label: 'Método' },
 ]
 const SECTION_IDS = SECTIONS.map((s) => s.id)
@@ -61,7 +62,17 @@ export default function SiteNav() {
     const el = document.getElementById(id)
     if (!el) return
     const smoother = ScrollSmoother.get()
-    if (smoother) smoother.scrollTo(el, true, 'top top')
+    if (smoother) {
+      scrollState.navigating = true
+      window.setTimeout(() => {
+        scrollState.navigating = false
+      }, 1800)
+      const pinned =
+        id === 'work'
+          ? ScrollTrigger.getById('work-services')
+          : ScrollTrigger.getAll().find((trigger) => trigger.vars.pin && trigger.vars.trigger === el)
+      smoother.scrollTo(pinned ? pinned.start : el, true, pinned ? undefined : 'top top')
+    }
     else el.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 

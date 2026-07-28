@@ -66,6 +66,10 @@ body { background: var(--color-bone); color: var(--color-ink); font-family: var(
 /* Faixa marquee do hero (mobile) — dois tracks idênticos rolam -100% pra emendar sem corte */
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-100%); } }
 
+/* Tira "feed" da ilustração de Conteúdo (Como atuamos) — a lista de pontos é
+   renderizada duas vezes, então -50% emenda sem corte visível. */
+@keyframes feed-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
 /* reel is styled with Tailwind utilities in ReelLusion (incl. the SVG goo filter). */
 
 /* manifesto + work are styled with Tailwind utilities in their components. */
