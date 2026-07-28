@@ -154,10 +154,15 @@ export default function FooterGL() {
   }, [])
 
   return (
+    // Era h-full do <footer> inteiro: com nav + colunas + wordmark fantasma +
+    // barra inferior, o footer ficou bem mais alto que o pensado pra esse
+    // efeito — o canvas (e a esfera dentro dele) cresciam junto, ocupando a
+    // seção quase inteira. Trava numa altura fixa, ancorada no topo (onde
+    // fica o CTA que a esfera acompanha), do tamanho que já era o previsto.
     <canvas
       ref={ref}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 -z-10 h-full w-full"
+      className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[560px] w-full max-h-full"
     />
   )
 }

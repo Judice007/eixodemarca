@@ -180,7 +180,7 @@ export default function FooterLusion() {
             alt=""
             width={1515}
             height={573}
-            className="mx-auto h-auto w-full opacity-[0.07]"
+            className="mx-auto h-auto w-[70%] max-w-[820px] opacity-[0.07]"
           />
         </div>
       </div>
