@@ -200,7 +200,7 @@ export default function EixoEditorialSite() {
             Estratégia · criação · gestão
           </motion.p>
           <motion.h1
-            className="mx-auto max-w-[1250px] font-display text-[clamp(52px,9.2vw,142px)] font-black uppercase leading-[0.82] tracking-[-0.075em] max-sm:text-[44px] max-sm:leading-[0.88] max-sm:tracking-[-0.06em]"
+            className="mx-auto max-w-[1250px] font-display text-[clamp(52px,9.2vw,142px)] font-black uppercase leading-[0.9] tracking-[-0.05em] max-sm:text-[44px] max-sm:leading-[0.96] max-sm:tracking-[-0.035em]"
             initial={reduce ? false : { opacity: 0, y: 45 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
@@ -252,7 +252,7 @@ export default function EixoEditorialSite() {
           <SectionNumber number="01" />
           <div>
             <Reveal>
-              <h2 className="max-w-[1180px] text-right font-display text-[clamp(42px,6.8vw,104px)] font-black uppercase leading-[0.92] tracking-[-0.055em]">
+              <h2 className="max-w-[1180px] text-right font-display text-[clamp(42px,6.8vw,104px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
                 Aqui tudo começa com <span className="text-azure">direção.</span> Entregamos comunicação além do automático.
               </h2>
             </Reveal>
@@ -271,7 +271,7 @@ export default function EixoEditorialSite() {
             <SectionNumber number="02" />
             <Reveal>
               <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-                <h2 className="max-w-[900px] font-display text-[clamp(44px,7vw,102px)] font-black uppercase leading-[0.88] tracking-[-0.06em]">
+                <h2 className="max-w-[900px] font-display text-[clamp(44px,7vw,102px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
                   Tudo o que a marca precisa para <span className="text-azure">aparecer.</span>
                 </h2>
                 <p className="max-w-[330px] text-[15px] leading-relaxed text-ink/55">
@@ -298,7 +298,7 @@ export default function EixoEditorialSite() {
                 >
                   ×
                 </span>
-                <h3 className="font-display text-[clamp(30px,4vw,58px)] font-black leading-none tracking-[-0.04em] transition-transform duration-500 group-hover:translate-x-3">
+                <h3 className="font-display text-[clamp(30px,4vw,58px)] font-black leading-[1.05] tracking-[-0.025em] transition-transform duration-500 group-hover:translate-x-3">
                   {service.title}
                 </h3>
                 <p className="max-w-[48ch] text-[13px] leading-relaxed text-ink/55 sm:text-[14px]">{service.text}</p>
@@ -326,7 +326,7 @@ export default function EixoEditorialSite() {
             </div>
             <Reveal>
               <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-                <h2 className="max-w-[980px] font-display text-[clamp(44px,7vw,102px)] font-black uppercase leading-[0.88] tracking-[-0.06em]">
+                <h2 className="max-w-[980px] font-display text-[clamp(44px,7vw,102px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
                   Marcas e histórias que ganharam <span className="text-azure">forma.</span>
                 </h2>
                 <p className="max-w-[290px] text-[14px] leading-relaxed text-white/55">Projetos reais de comunicação, identidade e conteúdo.</p>
@@ -371,7 +371,7 @@ export default function EixoEditorialSite() {
                     <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/75 to-transparent p-5 pt-24">
                       <div>
                         <p className="font-mono text-[8px] uppercase tracking-[0.18em] text-white/60">{project.tags}</p>
-                        <h3 className="mt-2 font-display text-[24px] font-bold">{project.client}</h3>
+                        <h3 className="mt-2 font-display text-[24px] font-bold leading-[1.12] tracking-[-0.015em]">{project.client}</h3>
                       </div>
                       <span className="grid size-10 place-items-center border border-white/35 text-sm transition-colors group-hover:border-azure group-hover:bg-azure">↗</span>
                     </div>
@@ -387,7 +387,7 @@ export default function EixoEditorialSite() {
         <div className={`eixo-service-marquee flex w-max items-center ${reduce ? '' : 'will-change-transform'}`}>
           {duplicatedServices.map((service, index) => (
             <div key={`${service.title}-${index}`} className="flex items-center">
-              <span className="px-5 font-display text-[clamp(34px,5vw,72px)] font-black uppercase tracking-[-0.04em]">{service.title}</span>
+              <span className="px-5 font-display text-[clamp(34px,5vw,72px)] font-black uppercase leading-none tracking-[-0.025em]">{service.title}</span>
               <span className="text-[clamp(26px,4vw,56px)] text-ink">✦</span>
             </div>
           ))}
@@ -399,7 +399,7 @@ export default function EixoEditorialSite() {
           <div className="grid gap-10 lg:grid-cols-[160px_1fr]">
             <SectionNumber number="04" />
             <Reveal>
-              <h2 className="max-w-[1050px] font-display text-[clamp(44px,7vw,102px)] font-black uppercase leading-[0.88] tracking-[-0.06em]">
+              <h2 className="max-w-[1050px] font-display text-[clamp(44px,7vw,102px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
                 Criatividade precisa de <span className="text-azure">processo.</span>
               </h2>
             </Reveal>
@@ -409,7 +409,7 @@ export default function EixoEditorialSite() {
               <Reveal key={step.key} className="h-full" delay={index * 0.05}>
                 <article className="flex h-full min-h-[330px] flex-col bg-[#fffdfa] p-7 transition-colors duration-300 hover:bg-lavanda">
                   <span className="font-mono text-[10px] text-azure">0{index + 1}</span>
-                  <h3 className="mt-auto font-display text-[30px] font-black tracking-[-0.035em]">{step.label}</h3>
+                  <h3 className="mt-auto font-display text-[30px] font-black leading-[1.08] tracking-[-0.02em]">{step.label}</h3>
                   <p className="mt-4 text-[13px] leading-relaxed text-ink/55">{step.description}</p>
                   <ul className="mt-5 flex flex-wrap gap-2">
                     {step.bullets.map((bullet) => (
@@ -431,7 +431,7 @@ export default function EixoEditorialSite() {
             <div>
               <SectionNumber number="05" />
               <Reveal>
-                <h2 className="mt-8 max-w-[820px] font-display text-[clamp(40px,6vw,86px)] font-black uppercase leading-[0.9] tracking-[-0.055em]">
+                <h2 className="mt-8 max-w-[820px] font-display text-[clamp(40px,6vw,86px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
                   Identidades que já passaram pelo nosso <span className="text-azure">eixo.</span>
                 </h2>
               </Reveal>
@@ -451,7 +451,7 @@ export default function EixoEditorialSite() {
       <footer id="contato" className="scroll-mt-24 bg-ink px-[var(--gutter)] pb-8 pt-[clamp(88px,11vw,150px)] text-white">
         <div className="mx-auto max-w-[1420px]">
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-azure">Próximo projeto</p>
-          <h2 className="mt-6 max-w-[1250px] font-display text-[clamp(54px,9.5vw,146px)] font-black uppercase leading-[0.8] tracking-[-0.075em]">
+          <h2 className="mt-6 max-w-[1250px] font-display text-[clamp(54px,9.5vw,146px)] font-black uppercase leading-[0.9] tracking-[-0.05em] max-sm:leading-[0.96] max-sm:tracking-[-0.035em]">
             Vamos fazer sua marca <span className="text-azure">aparecer.</span>
           </h2>
           <div className="mt-14 flex flex-col justify-between gap-8 border-t border-white/15 pt-8 md:flex-row md:items-center">
