@@ -281,31 +281,39 @@ export default function HeroLusion() {
           </div>
 
           {/* Case preview — a normal child of the text column now, flowing right
-              after the CTAs. It used to be pinned via grid col/row placement,
-              which put it a fixed distance from the row's TOP regardless of how
-              tall the text block actually rendered — on shorter viewports (or
-              with longer copy) it landed on top of the CTA buttons instead of
-              below them. Being part of the document flow means it can never
-              overlap anything above it, on any viewport. */}
-          <AnimatePresence>
-            {current.caseImage && (
-              <motion.div
-                key={current.title}
-                initial={{ opacity: 0, y: 10, scale: 0.96 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 10, scale: 0.96 }}
-                transition={{ duration: 0.32, ease: [0.76, 0, 0.24, 1] }}
-                className="relative z-30 mx-auto mt-6 hidden w-[220px] overflow-hidden rounded-[14px] border border-ink/10 bg-white shadow-[0_20px_45px_-20px_rgba(24,5,37,0.45)] lg:mx-0 lg:block"
-              >
-                <div className="relative aspect-video">
-                  <Image src={current.caseImage} alt={`Exemplo de ${current.title}${current.caseLabel ? ` — ${current.caseLabel}` : ''}`} fill sizes="220px" className="object-cover" />
-                </div>
-                {current.caseLabel && (
-                  <p className="px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">{current.caseLabel}</p>
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
+              after the CTAs, in a size-RESERVED box. It used to be pinned via
+              grid col/row placement, which put it a fixed distance from the
+              row's TOP regardless of how tall the text block actually
+              rendered — on shorter viewports it landed on the CTA buttons
+              instead of below them. Being part of the document flow fixed
+              that, but crossfading it in place (no reserved size) meant the
+              text column's own height changed every time you switched arms —
+              that shift rippled into the page's total height, which the
+              layout-resize watcher (SmoothScroll) picks up and reacts to by
+              re-measuring every scroll trigger: the whole page would jump.
+              Reserving the exact box up front means swapping the image never
+              changes anything outside this box. */}
+          {current.caseImage && (
+            <div className="relative z-30 mx-auto mt-6 hidden h-[154px] w-[220px] lg:mx-0 lg:block">
+              <AnimatePresence>
+                <motion.div
+                  key={current.title}
+                  initial={{ opacity: 0, y: 10, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.96 }}
+                  transition={{ duration: 0.32, ease: [0.76, 0, 0.24, 1] }}
+                  className="absolute inset-0 overflow-hidden rounded-[14px] border border-ink/10 bg-white shadow-[0_20px_45px_-20px_rgba(24,5,37,0.45)]"
+                >
+                  <div className="relative aspect-video">
+                    <Image src={current.caseImage} alt={`Exemplo de ${current.title}${current.caseLabel ? ` — ${current.caseLabel}` : ''}`} fill sizes="220px" className="object-cover" />
+                  </div>
+                  {current.caseLabel && (
+                    <p className="px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">{current.caseLabel}</p>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          )}
         </div>
       </div>
 
