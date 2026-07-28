@@ -327,7 +327,7 @@ export default function EixoEditorialSite() {
   }, [])
 
   return (
-    <main id="top" className="min-h-screen overflow-hidden bg-[#fffdfa] text-ink">
+    <main id="top" className="min-h-screen bg-[#fffdfa] text-ink">
       <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? 'px-4 pt-2 sm:px-7' : 'px-3 pt-3 sm:px-5 sm:pt-4'}`}>
         <div
           className={`mx-auto flex items-center justify-between border border-ink/10 bg-white/92 shadow-[0_16px_45px_-30px_rgba(42,16,74,.35)] backdrop-blur-xl transition-all duration-500 ${
@@ -469,65 +469,60 @@ export default function EixoEditorialSite() {
             </Reveal>
           </div>
 
-          <div className="relative mt-10 sm:mt-14">
-            <div className="sticky top-[78px] z-30 grid h-[500px] place-items-center lg:top-[92px] lg:h-[calc(100svh-110px)] lg:grid-cols-[minmax(0,1fr)_minmax(320px,.72fr)] lg:place-items-stretch">
-              <div className="hidden items-start pt-8 lg:flex">
-                <div className="pointer-events-none flex items-center gap-3 font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-ink/40">
-                  <span className="h-px w-10 bg-azure" />
-                  Serviços
-                </div>
-              </div>
-              <div className="flex items-center justify-center lg:col-start-2">
-                <ServicePhone active={activeService} reduce={!!reduce} />
-              </div>
-              <div className="pointer-events-none absolute bottom-8 right-0 hidden text-right lg:block">
-                <p className="font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-ink/35">Serviço ativo</p>
-                <p className="mt-2 font-display text-[18px] font-bold text-ink/60">
-                  0{activeService + 1} / 0{services.length}
-                </p>
-              </div>
+          <div className="relative mt-10 grid gap-10 sm:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(340px,.72fr)] lg:gap-16">
+            <div className="order-2 lg:order-1">
+              {services.map((service, index) => (
+                <motion.article
+                  key={service.title}
+                  tabIndex={0}
+                  onFocus={() => setActiveService(index)}
+                  onViewportEnter={() => setActiveService(index)}
+                  viewport={{ amount: 0.55 }}
+                  className="flex min-h-[52vh] items-center border-t border-ink/12 py-10 first:border-t-0 lg:min-h-[72vh] lg:py-14"
+                >
+                  <motion.div
+                    className="relative w-full max-w-[590px] bg-white/95 p-6 shadow-[0_30px_80px_-42px_rgba(42,16,74,.52)] backdrop-blur sm:p-8 lg:p-10"
+                    style={{ clipPath: 'polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 26px 100%, 0 calc(100% - 26px))' }}
+                    initial={reduce ? false : { opacity: 0, x: -50, y: 18 }}
+                    whileInView={{ opacity: 1, x: 0, y: 0 }}
+                    viewport={{ once: true, amount: 0.38 }}
+                    transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <div className="flex items-center justify-between border-b border-ink/10 pb-4">
+                      <span className="font-sans text-[10px] font-bold tracking-[0.18em] text-azure">0{index + 1}</span>
+                      <span className="font-sans text-[8px] font-semibold uppercase tracking-[0.15em] text-ink/35">
+                        Eixo em movimento
+                      </span>
+                    </div>
+                    <h3 className="mt-6 font-display text-[clamp(31px,4vw,58px)] font-black leading-[1.02] tracking-[-0.025em]">
+                      {service.title}
+                    </h3>
+                    <p className="mt-5 max-w-[42ch] text-[13px] leading-[1.7] text-ink/60 sm:text-[14px]">{service.text}</p>
+                    <div className="mt-6 flex items-center gap-3 font-sans text-[9px] font-bold uppercase tracking-[0.14em] text-azure">
+                      <span className="grid size-7 place-items-center border border-azure/45">×</span>
+                      Dentro da tela
+                    </div>
+                    <span aria-hidden className="absolute left-full top-1/2 hidden h-px w-[clamp(38px,5vw,72px)] bg-azure/50 lg:block" />
+                  </motion.div>
+                </motion.article>
+              ))}
             </div>
 
-            <div className="relative z-20 -mt-28 pb-14 lg:-mt-[calc(100svh-110px)] lg:pb-[12vh]">
-            {services.map((service, index) => (
-              <motion.article
-                key={service.title}
-                tabIndex={0}
-                onFocus={() => setActiveService(index)}
-                onViewportEnter={() => setActiveService(index)}
-                viewport={{ amount: 0.55 }}
-                className="grid min-h-[58vh] items-end lg:min-h-[76vh] lg:grid-cols-[minmax(0,1fr)_minmax(320px,.72fr)] lg:items-center lg:gap-16"
-              >
-                <motion.div
-                  className="relative z-40 mr-auto w-[84%] bg-white/95 p-6 shadow-[0_30px_80px_-42px_rgba(42,16,74,.52)] backdrop-blur sm:w-[70%] sm:p-8 lg:col-start-1 lg:z-20 lg:w-full lg:max-w-[560px]"
-                  style={{ clipPath: 'polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 26px 100%, 0 calc(100% - 26px))' }}
-                  initial={reduce ? false : { opacity: 0, x: -50, y: 18 }}
-                  whileInView={{ opacity: 1, x: 0, y: 0 }}
-                  viewport={{ once: true, amount: 0.38 }}
-                  transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <div className="flex items-center justify-between border-b border-ink/10 pb-4">
-                    <span className="font-sans text-[10px] font-bold tracking-[0.18em] text-azure">0{index + 1}</span>
-                    <span className="font-sans text-[8px] font-semibold uppercase tracking-[0.15em] text-ink/35">
-                      Eixo em movimento
-                    </span>
-                  </div>
-                  <h3 className="mt-6 font-display text-[clamp(31px,4vw,58px)] font-black leading-[1.02] tracking-[-0.025em]">
-                    {service.title}
-                  </h3>
-                  <p className="mt-5 max-w-[42ch] text-[13px] leading-[1.7] text-ink/60 sm:text-[14px]">{service.text}</p>
-                  <div className="mt-6 flex items-center gap-3 font-sans text-[9px] font-bold uppercase tracking-[0.14em] text-azure">
-                    <span className="grid size-7 place-items-center border border-azure/45">×</span>
-                    Dentro da tela
-                  </div>
-                  <span
-                    aria-hidden
-                    className="absolute left-full top-1/2 hidden h-px w-14 bg-azure/50 lg:block"
-                  />
-                </motion.div>
-              </motion.article>
-            ))}
-            </div>
+            <aside className="order-1 self-stretch lg:order-2">
+              <div className="relative flex h-[500px] items-center justify-center lg:sticky lg:top-[92px] lg:h-[calc(100svh-110px)]">
+                <ServicePhone active={activeService} reduce={!!reduce} />
+                <div className="pointer-events-none absolute right-0 top-8 hidden items-center gap-3 font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-ink/40 lg:flex">
+                  Celular fixo
+                  <span className="h-px w-10 bg-azure" />
+                </div>
+                <div className="pointer-events-none absolute bottom-8 right-0 hidden text-right lg:block">
+                  <p className="font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-ink/35">Serviço ativo</p>
+                  <p className="mt-2 font-display text-[18px] font-bold text-ink/60">
+                    0{activeService + 1} / 0{services.length}
+                  </p>
+                </div>
+              </div>
+            </aside>
           </div>
         </div>
       </section>
