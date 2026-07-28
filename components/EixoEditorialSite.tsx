@@ -1,16 +1,17 @@
 'use client'
 
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { contactInfo, mailtoUrl, methodSteps, services, whatsappUrl } from '@/lib/data'
 
 const mediaStrip = [
-  { src: '/portfolio-media/social-acai.webp', alt: 'Conteúdo para Di Casa Açaí' },
-  { src: '/portfolio-media/design-ukimports.webp', alt: 'Campanha para UK Imports' },
-  { src: '/portfolio-media/social-reset.webp', alt: 'Conteúdo para Reset Madeira Ecológica' },
-  { src: '/portfolio-media/landing-pousada.webp', alt: 'Conteúdo para Pousada da Praia' },
-  { src: '/portfolio-media/portfolio-eixo.png', alt: 'Campanha da Eixo de Marca' },
-  { src: '/portfolio-media/portfolio-cuidados-pele.png', alt: 'Conteúdo de beleza e estética' },
+  { src: '/portfolio-media/social-acai.webp', alt: 'Conteúdo para Di Casa Açaí', position: 'center 42%' },
+  { src: '/portfolio-media/design-ukimports.webp', alt: 'Campanha para UK Imports', position: 'center 48%' },
+  { src: '/portfolio-media/social-reset.webp', alt: 'Conteúdo para Reset Madeira Ecológica', position: 'center 52%' },
+  { src: '/portfolio-media/landing-pousada.webp', alt: 'Conteúdo para Pousada da Praia', position: 'center 46%' },
+  { src: '/portfolio-media/portfolio-eixo.png', alt: 'Campanha da Eixo de Marca', position: 'center 50%' },
+  { src: '/portfolio-media/portfolio-cuidados-pele.png', alt: 'Conteúdo de beleza e estética', position: 'center 44%' },
 ]
 
 const projects = [
@@ -20,6 +21,8 @@ const projects = [
     alt: 'Campanha de smartphones para UK Imports',
     client: 'UK Imports',
     tags: 'Campanha · Design',
+    fit: 'cover' as const,
+    position: 'center 45%',
   },
   {
     type: 'image' as const,
@@ -27,6 +30,8 @@ const projects = [
     alt: 'Conteúdo para Di Casa Açaí',
     client: 'Di Casa Açaí',
     tags: 'Social media · Conteúdo',
+    fit: 'cover' as const,
+    position: 'center 42%',
   },
   {
     type: 'image' as const,
@@ -34,6 +39,8 @@ const projects = [
     alt: 'Identidade visual Vista Bajeko',
     client: 'Vista Bajeko',
     tags: 'Marca · Identidade visual',
+    fit: 'contain' as const,
+    position: 'center',
   },
   {
     type: 'video' as const,
@@ -42,6 +49,8 @@ const projects = [
     alt: 'Vídeo vertical de procedimento estético',
     client: 'Conteúdo vertical',
     tags: 'Captação · Edição de vídeo',
+    fit: 'cover' as const,
+    position: 'center',
   },
   {
     type: 'image' as const,
@@ -49,6 +58,8 @@ const projects = [
     alt: 'Campanha sustentável para Reset Madeira Ecológica',
     client: 'Reset',
     tags: 'Estratégia · Social media',
+    fit: 'cover' as const,
+    position: 'center 50%',
   },
   {
     type: 'image' as const,
@@ -56,6 +67,8 @@ const projects = [
     alt: 'Peça da Eixo de Marca sobre direção de conteúdo',
     client: 'Eixo de Marca',
     tags: 'Posicionamento · Design',
+    fit: 'cover' as const,
+    position: 'center 50%',
   },
 ]
 
@@ -114,29 +127,61 @@ function Reveal({
 
 export default function EixoEditorialSite() {
   const reduce = useReducedMotion()
+  const [scrolled, setScrolled] = useState(false)
   const duplicatedMedia = [...mediaStrip, ...mediaStrip]
   const duplicatedServices = [...services, ...services]
 
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 72)
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    return () => window.removeEventListener('scroll', update)
+  }, [])
+
   return (
     <main id="top" className="min-h-screen overflow-hidden bg-[#fffdfa] text-ink">
-      <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
-        <div className="mx-auto flex max-w-[1420px] items-center justify-between border border-ink/10 bg-white/90 px-4 py-3 shadow-[0_16px_45px_-30px_rgba(42,16,74,.35)] backdrop-blur-xl sm:px-7">
+      <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? 'px-4 pt-2 sm:px-7' : 'px-3 pt-3 sm:px-5 sm:pt-4'}`}>
+        <div
+          className={`mx-auto flex items-center justify-between border border-ink/10 bg-white/92 shadow-[0_16px_45px_-30px_rgba(42,16,74,.35)] backdrop-blur-xl transition-all duration-500 ${
+            scrolled ? 'max-w-[1160px] px-4 py-2 sm:px-5' : 'max-w-[1420px] px-4 py-3 sm:px-7'
+          }`}
+        >
           <a href="#top" aria-label="Eixo de Marca — início" className="shrink-0">
-            <Image src="/eixo-wordmark.png" alt="Eixo de Marca" width={1515} height={573} priority className="h-[17px] w-auto sm:h-5" />
+            <Image
+              src="/eixo-wordmark.png"
+              alt="Eixo de Marca"
+              width={1515}
+              height={573}
+              priority
+              className={`w-auto transition-all duration-500 ${scrolled ? 'h-[18px]' : 'h-[21px] sm:h-6'}`}
+              style={{ filter: 'brightness(0) saturate(100%) invert(11%) sepia(37%) saturate(3825%) hue-rotate(258deg) brightness(76%) contrast(104%)' }}
+            />
           </a>
 
           <nav aria-label="Navegação principal" className="hidden items-center gap-8 text-[14px] font-medium lg:flex">
-            <a className="transition-colors hover:text-azure" href="#servicos">Serviços</a>
-            <a className="transition-colors hover:text-azure" href="#portfolio">Portfólio</a>
-            <a className="transition-colors hover:text-azure" href="#metodo">Método</a>
-            <a className="transition-colors hover:text-azure" href="#contato">Contato</a>
+            {[
+              ['Serviços', '#servicos'],
+              ['Portfólio', '#portfolio'],
+              ['Método', '#metodo'],
+              ['Contato', '#contato'],
+            ].map(([label, href]) => (
+              <a
+                key={href}
+                className="relative py-2 transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:scale-x-0 after:bg-azure after:transition-transform hover:text-azure hover:after:scale-x-100"
+                href={href}
+              >
+                {label}
+              </a>
+            ))}
           </nav>
 
           <a
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex bg-azure px-4 py-2.5 text-[12px] font-bold text-white transition-transform hover:-translate-y-0.5 sm:px-5 sm:text-[13px]"
+            className={`inline-flex bg-azure text-[12px] font-bold text-white transition-all hover:-translate-y-0.5 sm:text-[13px] ${
+              scrolled ? 'px-4 py-2' : 'px-4 py-2.5 sm:px-5'
+            }`}
             style={{ clipPath: 'polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 11px 100%, 0 calc(100% - 11px))' }}
           >
             Vamos conversar ↗
@@ -155,14 +200,13 @@ export default function EixoEditorialSite() {
             Estratégia · criação · gestão
           </motion.p>
           <motion.h1
-            className="mx-auto max-w-[1250px] font-display text-[clamp(52px,9.2vw,142px)] font-black uppercase leading-[0.82] tracking-[-0.075em]"
+            className="mx-auto max-w-[1250px] font-display text-[clamp(52px,9.2vw,142px)] font-black uppercase leading-[0.82] tracking-[-0.075em] max-sm:text-[44px] max-sm:leading-[0.88] max-sm:tracking-[-0.06em]"
             initial={reduce ? false : { opacity: 0, y: 45 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
-            Conteúdo que
-            <br />
-            <span className="text-azure">chama atenção.</span>
+            <span className="block whitespace-nowrap">Conteúdo que</span>
+            <span className="block whitespace-nowrap text-azure">chama atenção.</span>
           </motion.h1>
           <motion.div
             className="mx-auto mt-9 flex max-w-[900px] flex-col items-center justify-between gap-6 md:flex-row"
@@ -182,21 +226,28 @@ export default function EixoEditorialSite() {
           </motion.div>
         </div>
 
-        <div className="relative mt-[clamp(70px,12vh,130px)] -mx-[var(--gutter)] overflow-hidden pb-4">
+        <div className="relative mt-[clamp(54px,9vh,96px)] -mx-[var(--gutter)] overflow-hidden pb-4">
           <div className={`eixo-media-marquee flex w-max gap-4 px-2 ${reduce ? '' : 'will-change-transform'}`}>
             {duplicatedMedia.map((item, index) => (
               <figure
                 key={`${item.src}-${index}`}
                 className="relative h-[220px] w-[170px] shrink-0 overflow-hidden bg-lavanda sm:h-[300px] sm:w-[235px] lg:h-[360px] lg:w-[285px]"
               >
-                <Image src={item.src} alt={index < mediaStrip.length ? item.alt : ''} fill sizes="285px" className="object-cover transition-transform duration-700 hover:scale-[1.04]" />
+                <Image
+                  src={item.src}
+                  alt={index < mediaStrip.length ? item.alt : ''}
+                  fill
+                  sizes="285px"
+                  className="object-cover transition-transform duration-700 hover:scale-[1.04]"
+                  style={{ objectPosition: item.position }}
+                />
               </figure>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="border-t border-ink/10 px-[var(--gutter)] py-[clamp(100px,15vw,200px)]">
+      <section className="border-t border-ink/10 px-[var(--gutter)] py-[clamp(82px,11vw,146px)]">
         <div className="mx-auto grid max-w-[1420px] gap-14 lg:grid-cols-[160px_1fr]">
           <SectionNumber number="01" />
           <div>
@@ -214,7 +265,7 @@ export default function EixoEditorialSite() {
         </div>
       </section>
 
-      <section id="servicos" className="scroll-mt-24 border-t border-ink/10 px-[var(--gutter)] py-[clamp(90px,12vw,160px)]">
+      <section id="servicos" className="scroll-mt-24 border-t border-ink/10 px-[var(--gutter)] py-[clamp(78px,10vw,132px)]">
         <div className="mx-auto max-w-[1420px]">
           <div className="grid gap-10 lg:grid-cols-[160px_1fr]">
             <SectionNumber number="02" />
@@ -230,17 +281,23 @@ export default function EixoEditorialSite() {
             </Reveal>
           </div>
 
-          <div className="mt-16 border-t border-ink/15">
+          <div className="mt-12 border-t border-ink/15">
             {services.map((service, index) => (
               <motion.article
                 key={service.title}
-                className="group relative grid min-h-[140px] items-center gap-6 overflow-hidden border-b border-ink/15 py-7 sm:grid-cols-[70px_1fr_1fr_170px]"
+                className="group relative grid min-h-[132px] items-center gap-6 overflow-hidden border-b border-ink/15 py-6 transition-colors duration-500 hover:bg-lavanda/55 sm:grid-cols-[70px_1fr_1fr_170px]"
                 initial={reduce ? false : { opacity: 0, y: 26 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: 0.55, delay: index * 0.025 }}
               >
                 <span className="font-mono text-[11px] text-azure">0{index + 1}</span>
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute right-[190px] top-1/2 hidden size-9 -translate-y-1/2 place-items-center font-display text-[26px] font-black text-azure opacity-0 transition-all duration-500 group-hover:rotate-90 group-hover:opacity-100 xl:grid"
+                >
+                  ×
+                </span>
                 <h3 className="font-display text-[clamp(30px,4vw,58px)] font-black leading-none tracking-[-0.04em] transition-transform duration-500 group-hover:translate-x-3">
                   {service.title}
                 </h3>
@@ -260,7 +317,7 @@ export default function EixoEditorialSite() {
         </div>
       </section>
 
-      <section id="portfolio" className="scroll-mt-24 bg-ink px-[var(--gutter)] py-[clamp(90px,12vw,170px)] text-white">
+      <section id="portfolio" className="scroll-mt-24 bg-ink px-[var(--gutter)] py-[clamp(82px,10vw,140px)] text-white">
         <div className="mx-auto max-w-[1420px]">
           <div className="grid gap-10 lg:grid-cols-[160px_1fr]">
             <div className="flex items-center gap-3 self-start font-mono text-[11px] uppercase tracking-[0.18em] text-white/35">
@@ -277,7 +334,7 @@ export default function EixoEditorialSite() {
             </Reveal>
           </div>
 
-          <div className="mt-16 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {projects.map((project, index) => (
               <Reveal key={`${project.client}-${index}`} delay={(index % 3) * 0.06}>
                 <article className="group">
@@ -301,9 +358,16 @@ export default function EixoEditorialSite() {
                         alt={project.alt}
                         fill
                         sizes="(min-width: 1280px) 32vw, (min-width: 768px) 50vw, 100vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                        className={`${project.fit === 'contain' ? 'object-contain p-8' : 'object-cover'} transition-transform duration-700 group-hover:scale-[1.03]`}
+                        style={{ objectPosition: project.position }}
                       />
                     )}
+                    <span
+                      aria-hidden
+                      className="absolute left-1/2 top-1/2 z-10 grid size-14 -translate-x-1/2 -translate-y-1/2 rotate-[-24deg] place-items-center bg-azure font-display text-xl font-black text-white opacity-0 transition-all duration-500 group-hover:rotate-0 group-hover:scale-110 group-hover:opacity-100"
+                    >
+                      X
+                    </span>
                     <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/75 to-transparent p-5 pt-24">
                       <div>
                         <p className="font-mono text-[8px] uppercase tracking-[0.18em] text-white/60">{project.tags}</p>
@@ -330,7 +394,7 @@ export default function EixoEditorialSite() {
         </div>
       </section>
 
-      <section id="metodo" className="scroll-mt-24 px-[var(--gutter)] py-[clamp(100px,14vw,190px)]">
+      <section id="metodo" className="scroll-mt-24 px-[var(--gutter)] py-[clamp(82px,11vw,148px)]">
         <div className="mx-auto max-w-[1420px]">
           <div className="grid gap-10 lg:grid-cols-[160px_1fr]">
             <SectionNumber number="04" />
@@ -340,7 +404,7 @@ export default function EixoEditorialSite() {
               </h2>
             </Reveal>
           </div>
-          <div className="mt-16 grid gap-px bg-ink/15 md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-12 grid gap-px bg-ink/15 md:grid-cols-2 xl:grid-cols-4">
             {methodSteps.map((step, index) => (
               <Reveal key={step.key} className="h-full" delay={index * 0.05}>
                 <article className="flex h-full min-h-[330px] flex-col bg-[#fffdfa] p-7 transition-colors duration-300 hover:bg-lavanda">
@@ -361,7 +425,7 @@ export default function EixoEditorialSite() {
         </div>
       </section>
 
-      <section className="border-t border-ink/10 px-[var(--gutter)] py-[clamp(90px,12vw,150px)]">
+      <section className="border-t border-ink/10 px-[var(--gutter)] py-[clamp(80px,10vw,132px)]">
         <div className="mx-auto max-w-[1420px]">
           <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
             <div>
@@ -374,7 +438,7 @@ export default function EixoEditorialSite() {
             </div>
             <p className="max-w-[320px] text-[14px] leading-relaxed text-ink/50">Seleção de marcas e sistemas visuais presentes no portfólio.</p>
           </div>
-          <div className="mt-14 grid grid-cols-2 border-l border-t border-ink/10 sm:grid-cols-4">
+          <div className="mt-11 grid grid-cols-2 border-l border-t border-ink/10 sm:grid-cols-4">
             {marks.map((mark) => (
               <div key={mark.src} className="relative aspect-square border-b border-r border-ink/10 bg-white p-5">
                 <Image src={mark.src} alt={mark.alt} fill sizes="25vw" className="object-contain p-8 grayscale transition-all duration-500 hover:grayscale-0" />
@@ -384,7 +448,7 @@ export default function EixoEditorialSite() {
         </div>
       </section>
 
-      <footer id="contato" className="scroll-mt-24 bg-ink px-[var(--gutter)] pb-8 pt-[clamp(100px,14vw,190px)] text-white">
+      <footer id="contato" className="scroll-mt-24 bg-ink px-[var(--gutter)] pb-8 pt-[clamp(88px,11vw,150px)] text-white">
         <div className="mx-auto max-w-[1420px]">
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-azure">Próximo projeto</p>
           <h2 className="mt-6 max-w-[1250px] font-display text-[clamp(54px,9.5vw,146px)] font-black uppercase leading-[0.8] tracking-[-0.075em]">
