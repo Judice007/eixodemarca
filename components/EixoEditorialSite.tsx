@@ -463,18 +463,22 @@ export default function EixoEditorialSite() {
                   Seu projeto, sempre no <span className="text-azure">eixo.</span>
                 </h2>
                 <p className="max-w-[330px] text-[15px] leading-relaxed text-ink/55">
-                  Role para explorar. O celular permanece no centro enquanto cada serviço assume um lado e muda o que acontece na tela.
+                  Role para explorar. Os serviços avançam pela esquerda enquanto o celular, à direita, troca de cena em cada etapa.
                 </p>
               </div>
             </Reveal>
           </div>
 
           <div className="relative mt-10 sm:mt-14">
-            <div className="sticky top-[78px] z-30 flex h-[500px] items-center justify-center lg:top-[92px] lg:h-[calc(100svh-110px)]">
-              <ServicePhone active={activeService} reduce={!!reduce} />
-              <div className="pointer-events-none absolute left-0 top-8 hidden items-center gap-3 font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-ink/40 lg:flex">
-                <span className="h-px w-10 bg-azure" />
-                Role para mudar o serviço
+            <div className="sticky top-[78px] z-30 grid h-[500px] place-items-center lg:top-[92px] lg:h-[calc(100svh-110px)] lg:grid-cols-[minmax(0,1fr)_minmax(320px,.72fr)] lg:place-items-stretch">
+              <div className="hidden items-start pt-8 lg:flex">
+                <div className="pointer-events-none flex items-center gap-3 font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-ink/40">
+                  <span className="h-px w-10 bg-azure" />
+                  Serviços
+                </div>
+              </div>
+              <div className="flex items-center justify-center lg:col-start-2">
+                <ServicePhone active={activeService} reduce={!!reduce} />
               </div>
               <div className="pointer-events-none absolute bottom-8 right-0 hidden text-right lg:block">
                 <p className="font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-ink/35">Serviço ativo</p>
@@ -492,14 +496,12 @@ export default function EixoEditorialSite() {
                 onFocus={() => setActiveService(index)}
                 onViewportEnter={() => setActiveService(index)}
                 viewport={{ amount: 0.55 }}
-                className="grid min-h-[58vh] items-end lg:min-h-[76vh] lg:grid-cols-[minmax(0,1fr)_310px_minmax(0,1fr)] lg:items-center lg:gap-12"
+                className="grid min-h-[58vh] items-end lg:min-h-[76vh] lg:grid-cols-[minmax(0,1fr)_minmax(320px,.72fr)] lg:items-center lg:gap-16"
               >
                 <motion.div
-                  className={`relative z-40 w-[84%] bg-white/95 p-6 shadow-[0_30px_80px_-42px_rgba(42,16,74,.52)] backdrop-blur sm:w-[70%] sm:p-8 lg:z-20 lg:w-full lg:max-w-[420px] ${
-                    index % 2 === 0 ? 'mr-auto lg:col-start-1' : 'ml-auto lg:col-start-3'
-                  }`}
+                  className="relative z-40 mr-auto w-[84%] bg-white/95 p-6 shadow-[0_30px_80px_-42px_rgba(42,16,74,.52)] backdrop-blur sm:w-[70%] sm:p-8 lg:col-start-1 lg:z-20 lg:w-full lg:max-w-[560px]"
                   style={{ clipPath: 'polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 26px 100%, 0 calc(100% - 26px))' }}
-                  initial={reduce ? false : { opacity: 0, x: index % 2 === 0 ? -50 : 50, y: 18 }}
+                  initial={reduce ? false : { opacity: 0, x: -50, y: 18 }}
                   whileInView={{ opacity: 1, x: 0, y: 0 }}
                   viewport={{ once: true, amount: 0.38 }}
                   transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
@@ -520,9 +522,7 @@ export default function EixoEditorialSite() {
                   </div>
                   <span
                     aria-hidden
-                    className={`absolute top-1/2 hidden h-px w-14 bg-azure/50 lg:block ${
-                      index % 2 === 0 ? 'left-full' : 'right-full'
-                    }`}
+                    className="absolute left-full top-1/2 hidden h-px w-14 bg-azure/50 lg:block"
                   />
                 </motion.div>
               </motion.article>
