@@ -15,8 +15,9 @@
   --color-bone: #fff8f2;
   --color-bone-2: #eadfff;
 
-  --font-display: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-instrument), Georgia, serif;
   --font-syncopate: var(--font-syncopate), sans-serif;
 }

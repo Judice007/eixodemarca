@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
-import { Schibsted_Grotesk, Inter, Instrument_Serif, Syncopate } from 'next/font/google'
+import { Inter, Instrument_Serif, Montserrat, Syncopate } from 'next/font/google'
 import './globals.css'
 
 const SITE_URL = 'https://eixodemarca.vercel.app'
 
-const schibsted = Schibsted_Grotesk({
+const montserrat = Montserrat({
   subsets: ['latin'],
-  variable: '--font-schibsted',
+  variable: '--font-montserrat',
   display: 'swap',
 })
 
@@ -72,7 +72,7 @@ const organizationJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${schibsted.variable} ${inter.variable} ${instrument.variable} ${syncopate.variable}`}>
+    <html lang="pt-BR" className={`${montserrat.variable} ${inter.variable} ${instrument.variable} ${syncopate.variable}`}>
       <body className="antialiased">
         <script
           type="application/ld+json"

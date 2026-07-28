@@ -1,8 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { contactInfo, mailtoUrl, methodSteps, services, whatsappUrl } from '@/lib/data'
 
 const mediaStrip = [
@@ -43,16 +43,6 @@ const projects = [
     position: 'center',
   },
   {
-    type: 'video' as const,
-    src: '/portfolio-media/video-estetica.mp4',
-    poster: '/portfolio-media/video-estetica-poster.jpg',
-    alt: 'Vídeo vertical de procedimento estético',
-    client: 'Conteúdo vertical',
-    tags: 'Captação · Edição de vídeo',
-    fit: 'cover' as const,
-    position: 'center',
-  },
-  {
     type: 'image' as const,
     src: '/portfolio-media/social-reset.webp',
     alt: 'Campanha sustentável para Reset Madeira Ecológica',
@@ -72,6 +62,86 @@ const projects = [
   },
 ]
 
+const portfolioVideos = [
+  {
+    src: '/portfolio-media/videos/video-pousada-01.mp4',
+    poster: '/portfolio-media/videos/poster-pousada-01.jpg',
+    title: 'Pousada da Praia',
+    tag: 'Turismo · Apresentação',
+  },
+  {
+    src: '/portfolio-media/videos/video-pousada-02.mp4',
+    poster: '/portfolio-media/videos/poster-pousada-02.jpg',
+    title: 'Pousada da Praia',
+    tag: 'Hospedagem · Lifestyle',
+  },
+  {
+    src: '/portfolio-media/videos/video-pousada-03.mp4',
+    poster: '/portfolio-media/videos/poster-pousada-03.jpg',
+    title: 'Pousada da Praia',
+    tag: 'Experiência · Destino',
+  },
+  {
+    src: '/portfolio-media/videos/video-portfolio-01.mp4',
+    poster: '/portfolio-media/videos/poster-procedimento-estetico.jpg',
+    title: 'Procedimento estético',
+    tag: 'Captação · Edição',
+  },
+  {
+    src: '/portfolio-media/videos/video-portfolio-02.mp4',
+    poster: '/portfolio-media/videos/poster-conteudo-fitness.jpg',
+    title: 'Conteúdo fitness',
+    tag: 'Ritmo · Edição',
+  },
+  {
+    src: '/portfolio-media/videos/video-portfolio-03.mp4',
+    poster: '/portfolio-media/videos/poster-movimenta-angra.jpg',
+    title: 'Movimenta Angra',
+    tag: 'Apresentação · Cobertura',
+  },
+] as const
+
+const serviceShowcaseMedia = [
+  {
+    type: 'video' as const,
+    src: '/portfolio-media/videos/video-portfolio-03.mp4',
+    poster: '/portfolio-media/videos/poster-movimenta-angra.jpg',
+    alt: 'Conteúdo social em vídeo para Movimenta Angra',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/design-ukimports.webp',
+    alt: 'Design de campanha para UK Imports',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/identidade-vista-bajeko.png',
+    alt: 'Identidade visual Vista Bajeko',
+  },
+  {
+    type: 'video' as const,
+    src: '/portfolio-media/videos/video-portfolio-01.mp4',
+    poster: '/portfolio-media/videos/poster-procedimento-estetico.jpg',
+    alt: 'Edição de vídeo vertical de procedimento estético',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/gestao-producao.webp',
+    alt: 'Organização e gestão de produção',
+  },
+  {
+    type: 'video' as const,
+    src: '/portfolio-media/videos/video-pousada-02.mp4',
+    poster: '/portfolio-media/videos/poster-pousada-02.jpg',
+    alt: 'Experiência digital da Pousada da Praia',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/trafego-itamang.webp',
+    alt: 'Campanha de tráfego para Itamang',
+  },
+] as const
+
 const marks = [
   { src: '/portfolio-media/marca-eixo.png', alt: 'Eixo de Marca' },
   { src: '/portfolio-media/identidade-vista-bajeko.png', alt: 'Vista Bajeko' },
@@ -81,16 +151,6 @@ const marks = [
   { src: '/portfolio-media/marca-luciane-judice.png', alt: 'Luciane Júdice' },
   { src: '/portfolio-media/marca-itamang.png', alt: 'Itamang' },
   { src: '/portfolio-media/marca-bm.png', alt: 'Big Mateus' },
-]
-
-const serviceImages = [
-  '/portfolio-media/social-acai.webp',
-  '/portfolio-media/design-ukimports.webp',
-  '/portfolio-media/identidade-vista-bajeko.png',
-  '/portfolio-media/video-estetica-poster.jpg',
-  '/portfolio-media/gestao-producao.webp',
-  '/portfolio-media/landing-pousada.webp',
-  '/portfolio-media/trafego-itamang.webp',
 ]
 
 function SectionNumber({ number }: { number: string }) {
@@ -125,9 +185,137 @@ function Reveal({
   )
 }
 
+function PortfolioVideoCard({ video, index }: { video: (typeof portfolioVideos)[number]; index: number }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const reduce = useReducedMotion()
+
+  useEffect(() => {
+    const element = videoRef.current
+    if (!element || reduce) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          void element.play().catch(() => undefined)
+        } else {
+          element.pause()
+        }
+      },
+      { threshold: 0.35 }
+    )
+
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [reduce])
+
+  return (
+    <Reveal delay={(index % 3) * 0.05}>
+      <article className="group">
+        <div className="relative aspect-[9/16] overflow-hidden bg-white/5">
+          <video
+            ref={videoRef}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster={video.poster}
+            controls
+            aria-label={`${video.title}: ${video.tag}`}
+          >
+            <source src={video.src} type="video/mp4" />
+          </video>
+          <span className="pointer-events-none absolute left-4 top-4 border border-white/30 bg-ink/70 px-3 py-1.5 font-sans text-[9px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur">
+            0{index + 1}
+          </span>
+        </div>
+        <div className="flex items-start justify-between gap-4 border-t border-white/15 py-4">
+          <div>
+            <p className="font-sans text-[9px] font-semibold uppercase tracking-[0.14em] text-white/45">{video.tag}</p>
+            <h3 className="mt-1.5 font-display text-[20px] font-bold leading-[1.15]">{video.title}</h3>
+          </div>
+          <span aria-hidden className="text-azure">×</span>
+        </div>
+      </article>
+    </Reveal>
+  )
+}
+
+function ServicePhone({ active, reduce }: { active: number; reduce: boolean }) {
+  const media = serviceShowcaseMedia[active]!
+  const service = services[active]!
+
+  return (
+    <motion.div
+      className="relative h-[430px] w-[216px] sm:h-[500px] sm:w-[250px]"
+      animate={reduce ? undefined : { rotate: active % 2 === 0 ? -1.5 : 1.5, y: active % 2 === 0 ? -5 : 5 }}
+      transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <div aria-hidden className="absolute left-1/2 top-1/2 -z-10 size-[330px] -translate-x-1/2 -translate-y-1/2 sm:size-[410px]">
+        <span className="absolute left-1/2 top-1/2 h-3 w-full -translate-x-1/2 -translate-y-1/2 rotate-45 bg-azure/16" />
+        <span className="absolute left-1/2 top-1/2 h-3 w-full -translate-x-1/2 -translate-y-1/2 -rotate-45 bg-azure/16" />
+        <span className="absolute inset-8 border border-dashed border-azure/30" />
+      </div>
+
+      <span className="absolute -right-1 top-24 h-16 w-1 bg-azure" />
+      <div className="relative h-full overflow-hidden rounded-[38px] border-[8px] border-ink bg-ink shadow-[0_44px_90px_-34px_rgba(42,16,74,.72)]">
+        <div className="absolute left-1/2 top-2 z-30 h-5 w-20 -translate-x-1/2 rounded-full bg-ink" />
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={`${active}-${media.src}`}
+            className="absolute inset-0 overflow-hidden bg-lavanda"
+            initial={reduce ? false : { opacity: 0, scale: 0.94, y: 18 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 1.03, y: -14 }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {media.type === 'video' ? (
+              <video
+                className="h-full w-full object-cover"
+                autoPlay={!reduce}
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster={media.poster}
+                aria-label={media.alt}
+              >
+                <source src={media.src} type="video/mp4" />
+              </video>
+            ) : (
+              <Image
+                src={media.src}
+                alt={media.alt}
+                fill
+                sizes="250px"
+                className={`${active === 2 ? 'object-contain p-5' : 'object-cover'}`}
+              />
+            )}
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink via-ink/78 to-transparent px-5 pb-6 pt-24 text-white">
+              <p className="font-sans text-[8px] font-bold uppercase tracking-[0.16em] text-azure">
+                Serviço 0{active + 1}
+              </p>
+              <p className="mt-2 font-display text-[22px] font-extrabold leading-[1.03]">{service.title}</p>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+        <div className="absolute inset-x-0 bottom-2 z-30 flex justify-center gap-1.5">
+          {services.map((item, index) => (
+            <span
+              key={item.title}
+              className={`h-1 transition-all duration-300 ${index === active ? 'w-6 bg-azure' : 'w-1 bg-white/45'}`}
+            />
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
 export default function EixoEditorialSite() {
   const reduce = useReducedMotion()
   const [scrolled, setScrolled] = useState(false)
+  const [activeService, setActiveService] = useState(0)
   const duplicatedMedia = [...mediaStrip, ...mediaStrip]
   const duplicatedServices = [...services, ...services]
 
@@ -265,54 +453,81 @@ export default function EixoEditorialSite() {
         </div>
       </section>
 
-      <section id="servicos" className="scroll-mt-24 border-t border-ink/10 px-[var(--gutter)] py-[clamp(78px,10vw,132px)]">
+      <section id="servicos" className="scroll-mt-24 border-t border-ink/10 bg-lavanda/35 px-[var(--gutter)] py-[clamp(78px,10vw,132px)]">
         <div className="mx-auto max-w-[1420px]">
           <div className="grid gap-10 lg:grid-cols-[160px_1fr]">
             <SectionNumber number="02" />
             <Reveal>
               <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
                 <h2 className="max-w-[900px] font-display text-[clamp(44px,7vw,102px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
-                  Tudo o que a marca precisa para <span className="text-azure">aparecer.</span>
+                  Seu projeto, sempre no <span className="text-azure">eixo.</span>
                 </h2>
                 <p className="max-w-[330px] text-[15px] leading-relaxed text-ink/55">
-                  Da ideia à entrega, cada frente se conecta à próxima para o trabalho ganhar consistência.
+                  Role para explorar. O celular permanece no centro enquanto cada serviço assume um lado e muda o que acontece na tela.
                 </p>
               </div>
             </Reveal>
           </div>
 
-          <div className="mt-12 border-t border-ink/15">
+          <div className="relative mt-10 sm:mt-14">
+            <div className="sticky top-[78px] z-30 flex h-[500px] items-center justify-center lg:top-[92px] lg:h-[calc(100svh-110px)]">
+              <ServicePhone active={activeService} reduce={!!reduce} />
+              <div className="pointer-events-none absolute left-0 top-8 hidden items-center gap-3 font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-ink/40 lg:flex">
+                <span className="h-px w-10 bg-azure" />
+                Role para mudar o serviço
+              </div>
+              <div className="pointer-events-none absolute bottom-8 right-0 hidden text-right lg:block">
+                <p className="font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-ink/35">Serviço ativo</p>
+                <p className="mt-2 font-display text-[18px] font-bold text-ink/60">
+                  0{activeService + 1} / 0{services.length}
+                </p>
+              </div>
+            </div>
+
+            <div className="relative z-20 -mt-28 pb-14 lg:-mt-[calc(100svh-110px)] lg:pb-[12vh]">
             {services.map((service, index) => (
               <motion.article
                 key={service.title}
-                className="group relative grid min-h-[132px] items-center gap-6 overflow-hidden border-b border-ink/15 py-6 transition-colors duration-500 hover:bg-lavanda/55 sm:grid-cols-[70px_1fr_1fr_170px]"
-                initial={reduce ? false : { opacity: 0, y: 26 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.55, delay: index * 0.025 }}
+                tabIndex={0}
+                onFocus={() => setActiveService(index)}
+                onViewportEnter={() => setActiveService(index)}
+                viewport={{ amount: 0.55 }}
+                className="grid min-h-[58vh] items-end lg:min-h-[76vh] lg:grid-cols-[minmax(0,1fr)_310px_minmax(0,1fr)] lg:items-center lg:gap-12"
               >
-                <span className="font-mono text-[11px] text-azure">0{index + 1}</span>
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute right-[190px] top-1/2 hidden size-9 -translate-y-1/2 place-items-center font-display text-[26px] font-black text-azure opacity-0 transition-all duration-500 group-hover:rotate-90 group-hover:opacity-100 xl:grid"
+                <motion.div
+                  className={`relative z-40 w-[84%] bg-white/95 p-6 shadow-[0_30px_80px_-42px_rgba(42,16,74,.52)] backdrop-blur sm:w-[70%] sm:p-8 lg:z-20 lg:w-full lg:max-w-[420px] ${
+                    index % 2 === 0 ? 'mr-auto lg:col-start-1' : 'ml-auto lg:col-start-3'
+                  }`}
+                  style={{ clipPath: 'polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 26px 100%, 0 calc(100% - 26px))' }}
+                  initial={reduce ? false : { opacity: 0, x: index % 2 === 0 ? -50 : 50, y: 18 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true, amount: 0.38 }}
+                  transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  ×
-                </span>
-                <h3 className="font-display text-[clamp(30px,4vw,58px)] font-black leading-[1.05] tracking-[-0.025em] transition-transform duration-500 group-hover:translate-x-3">
-                  {service.title}
-                </h3>
-                <p className="max-w-[48ch] text-[13px] leading-relaxed text-ink/55 sm:text-[14px]">{service.text}</p>
-                <div className="relative hidden h-[96px] overflow-hidden bg-lavanda sm:block">
-                  <Image
-                    src={serviceImages[index]!}
-                    alt=""
-                    fill
-                    sizes="170px"
-                    className="object-cover grayscale transition-all duration-500 group-hover:scale-110 group-hover:grayscale-0"
+                  <div className="flex items-center justify-between border-b border-ink/10 pb-4">
+                    <span className="font-sans text-[10px] font-bold tracking-[0.18em] text-azure">0{index + 1}</span>
+                    <span className="font-sans text-[8px] font-semibold uppercase tracking-[0.15em] text-ink/35">
+                      Eixo em movimento
+                    </span>
+                  </div>
+                  <h3 className="mt-6 font-display text-[clamp(31px,4vw,58px)] font-black leading-[1.02] tracking-[-0.025em]">
+                    {service.title}
+                  </h3>
+                  <p className="mt-5 max-w-[42ch] text-[13px] leading-[1.7] text-ink/60 sm:text-[14px]">{service.text}</p>
+                  <div className="mt-6 flex items-center gap-3 font-sans text-[9px] font-bold uppercase tracking-[0.14em] text-azure">
+                    <span className="grid size-7 place-items-center border border-azure/45">×</span>
+                    Dentro da tela
+                  </div>
+                  <span
+                    aria-hidden
+                    className={`absolute top-1/2 hidden h-px w-14 bg-azure/50 lg:block ${
+                      index % 2 === 0 ? 'left-full' : 'right-full'
+                    }`}
                   />
-                </div>
+                </motion.div>
               </motion.article>
             ))}
+            </div>
           </div>
         </div>
       </section>
@@ -339,29 +554,14 @@ export default function EixoEditorialSite() {
               <Reveal key={`${project.client}-${index}`} delay={(index % 3) * 0.06}>
                 <article className="group">
                   <div className="relative aspect-[4/5] overflow-hidden bg-white/5">
-                    {project.type === 'video' ? (
-                      <video
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                        autoPlay={!reduce}
-                        muted
-                        loop
-                        playsInline
-                        preload="metadata"
-                        poster={project.poster}
-                        aria-label={project.alt}
-                      >
-                        <source src={project.src} type="video/mp4" />
-                      </video>
-                    ) : (
-                      <Image
-                        src={project.src}
-                        alt={project.alt}
-                        fill
-                        sizes="(min-width: 1280px) 32vw, (min-width: 768px) 50vw, 100vw"
-                        className={`${project.fit === 'contain' ? 'object-contain p-8' : 'object-cover'} transition-transform duration-700 group-hover:scale-[1.03]`}
-                        style={{ objectPosition: project.position }}
-                      />
-                    )}
+                    <Image
+                      src={project.src}
+                      alt={project.alt}
+                      fill
+                      sizes="(min-width: 1280px) 32vw, (min-width: 768px) 50vw, 100vw"
+                      className={`${project.fit === 'contain' ? 'object-contain p-8' : 'object-cover'} transition-transform duration-700 group-hover:scale-[1.03]`}
+                      style={{ objectPosition: project.position }}
+                    />
                     <span
                       aria-hidden
                       className="absolute left-1/2 top-1/2 z-10 grid size-14 -translate-x-1/2 -translate-y-1/2 rotate-[-24deg] place-items-center bg-azure font-display text-xl font-black text-white opacity-0 transition-all duration-500 group-hover:rotate-0 group-hover:scale-110 group-hover:opacity-100"
@@ -379,6 +579,28 @@ export default function EixoEditorialSite() {
                 </article>
               </Reveal>
             ))}
+          </div>
+
+          <div className="mt-[clamp(76px,9vw,126px)] border-t border-white/15 pt-10">
+            <Reveal>
+              <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+                <div>
+                  <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-azure">Portfólio em movimento</p>
+                  <h3 className="mt-4 max-w-[820px] font-display text-[clamp(38px,5.8vw,78px)] font-black uppercase leading-[1] tracking-[-0.035em]">
+                    Histórias que também ganham <span className="text-azure">ritmo.</span>
+                  </h3>
+                </div>
+                <p className="max-w-[300px] text-[14px] leading-relaxed text-white/55">
+                  Os seis vídeos do portfólio reunidos em uma seleção de conteúdo vertical, turismo, apresentação e cobertura.
+                </p>
+              </div>
+            </Reveal>
+
+            <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-10">
+              {portfolioVideos.map((video, index) => (
+                <PortfolioVideoCard key={video.src} video={video} index={index} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
