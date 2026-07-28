@@ -288,22 +288,26 @@ function VideoPortfolioRail() {
 }
 
 function ServiceSceneOverlay({ active }: { active: number }) {
-  const common = 'absolute z-20 border border-white/35 bg-white/88 text-ink shadow-[0_12px_35px_-18px_rgba(24,5,37,.75)] backdrop-blur-md'
+  const common = 'absolute z-20 border border-white/35 bg-white/82 shadow-[0_12px_35px_-18px_rgba(24,5,37,.75)] backdrop-blur-md'
 
   if (active === 0) {
     return (
       <>
-        <div className={`${common} right-3 top-14 w-[118px] p-3`}>
-          <p className="font-sans text-[7px] font-bold uppercase tracking-[0.14em] text-azure">Calendário</p>
-          <div className="mt-2 grid grid-cols-5 gap-1">
-            {Array.from({ length: 15 }, (_, index) => (
+        <div className={`${common} right-3 top-16 w-[118px] p-3`}>
+          <div className="mb-2 flex items-center justify-between">
+            <span className="h-1.5 w-8 bg-ink/20" />
+            <span className="size-2 bg-azure" />
+          </div>
+          <div className="grid grid-cols-5 gap-1">
+            {Array.from({ length: 20 }, (_, index) => (
               <span key={index} className={`aspect-square ${[2, 6, 9, 13].includes(index) ? 'bg-azure' : 'bg-ink/10'}`} />
             ))}
           </div>
         </div>
-        <div className={`${common} bottom-[112px] left-3 px-3 py-2`}>
-          <span className="font-sans text-[8px] font-bold">12 conteúdos</span>
-          <span className="ml-2 text-[8px] text-azure">●</span>
+        <div className={`${common} bottom-16 left-3 flex items-center gap-1.5 px-3 py-2.5`}>
+          <span className="h-1.5 w-9 bg-ink/18" />
+          <span className="h-1.5 w-5 bg-ink/12" />
+          <span className="size-2 bg-azure" />
         </div>
       </>
     )
@@ -313,11 +317,10 @@ function ServiceSceneOverlay({ active }: { active: number }) {
     return (
       <>
         <div className={`${common} left-3 top-16 p-3`}>
-          <p className="font-sans text-[7px] font-bold uppercase tracking-[0.14em]">Sistema visual</p>
-          <div className="mt-2 flex gap-1.5">
-            <span className="size-5 bg-ink" />
-            <span className="size-5 bg-azure" />
-            <span className="size-5 bg-[#e8deff]" />
+          <div className="grid grid-cols-3 gap-1.5">
+            <span className="size-7 bg-ink" />
+            <span className="size-7 bg-azure" />
+            <span className="size-7 bg-[#e8deff]" />
           </div>
         </div>
         <span className="absolute inset-x-5 top-[48%] z-20 h-px bg-white/65" />
@@ -329,14 +332,10 @@ function ServiceSceneOverlay({ active }: { active: number }) {
   if (active === 2) {
     return (
       <>
-        <div className={`${common} inset-x-4 top-16 flex items-center justify-between p-3`}>
-          <div>
-            <p className="font-sans text-[7px] font-bold uppercase tracking-[0.14em] text-azure">Identidade</p>
-            <p className="mt-1 font-display text-[13px] font-black">Sistema 01</p>
-          </div>
-          <span className="grid size-9 place-items-center bg-ink font-display text-[13px] font-black text-white">X</span>
+        <div className={`${common} left-4 top-16 grid size-20 place-items-center`}>
+          <span className="font-display text-[36px] font-black leading-none text-ink">X</span>
         </div>
-        <div className="absolute bottom-[118px] left-5 z-20 flex gap-1.5">
+        <div className="absolute bottom-16 left-5 z-20 flex gap-1.5">
           <span className="h-2 w-10 bg-ink" />
           <span className="h-2 w-6 bg-azure" />
           <span className="h-2 w-4 bg-white" />
@@ -347,15 +346,17 @@ function ServiceSceneOverlay({ active }: { active: number }) {
 
   if (active === 3) {
     return (
-      <div className={`${common} inset-x-3 bottom-[108px] p-3`}>
+      <div className={`${common} inset-x-3 bottom-16 p-3`}>
         <div className="flex items-end gap-1">
           {[7, 13, 9, 18, 12, 20, 14, 8, 16, 11, 19, 10].map((height, index) => (
             <span key={index} className={`w-full ${index < 7 ? 'bg-azure' : 'bg-ink/20'}`} style={{ height }} />
           ))}
         </div>
-        <div className="mt-2 flex items-center justify-between font-sans text-[7px] font-bold">
-          <span>00:08</span>
-          <span className="text-azure">EDIÇÃO ATIVA</span>
+        <div className="mt-2 flex items-center gap-2">
+          <span className="grid size-5 place-items-center rounded-full bg-ink text-[7px] text-white">▶</span>
+          <span className="h-1 flex-1 bg-ink/12">
+            <span className="block h-full w-3/5 bg-azure" />
+          </span>
         </div>
       </div>
     )
@@ -364,14 +365,11 @@ function ServiceSceneOverlay({ active }: { active: number }) {
   if (active === 4) {
     return (
       <div className="absolute inset-x-3 top-14 z-20 grid gap-2">
-        {[
-          ['Briefing aprovado', 'Feito'],
-          ['Produção em andamento', 'Agora'],
-          ['Revisão final', 'Próximo'],
-        ].map(([label, status], index) => (
-          <div key={label} className={`${common} relative flex items-center justify-between p-3`}>
-            <span className="font-sans text-[8px] font-bold">{label}</span>
-            <span className={`font-sans text-[7px] font-bold uppercase ${index === 1 ? 'text-azure' : 'text-ink/40'}`}>{status}</span>
+        {[72, 88, 60].map((width, index) => (
+          <div key={width} className={`${common} relative flex items-center gap-3 p-3`}>
+            <span className={`size-3 ${index === 1 ? 'bg-azure' : 'bg-ink/18'}`} />
+            <span className="h-1.5 bg-ink/16" style={{ width: `${width}%` }} />
+            <span className={`ml-auto size-1.5 ${index === 1 ? 'bg-azure' : 'bg-ink/20'}`} />
           </div>
         ))}
       </div>
@@ -387,9 +385,12 @@ function ServiceSceneOverlay({ active }: { active: number }) {
           <span className="size-1.5 bg-ink/20" />
         </div>
         <div className="p-4">
-          <p className="font-sans text-[7px] font-bold uppercase tracking-[0.14em] text-azure">Landing page</p>
-          <p className="mt-2 font-display text-[15px] font-black leading-tight">Oferta clara.<br />Próximo passo.</p>
-          <span className="mt-3 inline-flex bg-ink px-3 py-2 font-sans text-[7px] font-bold text-white">CONVERTER →</span>
+          <span className="block h-2 w-10 bg-azure" />
+          <span className="mt-3 block h-3 w-4/5 bg-ink" />
+          <span className="mt-1.5 block h-3 w-3/5 bg-ink" />
+          <span className="mt-3 block h-1.5 w-full bg-ink/12" />
+          <span className="mt-1.5 block h-1.5 w-4/5 bg-ink/12" />
+          <span className="mt-4 block h-7 w-20 bg-ink" />
         </div>
       </div>
     )
@@ -398,26 +399,25 @@ function ServiceSceneOverlay({ active }: { active: number }) {
   return (
     <>
       <div className={`${common} inset-x-3 top-14 p-3`}>
-        <div className="flex items-end justify-between">
-          <div>
-            <p className="font-sans text-[7px] font-bold uppercase tracking-[0.14em] text-azure">Campanha ativa</p>
-            <p className="mt-1 font-display text-[22px] font-black">+38%</p>
-          </div>
-          <div className="flex h-12 items-end gap-1">
-            {[18, 26, 22, 35, 30, 44].map((height, index) => (
-              <span key={index} className={`w-3 ${index === 5 ? 'bg-azure' : 'bg-ink/15'}`} style={{ height }} />
-            ))}
-          </div>
+        <div className="mb-3 flex items-center justify-between">
+          <span className="h-1.5 w-12 bg-ink/18" />
+          <span className="size-2 bg-azure" />
+        </div>
+        <div className="flex h-14 items-end gap-1.5">
+          {[18, 26, 22, 35, 30, 44].map((height, index) => (
+            <span key={index} className={`w-full ${index === 5 ? 'bg-azure' : 'bg-ink/15'}`} style={{ height }} />
+          ))}
         </div>
       </div>
-      <div className={`${common} bottom-[112px] right-3 px-3 py-2 font-sans text-[8px] font-bold`}>Público certo ✓</div>
+      <div className={`${common} bottom-16 right-3 grid size-9 place-items-center`}>
+        <span className="size-3 rotate-45 border-b-2 border-r-2 border-azure" />
+      </div>
     </>
   )
 }
 
 function ServicePhone({ active, reduce }: { active: number; reduce: boolean }) {
   const media = serviceShowcaseMedia[active]!
-  const service = services[active]!
 
   return (
     <motion.div
@@ -466,12 +466,11 @@ function ServicePhone({ active, reduce }: { active: number; reduce: boolean }) {
               />
             )}
             <ServiceSceneOverlay active={active} />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink via-ink/78 to-transparent px-5 pb-6 pt-24 text-white">
-              <p className="font-sans text-[8px] font-bold uppercase tracking-[0.16em] text-azure">
-                Serviço 0{active + 1}
-              </p>
-              <p className="mt-2 font-display text-[22px] font-extrabold leading-[1.03]">{service.title}</p>
+            <div className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-ink/65 to-transparent px-5 pb-10 pt-9">
+              <span className="h-1.5 w-7 bg-white/70" />
+              <span className="font-sans text-[7px] font-bold tracking-[0.14em] text-white/80">0{active + 1}/0{services.length}</span>
             </div>
+            <div aria-hidden className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-ink/65 to-transparent" />
           </motion.div>
         </AnimatePresence>
         <div className="absolute inset-x-0 bottom-2 z-30 flex justify-center gap-1.5">
