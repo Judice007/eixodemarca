@@ -114,6 +114,35 @@ body { background: var(--color-bone); color: var(--color-ink); font-family: var(
   #hero, #reel, #manifesto, #work, #equipe, #contato { scroll-margin-top: 72px; }
 }
 
+@keyframes eixo-media-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - 8px)); }
+}
+
+@keyframes eixo-service-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.eixo-media-marquee {
+  animation: eixo-media-marquee 32s linear infinite;
+}
+
+.eixo-media-marquee:hover {
+  animation-play-state: paused;
+}
+
+.eixo-service-marquee {
+  animation: eixo-service-marquee 34s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eixo-media-marquee,
+  .eixo-service-marquee {
+    animation: none;
+  }
+}
+
 /* Esconde a scrollbar nativa do documento — o ScrollSmoother dirige o scroll e o
    ScrollRail é o indicador visual. Alveja só html/body, então scrollers internos
    (com overflow próprio) mantêm a barra deles. */
