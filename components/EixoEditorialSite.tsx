@@ -23,6 +23,7 @@ const projects = [
     tags: 'Campanha · Design',
     fit: 'cover' as const,
     position: 'center 45%',
+    wide: false,
   },
   {
     type: 'image' as const,
@@ -32,6 +33,7 @@ const projects = [
     tags: 'Social media · Conteúdo',
     fit: 'cover' as const,
     position: 'center 42%',
+    wide: false,
   },
   {
     type: 'image' as const,
@@ -41,6 +43,7 @@ const projects = [
     tags: 'Marca · Identidade visual',
     fit: 'contain' as const,
     position: 'center',
+    wide: false,
   },
   {
     type: 'image' as const,
@@ -50,6 +53,7 @@ const projects = [
     tags: 'Estratégia · Social media',
     fit: 'cover' as const,
     position: 'center 50%',
+    wide: true,
   },
   {
     type: 'image' as const,
@@ -59,6 +63,7 @@ const projects = [
     tags: 'Posicionamento · Design',
     fit: 'cover' as const,
     position: 'center 50%',
+    wide: false,
   },
 ]
 
@@ -107,50 +112,71 @@ const serviceShowcaseMedia = [
     src: '/portfolio-media/videos/video-portfolio-03.mp4',
     poster: '/portfolio-media/videos/poster-movimenta-angra.jpg',
     alt: 'Conteúdo social em vídeo para Movimenta Angra',
+    fit: 'cover' as const,
+    position: 'center 45%',
+    padded: false,
   },
   {
     type: 'image' as const,
     src: '/portfolio-media/design-ukimports.webp',
     alt: 'Design de campanha para UK Imports',
+    fit: 'cover' as const,
+    position: 'center 46%',
+    padded: false,
   },
   {
     type: 'image' as const,
     src: '/portfolio-media/identidade-vista-bajeko.png',
     alt: 'Identidade visual Vista Bajeko',
+    fit: 'contain' as const,
+    position: 'center',
+    padded: true,
   },
   {
     type: 'video' as const,
     src: '/portfolio-media/videos/video-portfolio-01.mp4',
     poster: '/portfolio-media/videos/poster-procedimento-estetico.jpg',
     alt: 'Edição de vídeo vertical de procedimento estético',
+    fit: 'cover' as const,
+    position: 'center',
+    padded: false,
   },
   {
     type: 'image' as const,
     src: '/portfolio-media/gestao-producao.webp',
     alt: 'Organização e gestão de produção',
+    fit: 'cover' as const,
+    position: '58% center',
+    padded: false,
   },
   {
     type: 'video' as const,
     src: '/portfolio-media/videos/video-pousada-02.mp4',
     poster: '/portfolio-media/videos/poster-pousada-02.jpg',
     alt: 'Experiência digital da Pousada da Praia',
+    fit: 'cover' as const,
+    position: 'center',
+    padded: false,
   },
   {
     type: 'image' as const,
     src: '/portfolio-media/trafego-itamang.webp',
     alt: 'Campanha de tráfego para Itamang',
+    fit: 'contain' as const,
+    position: 'center',
+    padded: false,
   },
 ] as const
 
 const marks = [
-  { src: '/portfolio-media/marca-eixo.png', alt: 'Eixo de Marca' },
-  { src: '/portfolio-media/identidade-vista-bajeko.png', alt: 'Vista Bajeko' },
-  { src: '/portfolio-media/marca-espaco-dos-anjos.png', alt: 'Espaço dos Anjos' },
-  { src: '/portfolio-media/marca-laura-anjos.png', alt: 'Laura Anjos' },
-  { src: '/portfolio-media/marca-viva-angra.png', alt: 'Viva Angra' },
-  { src: '/portfolio-media/marca-luciane-judice.png', alt: 'Luciane Júdice' },
-  { src: '/portfolio-media/marca-itamang.png', alt: 'Itamang' },
-  { src: '/portfolio-media/marca-bm.png', alt: 'Big Mateus' },
+  { src: '/portfolio-media/marca-eixo.png', alt: 'Eixo de Marca', scale: 0.92 },
+  { src: '/portfolio-media/identidade-vista-bajeko.png', alt: 'Vista Bajeko', scale: 0.92 },
+  { src: '/portfolio-media/marca-espaco-dos-anjos.png', alt: 'Espaço dos Anjos', scale: 1.08 },
+  { src: '/portfolio-media/marca-laura-anjos.png', alt: 'Laura Anjos', scale: 1.28 },
+  { src: '/portfolio-media/marca-viva-angra.png', alt: 'Viva Angra', scale: 1.05 },
+  { src: '/portfolio-media/marca-luciane-judice.png', alt: 'Luciane Júdice', scale: 1.08 },
+  { src: '/portfolio-media/marca-itamang.png', alt: 'Itamang', scale: 1.02 },
+  { src: '/portfolio-media/marca-bm.png', alt: 'Big Mateus', scale: 1.02 },
 ]
 
 function SectionNumber({ number }: { number: string }) {
@@ -308,7 +334,7 @@ function ServicePhone({ active, reduce }: { active: number; reduce: boolean }) {
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={`${active}-${media.src}`}
-            className="absolute inset-0 overflow-hidden bg-lavanda"
+            className={`absolute inset-0 overflow-hidden ${media.fit === 'contain' ? 'bg-ink' : 'bg-lavanda'}`}
             initial={reduce ? false : { opacity: 0, scale: 0.94, y: 18 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 1.03, y: -14 }}
@@ -317,6 +343,7 @@ function ServicePhone({ active, reduce }: { active: number; reduce: boolean }) {
             {media.type === 'video' ? (
               <video
                 className="h-full w-full object-cover"
+                style={{ objectPosition: media.position }}
                 autoPlay={!reduce}
                 muted
                 loop
@@ -333,7 +360,8 @@ function ServicePhone({ active, reduce }: { active: number; reduce: boolean }) {
                 alt={media.alt}
                 fill
                 sizes="250px"
-                className={`${active === 2 ? 'object-contain p-5' : 'object-cover'}`}
+                className={`${media.fit === 'contain' ? 'object-contain' : 'object-cover'} ${media.padded ? 'p-5' : ''}`}
+                style={{ objectPosition: media.position }}
               />
             )}
           </motion.div>
@@ -348,6 +376,7 @@ export default function EixoEditorialSite() {
   const [scrolled, setScrolled] = useState(false)
   const [activeService, setActiveService] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const serviceRefs = useRef<Array<HTMLElement | null>>([])
   const duplicatedMedia = [...mediaStrip, ...mediaStrip]
   const duplicatedServices = [...services, ...services]
 
@@ -356,6 +385,45 @@ export default function EixoEditorialSite() {
     update()
     window.addEventListener('scroll', update, { passive: true })
     return () => window.removeEventListener('scroll', update)
+  }, [])
+
+  useEffect(() => {
+    let frame = 0
+
+    const updateActiveService = () => {
+      frame = 0
+      const focusLine = window.innerHeight * 0.48
+      let nextActive = 0
+      let closestDistance = Number.POSITIVE_INFINITY
+
+      serviceRefs.current.forEach((element, index) => {
+        if (!element) return
+        const rect = element.getBoundingClientRect()
+        const center = rect.top + rect.height / 2
+        const distance = Math.abs(center - focusLine)
+
+        if (distance < closestDistance) {
+          closestDistance = distance
+          nextActive = index
+        }
+      })
+
+      setActiveService((current) => (current === nextActive ? current : nextActive))
+    }
+
+    const requestUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateActiveService)
+    }
+
+    requestUpdate()
+    window.addEventListener('scroll', requestUpdate, { passive: true })
+    window.addEventListener('resize', requestUpdate)
+
+    return () => {
+      window.removeEventListener('scroll', requestUpdate)
+      window.removeEventListener('resize', requestUpdate)
+      if (frame) window.cancelAnimationFrame(frame)
+    }
   }, [])
 
   return (
@@ -471,7 +539,7 @@ export default function EixoEditorialSite() {
             Estratégia · criação · gestão
           </motion.p>
           <motion.h1
-            className="mx-auto max-w-[1250px] font-display text-[clamp(52px,9.2vw,142px)] font-black uppercase leading-[0.9] tracking-[-0.05em] max-sm:text-[44px] max-sm:leading-[0.96] max-sm:tracking-[-0.035em]"
+            className="mx-auto max-w-[1250px] font-display text-[clamp(52px,9.2vw,142px)] font-black uppercase leading-[0.9] tracking-[-0.05em] max-sm:text-[39px] max-sm:leading-[0.96] max-sm:tracking-[-0.03em] max-[360px]:text-[36px]"
             initial={reduce ? false : { opacity: 0, y: 45 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
@@ -519,7 +587,7 @@ export default function EixoEditorialSite() {
         </div>
       </section>
 
-      <section className="border-t border-ink/10 px-[var(--gutter)] py-[clamp(82px,11vw,146px)]">
+      <section className="border-t border-ink/10 px-[var(--gutter)] py-[clamp(72px,10vw,136px)]">
         <div className="mx-auto grid max-w-[1420px] gap-14 lg:grid-cols-[160px_1fr]">
           <SectionNumber number="01" />
           <div>
@@ -537,7 +605,7 @@ export default function EixoEditorialSite() {
         </div>
       </section>
 
-      <section id="servicos" className="scroll-mt-24 border-t border-ink/10 bg-lavanda/35 px-[var(--gutter)] py-[clamp(78px,10vw,132px)]">
+      <section id="servicos" className="scroll-mt-[108px] border-t border-ink/10 bg-lavanda/35 px-[var(--gutter)] py-[clamp(70px,9vw,124px)]">
         <div className="mx-auto max-w-[1420px]">
           <div className="grid gap-10 lg:grid-cols-[160px_1fr]">
             <SectionNumber number="02" />
@@ -558,12 +626,13 @@ export default function EixoEditorialSite() {
               {services.map((service, index) => (
                 <motion.article
                   key={service.title}
+                  ref={(element) => {
+                    serviceRefs.current[index] = element
+                  }}
                   tabIndex={0}
                   aria-current={activeService === index ? 'step' : undefined}
                   onFocus={() => setActiveService(index)}
-                  onViewportEnter={() => setActiveService(index)}
-                  viewport={{ amount: 0.45 }}
-                  className="flex items-center border-t border-ink/12 py-8 first:border-t-0 lg:min-h-[62vh] lg:py-12"
+                  className="flex items-center border-t border-ink/12 py-8 first:border-t-0 lg:min-h-[58vh] lg:py-12"
                 >
                   <motion.div
                     className={`relative w-full max-w-[590px] border-l-[3px] p-6 transition-[background-color,border-color,box-shadow] duration-500 sm:p-8 lg:p-10 ${
@@ -571,6 +640,11 @@ export default function EixoEditorialSite() {
                         ? 'border-azure bg-white/90 shadow-[0_30px_80px_-42px_rgba(42,16,74,.42)]'
                         : 'border-transparent bg-transparent'
                     }`}
+                    style={
+                      activeService === index
+                        ? { clipPath: 'polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px))' }
+                        : undefined
+                    }
                     initial={reduce ? false : { opacity: 0, x: -50, y: 18 }}
                     whileInView={{ opacity: 1, x: 0, y: 0 }}
                     viewport={{ once: true, amount: 0.38 }}
@@ -598,10 +672,11 @@ export default function EixoEditorialSite() {
                   </motion.div>
                 </motion.article>
               ))}
+              <div aria-hidden className="hidden h-[18vh] lg:block" />
             </div>
 
             <aside className="order-1 self-stretch lg:order-2">
-              <div className="relative flex h-[500px] items-center justify-center lg:sticky lg:top-[92px] lg:h-[calc(100svh-110px)]">
+              <div className="relative flex h-[440px] items-center justify-center sm:h-[500px] lg:sticky lg:top-[92px] lg:h-[calc(100svh-110px)]">
                 <ServicePhone active={activeService} reduce={!!reduce} />
                 <div aria-hidden className="absolute left-0 top-1/2 hidden -translate-y-1/2 flex-col gap-3 lg:flex">
                   {services.map((service, index) => (
@@ -629,7 +704,7 @@ export default function EixoEditorialSite() {
         </div>
       </section>
 
-      <section id="portfolio" className="scroll-mt-24 bg-ink px-[var(--gutter)] py-[clamp(82px,10vw,140px)] text-white">
+      <section id="portfolio" className="scroll-mt-[108px] bg-ink px-[var(--gutter)] py-[clamp(72px,9vw,132px)] text-white">
         <div className="mx-auto max-w-[1420px]">
           <div className="grid gap-10 lg:grid-cols-[160px_1fr]">
             <div className="flex items-center gap-3 self-start font-mono text-[11px] uppercase tracking-[0.18em] text-white/35">
@@ -648,15 +723,19 @@ export default function EixoEditorialSite() {
 
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {projects.map((project, index) => (
-              <Reveal key={`${project.client}-${index}`} delay={(index % 3) * 0.06}>
-                <article className="group">
-                  <div className="relative aspect-[4/5] overflow-hidden bg-white/5">
+              <Reveal
+                key={`${project.client}-${index}`}
+                className={`h-full ${project.wide ? 'xl:col-span-2' : ''}`}
+                delay={(index % 3) * 0.06}
+              >
+                <article className="group h-full">
+                  <div className={`relative overflow-hidden bg-white/5 ${project.wide ? 'aspect-[4/5] xl:aspect-[8/5]' : 'aspect-[4/5]'}`}>
                     <Image
                       src={project.src}
                       alt={project.alt}
                       fill
                       sizes="(min-width: 1280px) 32vw, (min-width: 768px) 50vw, 100vw"
-                      className={`${project.fit === 'contain' ? 'object-contain p-8' : 'object-cover'} transition-transform duration-700 group-hover:scale-[1.03]`}
+                      className={`${project.fit === 'contain' ? 'object-contain p-8' : 'object-cover'} transition-transform duration-700 group-hover:scale-[1.035]`}
                       style={{ objectPosition: project.position }}
                     />
                     <span
@@ -709,7 +788,7 @@ export default function EixoEditorialSite() {
         </div>
       </section>
 
-      <section id="metodo" className="scroll-mt-24 px-[var(--gutter)] py-[clamp(82px,11vw,148px)]">
+      <section id="metodo" className="scroll-mt-[108px] px-[var(--gutter)] py-[clamp(70px,9vw,136px)]">
         <div className="mx-auto max-w-[1420px]">
           <div className="grid gap-10 lg:grid-cols-[160px_1fr]">
             <SectionNumber number="04" />
@@ -722,7 +801,8 @@ export default function EixoEditorialSite() {
           <div className="mt-12 grid gap-px bg-ink/15 md:grid-cols-2 xl:grid-cols-4">
             {methodSteps.map((step, index) => (
               <Reveal key={step.key} className="h-full" delay={index * 0.05}>
-                <article className="flex h-full min-h-[330px] flex-col bg-[#fffdfa] p-7 transition-colors duration-300 hover:bg-lavanda">
+                <article className="group relative flex h-full min-h-[250px] flex-col overflow-hidden bg-[#fffdfa] p-6 transition-colors duration-500 hover:bg-lavanda sm:min-h-[290px] sm:p-7 xl:min-h-[330px]">
+                  <span aria-hidden className="absolute -right-12 -top-12 size-24 rotate-45 border border-azure/0 transition-all duration-500 group-hover:border-azure/40 group-hover:bg-azure/5" />
                   <span className="font-mono text-[10px] text-azure">0{index + 1}</span>
                   <h3 className="mt-auto font-display text-[30px] font-black leading-[1.08] tracking-[-0.02em]">{step.label}</h3>
                   <p className="mt-4 text-[13px] leading-relaxed text-ink/55">{step.description}</p>
@@ -733,6 +813,7 @@ export default function EixoEditorialSite() {
                       </li>
                     ))}
                   </ul>
+                  <span aria-hidden className="absolute bottom-0 left-0 h-1 w-0 bg-azure transition-all duration-500 group-hover:w-full" />
                 </article>
               </Reveal>
             ))}
@@ -740,7 +821,7 @@ export default function EixoEditorialSite() {
         </div>
       </section>
 
-      <section className="border-t border-ink/10 px-[var(--gutter)] py-[clamp(80px,10vw,132px)]">
+      <section className="border-t border-ink/10 px-[var(--gutter)] py-[clamp(70px,9vw,124px)]">
         <div className="mx-auto max-w-[1420px]">
           <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
             <div>
@@ -753,17 +834,33 @@ export default function EixoEditorialSite() {
             </div>
             <p className="max-w-[320px] text-[14px] leading-relaxed text-ink/50">Seleção de marcas e sistemas visuais presentes no portfólio.</p>
           </div>
-          <div className="mt-11 grid grid-cols-2 border-l border-t border-ink/10 sm:grid-cols-4">
+          <div className="mt-10 grid grid-cols-2 border-l border-t border-ink/10 sm:mt-11 sm:grid-cols-4">
             {marks.map((mark) => (
-              <div key={mark.src} className="relative aspect-square border-b border-r border-ink/10 bg-white p-5">
-                <Image src={mark.src} alt={mark.alt} fill sizes="25vw" className="object-contain p-8 grayscale transition-all duration-500 hover:grayscale-0" />
+              <div
+                key={mark.src}
+                className="group relative flex aspect-[4/3] items-center justify-center overflow-hidden border-b border-r border-ink/10 bg-white transition-colors duration-500 hover:bg-lavanda/55"
+              >
+                <div className="relative h-[58%] w-[70%] transition-transform duration-500 group-hover:-translate-y-1">
+                  <Image
+                    src={mark.src}
+                    alt={mark.alt}
+                    fill
+                    sizes="25vw"
+                    className="object-contain"
+                    style={{ transform: `scale(${mark.scale})` }}
+                  />
+                </div>
+                <span className="absolute bottom-3 left-4 font-mono text-[8px] uppercase tracking-[0.15em] text-ink/35 transition-colors group-hover:text-azure sm:bottom-4 sm:left-5">
+                  {mark.alt}
+                </span>
+                <span aria-hidden className="absolute -right-7 -top-7 size-14 rotate-45 border border-azure/0 transition-all duration-500 group-hover:border-azure/45 group-hover:bg-azure/5" />
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <footer id="contato" className="scroll-mt-24 bg-ink px-[var(--gutter)] pb-8 pt-[clamp(88px,11vw,150px)] text-white">
+      <footer id="contato" className="scroll-mt-[108px] bg-ink px-[var(--gutter)] pb-8 pt-[clamp(82px,10vw,142px)] text-white">
         <div className="mx-auto max-w-[1420px]">
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-azure">Próximo projeto</p>
           <h2 className="mt-6 max-w-[1250px] font-display text-[clamp(54px,9.5vw,146px)] font-black uppercase leading-[0.9] tracking-[-0.05em] max-sm:leading-[0.96] max-sm:tracking-[-0.035em]">

@@ -51,7 +51,11 @@ body.cursor-ready * { cursor: none !important; }
    LUSION REDESIGN — one world, one scroll
    ========================================================= */
 :root { --maxw: 1280px; --gutter: 40px; --edge: max(var(--gutter), calc((100vw - var(--maxw)) / 2 + var(--gutter))); }
-html { -webkit-font-smoothing: antialiased; }
+html {
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+  scroll-padding-top: 108px;
+}
 body { background: var(--color-bone); color: var(--color-ink); font-family: var(--font-sans); overflow-x: hidden; }
 ::selection { background: var(--color-azure); color: #fff; }
 
@@ -112,6 +116,7 @@ body { background: var(--color-bone); color: var(--color-ink); font-family: var(
 
 /* Aterrissagem do bottom nav: deixa o título abaixo do SiteNav no scroll nativo (reduced-motion) */
 @media (max-width: 1023px) {
+  html { scroll-padding-top: 80px; }
   #hero, #reel, #manifesto, #work, #equipe, #contato { scroll-margin-top: 72px; }
 }
 
@@ -138,6 +143,10 @@ body { background: var(--color-bone); color: var(--color-ink); font-family: var(
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .eixo-media-marquee,
   .eixo-service-marquee {
     animation: none;
