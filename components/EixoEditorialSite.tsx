@@ -631,16 +631,18 @@ export default function EixoEditorialSite() {
             </Reveal>
           </div>
 
-          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {projects.map((project, index) => (
-              <Reveal key={`${project.client}-${index}`} delay={(index % 3) * 0.06}>
+          <div className="mt-12 grid gap-5 md:grid-cols-2">
+            {projects.map((project, index) => {
+              const isLast = index === projects.length - 1
+              return (
+              <Reveal key={`${project.client}-${index}`} className={isLast ? 'md:col-span-2' : undefined} delay={(index % 3) * 0.06}>
                 <article className="group">
-                  <div className="relative aspect-[4/5] overflow-hidden bg-white/5">
+                  <div className={`relative overflow-hidden bg-white/5 ${isLast ? 'aspect-[16/9] md:aspect-[21/9]' : 'aspect-[4/5]'}`}>
                     <Image
                       src={project.src}
                       alt={project.alt}
                       fill
-                      sizes="(min-width: 1280px) 32vw, (min-width: 768px) 50vw, 100vw"
+                      sizes={isLast ? '100vw' : '(min-width: 768px) 50vw, 100vw'}
                       className={`${project.fit === 'contain' ? 'object-contain p-8' : 'object-cover'} transition-transform duration-700 group-hover:scale-[1.03]`}
                       style={{ objectPosition: project.position }}
                     />
@@ -660,7 +662,8 @@ export default function EixoEditorialSite() {
                   </div>
                 </article>
               </Reveal>
-            ))}
+              )
+            })}
           </div>
 
           <div className="mt-[clamp(76px,9vw,126px)] border-t border-white/15 pt-10">
