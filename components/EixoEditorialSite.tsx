@@ -209,7 +209,7 @@ function PortfolioVideoCard({ video, index }: { video: (typeof portfolioVideos)[
   }, [reduce])
 
   return (
-    <Reveal className="w-[72vw] max-w-[310px] shrink-0 snap-start sm:w-[290px] lg:w-[320px]" delay={(index % 3) * 0.05}>
+    <Reveal delay={(index % 3) * 0.05}>
       <article className="group">
         <div className="relative aspect-[9/16] overflow-hidden bg-white/5">
           <video
@@ -241,48 +241,12 @@ function PortfolioVideoCard({ video, index }: { video: (typeof portfolioVideos)[
   )
 }
 
-function VideoPortfolioRail() {
-  const railRef = useRef<HTMLDivElement>(null)
-
-  const move = (direction: -1 | 1) => {
-    const rail = railRef.current
-    if (!rail) return
-    rail.scrollBy({ left: direction * Math.min(360, rail.clientWidth * 0.78), behavior: 'smooth' })
-  }
-
+function VideoPortfolioGrid() {
   return (
-    <div className="mt-10">
-      <div className="mb-5 flex items-center justify-between">
-        <p className="font-sans text-[9px] font-semibold uppercase tracking-[0.16em] text-white/60">
-          Arraste ou use as setas
-        </p>
-        <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={() => move(-1)}
-            aria-label="Ver vídeos anteriores"
-            className="grid size-11 place-items-center border border-white/20 text-lg text-white transition-colors hover:border-azure hover:bg-azure"
-          >
-            ←
-          </button>
-          <button
-            type="button"
-            onClick={() => move(1)}
-            aria-label="Ver próximos vídeos"
-            className="grid size-11 place-items-center border border-white/20 text-lg text-white transition-colors hover:border-azure hover:bg-azure"
-          >
-            →
-          </button>
-        </div>
-      </div>
-      <div
-        ref={railRef}
-        className="-mx-[var(--gutter)] flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--gutter)] pb-5 sm:gap-5"
-      >
-        {portfolioVideos.map((video, index) => (
-          <PortfolioVideoCard key={video.src} video={video} index={index} />
-        ))}
-      </div>
+    <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5">
+      {portfolioVideos.map((video, index) => (
+        <PortfolioVideoCard key={video.src} video={video} index={index} />
+      ))}
     </div>
   )
 }
@@ -714,7 +678,7 @@ export default function EixoEditorialSite() {
               </div>
             </Reveal>
 
-            <VideoPortfolioRail />
+            <VideoPortfolioGrid />
           </div>
         </div>
       </section>
