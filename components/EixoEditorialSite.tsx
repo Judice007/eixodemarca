@@ -10,8 +10,8 @@ const mediaStrip = [
   { src: '/portfolio-media/design-ukimports.webp', alt: 'Campanha para UK Imports', position: 'center 48%' },
   { src: '/portfolio-media/social-reset.webp', alt: 'Conteúdo para Reset Madeira Ecológica', position: 'center 52%' },
   { src: '/portfolio-media/landing-pousada.webp', alt: 'Conteúdo para Pousada da Praia', position: 'center 46%' },
-  { src: '/portfolio-media/portfolio-eixo.png', alt: 'Campanha da Eixo de Marca', position: 'center 50%' },
-  { src: '/portfolio-media/portfolio-cuidados-pele.png', alt: 'Conteúdo de beleza e estética', position: 'center 44%' },
+  { src: '/portfolio-media/portfolio-eixo.webp', alt: 'Campanha da Eixo de Marca', position: 'center 50%' },
+  { src: '/portfolio-media/portfolio-cuidados-pele.webp', alt: 'Conteúdo de beleza e estética', position: 'center 44%' },
 ]
 
 const projects = [
@@ -35,7 +35,7 @@ const projects = [
   },
   {
     type: 'image' as const,
-    src: '/portfolio-media/identidade-vista-bajeko.png',
+    src: '/portfolio-media/identidade-vista-bajeko.webp',
     alt: 'Identidade visual Vista Bajeko',
     client: 'Vista Bajeko',
     tags: 'Marca · Identidade visual',
@@ -53,7 +53,7 @@ const projects = [
   },
   {
     type: 'image' as const,
-    src: '/portfolio-media/portfolio-eixo.png',
+    src: '/portfolio-media/portfolio-eixo.webp',
     alt: 'Peça da Eixo de Marca sobre direção de conteúdo',
     client: 'Eixo de Marca',
     tags: 'Posicionamento · Design',
@@ -115,7 +115,7 @@ const serviceShowcaseMedia = [
   },
   {
     type: 'image' as const,
-    src: '/portfolio-media/identidade-vista-bajeko.png',
+    src: '/portfolio-media/identidade-vista-bajeko.webp',
     alt: 'Identidade visual Vista Bajeko',
   },
   {
@@ -143,14 +143,14 @@ const serviceShowcaseMedia = [
 ] as const
 
 const marks = [
-  { src: '/portfolio-media/marca-eixo.png', alt: 'Eixo de Marca' },
-  { src: '/portfolio-media/identidade-vista-bajeko.png', alt: 'Vista Bajeko' },
-  { src: '/portfolio-media/marca-espaco-dos-anjos.png', alt: 'Espaço dos Anjos' },
-  { src: '/portfolio-media/marca-laura-anjos.png', alt: 'Laura Anjos' },
-  { src: '/portfolio-media/marca-viva-angra.png', alt: 'Viva Angra' },
-  { src: '/portfolio-media/marca-luciane-judice.png', alt: 'Luciane Júdice' },
-  { src: '/portfolio-media/marca-itamang.png', alt: 'Itamang' },
-  { src: '/portfolio-media/marca-bm.png', alt: 'Big Mateus' },
+  { src: '/portfolio-media/marca-eixo.webp', alt: 'Eixo de Marca' },
+  { src: '/portfolio-media/identidade-vista-bajeko.webp', alt: 'Vista Bajeko' },
+  { src: '/portfolio-media/marca-espaco-dos-anjos.webp', alt: 'Espaço dos Anjos' },
+  { src: '/portfolio-media/marca-laura-anjos.webp', alt: 'Laura Anjos' },
+  { src: '/portfolio-media/marca-viva-angra.webp', alt: 'Viva Angra' },
+  { src: '/portfolio-media/marca-luciane-judice.webp', alt: 'Luciane Júdice' },
+  { src: '/portfolio-media/marca-itamang.webp', alt: 'Itamang' },
+  { src: '/portfolio-media/marca-bm.webp', alt: 'Big Mateus' },
 ]
 
 function SectionNumber({ number }: { number: string }) {
@@ -287,6 +287,40 @@ function VideoPortfolioRail() {
   )
 }
 
+// Toca só quando o celular está realmente visível — sem isso, o vídeo do
+// serviço ativo (alguns têm mais de 10MB) baixava e tocava assim que a página
+// carregava, mesmo essa seção estando abaixo da dobra. Mesmo padrão já usado
+// em PortfolioVideoCard, só que aqui o elemento remonta a cada troca de
+// serviço (key muda no AnimatePresence), então o efeito roda de novo sozinho.
+function ServicePhoneVideo({ src, poster, alt, reduce }: { src: string; poster: string; alt: string; reduce: boolean }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const element = videoRef.current
+    if (!element || reduce) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          void element.play().catch(() => undefined)
+        } else {
+          element.pause()
+        }
+      },
+      { threshold: 0.3 }
+    )
+
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [reduce])
+
+  return (
+    <video ref={videoRef} className="h-full w-full object-cover" muted loop playsInline preload="metadata" poster={poster} aria-label={alt}>
+      <source src={src} type="video/mp4" />
+    </video>
+  )
+}
+
 function ServicePhone({ active, reduce }: { active: number; reduce: boolean }) {
   const media = serviceShowcaseMedia[active]!
 
@@ -315,18 +349,7 @@ function ServicePhone({ active, reduce }: { active: number; reduce: boolean }) {
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           >
             {media.type === 'video' ? (
-              <video
-                className="h-full w-full object-cover"
-                autoPlay={!reduce}
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster={media.poster}
-                aria-label={media.alt}
-              >
-                <source src={media.src} type="video/mp4" />
-              </video>
+              <ServicePhoneVideo src={media.src} poster={media.poster} alt={media.alt} reduce={!!reduce} />
             ) : (
               <Image
                 src={media.src}
