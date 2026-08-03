@@ -65,37 +65,37 @@ const projects = [
 const portfolioVideos = [
   {
     src: '/portfolio-media/videos/video-pousada-01.mp4',
-    poster: '/portfolio-media/videos/poster-pousada-01.jpg',
+    poster: '/portfolio-media/videos/poster-pousada-01.webp',
     title: 'Pousada da Praia',
     tag: 'Turismo · Apresentação',
   },
   {
     src: '/portfolio-media/videos/video-pousada-02.mp4',
-    poster: '/portfolio-media/videos/poster-pousada-02.jpg',
+    poster: '/portfolio-media/videos/poster-pousada-02.webp',
     title: 'Pousada da Praia',
     tag: 'Hospedagem · Lifestyle',
   },
   {
     src: '/portfolio-media/videos/video-pousada-03.mp4',
-    poster: '/portfolio-media/videos/poster-pousada-03.jpg',
+    poster: '/portfolio-media/videos/poster-pousada-03.webp',
     title: 'Pousada da Praia',
     tag: 'Experiência · Destino',
   },
   {
     src: '/portfolio-media/videos/video-portfolio-01.mp4',
-    poster: '/portfolio-media/videos/poster-procedimento-estetico.jpg',
+    poster: '/portfolio-media/videos/poster-procedimento-estetico.webp',
     title: 'Procedimento estético',
     tag: 'Captação · Edição',
   },
   {
     src: '/portfolio-media/videos/video-portfolio-02.mp4',
-    poster: '/portfolio-media/videos/poster-conteudo-fitness.jpg',
+    poster: '/portfolio-media/videos/poster-conteudo-fitness.webp',
     title: 'Conteúdo fitness',
     tag: 'Ritmo · Edição',
   },
   {
     src: '/portfolio-media/videos/video-portfolio-03.mp4',
-    poster: '/portfolio-media/videos/poster-movimenta-angra.jpg',
+    poster: '/portfolio-media/videos/poster-movimenta-angra.webp',
     title: 'Movimenta Angra',
     tag: 'Apresentação · Cobertura',
   },
@@ -105,7 +105,7 @@ const serviceShowcaseMedia = [
   {
     type: 'video' as const,
     src: '/portfolio-media/videos/video-portfolio-03.mp4',
-    poster: '/portfolio-media/videos/poster-movimenta-angra.jpg',
+    poster: '/portfolio-media/videos/poster-movimenta-angra.webp',
     alt: 'Conteúdo social em vídeo para Movimenta Angra',
   },
   {
@@ -121,7 +121,7 @@ const serviceShowcaseMedia = [
   {
     type: 'video' as const,
     src: '/portfolio-media/videos/video-portfolio-01.mp4',
-    poster: '/portfolio-media/videos/poster-procedimento-estetico.jpg',
+    poster: '/portfolio-media/videos/poster-procedimento-estetico.webp',
     alt: 'Edição de vídeo vertical de procedimento estético',
   },
   {
@@ -132,7 +132,7 @@ const serviceShowcaseMedia = [
   {
     type: 'video' as const,
     src: '/portfolio-media/videos/video-pousada-02.mp4',
-    poster: '/portfolio-media/videos/poster-pousada-02.jpg',
+    poster: '/portfolio-media/videos/poster-pousada-02.webp',
     alt: 'Experiência digital da Pousada da Praia',
   },
   {
@@ -155,7 +155,7 @@ const marks = [
 
 function SectionNumber({ number }: { number: string }) {
   return (
-    <div className="flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/35">
+    <div className="flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/65">
       <span className="h-px w-10 bg-ink/20" />
       {number}
     </div>
@@ -253,7 +253,7 @@ function VideoPortfolioRail() {
   return (
     <div className="mt-10">
       <div className="mb-5 flex items-center justify-between">
-        <p className="font-sans text-[9px] font-semibold uppercase tracking-[0.16em] text-white/40">
+        <p className="font-sans text-[9px] font-semibold uppercase tracking-[0.16em] text-white/60">
           Arraste ou use as setas
         </p>
         <div className="flex gap-2">
@@ -486,7 +486,7 @@ export default function EixoEditorialSite() {
       <section className="relative flex min-h-[100svh] flex-col justify-between px-[var(--gutter)] pb-0 pt-[clamp(130px,18vh,190px)]">
         <div className="mx-auto w-full max-w-[1420px] text-center">
           <motion.p
-            className="mx-auto mb-7 w-fit border border-ink/12 px-4 py-2 font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-ink/55"
+            className="mx-auto mb-7 w-fit border border-ink/12 px-4 py-2 font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-ink/65"
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
@@ -569,7 +569,7 @@ export default function EixoEditorialSite() {
                 <h2 className="max-w-[900px] font-display text-[clamp(44px,7vw,102px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
                   Seu projeto, sempre no <span className="text-azure">eixo.</span>
                 </h2>
-                <p className="max-w-[330px] text-[15px] leading-relaxed text-ink/55">
+                <p className="max-w-[330px] text-[15px] leading-relaxed text-ink/65">
                   Role para explorar. Os serviços avançam pela esquerda enquanto o celular, à direita, troca de cena em cada etapa.
                 </p>
               </div>
@@ -601,18 +601,16 @@ export default function EixoEditorialSite() {
                   >
                     <div className="flex items-center justify-between border-b border-ink/10 pb-4">
                       <span className="font-sans text-[10px] font-bold tracking-[0.18em] text-azure">0{index + 1}</span>
-                      <span className="font-sans text-[8px] font-semibold uppercase tracking-[0.15em] text-ink/35">
+                      <span className="font-sans text-[8px] font-semibold uppercase tracking-[0.15em] text-ink/65">
                         Eixo em movimento
                       </span>
                     </div>
                     <h3 className={`mt-6 font-display text-[clamp(31px,4vw,58px)] font-black leading-[1.02] tracking-[-0.025em] transition-colors duration-500 ${
-                      activeService === index ? 'text-ink' : 'text-ink/35'
+                      activeService === index ? 'text-ink' : 'text-ink/65'
                     }`}>
                       {service.title}
                     </h3>
-                    <p className={`mt-5 max-w-[42ch] text-[13px] leading-[1.7] transition-colors duration-500 sm:text-[14px] ${
-                      activeService === index ? 'text-ink/60' : 'text-ink/30'
-                    }`}>{service.text}</p>
+                    <p className="mt-5 max-w-[42ch] text-[13px] leading-[1.7] text-ink/65 sm:text-[14px]">{service.text}</p>
                     <div className="mt-6 flex items-center gap-3 font-sans text-[9px] font-bold uppercase tracking-[0.14em] text-azure">
                       <span className="grid size-7 place-items-center border border-azure/45">×</span>
                       Dentro da tela
@@ -636,12 +634,12 @@ export default function EixoEditorialSite() {
                     </span>
                   ))}
                 </div>
-                <div className="pointer-events-none absolute right-0 top-8 hidden items-center gap-3 font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-ink/40 lg:flex">
+                <div className="pointer-events-none absolute right-0 top-8 hidden items-center gap-3 font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-ink/65 lg:flex">
                   Celular fixo
                   <span className="h-px w-10 bg-azure" />
                 </div>
                 <div className="pointer-events-none absolute bottom-8 right-0 hidden text-right lg:block">
-                  <p className="font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-ink/35">Serviço ativo</p>
+                  <p className="font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-ink/65">Serviço ativo</p>
                   <p className="mt-2 font-display text-[18px] font-bold text-ink/60">
                     0{activeService + 1} / 0{services.length}
                   </p>
@@ -655,7 +653,7 @@ export default function EixoEditorialSite() {
       <section id="portfolio" className="scroll-mt-24 bg-ink px-[var(--gutter)] py-[clamp(82px,10vw,140px)] text-white">
         <div className="mx-auto max-w-[1420px]">
           <div className="grid gap-10 lg:grid-cols-[160px_1fr]">
-            <div className="flex items-center gap-3 self-start font-mono text-[11px] uppercase tracking-[0.18em] text-white/35">
+            <div className="flex items-center gap-3 self-start font-mono text-[11px] uppercase tracking-[0.18em] text-white/60">
               <span className="h-px w-10 bg-white/20" />
               03
             </div>
@@ -721,7 +719,7 @@ export default function EixoEditorialSite() {
         </div>
       </section>
 
-      <section className="overflow-hidden border-b border-ink/10 bg-azure py-7 text-white">
+      <section className="overflow-hidden border-b border-ink/10 bg-azure py-7 text-ink">
         <div className={`eixo-service-marquee flex w-max items-center ${reduce ? '' : 'will-change-transform'}`}>
           {duplicatedServices.map((service, index) => (
             <div key={`${service.title}-${index}`} className="flex items-center">
@@ -748,10 +746,10 @@ export default function EixoEditorialSite() {
                 <article className="flex h-full min-h-[330px] flex-col bg-[#fffdfa] p-7 transition-colors duration-300 hover:bg-lavanda">
                   <span className="font-mono text-[10px] text-azure">0{index + 1}</span>
                   <h3 className="mt-auto font-display text-[30px] font-black leading-[1.08] tracking-[-0.02em]">{step.label}</h3>
-                  <p className="mt-4 text-[13px] leading-relaxed text-ink/55">{step.description}</p>
+                  <p className="mt-4 text-[13px] leading-relaxed text-ink/65">{step.description}</p>
                   <ul className="mt-5 flex flex-wrap gap-2">
                     {step.bullets.map((bullet) => (
-                      <li key={bullet} className="border border-ink/12 px-2.5 py-1 text-[8px] font-semibold uppercase tracking-[0.12em] text-ink/55">
+                      <li key={bullet} className="border border-ink/12 px-2.5 py-1 text-[8px] font-semibold uppercase tracking-[0.12em] text-ink/65">
                         {bullet}
                       </li>
                     ))}
@@ -774,7 +772,7 @@ export default function EixoEditorialSite() {
                 </h2>
               </Reveal>
             </div>
-            <p className="max-w-[320px] text-[14px] leading-relaxed text-ink/50">Seleção de marcas e sistemas visuais presentes no portfólio.</p>
+            <p className="max-w-[320px] text-[14px] leading-relaxed text-ink/65">Seleção de marcas e sistemas visuais presentes no portfólio.</p>
           </div>
           <div className="mt-11 grid grid-cols-2 border-l border-t border-ink/10 sm:grid-cols-4">
             {marks.map((mark) => (
@@ -794,7 +792,7 @@ export default function EixoEditorialSite() {
           </h2>
           <div className="mt-14 flex flex-col justify-between gap-8 border-t border-white/15 pt-8 md:flex-row md:items-center">
             <div className="flex flex-wrap gap-3">
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="bg-azure px-6 py-3.5 text-[13px] font-bold transition-colors hover:bg-white hover:text-ink">
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="bg-azure px-6 py-3.5 text-[13px] font-bold text-ink transition-colors hover:bg-white">
                 Falar no WhatsApp ↗
               </a>
               <a href={mailtoUrl} className="border border-white/25 px-6 py-3.5 text-[13px] font-bold transition-colors hover:border-white">
@@ -803,7 +801,7 @@ export default function EixoEditorialSite() {
             </div>
             <a href="#top" className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/55 transition-colors hover:text-white">Voltar ao topo ↑</a>
           </div>
-          <div className="mt-20 flex flex-col justify-between gap-4 border-t border-white/10 pt-6 text-[11px] text-white/35 sm:flex-row">
+          <div className="mt-20 flex flex-col justify-between gap-4 border-t border-white/10 pt-6 text-[11px] text-white/60 sm:flex-row">
             <span>© 2026 Eixo de Marca — Brasil</span>
             <span>Estratégia · criação · gestão</span>
           </div>
