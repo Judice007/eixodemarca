@@ -125,6 +125,13 @@ body { background: var(--color-bone); color: var(--color-ink); font-family: var(
   to { transform: translateX(-50%); }
 }
 
+/* Flutuação contínua dos cards de cliente no hero — cada card usa uma
+   duration/delay própria (ver FloatingCard) pra não bobar em sincronia. */
+@keyframes eixo-card-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
 .eixo-media-marquee {
   animation: eixo-media-marquee 32s linear infinite;
 }
@@ -137,9 +144,14 @@ body { background: var(--color-bone); color: var(--color-ink); font-family: var(
   animation: eixo-service-marquee 34s linear infinite;
 }
 
+.eixo-card-float {
+  animation: eixo-card-float var(--float-duration, 5s) ease-in-out var(--float-delay, 0s) infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .eixo-media-marquee,
-  .eixo-service-marquee {
+  .eixo-service-marquee,
+  .eixo-card-float {
     animation: none;
   }
 }
