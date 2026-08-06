@@ -55,7 +55,7 @@ const projects = [
     type: 'image' as const,
     src: '/portfolio-media/portfolio-eixo.webp',
     alt: 'Peça da Eixo de Marca sobre direção de conteúdo',
-    client: 'Eixo de Marca',
+    client: 'Eixo de Marca',
     tags: 'Posicionamento · Design',
     fit: 'cover' as const,
     position: 'center 50%',
@@ -64,7 +64,7 @@ const projects = [
     type: 'image' as const,
     src: '/portfolio-media/landing-pousada.webp',
     alt: 'Landing page da Pousada da Praia',
-    client: 'Pousada da Praia',
+    client: 'Pousada da Praia',
     tags: 'Web · Landing page',
     fit: 'cover' as const,
     position: 'center 46%',
@@ -84,7 +84,7 @@ const projects = [
     type: 'image' as const,
     src: '/portfolio-media/portfolio-eixo.webp',
     alt: 'Peça da Eixo de Marca sobre direção de conteúdo',
-    client: 'Eixo de Marca',
+    client: 'Eixo de Marca',
     tags: 'Posicionamento · Design',
     fit: 'cover' as const,
     position: 'center 50%',
@@ -95,19 +95,19 @@ const portfolioVideos = [
   {
     src: '/portfolio-media/videos/video-pousada-01.mp4',
     poster: '/portfolio-media/videos/poster-pousada-01.webp',
-    title: 'Pousada da Praia',
+    title: 'Pousada da Praia',
     tag: 'Turismo · Apresentação',
   },
   {
     src: '/portfolio-media/videos/video-pousada-02.mp4',
     poster: '/portfolio-media/videos/poster-pousada-02.webp',
-    title: 'Pousada da Praia',
+    title: 'Pousada da Praia',
     tag: 'Hospedagem · Lifestyle',
   },
   {
     src: '/portfolio-media/videos/video-pousada-03.mp4',
     poster: '/portfolio-media/videos/poster-pousada-03.webp',
-    title: 'Pousada da Praia',
+    title: 'Pousada da Praia',
     tag: 'Experiência · Destino',
   },
   {
@@ -125,7 +125,7 @@ const portfolioVideos = [
   {
     src: '/portfolio-media/videos/video-portfolio-03.mp4',
     poster: '/portfolio-media/videos/poster-movimenta-angra.webp',
-    title: 'Movimenta Angra',
+    title: 'Movimenta Angra',
     tag: 'Apresentação · Cobertura',
   },
 ] as const
@@ -263,7 +263,7 @@ function PortfolioVideoCard({ video, index }: { video: (typeof portfolioVideos)[
             <p className="font-sans text-[9px] font-semibold uppercase tracking-[0.14em] text-white/45">{video.tag}</p>
             <h3 className="mt-1.5 font-display text-[20px] font-bold leading-[1.15]">{video.title}</h3>
           </div>
-          <span aria-hidden className="text-azure">×</span>
+          <Image aria-hidden src="/eixo-symbol.png" alt="" width={16} height={16} className="mt-1 shrink-0" />
         </div>
       </article>
     </Reveal>
@@ -605,7 +605,9 @@ export default function EixoEditorialSite() {
                     </h3>
                     <p className="mt-5 max-w-[42ch] text-[13px] leading-[1.7] text-ink/65 sm:text-[14px]">{service.text}</p>
                     <div className="mt-6 flex items-center gap-3 font-sans text-[9px] font-bold uppercase tracking-[0.14em] text-azure">
-                      <span className="grid size-7 place-items-center border border-azure/45">×</span>
+                      <span className="grid size-7 place-items-center border border-azure/45">
+                        <Image src="/eixo-symbol.png" alt="" width={14} height={14} />
+                      </span>
                       Dentro da tela
                     </div>
                     <span aria-hidden className="absolute left-full top-1/2 hidden h-px w-[clamp(38px,5vw,72px)] bg-azure/50 lg:block" />
@@ -620,8 +622,12 @@ export default function EixoEditorialSite() {
                 <div aria-hidden className="absolute left-0 top-1/2 hidden -translate-y-1/2 flex-col gap-3 lg:flex">
                   {services.map((service, index) => (
                     <span key={service.title} className="flex items-center gap-2">
-                      <span className={`font-display text-[12px] font-black transition-colors ${index === activeService ? 'text-azure' : 'text-ink/20'}`}>
-                        {index === activeService ? '×' : '·'}
+                      <span className="grid size-[10px] place-items-center">
+                        {index === activeService ? (
+                          <Image src="/eixo-symbol.png" alt="" width={10} height={10} />
+                        ) : (
+                          <span className="font-display text-[12px] font-black text-ink/20">·</span>
+                        )}
                       </span>
                       <span className={`h-px transition-all duration-500 ${index === activeService ? 'w-10 bg-azure' : 'w-5 bg-ink/15'}`} />
                     </span>
@@ -675,9 +681,9 @@ export default function EixoEditorialSite() {
                     />
                     <span
                       aria-hidden
-                      className="absolute left-1/2 top-1/2 z-10 grid size-10 -translate-x-1/2 -translate-y-1/2 rotate-[-24deg] place-items-center bg-azure font-display text-base font-black text-white opacity-0 transition-all duration-500 group-hover:rotate-0 group-hover:scale-110 group-hover:opacity-100"
+                      className="absolute left-1/2 top-1/2 z-10 grid size-10 -translate-x-1/2 -translate-y-1/2 rotate-[-24deg] place-items-center bg-azure opacity-0 transition-all duration-500 group-hover:rotate-0 group-hover:scale-110 group-hover:opacity-100"
                     >
-                      X
+                      <Image src="/eixo-symbol.png" alt="" width={20} height={20} style={{ filter: 'brightness(0) invert(1)' }} />
                     </span>
                     <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/75 to-transparent p-3 pt-16">
                       <div>

@@ -73,7 +73,7 @@ export const methodSteps: MethodStep[] = [
   },
   {
     key: 'otimizacao',
-    label: 'Gestão & Otimização',
+    label: 'Gestão & Otimização',
     description: 'Acompanhar tarefas, mídia e resultados para ajustar a rota sem perder prazos ou consistência.',
     bullets: ['Gestão do fluxo', 'Leitura de dados', 'Ajustes contínuos'],
   },
