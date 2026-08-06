@@ -502,7 +502,7 @@ export default function EixoEditorialSite() {
             transition={{ duration: 0.75, delay: 0.18 }}
           >
             <p className="max-w-[590px] text-[15px] leading-relaxed text-ink/60 md:text-left md:text-[17px]">
-              Unimos social media, design, vídeo e organização para transformar ideias em presença digital e fazer cada projeto sair do papel.
+              Unimos social media, design, vídeo e organização para transformar ideias em presença digital — e tirar cada projeto do papel.
             </p>
             <a
               href="#portfolio"
@@ -541,7 +541,7 @@ export default function EixoEditorialSite() {
           <div>
             <Reveal>
               <h2 className="max-w-[1180px] text-right [text-wrap:balance] font-display text-[clamp(23px,3.7vw,57px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
-                Aqui tudo começa com <span className="text-azure">direção.</span> Entregamos comunicação além do automático.
+                Aqui tudo começa com <span className="text-azure">direção.</span> Entregamos comunicação pensada, não apenas automática.
               </h2>
             </Reveal>
             <Reveal className="ml-auto mt-12 max-w-[720px]" delay={0.08}>
@@ -608,7 +608,7 @@ export default function EixoEditorialSite() {
                       <span className="grid size-7 place-items-center border border-azure/45">
                         <Image src="/eixo-symbol.png" alt="" width={14} height={14} />
                       </span>
-                      Dentro da tela
+                      Veja no celular
                     </div>
                     <span aria-hidden className="absolute left-full top-1/2 hidden h-px w-[clamp(38px,5vw,72px)] bg-azure/50 lg:block" />
                   </motion.div>
@@ -633,13 +633,8 @@ export default function EixoEditorialSite() {
                     </span>
                   ))}
                 </div>
-                <div className="pointer-events-none absolute right-0 top-8 hidden items-center gap-3 font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-ink/65 lg:flex">
-                  Celular fixo
-                  <span className="h-px w-10 bg-azure" />
-                </div>
                 <div className="pointer-events-none absolute bottom-8 right-0 hidden text-right lg:block">
-                  <p className="font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-ink/65">Serviço ativo</p>
-                  <p className="mt-2 font-display text-[18px] font-bold text-ink/60">
+                  <p className="font-display text-[18px] font-bold text-ink/60">
                     0{activeService + 1} / 0{services.length}
                   </p>
                 </div>
