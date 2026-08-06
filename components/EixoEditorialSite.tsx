@@ -744,7 +744,7 @@ export default function EixoEditorialSite() {
               <Reveal key={step.key} className="h-full" delay={index * 0.05}>
                 <article className="flex h-full min-h-[330px] flex-col bg-[#fffdfa] p-7 transition-colors duration-300 hover:bg-lavanda">
                   <span className="font-mono text-[10px] text-azure">0{index + 1}</span>
-                  <h3 className="mt-auto font-display text-[30px] font-black leading-[1.08] tracking-[-0.02em]">{step.label}</h3>
+                  <h3 className="mt-6 font-display text-[30px] font-black leading-[1.08] tracking-[-0.02em]">{step.label}</h3>
                   <p className="mt-4 text-[13px] leading-relaxed text-ink/65">{step.description}</p>
                   <ul className="mt-5 flex flex-wrap gap-2">
                     {step.bullets.map((bullet) => (
