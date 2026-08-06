@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { contactInfo, mailtoUrl, methodSteps, services, whatsappUrl } from '@/lib/data'
 
@@ -181,47 +181,6 @@ const marks = [
   { src: '/portfolio-media/marca-itamang.webp', alt: 'Itamang' },
   { src: '/portfolio-media/marca-bm.webp', alt: 'Big Mateus' },
 ]
-
-// Cards de cliente que entram flutuando no hero — mesmo mecanismo de referência
-// (entrada escalonada + flutuação contínua fora de sincronia), com nomes reais
-// de clientes do Eixo em vez de logos de terceiros.
-const heroFloatingClients = [
-  { name: 'Vista Bajeko', position: 'left-[2%] top-[10%]', delay: 1.0, floatDuration: 5, floatDelay: 0 },
-  { name: 'Itamang', position: 'right-[3%] top-[16%]', delay: 1.15, floatDuration: 6, floatDelay: 0.4 },
-  { name: 'Pousada da Praia', position: 'left-[1%] top-[46%]', delay: 1.3, floatDuration: 5.5, floatDelay: 0.8 },
-]
-
-function FloatingClientCard({
-  name,
-  position,
-  delay,
-  floatDuration,
-  floatDelay,
-}: {
-  name: string
-  position: string
-  delay: number
-  floatDuration: number
-  floatDelay: number
-}) {
-  const reduce = useReducedMotion()
-  return (
-    <motion.div
-      className={`absolute z-10 hidden lg:block ${position}`}
-      initial={reduce ? false : { opacity: 0, y: 26, scale: 0.92 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
-    >
-      <div
-        className="eixo-card-float flex items-center gap-2.5 whitespace-nowrap border border-ink/10 bg-white/95 px-4 py-2.5 shadow-[0_20px_45px_-25px_rgba(42,16,74,.35)] backdrop-blur-sm"
-        style={{ '--float-duration': `${floatDuration}s`, '--float-delay': `${floatDelay}s` } as CSSProperties}
-      >
-        <Image src="/eixo-symbol.png" alt="" width={11} height={11} />
-        <span className="font-sans text-[12px] font-semibold text-ink/80">{name}</span>
-      </div>
-    </motion.div>
-  )
-}
 
 function SectionNumber({ number }: { number: string }) {
   return (
@@ -518,9 +477,6 @@ export default function EixoEditorialSite() {
       </header>
 
       <section className="relative flex min-h-[100svh] flex-col justify-between px-[var(--gutter)] pb-0 pt-[clamp(130px,18vh,190px)]">
-        {heroFloatingClients.map((client) => (
-          <FloatingClientCard key={client.name} {...client} />
-        ))}
         <div className="mx-auto w-full max-w-[1420px] text-center">
           <motion.p
             className="mx-auto mb-7 w-fit border border-ink/12 px-4 py-2 font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-ink/65"
