@@ -60,6 +60,24 @@ const projects = [
     fit: 'cover' as const,
     position: 'center 50%',
   },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/landing-pousada.webp',
+    alt: 'Landing page da Pousada da Praia',
+    client: 'Pousada da Praia',
+    tags: 'Web · Landing page',
+    fit: 'cover' as const,
+    position: 'center 46%',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/trafego-itamang.webp',
+    alt: 'Campanha de tráfego para Itamang',
+    client: 'Itamang',
+    tags: 'Tráfego pago',
+    fit: 'cover' as const,
+    position: 'center',
+  },
 ]
 
 const portfolioVideos = [
@@ -458,7 +476,7 @@ export default function EixoEditorialSite() {
             Estratégia · criação · gestão
           </motion.p>
           <motion.h1
-            className="mx-auto max-w-[1250px] font-display text-[clamp(52px,9.2vw,142px)] font-black uppercase leading-[0.9] tracking-[-0.05em] max-sm:text-[44px] max-sm:leading-[0.96] max-sm:tracking-[-0.035em]"
+            className="mx-auto max-w-[1250px] font-display text-[clamp(38px,6.7vw,104px)] font-black uppercase leading-[0.9] tracking-[-0.05em] max-sm:text-[32px] max-sm:leading-[0.96] max-sm:tracking-[-0.035em]"
             initial={reduce ? false : { opacity: 0, y: 45 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
@@ -511,7 +529,7 @@ export default function EixoEditorialSite() {
           <SectionNumber number="01" />
           <div>
             <Reveal>
-              <h2 className="max-w-[1180px] text-right font-display text-[clamp(42px,6.8vw,104px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
+              <h2 className="max-w-[1180px] text-right font-display text-[clamp(31px,5vw,76px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
                 Aqui tudo começa com <span className="text-azure">direção.</span> Entregamos comunicação além do automático.
               </h2>
             </Reveal>
@@ -530,7 +548,7 @@ export default function EixoEditorialSite() {
             <SectionNumber number="02" />
             <Reveal>
               <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-                <h2 className="max-w-[900px] font-display text-[clamp(44px,7vw,102px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
+                <h2 className="max-w-[900px] font-display text-[clamp(32px,5.1vw,74px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
                   Seu projeto, sempre no <span className="text-azure">eixo.</span>
                 </h2>
                 <p className="max-w-[330px] text-[15px] leading-relaxed text-ink/65">
@@ -569,7 +587,7 @@ export default function EixoEditorialSite() {
                         Eixo em movimento
                       </span>
                     </div>
-                    <h3 className={`mt-6 font-display text-[clamp(31px,4vw,58px)] font-black leading-[1.02] tracking-[-0.025em] transition-colors duration-500 ${
+                    <h3 className={`mt-6 font-display text-[clamp(23px,2.9vw,42px)] font-black leading-[1.02] tracking-[-0.025em] transition-colors duration-500 ${
                       activeService === index ? 'text-ink' : 'text-ink/65'
                     }`}>
                       {service.title}
@@ -623,7 +641,7 @@ export default function EixoEditorialSite() {
             </div>
             <Reveal>
               <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-                <h2 className="max-w-[980px] font-display text-[clamp(44px,7vw,102px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
+                <h2 className="max-w-[980px] font-display text-[clamp(32px,5.1vw,74px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
                   Marcas e histórias que ganharam <span className="text-azure">forma.</span>
                 </h2>
                 <p className="max-w-[290px] text-[14px] leading-relaxed text-white/55">Projetos reais de comunicação, identidade e conteúdo.</p>
@@ -631,39 +649,36 @@ export default function EixoEditorialSite() {
             </Reveal>
           </div>
 
-          <div className="mt-12 grid gap-5 md:grid-cols-2">
-            {projects.map((project, index) => {
-              const isLast = index === projects.length - 1
-              return (
-              <Reveal key={`${project.client}-${index}`} className={isLast ? 'md:col-span-2' : undefined} delay={(index % 3) * 0.06}>
+          <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
+            {projects.map((project, index) => (
+              <Reveal key={`${project.client}-${index}`} delay={(index % 4) * 0.05}>
                 <article className="group">
-                  <div className={`relative overflow-hidden bg-white/5 ${isLast ? 'aspect-[16/9] md:aspect-[21/9]' : 'aspect-[4/5]'}`}>
+                  <div className="relative aspect-[4/5] overflow-hidden bg-white/5">
                     <Image
                       src={project.src}
                       alt={project.alt}
                       fill
-                      sizes={isLast ? '100vw' : '(min-width: 768px) 50vw, 100vw'}
+                      sizes="(min-width: 768px) 25vw, 50vw"
                       className={`${project.fit === 'contain' ? 'object-contain p-8' : 'object-cover'} transition-transform duration-700 group-hover:scale-[1.03]`}
                       style={{ objectPosition: project.position }}
                     />
                     <span
                       aria-hidden
-                      className="absolute left-1/2 top-1/2 z-10 grid size-14 -translate-x-1/2 -translate-y-1/2 rotate-[-24deg] place-items-center bg-azure font-display text-xl font-black text-white opacity-0 transition-all duration-500 group-hover:rotate-0 group-hover:scale-110 group-hover:opacity-100"
+                      className="absolute left-1/2 top-1/2 z-10 grid size-10 -translate-x-1/2 -translate-y-1/2 rotate-[-24deg] place-items-center bg-azure font-display text-base font-black text-white opacity-0 transition-all duration-500 group-hover:rotate-0 group-hover:scale-110 group-hover:opacity-100"
                     >
                       X
                     </span>
-                    <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/75 to-transparent p-5 pt-24">
+                    <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/75 to-transparent p-3 pt-16">
                       <div>
-                        <p className="font-mono text-[8px] uppercase tracking-[0.18em] text-white/60">{project.tags}</p>
-                        <h3 className="mt-2 font-display text-[24px] font-bold leading-[1.12] tracking-[-0.015em]">{project.client}</h3>
+                        <p className="font-mono text-[7px] uppercase tracking-[0.14em] text-white/60">{project.tags}</p>
+                        <h3 className="mt-1.5 font-display text-[15px] font-bold leading-[1.15] tracking-[-0.01em]">{project.client}</h3>
                       </div>
-                      <span className="grid size-10 place-items-center border border-white/35 text-sm transition-colors group-hover:border-azure group-hover:bg-azure">↗</span>
+                      <span className="grid size-7 shrink-0 place-items-center border border-white/35 text-xs transition-colors group-hover:border-azure group-hover:bg-azure">↗</span>
                     </div>
                   </div>
                 </article>
               </Reveal>
-              )
-            })}
+            ))}
           </div>
 
           <div className="mt-[clamp(76px,9vw,126px)] border-t border-white/15 pt-10">
@@ -671,7 +686,7 @@ export default function EixoEditorialSite() {
               <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
                 <div>
                   <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-azure">Portfólio em movimento</p>
-                  <h3 className="mt-4 max-w-[820px] font-display text-[clamp(38px,5.8vw,78px)] font-black uppercase leading-[1] tracking-[-0.035em]">
+                  <h3 className="mt-4 max-w-[820px] font-display text-[clamp(28px,4.2vw,57px)] font-black uppercase leading-[1] tracking-[-0.035em]">
                     Histórias que também ganham <span className="text-azure">ritmo.</span>
                   </h3>
                 </div>
@@ -690,8 +705,8 @@ export default function EixoEditorialSite() {
         <div className={`eixo-service-marquee flex w-max items-center ${reduce ? '' : 'will-change-transform'}`}>
           {duplicatedServices.map((service, index) => (
             <div key={`${service.title}-${index}`} className="flex items-center">
-              <span className="px-5 font-display text-[clamp(34px,5vw,72px)] font-black uppercase leading-none tracking-[-0.025em]">{service.title}</span>
-              <span className="text-[clamp(26px,4vw,56px)] text-ink">✦</span>
+              <span className="px-5 font-display text-[clamp(25px,3.7vw,53px)] font-black uppercase leading-none tracking-[-0.025em]">{service.title}</span>
+              <span className="text-[clamp(19px,2.9vw,41px)] text-ink">✦</span>
             </div>
           ))}
         </div>
@@ -702,7 +717,7 @@ export default function EixoEditorialSite() {
           <div className="grid gap-10 lg:grid-cols-[160px_1fr]">
             <SectionNumber number="04" />
             <Reveal>
-              <h2 className="max-w-[1050px] font-display text-[clamp(44px,7vw,102px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
+              <h2 className="max-w-[1050px] font-display text-[clamp(32px,5.1vw,74px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
                 Criatividade precisa de <span className="text-azure">processo.</span>
               </h2>
             </Reveal>
@@ -734,7 +749,7 @@ export default function EixoEditorialSite() {
             <div>
               <SectionNumber number="05" />
               <Reveal>
-                <h2 className="mt-8 max-w-[820px] font-display text-[clamp(40px,6vw,86px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
+                <h2 className="mt-8 max-w-[820px] font-display text-[clamp(29px,4.4vw,63px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
                   Identidades que já passaram pelo nosso <span className="text-azure">eixo.</span>
                 </h2>
               </Reveal>
@@ -743,8 +758,8 @@ export default function EixoEditorialSite() {
           </div>
           <div className="mt-11 grid grid-cols-2 border-l border-t border-ink/10 sm:grid-cols-4">
             {marks.map((mark) => (
-              <div key={mark.src} className="relative aspect-square border-b border-r border-ink/10 bg-white p-5">
-                <Image src={mark.src} alt={mark.alt} fill sizes="25vw" className="object-contain p-8 grayscale transition-all duration-500 hover:grayscale-0" />
+              <div key={mark.src} className="relative aspect-square border-b border-r border-ink/10 bg-white p-2">
+                <Image src={mark.src} alt={mark.alt} fill sizes="25vw" className="object-contain grayscale transition-all duration-500 hover:grayscale-0" />
               </div>
             ))}
           </div>
@@ -754,7 +769,7 @@ export default function EixoEditorialSite() {
       <footer id="contato" className="scroll-mt-24 bg-ink px-[var(--gutter)] pb-8 pt-[clamp(88px,11vw,150px)] text-white">
         <div className="mx-auto max-w-[1420px]">
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-azure">Próximo projeto</p>
-          <h2 className="mt-6 max-w-[1250px] font-display text-[clamp(54px,9.5vw,146px)] font-black uppercase leading-[0.9] tracking-[-0.05em] max-sm:leading-[0.96] max-sm:tracking-[-0.035em]">
+          <h2 className="mt-6 max-w-[1250px] font-display text-[clamp(39px,6.9vw,107px)] font-black uppercase leading-[0.9] tracking-[-0.05em] max-sm:leading-[0.96] max-sm:tracking-[-0.035em]">
             Vamos fazer sua marca <span className="text-azure">aparecer.</span>
           </h2>
           <div className="mt-14 flex flex-col justify-between gap-8 border-t border-white/15 pt-8 md:flex-row md:items-center">
