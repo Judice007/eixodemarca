@@ -579,7 +579,7 @@ export default function EixoEditorialSite() {
                   onFocus={() => setActiveService(index)}
                   onViewportEnter={() => setActiveService(index)}
                   viewport={{ amount: 0.45 }}
-                  className="flex items-center border-t border-ink/12 py-8 first:border-t-0 lg:min-h-[62vh] lg:py-12"
+                  className="flex items-center border-t border-ink/12 py-8 first:border-t-0 lg:min-h-[40vh] lg:py-12"
                 >
                   <motion.div
                     className={`relative w-full max-w-[590px] border-l-[3px] p-6 transition-[background-color,border-color,box-shadow] duration-500 sm:p-8 lg:p-10 ${
