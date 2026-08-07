@@ -580,8 +580,8 @@ export default function EixoEditorialSite() {
                   src={item.src}
                   alt={index < mediaStrip.length ? item.alt : ''}
                   fill
-                  priority={index < 3}
-                  sizes="285px"
+                  priority={index < mediaStrip.length}
+                  sizes="(min-width: 1024px) 285px, (min-width: 640px) 235px, 170px"
                   className="object-cover transition-transform duration-700 hover:scale-[1.04]"
                   style={{ objectPosition: item.position }}
                 />
