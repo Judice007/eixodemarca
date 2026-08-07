@@ -389,6 +389,7 @@ export default function EixoEditorialSite() {
               width={1515}
               height={573}
               priority
+              sizes="64px"
               className={`w-auto transition-all duration-500 ${scrolled ? 'h-[18px]' : 'h-[21px] sm:h-6'}`}
               style={{ filter: 'brightness(0) saturate(100%) invert(11%) sepia(37%) saturate(3825%) hue-rotate(258deg) brightness(76%) contrast(104%)' }}
             />
