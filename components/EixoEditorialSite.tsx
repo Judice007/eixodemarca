@@ -580,7 +580,13 @@ export default function EixoEditorialSite() {
                   src={item.src}
                   alt={index < mediaStrip.length ? item.alt : ''}
                   fill
-                  priority={index < mediaStrip.length}
+                  // Só as 2 primeiras (as que realmente aparecem na 1a tela) preloadam no
+                  // <head> -- preload em todas as 6 competia com as fontes por prioridade
+                  // e atrasava o próprio carregamento da imagem do LCP. As demais do
+                  // primeiro loop ainda carregam eager (não lazy, senão a faixa animando
+                  // dispara o load só quando "entram" na tela e atrasa o paint).
+                  priority={index < 2}
+                  loading={index >= 2 && index < mediaStrip.length ? 'eager' : undefined}
                   sizes="(min-width: 1024px) 285px, (min-width: 640px) 235px, 170px"
                   className="object-cover transition-transform duration-700 hover:scale-[1.04]"
                   style={{ objectPosition: item.position }}
