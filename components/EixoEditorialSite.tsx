@@ -12,6 +12,9 @@ const mediaStrip = [
   { src: '/portfolio-media/landing-pousada.webp', alt: 'Conteúdo para Pousada da Praia', position: 'center 46%' },
   { src: '/portfolio-media/portfolio-eixo.webp', alt: 'Campanha da Eixo de Marca', position: 'center 50%' },
   { src: '/portfolio-media/portfolio-cuidados-pele.webp', alt: 'Conteúdo de beleza e estética', position: 'center 44%' },
+  { src: '/portfolio-media/post-direcao.webp', alt: 'Post sobre direção de marca para a Eixo de Marca', position: 'center 40%' },
+  { src: '/portfolio-media/post-ia.webp', alt: 'Post sobre marcas e inteligência artificial para a Eixo de Marca', position: 'center 40%' },
+  { src: '/portfolio-media/post-laura-protetor-solar.webp', alt: 'Post sobre protetor solar para Laura Anjos', position: 'center 40%' },
 ]
 
 const projects = [
@@ -78,16 +81,32 @@ const projects = [
     fit: 'cover' as const,
     position: 'center',
   },
-  // TODO: repetido só pra fechar em 8 (número par) enquanto não tem uma 8ª
-  // peça real — trocar por um case novo assim que tiver.
   {
     type: 'image' as const,
-    src: '/portfolio-media/portfolio-eixo.webp',
-    alt: 'Peça da Eixo de Marca sobre direção de conteúdo',
-    client: 'Eixo de Marca',
+    src: '/portfolio-media/post-lembrada.webp',
+    alt: 'Post sobre clareza de marca para a Eixo de Marca',
+    client: 'Eixo de Marca',
     tags: 'Posicionamento · Design',
     fit: 'cover' as const,
-    position: 'center 50%',
+    position: 'center 30%',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/post-laura-dispositivo.webp',
+    alt: 'Post sobre dispositivo de estética para Laura Anjos',
+    client: 'Laura Anjos',
+    tags: 'Social media · Estética',
+    fit: 'cover' as const,
+    position: 'center 30%',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/post-laura-pele-desidratada.webp',
+    alt: 'Post sobre sinais de pele desidratada para Laura Anjos',
+    client: 'Laura Anjos',
+    tags: 'Social media · Estética',
+    fit: 'cover' as const,
+    position: 'center 55%',
   },
 ]
 
@@ -99,16 +118,16 @@ const portfolioVideos = [
     tag: 'Turismo · Apresentação',
   },
   {
-    src: '/portfolio-media/videos/video-pousada-02.mp4',
-    poster: '/portfolio-media/videos/poster-pousada-02.webp',
-    title: 'Pousada da Praia',
-    tag: 'Hospedagem · Lifestyle',
+    src: '/portfolio-media/videos/video-trafego-pago.mp4',
+    poster: '/portfolio-media/videos/poster-trafego-pago.webp',
+    title: 'Beleza ou estratégia',
+    tag: 'Gancho · Tráfego pago',
   },
   {
-    src: '/portfolio-media/videos/video-pousada-03.mp4',
-    poster: '/portfolio-media/videos/poster-pousada-03.webp',
-    title: 'Pousada da Praia',
-    tag: 'Experiência · Destino',
+    src: '/portfolio-media/videos/video-massagem.mp4',
+    poster: '/portfolio-media/videos/poster-massagem.webp',
+    title: 'Bem-estar & spa',
+    tag: 'Gancho · Reels',
   },
   {
     src: '/portfolio-media/videos/video-portfolio-01.mp4',
@@ -144,14 +163,14 @@ const serviceShowcaseMedia = [
   },
   {
     type: 'image' as const,
-    src: '/portfolio-media/identidade-vista-bajeko.webp',
-    alt: 'Identidade visual Vista Bajeko',
+    src: '/portfolio-media/identidade-vista-bajeko-manual.webp',
+    alt: 'Aplicação da identidade visual da Vista Bajeko em camisetas',
   },
   {
     type: 'video' as const,
-    src: '/portfolio-media/videos/video-portfolio-01.mp4',
-    poster: '/portfolio-media/videos/poster-procedimento-estetico.webp',
-    alt: 'Edição de vídeo vertical de procedimento estético',
+    src: '/portfolio-media/videos/video-edicao-institucional.mp4',
+    poster: '/portfolio-media/videos/poster-edicao-institucional.webp',
+    alt: 'Vídeo institucional editado para reunião de equipe',
   },
   {
     type: 'image' as const,
@@ -165,9 +184,10 @@ const serviceShowcaseMedia = [
     alt: 'Experiência digital da Pousada da Praia',
   },
   {
-    type: 'image' as const,
-    src: '/portfolio-media/trafego-itamang.webp',
-    alt: 'Campanha de tráfego para Itamang',
+    type: 'video' as const,
+    src: '/portfolio-media/videos/video-trafego-pago.mp4',
+    poster: '/portfolio-media/videos/poster-trafego-pago.webp',
+    alt: 'Vídeo sobre estratégia de tráfego pago',
   },
 ] as const
 
@@ -179,7 +199,7 @@ const marks = [
   { src: '/portfolio-media/marca-viva-angra.webp', alt: 'Viva Angra' },
   { src: '/portfolio-media/marca-luciane-judice.webp', alt: 'Luciane Júdice' },
   { src: '/portfolio-media/marca-itamang.webp', alt: 'Itamang' },
-  { src: '/portfolio-media/marca-bm.webp', alt: 'Big Mateus' },
+  { src: '/portfolio-media/marca-bm.webp', alt: 'BIG' },
 ]
 
 function SectionNumber({ number }: { number: string }) {
@@ -399,13 +419,7 @@ function ServicePhone({ active, reduce }: { active: number; reduce: boolean }) {
             {media.type === 'video' ? (
               <ServicePhoneVideo src={media.src} poster={media.poster} alt={media.alt} reduce={!!reduce} />
             ) : (
-              <Image
-                src={media.src}
-                alt={media.alt}
-                fill
-                sizes="250px"
-                className={`${active === 2 ? 'object-contain p-5' : 'object-cover'}`}
-              />
+              <Image src={media.src} alt={media.alt} fill sizes="250px" className="object-cover" />
             )}
           </motion.div>
         </AnimatePresence>
