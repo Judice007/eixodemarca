@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer-motion'
 import { contactInfo, mailtoUrl, methodSteps, services, whatsappUrl } from '@/lib/data'
 
 const mediaStrip = [
@@ -214,6 +214,43 @@ function Reveal({
   )
 }
 
+const revealGroupVariants: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.06 } },
+}
+const revealItemVariants: Variants = {
+  hidden: { opacity: 0, y: 34 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.72, ease: [0.16, 1, 0.3, 1] } },
+}
+
+// Mesmo efeito visual do Reveal (fade + sobe ao entrar na tela), mas pra
+// GRADES de cards: um único whileInView no container dispara o stagger de
+// todos os filhos via variants, em vez de cada card montar seu próprio
+// observer/animação — bem mais leve no carregamento em seções com vários
+// itens (projetos, vídeos do portfólio, método).
+function RevealGroup({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  const reduce = useReducedMotion()
+  return (
+    <motion.div
+      className={className}
+      initial={reduce ? false : 'hidden'}
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+      variants={reduce ? undefined : revealGroupVariants}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+function RevealItem({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  return (
+    <motion.div className={className} variants={revealItemVariants}>
+      {children}
+    </motion.div>
+  )
+}
+
 function PortfolioVideoCard({ video, index }: { video: (typeof portfolioVideos)[number]; index: number }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const reduce = useReducedMotion()
@@ -238,7 +275,7 @@ function PortfolioVideoCard({ video, index }: { video: (typeof portfolioVideos)[
   }, [reduce])
 
   return (
-    <Reveal delay={(index % 3) * 0.05}>
+    <RevealItem>
       <article className="group">
         <div className="relative aspect-[9/16] overflow-hidden bg-white/5">
           <video
@@ -266,17 +303,17 @@ function PortfolioVideoCard({ video, index }: { video: (typeof portfolioVideos)[
           <Image aria-hidden src="/eixo-symbol.png" alt="" width={16} height={16} className="mt-1 shrink-0" />
         </div>
       </article>
-    </Reveal>
+    </RevealItem>
   )
 }
 
 function VideoPortfolioGrid() {
   return (
-    <div className="mx-auto mt-10 grid max-w-[720px] grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
+    <RevealGroup className="mx-auto mt-10 grid max-w-[720px] grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
       {portfolioVideos.map((video, index) => (
         <PortfolioVideoCard key={video.src} video={video} index={index} />
       ))}
-    </div>
+    </RevealGroup>
   )
 }
 
@@ -662,9 +699,9 @@ export default function EixoEditorialSite() {
             </Reveal>
           </div>
 
-          <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
+          <RevealGroup className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
             {projects.map((project, index) => (
-              <Reveal key={`${project.client}-${index}`} delay={(index % 4) * 0.05}>
+              <RevealItem key={`${project.client}-${index}`}>
                 <article className="group">
                   <div className="relative aspect-[4/5] overflow-hidden bg-white/5">
                     <Image
@@ -690,9 +727,9 @@ export default function EixoEditorialSite() {
                     </div>
                   </div>
                 </article>
-              </Reveal>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
 
           <div className="mt-[clamp(76px,9vw,126px)] border-t border-white/15 pt-10">
             <Reveal>
@@ -735,9 +772,9 @@ export default function EixoEditorialSite() {
               </h2>
             </Reveal>
           </div>
-          <div className="mt-12 grid gap-px bg-ink/15 md:grid-cols-2 xl:grid-cols-4">
+          <RevealGroup className="mt-12 grid gap-px bg-ink/15 md:grid-cols-2 xl:grid-cols-4">
             {methodSteps.map((step, index) => (
-              <Reveal key={step.key} className="h-full" delay={index * 0.05}>
+              <RevealItem key={step.key} className="h-full">
                 <article className="flex h-full min-h-[330px] flex-col bg-[#fffdfa] p-7 transition-colors duration-300 hover:bg-lavanda">
                   <span className="font-mono text-[10px] text-azure-label">0{index + 1}</span>
                   <h3 className="mt-6 font-display text-[30px] font-black leading-[1.08] tracking-[-0.02em]">{step.label}</h3>
@@ -750,9 +787,9 @@ export default function EixoEditorialSite() {
                     ))}
                   </ul>
                 </article>
-              </Reveal>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
 
