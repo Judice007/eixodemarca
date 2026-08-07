@@ -403,7 +403,7 @@ export default function EixoEditorialSite() {
             ].map(([label, href]) => (
               <a
                 key={href}
-                className="relative py-2 transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:scale-x-0 after:bg-azure after:transition-transform hover:text-azure hover:after:scale-x-100"
+                className="relative py-2 transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:scale-x-0 after:bg-azure after:transition-transform hover:text-azure-label hover:after:scale-x-100"
                 href={href}
               >
                 {label}
@@ -493,7 +493,7 @@ export default function EixoEditorialSite() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="block whitespace-nowrap">Conteúdo que</span>
-            <span className="block whitespace-nowrap text-azure">chama atenção.</span>
+            <span className="block whitespace-nowrap text-azure-heading">chama atenção.</span>
           </motion.h1>
           <motion.div
             className="mx-auto mt-9 flex max-w-[900px] flex-col items-center justify-between gap-6 md:flex-row"
@@ -541,7 +541,7 @@ export default function EixoEditorialSite() {
           <div>
             <Reveal>
               <h2 className="max-w-[1180px] text-right [text-wrap:balance] font-display text-[clamp(23px,3.7vw,57px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
-                Aqui tudo começa com <span className="text-azure">direção.</span> Entregamos comunicação pensada, não apenas automática.
+                Aqui tudo começa com <span className="text-azure-heading">direção.</span> Entregamos comunicação pensada, não apenas automática.
               </h2>
             </Reveal>
             <Reveal className="ml-auto mt-12 max-w-[720px]" delay={0.08}>
@@ -560,7 +560,7 @@ export default function EixoEditorialSite() {
             <Reveal>
               <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
                 <h2 className="max-w-[900px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
-                  Seu projeto, sempre no <span className="text-azure">eixo.</span>
+                  Seu projeto, sempre no <span className="text-azure-heading">eixo.</span>
                 </h2>
                 <p className="max-w-[330px] text-[15px] leading-relaxed text-ink/65">
                   Role para explorar. Os serviços avançam pela esquerda enquanto o celular, à direita, troca de cena em cada etapa.
@@ -593,7 +593,7 @@ export default function EixoEditorialSite() {
                     transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
                   >
                     <div className="flex items-center justify-between border-b border-ink/10 pb-4">
-                      <span className="font-sans text-[10px] font-bold tracking-[0.18em] text-azure">0{index + 1}</span>
+                      <span className="font-sans text-[10px] font-bold tracking-[0.18em] text-azure-label">0{index + 1}</span>
                       <span className="font-sans text-[8px] font-semibold uppercase tracking-[0.15em] text-ink/65">
                         Eixo em movimento
                       </span>
@@ -604,7 +604,7 @@ export default function EixoEditorialSite() {
                       {service.title}
                     </h3>
                     <p className="mt-5 max-w-[42ch] text-[13px] leading-[1.7] text-ink/65 sm:text-[14px]">{service.text}</p>
-                    <div className="mt-6 flex items-center gap-3 font-sans text-[9px] font-bold uppercase tracking-[0.14em] text-azure">
+                    <div className="mt-6 flex items-center gap-3 font-sans text-[9px] font-bold uppercase tracking-[0.14em] text-azure-label">
                       <span className="grid size-7 place-items-center border border-azure/45">
                         <Image src="/eixo-symbol.png" alt="" width={14} height={14} />
                       </span>
@@ -730,7 +730,7 @@ export default function EixoEditorialSite() {
             <SectionNumber number="04" />
             <Reveal>
               <h2 className="max-w-[1050px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
-                Criatividade precisa de <span className="text-azure">processo.</span>
+                Criatividade precisa de <span className="text-azure-heading">processo.</span>
               </h2>
             </Reveal>
           </div>
@@ -738,7 +738,7 @@ export default function EixoEditorialSite() {
             {methodSteps.map((step, index) => (
               <Reveal key={step.key} className="h-full" delay={index * 0.05}>
                 <article className="flex h-full min-h-[330px] flex-col bg-[#fffdfa] p-7 transition-colors duration-300 hover:bg-lavanda">
-                  <span className="font-mono text-[10px] text-azure">0{index + 1}</span>
+                  <span className="font-mono text-[10px] text-azure-label">0{index + 1}</span>
                   <h3 className="mt-6 font-display text-[30px] font-black leading-[1.08] tracking-[-0.02em]">{step.label}</h3>
                   <p className="mt-4 text-[13px] leading-relaxed text-ink/65">{step.description}</p>
                   <ul className="mt-5 flex flex-wrap gap-2">
@@ -762,7 +762,7 @@ export default function EixoEditorialSite() {
               <SectionNumber number="05" />
               <Reveal>
                 <h2 className="mt-8 max-w-[820px] [text-wrap:balance] font-display text-[clamp(22px,3.3vw,47px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
-                  Identidades que já passaram pelo nosso <span className="text-azure">eixo.</span>
+                  Identidades que já passaram pelo nosso <span className="text-azure-heading">eixo.</span>
                 </h2>
               </Reveal>
             </div>
