@@ -253,26 +253,28 @@ function RevealItem({ children, className = '' }: { children: React.ReactNode; c
 
 function PortfolioVideoCard({ video, index }: { video: (typeof portfolioVideos)[number]; index: number }) {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const reduce = useReducedMotion()
+  const [playing, setPlaying] = useState(false)
 
+  // Play só quando a pessoa toca no card — sem autoplay no scroll, os 6 vídeos
+  // não competem por banda/decodificação ao mesmo tempo enquanto o usuário rola a página.
   useEffect(() => {
     const element = videoRef.current
-    if (!element || reduce) return
+    if (!element) return
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry?.isIntersecting) {
-          void element.play().catch(() => undefined)
-        } else {
-          element.pause()
-        }
+        if (!entry?.isIntersecting) element.pause()
       },
-      { threshold: 0.35 }
+      { threshold: 0.1 }
     )
 
     observer.observe(element)
     return () => observer.disconnect()
-  }, [reduce])
+  }, [])
+
+  const handlePlay = () => {
+    void videoRef.current?.play().catch(() => undefined)
+  }
 
   return (
     <RevealItem>
@@ -287,10 +289,26 @@ function PortfolioVideoCard({ video, index }: { video: (typeof portfolioVideos)[
             preload="metadata"
             poster={video.poster}
             controls
+            onPlay={() => setPlaying(true)}
+            onPause={() => setPlaying(false)}
             aria-label={`${video.title}: ${video.tag}`}
           >
             <source src={video.src} type="video/mp4" />
           </video>
+          {!playing && (
+            <button
+              type="button"
+              onClick={handlePlay}
+              aria-label={`Reproduzir vídeo: ${video.title}`}
+              className="absolute inset-0 flex items-center justify-center bg-ink/15 transition-colors group-hover:bg-ink/25"
+            >
+              <span className="grid size-12 place-items-center rounded-full bg-white/95 text-ink shadow-lg transition-transform group-hover:scale-105">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden>
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </span>
+            </button>
+          )}
           <span className="pointer-events-none absolute left-4 top-4 border border-white/30 bg-ink/70 px-3 py-1.5 font-sans text-[9px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur">
             0{index + 1}
           </span>
