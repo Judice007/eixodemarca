@@ -737,7 +737,7 @@ export default function EixoEditorialSite() {
             </Reveal>
           </div>
 
-          <RevealGroup className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
+          <RevealGroup className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-5">
             {projects.map((project, index) => (
               <RevealItem key={`${project.client}-${index}`}>
                 <article className="group">
