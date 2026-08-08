@@ -594,11 +594,13 @@ export default function EixoEditorialSite() {
                   src={item.src}
                   alt={index < mediaStrip.length ? item.alt : ''}
                   fill
-                  // As 6 imagens do primeiro loop precisam de priority=true -- testei
+                  // As 6 primeiras imagens do primeiro loop precisam de priority=true -- testei
                   // limitar a 2 (achando que o preload das 6 competia com as fontes) e o
                   // atraso de renderização do LCP voltou a ~2.2s. Com as 6 fica em ~470ms,
                   // então o preload "competindo" era menor problema que ficar sem ele.
-                  priority={index < mediaStrip.length}
+                  // Fixo em 6 (não mediaStrip.length): o array cresceu para 9 itens e todas
+                  // passaram a levar priority=true, o que trouxe o mesmo regressão de LCP de volta.
+                  priority={index < 6}
                   sizes="(min-width: 1024px) 285px, (min-width: 640px) 235px, 170px"
                   className="object-cover transition-transform duration-700 hover:scale-[1.04]"
                   style={{ objectPosition: item.position }}
