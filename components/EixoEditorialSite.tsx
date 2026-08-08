@@ -202,6 +202,63 @@ const marks = [
   { src: '/portfolio-media/marca-bm.webp', alt: 'BIG' },
 ]
 
+// Posições dos 7 cartões ao redor do celular (offset % do centro do container
+// quadrado), num arco de 320° que pula o vão de baixo onde ficam as "mãos".
+// x/y = R·cos/sin do ângulo -- calculado uma vez, não em runtime. R=34 no
+// mobile (celular menor, precisa de menos raio) e R=42 a partir do sm:.
+const ORBIT_POSITIONS = [
+  { x: 13.0, y: 35.7, xSm: 14.4, ySm: 39.5 },
+  { x: 36.4, y: 10.9, xSm: 40.2, ySm: 12.0 },
+  { x: 30.5, y: -22.7, xSm: 33.7, ySm: -25.1 },
+  { x: 0, y: -34, xSm: 0, ySm: -42 },
+  { x: -30.5, y: -22.7, xSm: -33.7, ySm: -25.1 },
+  { x: -36.4, y: 10.9, xSm: -40.2, ySm: 12.0 },
+  { x: -13.0, y: 35.7, xSm: -14.4, ySm: 39.5 },
+]
+
+const SERVICE_ICON_PATHS = [
+  // Social media -- balão de conversa
+  <path key="p" d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9A1.5 1.5 0 0 1 18.5 16H9l-4 4v-4H5.5A1.5 1.5 0 0 1 4 14.5v-9Z" />,
+  // Design -- caneta
+  <g key="g">
+    <path d="M3 21l3.2-.9L18.4 7.9a1.5 1.5 0 0 0 0-2.1l-1.2-1.2a1.5 1.5 0 0 0-2.1 0L2.9 16.8 2 20l1 1Z" />
+    <path d="M13.5 6.5l3 3" />
+  </g>,
+  // Identidade visual -- selo hexagonal
+  <path key="p" d="M12 3l7.8 4.5v9L12 21l-7.8-4.5v-9L12 3Z" />,
+  // Edição de vídeo -- play em quadro
+  <g key="g">
+    <rect x="3" y="4" width="18" height="16" rx="3" />
+    <path d="M10 9l6 3-6 3V9Z" fill="currentColor" stroke="none" />
+  </g>,
+  // Gestão de projetos -- checklist
+  <g key="g">
+    <rect x="4" y="5" width="4" height="4" rx="1" />
+    <rect x="4" y="10.5" width="4" height="4" rx="1" />
+    <rect x="4" y="16" width="4" height="4" rx="1" />
+    <path d="M11 7h9M11 12.5h9M11 18h9" />
+  </g>,
+  // Landing pages -- janela de navegador
+  <g key="g">
+    <rect x="3" y="5" width="18" height="14" rx="2" />
+    <path d="M3 9h18" />
+    <circle cx="6" cy="7" r="0.6" fill="currentColor" stroke="none" />
+  </g>,
+  // Tráfego pago -- gráfico em alta
+  <g key="g">
+    <path d="M4 16l5-5 4 4 7-8" />
+    <path d="M15 6h5v5" />
+  </g>,
+]
+
+function ServiceIcon({ index, className }: { index: number; className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
+      {SERVICE_ICON_PATHS[index % SERVICE_ICON_PATHS.length]}
+    </svg>
+  )
+}
+
 function SectionNumber({ number }: { number: string }) {
   return (
     <div className="flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/65">
@@ -394,19 +451,19 @@ function ServicePhone({ active, reduce }: { active: number; reduce: boolean }) {
 
   return (
     <motion.div
-      className="relative h-[430px] w-[216px] sm:h-[500px] sm:w-[250px]"
+      className="relative h-[300px] w-[151px] sm:h-[500px] sm:w-[250px]"
       animate={reduce ? undefined : { rotate: active % 2 === 0 ? -1.5 : 1.5, y: active % 2 === 0 ? -5 : 5 }}
       transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div aria-hidden className="absolute left-1/2 top-1/2 -z-10 size-[330px] -translate-x-1/2 -translate-y-1/2 sm:size-[410px]">
+      <div aria-hidden className="absolute left-1/2 top-1/2 -z-10 size-[230px] -translate-x-1/2 -translate-y-1/2 sm:size-[410px]">
         <span className="absolute left-1/2 top-1/2 h-3 w-full -translate-x-1/2 -translate-y-1/2 rotate-45 bg-azure/16" />
         <span className="absolute left-1/2 top-1/2 h-3 w-full -translate-x-1/2 -translate-y-1/2 -rotate-45 bg-azure/16" />
         <span className="absolute inset-8 border border-dashed border-azure/30" />
       </div>
 
-      <span className="absolute -right-1 top-24 h-16 w-1 bg-azure" />
-      <div className="relative h-full overflow-hidden rounded-[38px] border-[8px] border-ink bg-ink shadow-[0_44px_90px_-34px_rgba(42,16,74,.72)]">
-        <div className="absolute left-1/2 top-2 z-30 h-5 w-20 -translate-x-1/2 rounded-full bg-ink" />
+      <span className="absolute -right-1 top-16 h-12 w-1 bg-azure sm:top-24 sm:h-16" />
+      <div className="relative h-full overflow-hidden rounded-[28px] border-[6px] border-ink bg-ink shadow-[0_44px_90px_-34px_rgba(42,16,74,.72)] sm:rounded-[38px] sm:border-[8px]">
+        <div className="absolute left-1/2 top-1.5 z-30 h-4 w-14 -translate-x-1/2 rounded-full bg-ink sm:top-2 sm:h-5 sm:w-20" />
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={`${active}-${media.src}`}
@@ -433,8 +490,20 @@ export default function EixoEditorialSite() {
   const [scrolled, setScrolled] = useState(false)
   const [activeService, setActiveService] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isDesktopOrbit, setIsDesktopOrbit] = useState(false)
   const duplicatedMedia = [...mediaStrip, ...mediaStrip]
   const duplicatedServices = [...services, ...services]
+
+  // Raio da órbita de serviços muda no breakpoint sm (640px) -- via matchMedia
+  // porque classes Tailwind com valor dinâmico (className={`sm:[--x:${x}]`})
+  // não são geradas pelo JIT, só literais presentes no código-fonte.
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 640px)')
+    const update = () => setIsDesktopOrbit(mq.matches)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
 
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 72)
@@ -442,6 +511,31 @@ export default function EixoEditorialSite() {
     window.addEventListener('scroll', update, { passive: true })
     return () => window.removeEventListener('scroll', update)
   }, [])
+
+  // Troca de serviço em loop -- não depende mais de scroll. Pausado com
+  // prefers-reduced-motion (evita conteúdo trocando sozinho na tela pra quem
+  // pediu menos animação).
+  const serviceIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+
+  useEffect(() => {
+    if (reduce) return undefined
+    serviceIntervalRef.current = setInterval(() => {
+      setActiveService((prev) => (prev + 1) % services.length)
+    }, 2600)
+    return () => {
+      if (serviceIntervalRef.current) clearInterval(serviceIntervalRef.current)
+    }
+  }, [reduce])
+
+  const selectService = (index: number) => {
+    setActiveService(index)
+    if (serviceIntervalRef.current) clearInterval(serviceIntervalRef.current)
+    if (!reduce) {
+      serviceIntervalRef.current = setInterval(() => {
+        setActiveService((prev) => (prev + 1) % services.length)
+      }, 2600)
+    }
+  }
 
   return (
     <main id="top" className="min-h-screen bg-[#fffdfa] text-ink">
@@ -639,83 +733,76 @@ export default function EixoEditorialSite() {
                   Seu projeto, sempre no <span className="text-azure-heading">eixo.</span>
                 </h2>
                 <p className="max-w-[330px] text-[15px] leading-relaxed text-ink/65">
-                  Role para explorar. Os serviços avançam pela esquerda enquanto o celular, à direita, troca de cena em cada etapa.
+                  Um serviço por vez, em loop automático. Toque em qualquer ícone pra pular direto pra ele.
                 </p>
               </div>
             </Reveal>
           </div>
 
-          <div className="relative mt-10 grid gap-10 sm:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(340px,.72fr)] lg:gap-16">
-            <div className="order-2 lg:order-1">
-              {services.map((service, index) => (
-                <motion.article
-                  key={service.title}
-                  tabIndex={0}
-                  aria-current={activeService === index ? 'step' : undefined}
-                  onFocus={() => setActiveService(index)}
-                  onViewportEnter={() => setActiveService(index)}
-                  viewport={{ amount: 0.45 }}
-                  className="flex items-center border-t border-ink/12 py-8 first:border-t-0 lg:min-h-[40vh] lg:py-12"
-                >
-                  <motion.div
-                    className={`relative w-full max-w-[590px] border-l-[3px] p-6 transition-[background-color,border-color,box-shadow] duration-500 sm:p-8 lg:p-10 ${
-                      activeService === index
-                        ? 'border-azure bg-white/90 shadow-[0_30px_80px_-42px_rgba(42,16,74,.42)]'
-                        : 'border-transparent bg-transparent'
-                    }`}
-                    initial={reduce ? false : { opacity: 0, x: -50, y: 18 }}
-                    whileInView={{ opacity: 1, x: 0, y: 0 }}
-                    viewport={{ once: true, amount: 0.38 }}
-                    transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                  >
-                    <div className="flex items-center justify-between border-b border-ink/10 pb-4">
-                      <span className="font-sans text-[10px] font-bold tracking-[0.18em] text-azure-label">0{index + 1}</span>
-                      <span className="font-sans text-[8px] font-semibold uppercase tracking-[0.15em] text-ink/65">
-                        Eixo em movimento
-                      </span>
-                    </div>
-                    <h3 className={`mt-6 font-display text-[clamp(17px,2.2vw,31px)] font-black leading-[1.02] tracking-[-0.025em] transition-colors duration-500 ${
-                      activeService === index ? 'text-ink' : 'text-ink/65'
-                    }`}>
-                      {service.title}
-                    </h3>
-                    <p className="mt-5 max-w-[42ch] text-[13px] leading-[1.7] text-ink/65 sm:text-[14px]">{service.text}</p>
-                    <div className="mt-6 flex items-center gap-3 font-sans text-[9px] font-bold uppercase tracking-[0.14em] text-azure-label">
-                      <span className="grid size-7 place-items-center border border-azure/45">
-                        <Image src="/eixo-symbol.png" alt="" width={14} height={14} />
-                      </span>
-                      Veja no celular
-                    </div>
-                    <span aria-hidden className="absolute left-full top-1/2 hidden h-px w-[clamp(38px,5vw,72px)] bg-azure/50 lg:block" />
-                  </motion.div>
-                </motion.article>
-              ))}
+          <div className="relative mx-auto mt-6 aspect-square w-full max-w-[600px] sm:mt-10">
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex justify-center">
+              <span className="absolute bottom-[4%] left-[19%] h-[36%] w-[15%] -rotate-[16deg] rounded-full bg-ink/[0.07]" />
+              <span className="absolute bottom-[4%] right-[19%] h-[36%] w-[15%] rotate-[16deg] rounded-full bg-ink/[0.07]" />
             </div>
 
-            <aside className="order-1 self-stretch lg:order-2">
-              <div className="relative flex h-[500px] items-center justify-center lg:sticky lg:top-[92px] lg:h-[calc(100svh-110px)]">
-                <ServicePhone active={activeService} reduce={!!reduce} />
-                <div aria-hidden className="absolute left-0 top-1/2 hidden -translate-y-1/2 flex-col gap-3 lg:flex">
-                  {services.map((service, index) => (
-                    <span key={service.title} className="flex items-center gap-2">
-                      <span className="grid size-[10px] place-items-center">
-                        {index === activeService ? (
-                          <Image src="/eixo-symbol.png" alt="" width={10} height={10} />
-                        ) : (
-                          <span className="font-display text-[12px] font-black text-ink/20">·</span>
-                        )}
-                      </span>
-                      <span className={`h-px transition-all duration-500 ${index === activeService ? 'w-10 bg-azure' : 'w-5 bg-ink/15'}`} />
-                    </span>
-                  ))}
-                </div>
-                <div className="pointer-events-none absolute bottom-8 right-0 hidden text-right lg:block">
-                  <p className="font-display text-[18px] font-bold text-ink/60">
-                    0{activeService + 1} / 0{services.length}
-                  </p>
-                </div>
-              </div>
-            </aside>
+            {services.map((service, index) => {
+              const pos = ORBIT_POSITIONS[index % ORBIT_POSITIONS.length]!
+              const isActive = activeService === index
+              return (
+                <motion.button
+                  key={service.title}
+                  type="button"
+                  onClick={() => selectService(index)}
+                  aria-current={isActive ? 'step' : undefined}
+                  aria-label={service.title}
+                  className={`absolute z-10 grid size-[48px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-2xl border bg-white transition-colors duration-500 sm:size-[76px] ${
+                    isActive ? 'border-azure shadow-[0_20px_50px_-24px_rgba(42,16,74,.5)]' : 'border-ink/10 shadow-[0_10px_30px_-20px_rgba(42,16,74,.3)]'
+                  }`}
+                  style={
+                    isDesktopOrbit
+                      ? { left: `${50 + pos.xSm}%`, top: `${50 + pos.ySm}%` }
+                      : { left: `${50 + pos.x}%`, top: `${50 + pos.y}%` }
+                  }
+                  animate={
+                    reduce
+                      ? undefined
+                      : { scale: isActive ? 1.14 : 1, y: [0, index % 2 === 0 ? -6 : 6, 0] }
+                  }
+                  transition={{
+                    scale: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+                    y: { duration: 4.4 + index * 0.3, repeat: Infinity, ease: 'easeInOut' },
+                  }}
+                >
+                  <ServiceIcon index={index} className={`size-6 transition-colors duration-500 sm:size-8 ${isActive ? 'text-azure' : 'text-ink/40'}`} />
+                </motion.button>
+              )
+            })}
+
+            <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
+              <ServicePhone active={activeService} reduce={!!reduce} />
+            </div>
+          </div>
+
+          <div className="relative mt-10 flex flex-col items-center text-center sm:mt-14">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeService}
+                initial={reduce ? false : { opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-azure-label">
+                  0{activeService + 1} / 0{services.length}
+                </p>
+                <h3 className="mt-2 font-display text-[clamp(20px,3.2vw,34px)] font-black uppercase tracking-[-0.02em] text-ink">
+                  {services[activeService]!.title}
+                </h3>
+                <p className="mx-auto mt-2 max-w-[46ch] text-[14px] leading-relaxed text-ink/60 sm:text-[15px]">
+                  {services[activeService]!.text}
+                </p>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </section>
