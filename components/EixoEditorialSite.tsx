@@ -174,14 +174,14 @@ const serviceShowcaseMedia = [
   },
   {
     type: 'image' as const,
-    src: '/portfolio-media/gestao-producao.webp',
-    alt: 'Organização e gestão de produção',
+    src: '/portfolio-media/gestao-projetos-equipe.webp',
+    alt: 'Equipe da Eixo de Marca organizando um projeto',
   },
   {
     type: 'video' as const,
-    src: '/portfolio-media/videos/video-pousada-02.mp4',
-    poster: '/portfolio-media/videos/poster-pousada-02.webp',
-    alt: 'Experiência digital da Pousada da Praia',
+    src: '/portfolio-media/videos/video-manoa-tour.mp4',
+    poster: '/portfolio-media/videos/poster-manoa-tour.webp',
+    alt: 'Navegação pela landing page da Manoa Tour',
   },
   {
     type: 'video' as const,
