@@ -202,18 +202,18 @@ const marks = [
   { src: '/portfolio-media/marca-bm.webp', alt: 'BIG' },
 ]
 
-// Posições dos 7 cartões ao redor do celular (offset % do centro do container
-// quadrado), num arco de 320° que pula o vão de baixo onde ficam as "mãos".
-// x/y = R·cos/sin do ângulo -- calculado uma vez, não em runtime. R=34 no
-// mobile (celular menor, precisa de menos raio) e R=42 a partir do sm:.
+// Posições dos 7 cartões ao redor do celular (offset % do centro do
+// container quadrado) -- leque escalonado (alterna alto/baixo indo pros
+// lados, tipo cascata) em vez de um arco uniforme, deixando a base livre.
+// Calculado uma vez, não em runtime.
 const ORBIT_POSITIONS = [
-  { x: 13.0, y: 35.7, xSm: 14.4, ySm: 39.5 },
-  { x: 36.4, y: 10.9, xSm: 40.2, ySm: 12.0 },
-  { x: 30.5, y: -22.7, xSm: 33.7, ySm: -25.1 },
-  { x: 0, y: -34, xSm: 0, ySm: -42 },
-  { x: -30.5, y: -22.7, xSm: -33.7, ySm: -25.1 },
-  { x: -36.4, y: 10.9, xSm: -40.2, ySm: 12.0 },
-  { x: -13.0, y: 35.7, xSm: -14.4, ySm: 39.5 },
+  { x: -32, y: 14, xSm: -45, ySm: 20 },
+  { x: -22, y: -13, xSm: -30, ySm: -18 },
+  { x: -11, y: 6, xSm: -15, ySm: 8 },
+  { x: 0, y: -27, xSm: 0, ySm: -38 },
+  { x: 11, y: 6, xSm: 15, ySm: 8 },
+  { x: 22, y: -13, xSm: 30, ySm: -18 },
+  { x: 32, y: 14, xSm: 45, ySm: 20 },
 ]
 
 const SERVICE_ICON_PATHS = [
@@ -493,6 +493,7 @@ export default function EixoEditorialSite() {
   const [isDesktopOrbit, setIsDesktopOrbit] = useState(false)
   const duplicatedMedia = [...mediaStrip, ...mediaStrip]
   const duplicatedServices = [...services, ...services]
+  const activeOrbitPos = ORBIT_POSITIONS[activeService % ORBIT_POSITIONS.length]!
 
   // Raio da órbita de serviços muda no breakpoint sm (640px) -- via matchMedia
   // porque classes Tailwind com valor dinâmico (className={`sm:[--x:${x}]`})
@@ -781,6 +782,27 @@ export default function EixoEditorialSite() {
             <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
               <ServicePhone active={activeService} reduce={!!reduce} />
             </div>
+
+            {/* Ícone do cartão ativo "voa" até o centro do celular a cada troca,
+                reforçando visualmente qual cartão virou o conteúdo da tela. */}
+            {!reduce && (
+              <AnimatePresence>
+                <motion.div
+                  key={activeService}
+                  initial={{
+                    left: `${50 + (isDesktopOrbit ? activeOrbitPos.xSm : activeOrbitPos.x)}%`,
+                    top: `${50 + (isDesktopOrbit ? activeOrbitPos.ySm : activeOrbitPos.y)}%`,
+                    opacity: 1,
+                    scale: 1,
+                  }}
+                  animate={{ left: '50%', top: '50%', opacity: 0, scale: 0.3 }}
+                  transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                  className="pointer-events-none absolute z-30 -translate-x-1/2 -translate-y-1/2 text-white"
+                >
+                  <ServiceIcon index={activeService} className="size-6 sm:size-8" />
+                </motion.div>
+              </AnimatePresence>
+            )}
           </div>
 
           <div className="relative mt-10 flex flex-col items-center text-center sm:mt-14">
