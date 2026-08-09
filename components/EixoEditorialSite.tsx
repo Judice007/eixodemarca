@@ -223,8 +223,12 @@ function RevealGroup({ children, className = '' }: { children: React.ReactNode; 
 }
 
 function RevealItem({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  // Checa reduced-motion aqui também, em vez de confiar no initial={false} do
+  // RevealGroup se propagar: se a propagação falhasse, o item ficaria preso em
+  // opacity 0 — ou seja, conteúdo invisível. Sem variants não há estado oculto.
+  const reduce = useReducedMotion()
   return (
-    <motion.div className={className} variants={revealItemVariants}>
+    <motion.div className={className} variants={reduce ? undefined : revealItemVariants}>
       {children}
     </motion.div>
   )
@@ -267,7 +271,9 @@ function PortfolioVideoCard({ video, index }: { video: (typeof portfolioVideos)[
             playsInline
             preload="metadata"
             poster={video.poster}
-            controls
+            // Só depois do primeiro play. Antes disso a barra nativa aparecia
+            // por cima do botão redondo custom, com dois controles empilhados.
+            controls={playing}
             onPlay={() => setPlaying(true)}
             onPause={() => setPlaying(false)}
             aria-label={`${video.title}: ${video.tag}`}
@@ -306,7 +312,10 @@ function PortfolioVideoCard({ video, index }: { video: (typeof portfolioVideos)[
 
 function VideoPortfolioGrid() {
   return (
-    <RevealGroup className="mx-auto mt-10 grid max-w-[720px] grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
+    // Antes tinha mx-auto max-w-[720px], então o grid começava ~200px à direita
+    // do título da seção e sobrava uma faixa vazia. Agora usa a largura útil,
+    // na mesma grid das outras seções.
+    <RevealGroup className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5">
       {portfolioVideos.map((video, index) => (
         <PortfolioVideoCard key={video.src} video={video} index={index} />
       ))}
@@ -497,16 +506,16 @@ export default function EixoEditorialSite() {
       </section>
 
       <section className="border-t border-ink/10 px-[var(--gutter)] py-[clamp(82px,11vw,146px)]">
-        <div className="mx-auto grid max-w-[1420px] gap-14 lg:grid-cols-[160px_1fr]">
+        <div className="mx-auto flex max-w-[1420px] flex-col gap-6">
           <SectionNumber number="01" />
           <div>
             <Reveal>
-              <h2 className="max-w-[1180px] text-right [text-wrap:balance] font-display text-[clamp(23px,3.7vw,57px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
+              <h2 className="max-w-[1180px] [text-wrap:balance] font-display text-[clamp(23px,3.7vw,57px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
                 Aqui tudo começa com <span className="text-azure-heading">direção.</span> Entregamos comunicação pensada, não apenas automática.
               </h2>
             </Reveal>
-            <Reveal className="ml-auto mt-12 max-w-[720px]" delay={0.08}>
-              <p className="text-right text-[16px] leading-[1.7] text-ink/60 sm:text-[19px]">
+            <Reveal className="mt-12 max-w-[720px]" delay={0.08}>
+              <p className="text-[16px] leading-[1.7] text-ink/60 sm:text-[19px]">
                 Estratégia, criatividade e processo trabalhando juntos. Cada escolha precisa reforçar a marca, aproximar pessoas e conduzir o projeto para uma entrega clara.
               </p>
             </Reveal>
@@ -518,7 +527,7 @@ export default function EixoEditorialSite() {
 
       <section id="portfolio" className="scroll-mt-24 bg-ink px-[var(--gutter)] py-[clamp(82px,10vw,140px)] text-white">
         <div className="mx-auto max-w-[1420px]">
-          <div className="grid gap-10 lg:grid-cols-[160px_1fr]">
+          <div className="flex flex-col gap-6">
             <div className="flex items-center gap-3 self-start font-mono text-[11px] uppercase tracking-[0.18em] text-white/60">
               <span className="h-px w-10 bg-white/20" />
               03
@@ -546,18 +555,14 @@ export default function EixoEditorialSite() {
                       className={`${project.fit === 'contain' ? 'object-contain p-8' : 'object-cover'} transition-transform duration-700 group-hover:scale-[1.03]`}
                       style={{ objectPosition: project.position }}
                     />
-                    <span
-                      aria-hidden
-                      className="absolute left-1/2 top-1/2 z-10 grid size-10 -translate-x-1/2 -translate-y-1/2 rotate-[-24deg] place-items-center bg-azure opacity-0 transition-all duration-500 group-hover:rotate-0 group-hover:scale-110 group-hover:opacity-100"
-                    >
-                      <Image src="/eixo-symbol.png" alt="" width={20} height={20} style={{ filter: 'brightness(0) invert(1)' }} />
-                    </span>
-                    <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/75 to-transparent p-3 pt-16">
+                    {/* Scrim reforçado: a arte por baixo é cheia (selos, telefones,
+                        números de WhatsApp) e o gradiente curto anterior não dava
+                        contraste suficiente pro nome do cliente. */}
+                    <div className="absolute inset-x-0 bottom-0 flex items-end bg-gradient-to-t from-black/90 via-black/55 to-transparent p-3 pt-20">
                       <div>
-                        <p className="font-mono text-[7px] uppercase tracking-[0.14em] text-white/60">{project.tags}</p>
+                        <p className="font-mono text-[7px] uppercase tracking-[0.14em] text-white/70">{project.tags}</p>
                         <h3 className="mt-1.5 font-display text-[15px] font-bold leading-[1.15] tracking-[-0.01em]">{project.client}</h3>
                       </div>
-                      <span className="grid size-7 shrink-0 place-items-center border border-white/35 text-xs transition-colors group-hover:border-azure group-hover:bg-azure">↗</span>
                     </div>
                   </div>
                 </article>
@@ -570,9 +575,11 @@ export default function EixoEditorialSite() {
               <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
                 <div>
                   <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-azure">Portfólio em movimento</p>
-                  <h3 className="mt-4 max-w-[820px] [text-wrap:balance] font-display text-[clamp(21px,3.1vw,43px)] font-black uppercase leading-[1] tracking-[-0.035em]">
+                  {/* h2, não h3: é título de seção e vinha depois dos h3 dos
+                      cards de projeto, quebrando a hierarquia do documento. */}
+                  <h2 className="mt-4 max-w-[820px] [text-wrap:balance] font-display text-[clamp(21px,3.1vw,43px)] font-black uppercase leading-[1] tracking-[-0.035em]">
                     Histórias que também ganham <span className="text-azure">ritmo.</span>
-                  </h3>
+                  </h2>
                 </div>
                 <p className="max-w-[300px] text-[14px] leading-relaxed text-white/55">
                   Os seis vídeos do portfólio reunidos em uma seleção de conteúdo vertical, turismo, apresentação e cobertura.
@@ -598,7 +605,7 @@ export default function EixoEditorialSite() {
 
       <section id="metodo" className="scroll-mt-24 px-[var(--gutter)] py-[clamp(82px,11vw,148px)]">
         <div className="mx-auto max-w-[1420px]">
-          <div className="grid gap-10 lg:grid-cols-[160px_1fr]">
+          <div className="flex flex-col gap-6">
             <SectionNumber number="04" />
             <Reveal>
               <h2 className="max-w-[1050px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
@@ -609,7 +616,9 @@ export default function EixoEditorialSite() {
           <RevealGroup className="mt-12 grid gap-px bg-ink/15 md:grid-cols-2 xl:grid-cols-4">
             {methodSteps.map((step, index) => (
               <RevealItem key={step.key} className="h-full">
-                <article className="flex h-full min-h-[330px] flex-col bg-[#fffdfa] p-7 transition-colors duration-300 hover:bg-lavanda">
+                {/* min-h fixo de 330px deixava ~150px mortos abaixo dos chips.
+                    O h-full já iguala a altura das células da linha. */}
+                <article className="flex h-full flex-col bg-[#fffdfa] p-7 transition-colors duration-300 hover:bg-lavanda">
                   <span className="font-mono text-[10px] text-azure-label">0{index + 1}</span>
                   <h3 className="mt-6 font-display text-[30px] font-black leading-[1.08] tracking-[-0.02em]">{step.label}</h3>
                   <p className="mt-4 text-[13px] leading-relaxed text-ink/65">{step.description}</p>
@@ -640,10 +649,16 @@ export default function EixoEditorialSite() {
             </div>
             <p className="max-w-[320px] text-[14px] leading-relaxed text-ink/65">Seleção de marcas e sistemas visuais presentes no portfólio.</p>
           </div>
+          {/* Os arquivos têm fundo próprio (3 escuros, 3 brancos, 1 coral). Com
+              object-contain num quadro branco cada um virava um retângulo de cor
+              diferente dentro da célula — o efeito xadrez. Todos são 1:1, então
+              object-cover preenche a célula sem cortar nada e o grid vira uma
+              parede de marcas uniforme; o grayscale amarra os tons e a cor real
+              volta no hover. */}
           <div className="mt-11 grid grid-cols-2 border-l border-t border-ink/10 sm:grid-cols-4">
             {marks.map((mark) => (
-              <div key={mark.src} className="relative aspect-square border-b border-r border-ink/10 bg-white p-2">
-                <Image src={mark.src} alt={mark.alt} fill sizes="25vw" className="object-contain grayscale transition-all duration-500 hover:grayscale-0" />
+              <div key={mark.src} className="relative aspect-square overflow-hidden border-b border-r border-ink/10 bg-ink">
+                <Image src={mark.src} alt={mark.alt} fill sizes="25vw" className="object-cover grayscale transition-all duration-500 hover:grayscale-0" />
               </div>
             ))}
           </div>

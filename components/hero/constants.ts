@@ -22,8 +22,15 @@ export const SCREEN = {
 /** Raio da tela convertido pra % da própria caixa da tela (pro border-radius). */
 export const SCREEN_RADIUS_PCT = SCREEN.radius * (100 / SCREEN.width)
 
-/** Segundos que cada serviço passa no centro. */
-export const SLOT = 2.6
+/**
+ * A órbita é dirigida pelo scroll: a seção fica presa na tela e o progresso da
+ * rolagem vira a posição da órbita.
+ *  - VH_PER_SERVICE: quanto de rolagem cada serviço ocupa. A altura total da
+ *    seção é works.length * este valor.
+ *  - SMOOTHING: lerp entre a posição alvo (do scroll) e a desenhada, pra roda
+ *    do mouse não sair aos saltos.
+ */
+export const SCROLL = { vhPerService: 46, smoothing: 0.12 } as const
 
 /**
  * Distância horizontal entre dois slots vizinhos, em px, por breakpoint.

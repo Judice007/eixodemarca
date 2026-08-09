@@ -1,8 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Work } from '@/lib/works'
 import { ASSET_ASPECT, SCREEN, SCREEN_RADIUS_PCT, TRANSITION } from './constants'
 
@@ -10,63 +9,115 @@ import { ASSET_ASPECT, SCREEN, SCREEN_RADIUS_PCT, TRANSITION } from './constants
  * O aparelho: as mãos + o celular são um asset único com a tela vazada, então o
  * conteúdo entra ATRÁS da imagem e aparece pelo buraco. O notch é opaco no
  * próprio asset, então ele cobre o conteúdo sozinho — é de propósito.
+ *
+ * IMPORTANTE — por que TODAS as telas ficam montadas o tempo todo:
+ * a primeira versão trocava a tela dentro de um <AnimatePresence> com key por
+ * serviço. Como o rotador volta a cada 2,6s, o <video> era desmontado e
+ * remontado o tempo inteiro, e o navegador rebaixava o arquivo em cada volta —
+ * 138 MB de vídeo numa única visita. Agora cada clipe é montado uma vez, com
+ * key estável, e a troca é só opacity/visibility. Nada de mexer em src/key.
  */
 
 const DEVICE_SRC = '/assets/device/hands-phone.webp'
 
-function ScreenMedia({ work, active, reduce }: { work: Work; active: boolean; reduce: boolean }) {
+/** Uma camada por serviço. Só a ativa fica visível; nenhuma é desmontada. */
+function ScreenLayer({
+  work,
+  active,
+  inView,
+  reduce,
+}: {
+  work: Work
+  active: boolean
+  inView: boolean
+  reduce: boolean
+}) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  // Só o vídeo do serviço ativo existe no DOM (o AnimatePresence monta um de
-  // cada vez), e mesmo esse só toca quando a seção está visível.
   useEffect(() => {
     const el = videoRef.current
-    if (!el || reduce) return
+    if (!el) return
+    if (active && inView && !reduce) {
+      void el.play().catch(() => undefined)
+    } else {
+      el.pause()
+    }
+  }, [active, inView, reduce])
 
+  return (
+    <div
+      className="absolute inset-0"
+      aria-hidden
+      style={{
+        opacity: active ? 1 : 0,
+        // esconde de verdade depois do fade, pra camada inativa nem compor
+        visibility: active ? 'visible' : 'hidden',
+        transition: reduce
+          ? 'none'
+          : `opacity ${TRANSITION.screen}s cubic-bezier(.25,1,.5,1), visibility 0s linear ${
+              active ? '0s' : `${TRANSITION.screen}s`
+            }`,
+      }}
+    >
+      {work.screen.type === 'video' ? (
+        <video
+          ref={videoRef}
+          className="h-full w-full object-cover"
+          muted
+          loop
+          playsInline
+          // nunca baixa sozinho: só quando esta camada vira a ativa e dá play()
+          preload="none"
+          poster={work.screen.poster}
+          src={work.screen.src}
+          aria-hidden
+        />
+      ) : (
+        <Image
+          src={work.screen.src}
+          alt=""
+          fill
+          sizes="(min-width: 1280px) 190px, (min-width: 768px) 150px, 110px"
+          className="object-cover"
+        />
+      )}
+    </div>
+  )
+}
+
+export default function PhoneStage({
+  works,
+  activeIndex,
+  reduce,
+}: {
+  works: Work[]
+  activeIndex: number
+  reduce: boolean
+}) {
+  const rootRef = useRef<HTMLDivElement>(null)
+  const [inView, setInView] = useState(false)
+
+  // um observer só pro palco inteiro, em vez de um por vídeo
+  useEffect(() => {
+    const el = rootRef.current
+    if (!el) return
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting && active) void el.play().catch(() => undefined)
-        else el.pause()
-      },
+      ([entry]) => setInView(!!entry?.isIntersecting),
       { threshold: 0.25 }
     )
     observer.observe(el)
     return () => observer.disconnect()
-  }, [active, reduce])
+  }, [])
 
-  if (work.screen.type === 'video') {
-    return (
-      <video
-        ref={videoRef}
-        className="h-full w-full object-cover"
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        poster={work.screen.poster}
-        aria-hidden
-      >
-        <source src={work.screen.src} type="video/mp4" />
-      </video>
-    )
-  }
-
-  return (
-    <Image
-      src={work.screen.src}
-      alt=""
-      fill
-      sizes="(min-width: 1280px) 190px, (min-width: 768px) 150px, 110px"
-      className="object-cover"
-    />
-  )
-}
-
-export default function PhoneStage({ work, reduce }: { work: Work; reduce: boolean }) {
   return (
     <div
-      className="relative"
-      style={{ width: 'min(38vw, 520px)', minWidth: 190, aspectRatio: String(ASSET_ASPECT) }}
+      ref={rootRef}
+      // A altura é 1.5x a largura (ASSET_ASPECT), então o teto em vh é o que
+      // impede o aparelho de empurrar o rótulo e a barra pra fora da tela presa.
+      // O fator em vw sobe no mobile: com 38vw o celular ficava menor que o
+      // próprio chip de CTA.
+      className="relative w-[min(62vw,34vh)] sm:w-[min(45vw,36vh)] lg:w-[min(38vw,520px,40vh)]"
+      style={{ minWidth: 150, aspectRatio: String(ASSET_ASPECT) }}
     >
       {/* conteúdo da tela — fica atrás do asset */}
       <div
@@ -80,18 +131,15 @@ export default function PhoneStage({ work, reduce }: { work: Work; reduce: boole
           zIndex: 1,
         }}
       >
-        <AnimatePresence mode="popLayout" initial={false}>
-          <motion.div
-            key={work.id}
-            className="absolute inset-0"
-            initial={reduce ? false : { opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
-            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-            exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 1.02, filter: 'blur(6px)' }}
-            transition={{ duration: reduce ? 0 : TRANSITION.screen, ease: [0.25, 1, 0.5, 1] }}
-          >
-            <ScreenMedia work={work} active reduce={reduce} />
-          </motion.div>
-        </AnimatePresence>
+        {works.map((w, i) => (
+          <ScreenLayer
+            key={w.id}
+            work={w}
+            active={i === activeIndex}
+            inView={inView}
+            reduce={reduce}
+          />
+        ))}
 
         {/* reflexo do vidro */}
         <span
@@ -103,16 +151,27 @@ export default function PhoneStage({ work, reduce }: { work: Work; reduce: boole
         />
       </div>
 
-      {/* mãos + aparelho. filter integra a pele ao roxo do palco. */}
-      <Image
-        src={DEVICE_SRC}
-        alt=""
+      {/* Mãos + aparelho. O asset termina numa linha reta embaixo (os antebraços
+          são cortados pela borda do render), então o container recebe um fade
+          pra que eles se dissolvam no palco em vez de parecerem amputados. */}
+      <div
         aria-hidden
-        fill
-        sizes="(min-width: 1280px) 520px, (min-width: 768px) 40vw, 55vw"
-        className="pointer-events-none select-none object-contain"
-        style={{ zIndex: 2, filter: 'saturate(.92) contrast(1.03)' }}
-      />
+        className="pointer-events-none absolute inset-0"
+        style={{
+          zIndex: 2,
+          maskImage: 'linear-gradient(to bottom, #000 55%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, #000 55%, transparent 100%)',
+        }}
+      >
+        <Image
+          src={DEVICE_SRC}
+          alt=""
+          fill
+          sizes="(min-width: 1280px) 520px, (min-width: 768px) 40vw, 55vw"
+          className="select-none object-contain"
+          style={{ filter: 'saturate(.92) contrast(1.03)' }}
+        />
+      </div>
     </div>
   )
 }

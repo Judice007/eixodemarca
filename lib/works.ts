@@ -3,6 +3,9 @@
 //
 // Regras que valem pra qualquer edição futura deste arquivo:
 //   • Todo caminho aqui existe em /public. Nada de placeholder ou stock.
+//   • A tela do device aponta pra /videos/device/: loops de 12s e 480p de
+//     altura, porque ali o vídeo roda num retângulo de ~190px. O arquivo cheio
+//     continua no grid do portfólio, que é click-to-play.
 //   • `card` é SEMPRE .webp (o card orbita e não pode carregar vídeo). Quando a
 //     tela é vídeo, o card usa o poster já gerado pra esse vídeo.
 //   • `format` descreve a proporção REAL do arquivo de `card` — a proporção
@@ -32,7 +35,7 @@ export const works: Work[] = [
     card: '/portfolio-media/videos/poster-movimenta-angra.webp',
     screen: {
       type: 'video',
-      src: '/portfolio-media/videos/video-portfolio-03.mp4',
+      src: '/portfolio-media/videos/device/video-portfolio-03.mp4',
       poster: '/portfolio-media/videos/poster-movimenta-angra.webp',
     },
   },
@@ -66,7 +69,7 @@ export const works: Work[] = [
     card: '/portfolio-media/videos/poster-edicao-institucional.webp',
     screen: {
       type: 'video',
-      src: '/portfolio-media/videos/video-edicao-institucional.mp4',
+      src: '/portfolio-media/videos/device/video-edicao-institucional.mp4',
       poster: '/portfolio-media/videos/poster-edicao-institucional.webp',
     },
   },
@@ -88,7 +91,7 @@ export const works: Work[] = [
     card: '/portfolio-media/videos/poster-manoa-tour.webp',
     screen: {
       type: 'video',
-      src: '/portfolio-media/videos/video-manoa-tour.mp4',
+      src: '/portfolio-media/videos/device/video-manoa-tour.mp4',
       poster: '/portfolio-media/videos/poster-manoa-tour.webp',
     },
   },
@@ -101,7 +104,7 @@ export const works: Work[] = [
     card: '/portfolio-media/videos/poster-trafego-pago.webp',
     screen: {
       type: 'video',
-      src: '/portfolio-media/videos/video-trafego-pago.mp4',
+      src: '/portfolio-media/videos/device/video-trafego-pago.mp4',
       poster: '/portfolio-media/videos/poster-trafego-pago.webp',
     },
   },
