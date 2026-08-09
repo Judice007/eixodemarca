@@ -10,7 +10,7 @@ import PhoneStage from './PhoneStage'
 import { OrbitCards, StaticCards } from './OrbitCards'
 import ProgressBar from './ProgressBar'
 import CtaChip from './CtaChip'
-import { DEPTH, LAYER, PARALLAX, SCROLL, SPACING, SPAN } from './constants'
+import { DEPTH, LAYER, PARALLAX, SCROLL, SPACING, SPAN, TITLE_BAND } from './constants'
 
 const N = works.length
 
@@ -131,8 +131,12 @@ export default function ServiceOrbit() {
           const rotate = t * DEPTH.rotate
           const blur = Math.min(a * DEPTH.blurStep, DEPTH.blurMax)
           const bright = 1 - clamped * DEPTH.dim
-          // some exatamente no fim do alcance — sem corte seco
-          const opacity = a >= span ? 0 : Math.min(1, (span - a) / 0.7)
+          // Some no fim do alcance (sem corte seco) e também ao chegar no
+          // centro: ali o card fica exatamente atrás do aparelho, então
+          // dissolvê-lo evita que ele apareça pelas bordas quando for maior que
+          // o celular, e reforça a leitura de que ele "entrou" na tela.
+          const entrando = Math.min(1, a / 0.55)
+          const opacity = a >= span ? 0 : Math.min(1, (span - a) / 0.7) * entrando
 
           el.style.transform =
             `translate3d(calc(-50% + ${x.toFixed(2)}px), calc(-50% + ${y.toFixed(2)}px), 0)` +
@@ -244,7 +248,8 @@ export default function ServiceOrbit() {
       style={reduce ? undefined : { height: `${N * SCROLL.vhPerService}vh` }}
     >
       <div
-        className={`${reduce ? '' : 'sticky top-0 h-screen'} flex flex-col justify-center overflow-hidden px-[var(--gutter)] py-10`}
+        // pt maior que pb porque o header é fixo e ficava por cima do "02".
+        className={`${reduce ? '' : 'sticky top-0 h-screen'} flex flex-col justify-center overflow-hidden px-[var(--gutter)] pb-10 pt-28`}
       >
         {/* grão + vinheta */}
         <span aria-hidden className="eixo-stage-grain pointer-events-none absolute inset-0" />
@@ -266,69 +271,77 @@ export default function ServiceOrbit() {
             className="relative mt-4 flex justify-center sm:mt-6"
             onPointerMove={onMove}
             onPointerLeave={onLeave}
-            // O padding embaixo reserva a faixa do título gigante, senão o
-            // aparelho cobria o miolo da palavra.
-            style={{ perspective: 1200, paddingBottom: 'clamp(1.4rem, 7vw, 5.5rem)' }}
+            // A faixa reservada pro título gigante fica em CIMA: o título abre a
+            // cena e o aparelho desce pra baixo dele. O padding é o que empurra
+            // o device (que está no fluxo) — e como o total não muda, tudo
+            // continua cabendo na tela presa.
+            style={{ perspective: 1200, paddingTop: TITLE_BAND }}
           >
-            {/* halo do serviço ativo */}
-            <div
-              ref={haloRef}
-              aria-hidden
-              className="pointer-events-none absolute left-1/2 top-[42%] h-[42%] w-[46%] -translate-x-1/2 -translate-y-1/2 rounded-full"
-              style={{
-                zIndex: LAYER.halo,
-                backgroundColor: works[0]!.accent,
-                filter: 'blur(100px)',
-                opacity: 0.28,
-              }}
-            />
-
-            {/* Título gigante, na faixa reservada pelo padding do palco. */}
+            {/* Título gigante, na faixa reservada pelo padding do topo. */}
             <h2
-              className="pointer-events-none absolute bottom-0 left-1/2 w-full -translate-x-1/2 text-center font-display font-black uppercase leading-[0.92] tracking-[-0.04em] text-stage-display/[.92]"
+              className="pointer-events-none absolute top-0 left-1/2 w-full -translate-x-1/2 text-center font-display font-black uppercase leading-[0.92] tracking-[-0.04em] text-stage-display/[.92]"
               style={{ zIndex: LAYER.title, fontSize: 'clamp(1.4rem, 7vw, 6rem)' }}
             >
               Sempre no eixo
             </h2>
 
-            {/* trilha da órbita */}
-            <svg
-              aria-hidden
-              className="pointer-events-none absolute left-1/2 top-[46%] h-[36%] w-[92%] -translate-x-1/2 -translate-y-1/2 overflow-visible"
-              style={{ zIndex: LAYER.track }}
-              viewBox="0 0 100 40"
-              preserveAspectRatio="none"
-            >
-              <ellipse
-                cx="50"
-                cy="20"
-                rx="49"
-                ry="19"
-                fill="none"
-                stroke="var(--color-stage-accent)"
-                strokeWidth="0.25"
-                opacity="0.12"
+            {/* Caixa da órbita: começa onde o aparelho começa, então 50%/50%
+                aqui dentro é o centro real do celular. Antes o halo e a trilha
+                usavam percentuais do palco inteiro (que inclui a faixa do
+                título) e os cards giravam desalinhados do aparelho. */}
+            <div className="pointer-events-none absolute inset-x-0 bottom-0" style={{ top: TITLE_BAND }}>
+              {/* halo do serviço ativo */}
+              <div
+                ref={haloRef}
+                aria-hidden
+                className="absolute left-1/2 top-1/2 h-[48%] w-[46%] -translate-x-1/2 -translate-y-1/2 rounded-full"
+                style={{
+                  zIndex: LAYER.halo,
+                  backgroundColor: works[0]!.accent,
+                  filter: 'blur(100px)',
+                  opacity: 0.28,
+                }}
               />
-            </svg>
 
-            {!reduce && (
-              <OrbitCards works={works} activeIndex={active} cardRefs={cardRefs} onSelect={select} />
-            )}
+              {/* trilha da órbita */}
+              <svg
+                aria-hidden
+                className="absolute left-1/2 top-1/2 h-[42%] w-[92%] -translate-x-1/2 -translate-y-1/2 overflow-visible"
+                style={{ zIndex: LAYER.track }}
+                viewBox="0 0 100 40"
+                preserveAspectRatio="none"
+              >
+                <ellipse
+                  cx="50"
+                  cy="20"
+                  rx="49"
+                  ry="19"
+                  fill="none"
+                  stroke="var(--color-stage-accent)"
+                  strokeWidth="0.25"
+                  opacity="0.12"
+                />
+              </svg>
 
-            {/* sombra de contato */}
-            <div
-              ref={shadowRef}
-              aria-hidden
-              className="pointer-events-none absolute bottom-[2%] left-1/2 h-[5%] w-[38%] -translate-x-1/2 rounded-[50%]"
-              style={{ zIndex: LAYER.halo, background: 'rgba(8,3,20,.55)', filter: 'blur(22px)' }}
-            />
+              {!reduce && (
+                <OrbitCards works={works} activeIndex={active} cardRefs={cardRefs} onSelect={select} />
+              )}
+
+              {/* sombra de contato */}
+              <div
+                ref={shadowRef}
+                aria-hidden
+                className="absolute bottom-[1%] left-1/2 h-[6%] w-[38%] -translate-x-1/2 rounded-[50%]"
+                style={{ zIndex: LAYER.halo, background: 'rgba(8,3,20,.55)', filter: 'blur(22px)' }}
+              />
+
+              <CtaChip href={whatsappUrl} reduce={!!reduce} />
+            </div>
 
             {/* aparelho */}
             <div ref={deviceRef} className="relative" style={{ zIndex: LAYER.phone }}>
               <PhoneStage works={works} activeIndex={active} reduce={!!reduce} />
             </div>
-
-            <CtaChip href={whatsappUrl} reduce={!!reduce} />
           </div>
 
           {/* grade estática substitui a órbita quando o usuário pede menos movimento */}

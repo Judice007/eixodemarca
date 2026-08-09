@@ -33,6 +33,14 @@ export const SCREEN_RADIUS_PCT = SCREEN.radius * (100 / SCREEN.width)
 export const SCROLL = { vhPerService: 46, smoothing: 0.12 } as const
 
 /**
+ * Faixa reservada no topo do palco pro título gigante. É também o quanto o
+ * aparelho desce, já que ele está no fluxo. O mesmo valor abre a caixa da
+ * órbita, pra que halo, trilha e cards girem em torno do centro REAL do
+ * celular em vez do centro do palco (que inclui a faixa do título).
+ */
+export const TITLE_BAND = 'clamp(2rem, 8vw, 6.5rem)'
+
+/**
  * Distância horizontal entre dois slots vizinhos, em px, por breakpoint.
  * Menor no mobile porque o palco é mais estreito.
  */

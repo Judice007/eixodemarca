@@ -14,9 +14,9 @@ export default function CtaChip({ href, reduce }: { href: string; reduce: boolea
   return (
     <div
       className="pointer-events-none absolute inset-x-0 flex justify-center"
-      // ~onde a base do aparelho encontra as mãos. Mais baixo que isso e o chip
-      // atropela o título gigante que fica no rodapé do palco.
-      style={{ top: '64%', zIndex: LAYER.cta }}
+      // ~onde a base da tela encontra as mãos. Percentual da caixa da órbita,
+      // que começa junto com o aparelho.
+      style={{ top: '66%', zIndex: LAYER.cta }}
     >
       <a
         href={href}
