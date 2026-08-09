@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer-motion'
 import { contactInfo, mailtoUrl, methodSteps, services, whatsappUrl } from '@/lib/data'
+import ServiceOrbit from '@/components/hero/ServiceOrbit'
 
 const mediaStrip = [
   { src: '/portfolio-media/social-acai.webp', alt: 'Conteúdo para Di Casa Açaí', position: 'center 42%' },
@@ -149,48 +150,6 @@ const portfolioVideos = [
   },
 ] as const
 
-const serviceShowcaseMedia = [
-  {
-    type: 'video' as const,
-    src: '/portfolio-media/videos/video-portfolio-03.mp4',
-    poster: '/portfolio-media/videos/poster-movimenta-angra.webp',
-    alt: 'Conteúdo social em vídeo para Movimenta Angra',
-  },
-  {
-    type: 'image' as const,
-    src: '/portfolio-media/design-ukimports.webp',
-    alt: 'Design de campanha para UK Imports',
-  },
-  {
-    type: 'image' as const,
-    src: '/portfolio-media/identidade-vista-bajeko-manual.webp',
-    alt: 'Aplicação da identidade visual da Vista Bajeko em camisetas',
-  },
-  {
-    type: 'video' as const,
-    src: '/portfolio-media/videos/video-edicao-institucional.mp4',
-    poster: '/portfolio-media/videos/poster-edicao-institucional.webp',
-    alt: 'Vídeo institucional editado para reunião de equipe',
-  },
-  {
-    type: 'image' as const,
-    src: '/portfolio-media/gestao-projetos-equipe.webp',
-    alt: 'Equipe da Eixo de Marca organizando um projeto',
-  },
-  {
-    type: 'video' as const,
-    src: '/portfolio-media/videos/video-manoa-tour.mp4',
-    poster: '/portfolio-media/videos/poster-manoa-tour.webp',
-    alt: 'Navegação pela landing page da Manoa Tour',
-  },
-  {
-    type: 'video' as const,
-    src: '/portfolio-media/videos/video-trafego-pago.mp4',
-    poster: '/portfolio-media/videos/poster-trafego-pago.webp',
-    alt: 'Vídeo sobre estratégia de tráfego pago',
-  },
-] as const
-
 const marks = [
   { src: '/portfolio-media/marca-eixo.webp', alt: 'Eixo de Marca' },
   { src: '/portfolio-media/identidade-vista-bajeko.webp', alt: 'Vista Bajeko' },
@@ -201,63 +160,6 @@ const marks = [
   { src: '/portfolio-media/marca-itamang.webp', alt: 'Itamang' },
   { src: '/portfolio-media/marca-bm.webp', alt: 'BIG' },
 ]
-
-// Posições dos 7 cartões ao redor do celular (offset % do centro do
-// container quadrado) -- leque escalonado (alterna alto/baixo indo pros
-// lados, tipo cascata) em vez de um arco uniforme, deixando a base livre.
-// Calculado uma vez, não em runtime.
-const ORBIT_POSITIONS = [
-  { x: -32, y: 14, xSm: -45, ySm: 20 },
-  { x: -22, y: -13, xSm: -30, ySm: -18 },
-  { x: -11, y: 6, xSm: -15, ySm: 8 },
-  { x: 0, y: -27, xSm: 0, ySm: -38 },
-  { x: 11, y: 6, xSm: 15, ySm: 8 },
-  { x: 22, y: -13, xSm: 30, ySm: -18 },
-  { x: 32, y: 14, xSm: 45, ySm: 20 },
-]
-
-const SERVICE_ICON_PATHS = [
-  // Social media -- balão de conversa
-  <path key="p" d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9A1.5 1.5 0 0 1 18.5 16H9l-4 4v-4H5.5A1.5 1.5 0 0 1 4 14.5v-9Z" />,
-  // Design -- caneta
-  <g key="g">
-    <path d="M3 21l3.2-.9L18.4 7.9a1.5 1.5 0 0 0 0-2.1l-1.2-1.2a1.5 1.5 0 0 0-2.1 0L2.9 16.8 2 20l1 1Z" />
-    <path d="M13.5 6.5l3 3" />
-  </g>,
-  // Identidade visual -- selo hexagonal
-  <path key="p" d="M12 3l7.8 4.5v9L12 21l-7.8-4.5v-9L12 3Z" />,
-  // Edição de vídeo -- play em quadro
-  <g key="g">
-    <rect x="3" y="4" width="18" height="16" rx="3" />
-    <path d="M10 9l6 3-6 3V9Z" fill="currentColor" stroke="none" />
-  </g>,
-  // Gestão de projetos -- checklist
-  <g key="g">
-    <rect x="4" y="5" width="4" height="4" rx="1" />
-    <rect x="4" y="10.5" width="4" height="4" rx="1" />
-    <rect x="4" y="16" width="4" height="4" rx="1" />
-    <path d="M11 7h9M11 12.5h9M11 18h9" />
-  </g>,
-  // Landing pages -- janela de navegador
-  <g key="g">
-    <rect x="3" y="5" width="18" height="14" rx="2" />
-    <path d="M3 9h18" />
-    <circle cx="6" cy="7" r="0.6" fill="currentColor" stroke="none" />
-  </g>,
-  // Tráfego pago -- gráfico em alta
-  <g key="g">
-    <path d="M4 16l5-5 4 4 7-8" />
-    <path d="M15 6h5v5" />
-  </g>,
-]
-
-function ServiceIcon({ index, className }: { index: number; className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
-      {SERVICE_ICON_PATHS[index % SERVICE_ICON_PATHS.length]}
-    </svg>
-  )
-}
 
 function SectionNumber({ number }: { number: string }) {
   return (
@@ -412,99 +314,12 @@ function VideoPortfolioGrid() {
   )
 }
 
-// Toca só quando o celular está realmente visível — sem isso, o vídeo do
-// serviço ativo (alguns têm mais de 10MB) baixava e tocava assim que a página
-// carregava, mesmo essa seção estando abaixo da dobra. Mesmo padrão já usado
-// em PortfolioVideoCard, só que aqui o elemento remonta a cada troca de
-// serviço (key muda no AnimatePresence), então o efeito roda de novo sozinho.
-function ServicePhoneVideo({ src, poster, alt, reduce }: { src: string; poster: string; alt: string; reduce: boolean }) {
-  const videoRef = useRef<HTMLVideoElement>(null)
-
-  useEffect(() => {
-    const element = videoRef.current
-    if (!element || reduce) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) {
-          void element.play().catch(() => undefined)
-        } else {
-          element.pause()
-        }
-      },
-      { threshold: 0.3 }
-    )
-
-    observer.observe(element)
-    return () => observer.disconnect()
-  }, [reduce])
-
-  return (
-    <video ref={videoRef} className="h-full w-full object-cover" muted loop playsInline preload="metadata" poster={poster} aria-label={alt}>
-      <source src={src} type="video/mp4" />
-    </video>
-  )
-}
-
-function ServicePhone({ active, reduce }: { active: number; reduce: boolean }) {
-  const media = serviceShowcaseMedia[active]!
-
-  return (
-    <motion.div
-      className="relative h-[300px] w-[151px] sm:h-[500px] sm:w-[250px]"
-      animate={reduce ? undefined : { rotate: active % 2 === 0 ? -1.5 : 1.5, y: active % 2 === 0 ? -5 : 5 }}
-      transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-    >
-      <div aria-hidden className="absolute left-1/2 top-1/2 -z-10 size-[230px] -translate-x-1/2 -translate-y-1/2 sm:size-[410px]">
-        <span className="absolute left-1/2 top-1/2 h-3 w-full -translate-x-1/2 -translate-y-1/2 rotate-45 bg-azure/16" />
-        <span className="absolute left-1/2 top-1/2 h-3 w-full -translate-x-1/2 -translate-y-1/2 -rotate-45 bg-azure/16" />
-        <span className="absolute inset-8 border border-dashed border-azure/30" />
-      </div>
-
-      <span className="absolute -right-1 top-16 h-12 w-1 bg-azure sm:top-24 sm:h-16" />
-      <div className="relative h-full overflow-hidden rounded-[28px] border-[6px] border-ink bg-ink shadow-[0_44px_90px_-34px_rgba(42,16,74,.72)] sm:rounded-[38px] sm:border-[8px]">
-        <div className="absolute left-1/2 top-1.5 z-30 h-4 w-14 -translate-x-1/2 rounded-full bg-ink sm:top-2 sm:h-5 sm:w-20" />
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={`${active}-${media.src}`}
-            className="absolute inset-0 overflow-hidden bg-lavanda"
-            initial={reduce ? false : { opacity: 0, scale: 0.94, y: 18 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 1.03, y: -14 }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {media.type === 'video' ? (
-              <ServicePhoneVideo src={media.src} poster={media.poster} alt={media.alt} reduce={!!reduce} />
-            ) : (
-              <Image src={media.src} alt={media.alt} fill sizes="250px" className="object-cover" />
-            )}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </motion.div>
-  )
-}
-
 export default function EixoEditorialSite() {
   const reduce = useReducedMotion()
   const [scrolled, setScrolled] = useState(false)
-  const [activeService, setActiveService] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [isDesktopOrbit, setIsDesktopOrbit] = useState(false)
   const duplicatedMedia = [...mediaStrip, ...mediaStrip]
   const duplicatedServices = [...services, ...services]
-  const activeOrbitPos = ORBIT_POSITIONS[activeService % ORBIT_POSITIONS.length]!
-
-  // Raio da órbita de serviços muda no breakpoint sm (640px) -- via matchMedia
-  // porque classes Tailwind com valor dinâmico (className={`sm:[--x:${x}]`})
-  // não são geradas pelo JIT, só literais presentes no código-fonte.
-  useEffect(() => {
-    const mq = window.matchMedia('(min-width: 640px)')
-    const update = () => setIsDesktopOrbit(mq.matches)
-    update()
-    mq.addEventListener('change', update)
-    return () => mq.removeEventListener('change', update)
-  }, [])
 
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 72)
@@ -512,31 +327,6 @@ export default function EixoEditorialSite() {
     window.addEventListener('scroll', update, { passive: true })
     return () => window.removeEventListener('scroll', update)
   }, [])
-
-  // Troca de serviço em loop -- não depende mais de scroll. Pausado com
-  // prefers-reduced-motion (evita conteúdo trocando sozinho na tela pra quem
-  // pediu menos animação).
-  const serviceIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
-
-  useEffect(() => {
-    if (reduce) return undefined
-    serviceIntervalRef.current = setInterval(() => {
-      setActiveService((prev) => (prev + 1) % services.length)
-    }, 2600)
-    return () => {
-      if (serviceIntervalRef.current) clearInterval(serviceIntervalRef.current)
-    }
-  }, [reduce])
-
-  const selectService = (index: number) => {
-    setActiveService(index)
-    if (serviceIntervalRef.current) clearInterval(serviceIntervalRef.current)
-    if (!reduce) {
-      serviceIntervalRef.current = setInterval(() => {
-        setActiveService((prev) => (prev + 1) % services.length)
-      }, 2600)
-    }
-  }
 
   return (
     <main id="top" className="min-h-screen bg-[#fffdfa] text-ink">
@@ -724,110 +514,7 @@ export default function EixoEditorialSite() {
         </div>
       </section>
 
-      <section id="servicos" className="scroll-mt-24 border-t border-ink/10 bg-lavanda/35 px-[var(--gutter)] py-[clamp(78px,10vw,132px)]">
-        <div className="mx-auto max-w-[1420px]">
-          <div className="grid gap-10 lg:grid-cols-[160px_1fr]">
-            <SectionNumber number="02" />
-            <Reveal>
-              <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-                <h2 className="max-w-[900px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
-                  Seu projeto, sempre no <span className="text-azure-heading">eixo.</span>
-                </h2>
-                <p className="max-w-[330px] text-[15px] leading-relaxed text-ink/65">
-                  Um serviço por vez, em loop automático. Toque em qualquer ícone pra pular direto pra ele.
-                </p>
-              </div>
-            </Reveal>
-          </div>
-
-          <div className="relative mx-auto mt-6 aspect-square w-full max-w-[600px] sm:mt-10">
-            <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex justify-center">
-              <span className="absolute bottom-[4%] left-[19%] h-[36%] w-[15%] -rotate-[16deg] rounded-full bg-ink/[0.07]" />
-              <span className="absolute bottom-[4%] right-[19%] h-[36%] w-[15%] rotate-[16deg] rounded-full bg-ink/[0.07]" />
-            </div>
-
-            {services.map((service, index) => {
-              const pos = ORBIT_POSITIONS[index % ORBIT_POSITIONS.length]!
-              const isActive = activeService === index
-              return (
-                <motion.button
-                  key={service.title}
-                  type="button"
-                  onClick={() => selectService(index)}
-                  aria-current={isActive ? 'step' : undefined}
-                  aria-label={service.title}
-                  className={`absolute z-10 grid size-[48px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-2xl border bg-white transition-colors duration-500 sm:size-[76px] ${
-                    isActive ? 'border-azure shadow-[0_20px_50px_-24px_rgba(42,16,74,.5)]' : 'border-ink/10 shadow-[0_10px_30px_-20px_rgba(42,16,74,.3)]'
-                  }`}
-                  style={
-                    isDesktopOrbit
-                      ? { left: `${50 + pos.xSm}%`, top: `${50 + pos.ySm}%` }
-                      : { left: `${50 + pos.x}%`, top: `${50 + pos.y}%` }
-                  }
-                  animate={
-                    reduce
-                      ? undefined
-                      : { scale: isActive ? 1.14 : 1, y: [0, index % 2 === 0 ? -6 : 6, 0] }
-                  }
-                  transition={{
-                    scale: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
-                    y: { duration: 4.4 + index * 0.3, repeat: Infinity, ease: 'easeInOut' },
-                  }}
-                >
-                  <ServiceIcon index={index} className={`size-6 transition-colors duration-500 sm:size-8 ${isActive ? 'text-azure' : 'text-ink/40'}`} />
-                </motion.button>
-              )
-            })}
-
-            <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
-              <ServicePhone active={activeService} reduce={!!reduce} />
-            </div>
-
-            {/* Ícone do cartão ativo "voa" até o centro do celular a cada troca,
-                reforçando visualmente qual cartão virou o conteúdo da tela. */}
-            {!reduce && (
-              <AnimatePresence>
-                <motion.div
-                  key={activeService}
-                  initial={{
-                    left: `${50 + (isDesktopOrbit ? activeOrbitPos.xSm : activeOrbitPos.x)}%`,
-                    top: `${50 + (isDesktopOrbit ? activeOrbitPos.ySm : activeOrbitPos.y)}%`,
-                    opacity: 1,
-                    scale: 1,
-                  }}
-                  animate={{ left: '50%', top: '50%', opacity: 0, scale: 0.3 }}
-                  transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                  className="pointer-events-none absolute z-30 -translate-x-1/2 -translate-y-1/2 text-white"
-                >
-                  <ServiceIcon index={activeService} className="size-6 sm:size-8" />
-                </motion.div>
-              </AnimatePresence>
-            )}
-          </div>
-
-          <div className="relative mt-10 flex flex-col items-center text-center sm:mt-14">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeService}
-                initial={reduce ? false : { opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-azure-label">
-                  0{activeService + 1} / 0{services.length}
-                </p>
-                <h3 className="mt-2 font-display text-[clamp(20px,3.2vw,34px)] font-black uppercase tracking-[-0.02em] text-ink">
-                  {services[activeService]!.title}
-                </h3>
-                <p className="mx-auto mt-2 max-w-[46ch] text-[14px] leading-relaxed text-ink/60 sm:text-[15px]">
-                  {services[activeService]!.text}
-                </p>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
-      </section>
+      <ServiceOrbit />
 
       <section id="portfolio" className="scroll-mt-24 bg-ink px-[var(--gutter)] py-[clamp(82px,10vw,140px)] text-white">
         <div className="mx-auto max-w-[1420px]">

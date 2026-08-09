@@ -22,6 +22,23 @@
   --color-bone: #fff8f2;
   --color-bone-2: #eadfff;
 
+  /* Palco da vitrine de serviços. Namespace "stage-" de propósito: é uma
+     variante mais profunda da marca, e não pode colidir com --color-ink /
+     --color-azure, que continuam mandando no resto do site. */
+  --color-stage-deep: #12062b;
+  --color-stage-mid: #1b0b3b;
+  --color-stage-lift: #2a1358;
+  --color-stage-card: #f4f1ea;
+  --color-stage-card-ink: #1b0b3b;
+  /* O #7c7488 do desenho original dava só 3.95:1 sobre o card creme — reprova
+     no mínimo de 4.5:1, e ele é usado em texto de 9-10px (legenda do card e
+     sobrelinha do CTA). Escurecido 8% no mesmo matiz: 4.70:1. */
+  --color-stage-card-muted: #70687a;
+  --color-stage-text: #f6f2ff;
+  --color-stage-text-muted: #a79cc4;
+  --color-stage-display: #ede6ff;
+  --color-stage-accent: #f4655a;
+
   --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -164,4 +181,67 @@ body::-webkit-scrollbar {
   display: none; /* Chromium / Safari */
   width: 0;
   height: 0;
+}
+
+/* =========================================================
+   VITRINE DE SERVIÇOS EM ÓRBITA (#servicos)
+   ========================================================= */
+
+/* Sombras do palco: nunca preto puro — sempre o roxo mais fundo, senão os
+   cards recortam duro contra o fundo. */
+.eixo-stage {
+  --shadow-near: 0 3px 8px rgba(8, 3, 20, 0.45);
+  --shadow-far: 0 34px 60px -24px rgba(8, 3, 20, 0.75);
+  background:
+    radial-gradient(90% 60% at 50% 12%, var(--color-stage-lift) 0%, transparent 55%),
+    radial-gradient(120% 90% at 50% 45%, var(--color-stage-mid) 0%, var(--color-stage-deep) 100%);
+  color: var(--color-stage-text);
+}
+
+.eixo-stage-grain {
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* Flutuação do card. Vive num wrapper interno porque o transform do elemento
+   de fora é reescrito a cada frame pela órbita. */
+@keyframes eixo-card-float {
+  0%,
+  100% {
+    transform: translate3d(0, -6px, 0);
+  }
+  50% {
+    transform: translate3d(0, 6px, 0);
+  }
+}
+
+.eixo-card-float {
+  animation-name: eixo-card-float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+/* Só no eixo Y: quem centraliza é o wrapper flex do CtaChip. */
+@keyframes eixo-cta-float {
+  0%,
+  100% {
+    transform: translate3d(0, -5px, 0);
+  }
+  50% {
+    transform: translate3d(0, 5px, 0);
+  }
+}
+
+.eixo-cta-float {
+  animation: eixo-cta-float 4.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eixo-card-float,
+  .eixo-cta-float {
+    animation: none;
+  }
 }
