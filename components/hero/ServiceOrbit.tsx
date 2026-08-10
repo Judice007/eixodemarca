@@ -248,8 +248,13 @@ export default function ServiceOrbit() {
       style={reduce ? undefined : { height: `${N * SCROLL.vhPerService}vh` }}
     >
       <div
-        // pt só o suficiente pra header fixo não cobrir o "02".
-        className={`${reduce ? '' : 'sticky top-0 h-screen'} flex flex-col justify-center overflow-hidden px-[var(--gutter)] pb-2 pt-11`}
+        // pt só o suficiente pra header fixo não cobrir o "02". No mobile
+        // ancora no topo (justify-start): o aparelho é mais largo que alto,
+        // então em celulares muito altos ele não cresce o bastante pra
+        // preencher a tela, e -center deixava metade da folga flutuando
+        // ACIMA do "02" também. Com -start, o respiro extra vira gap entre
+        // os elementos (em vh, ver abaixo) em vez de vão vazio nas pontas.
+        className={`${reduce ? '' : 'sticky top-0 h-screen'} flex flex-col justify-start overflow-hidden px-[var(--gutter)] pb-2 pt-11 sm:justify-center`}
       >
         {/* grão + vinheta */}
         <span aria-hidden className="eixo-stage-grain pointer-events-none absolute inset-0" />
@@ -268,7 +273,7 @@ export default function ServiceOrbit() {
           {/* palco */}
           <div
             ref={stageRef}
-            className="relative mt-2 flex justify-center sm:mt-3"
+            className="relative mt-[6vh] flex justify-center sm:mt-3"
             onPointerMove={onMove}
             onPointerLeave={onLeave}
             // A faixa reservada pro título gigante fica em CIMA: o título abre a
@@ -380,13 +385,16 @@ export default function ServiceOrbit() {
             </div>
           </div>
 
-          {/* CTA e barra de progresso: fora do aparelho, não competem com o vídeo */}
-          <div className="relative mt-4 flex justify-center">
+          {/* CTA e barra de progresso: fora do aparelho, não competem com o vídeo.
+              Espaçamento em vh no mobile: em celulares muito altos isso cresce
+              e absorve parte do vão que sobraria vazio embaixo; volta a ser
+              fixo a partir do sm, onde justify-center já centraliza tudo. */}
+          <div className="relative mt-[12vh] flex justify-center sm:mt-4">
             <CtaChip href={whatsappUrl} reduce={!!reduce} inline />
           </div>
 
           <div
-            className="relative mt-3 outline-none"
+            className="relative mt-[9vh] outline-none sm:mt-3"
             role="group"
             aria-label="Navegar entre os serviços"
             tabIndex={0}
