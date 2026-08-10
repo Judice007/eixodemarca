@@ -30,7 +30,7 @@ export const SCREEN_RADIUS_PCT = SCREEN.radius * (100 / SCREEN.width)
  *  - SMOOTHING: lerp entre a posição alvo (do scroll) e a desenhada, pra roda
  *    do mouse não sair aos saltos.
  */
-export const SCROLL = { vhPerService: 46, smoothing: 0.12 } as const
+export const SCROLL = { vhPerService: 500 / 7, smoothing: 0.12 } as const
 
 /**
  * Faixa reservada no topo do palco pro título gigante. É também o quanto o

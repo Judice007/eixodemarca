@@ -14,9 +14,10 @@ export default function CtaChip({ href, reduce }: { href: string; reduce: boolea
   return (
     <div
       className="pointer-events-none absolute inset-x-0 flex justify-center"
-      // ~onde a base da tela encontra as mãos. Percentual da caixa da órbita,
-      // que começa junto com o aparelho.
-      style={{ top: '66%', zIndex: LAYER.cta }}
+      // Logo abaixo das mãos (que terminam num fade). Percentual da caixa da
+      // órbita, que começa junto com o aparelho — reajustado quando o mockup
+      // cresceu, pra não ficar colado na base.
+      style={{ top: '78%', zIndex: LAYER.cta }}
     >
       <a
         href={href}
