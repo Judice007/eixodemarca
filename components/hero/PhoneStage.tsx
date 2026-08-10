@@ -18,7 +18,7 @@ import { ASSET_ASPECT, SCREEN, SCREEN_RADIUS_PCT, TRANSITION } from './constants
  * key estável, e a troca é só opacity/visibility. Nada de mexer em src/key.
  */
 
-const DEVICE_SRC = '/assets/device/hands-phone.webp'
+const DEVICE_SRC = '/assets/device/hands-phone-final.webp'
 
 /** Uma camada por serviço. Só a ativa fica visível; nenhuma é desmontada. */
 function ScreenLayer({
@@ -77,7 +77,7 @@ function ScreenLayer({
           src={work.screen.src}
           alt=""
           fill
-          sizes="(min-width: 1280px) 190px, (min-width: 768px) 150px, 110px"
+          sizes="(min-width: 1280px) 240px, (min-width: 768px) 195px, 155px"
           className="object-cover"
         />
       )}
@@ -112,11 +112,11 @@ export default function PhoneStage({
   return (
     <div
       ref={rootRef}
-      // A altura é 1.5x a largura (ASSET_ASPECT), então o teto em vh é o que
-      // impede o aparelho de empurrar o rótulo e a barra pra fora da tela presa.
-      // O fator em vw sobe no mobile: com 38vw o celular ficava menor que o
-      // próprio chip de CTA.
-      className="relative w-[min(78vw,42vh)] sm:w-[min(52vw,44vh)] lg:w-[min(44vw,600px,47vh)]"
+      // A altura é ~0.86x a largura (ASSET_ASPECT do novo mockup, quase
+      // quadrado), então o teto em vh é o que impede o aparelho de empurrar
+      // o rótulo e a barra pra fora da tela presa. O fator em vw sobe no
+      // mobile: com 38vw o celular ficava menor que o próprio chip de CTA.
+      className="relative w-[min(86vw,49vh)] sm:w-[min(60vw,53vh)] lg:w-[min(50vw,590px,59vh)]"
       style={{ minWidth: 150, aspectRatio: String(ASSET_ASPECT) }}
     >
       {/* conteúdo da tela — fica atrás do asset */}
@@ -167,7 +167,7 @@ export default function PhoneStage({
           src={DEVICE_SRC}
           alt=""
           fill
-          sizes="(min-width: 1280px) 520px, (min-width: 768px) 40vw, 55vw"
+          sizes="(min-width: 1280px) 600px, (min-width: 768px) 44vw, 52vw"
           className="select-none object-contain"
           style={{ filter: 'saturate(.92) contrast(1.03)' }}
         />

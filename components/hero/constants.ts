@@ -1,22 +1,21 @@
 // Constantes da vitrine de serviços em órbita.
 // Tudo que controla ritmo, distância e profundidade da cena mora aqui.
 
-/** Proporção do asset das mãos (1024 x 1536). */
-export const ASSET_ASPECT = 1024 / 1536
+/** Proporção do asset das mãos (1074 x 924, já cortado sem a margem branca). */
+export const ASSET_ASPECT = 1074 / 924
 
 /**
  * Recorte da tela dentro do asset, em % da caixa do asset.
- * Medido pixel a pixel no render original (a tela vinha em chroma magenta),
- * não estimado: o vazado real vai de x 326..698, y 147..952 num canvas 1024x1536.
- * `radius` é % da LARGURA do asset — os cantos medem ~44px e o perfil medido
- * bateu com um círculo de R=44 com erro < 0.5px.
+ * Medido pixel a pixel via scripts/detect-screen-bbox (a tela vem em chroma
+ * magenta): o vazado real vai de x 320..753, y 20..885 num canvas 1074x924.
+ * `radius` é % da LARGURA do asset — os cantos medem ~45px.
  */
 export const SCREEN = {
-  top: 9.57,
-  left: 31.84,
-  width: 36.43,
-  height: 52.47,
-  radius: 4.3,
+  top: 2.165,
+  left: 29.795,
+  width: 40.317,
+  height: 93.615,
+  radius: 4.19,
 } as const
 
 /** Raio da tela convertido pra % da própria caixa da tela (pro border-radius). */
