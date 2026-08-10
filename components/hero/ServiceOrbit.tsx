@@ -248,9 +248,8 @@ export default function ServiceOrbit() {
       style={reduce ? undefined : { height: `${N * SCROLL.vhPerService}vh` }}
     >
       <div
-        // pt só o suficiente pra header fixo não cobrir o "02". Pb quase zero:
-        // o aparelho vai até a base da seção de propósito (fade cuida do corte).
-        className={`${reduce ? '' : 'sticky top-0 h-screen'} flex flex-col justify-center overflow-hidden px-[var(--gutter)] pb-2 pt-16`}
+        // pt só o suficiente pra header fixo não cobrir o "02".
+        className={`${reduce ? '' : 'sticky top-0 h-screen'} flex flex-col justify-center overflow-hidden px-[var(--gutter)] pb-2 pt-11`}
       >
         {/* grão + vinheta */}
         <span aria-hidden className="eixo-stage-grain pointer-events-none absolute inset-0" />
@@ -269,7 +268,7 @@ export default function ServiceOrbit() {
           {/* palco */}
           <div
             ref={stageRef}
-            className="relative mt-4 flex justify-center sm:mt-6"
+            className="relative mt-2 flex justify-center sm:mt-3"
             onPointerMove={onMove}
             onPointerLeave={onLeave}
             // A faixa reservada pro título gigante fica em CIMA: o título abre a
@@ -336,8 +335,6 @@ export default function ServiceOrbit() {
                 style={{ zIndex: LAYER.halo, background: 'rgba(8,3,20,.55)', filter: 'blur(22px)' }}
               />
 
-              <CtaChip href={whatsappUrl} reduce={!!reduce} />
-
               {/* nome do serviço ativo — flutua sobre o aparelho, não abaixo dele.
                   zIndex explícito: sem isso, o aparelho (que tem zIndex próprio)
                   pinta por cima mesmo vindo depois no DOM. */}
@@ -375,30 +372,34 @@ export default function ServiceOrbit() {
                   {current.label}. {current.caption}
                 </p>
               </div>
-
-              <div
-                className="pointer-events-auto absolute inset-x-0 outline-none"
-                style={{ top: '95%', zIndex: LAYER.cta }}
-                role="group"
-                aria-label="Navegar entre os serviços"
-                tabIndex={0}
-                onKeyDown={onKeyDown}
-              >
-                <ProgressBar
-                  count={N}
-                  activeIndex={active}
-                  fillRefs={fillRefs}
-                  labels={works.map((w) => w.label)}
-                  onSelect={select}
-                  reduce={!!reduce}
-                />
-              </div>
             </div>
 
             {/* aparelho */}
             <div ref={deviceRef} className="relative" style={{ zIndex: LAYER.phone }}>
               <PhoneStage works={works} activeIndex={active} reduce={!!reduce} />
             </div>
+          </div>
+
+          {/* CTA e barra de progresso: fora do aparelho, não competem com o vídeo */}
+          <div className="relative mt-4 flex justify-center">
+            <CtaChip href={whatsappUrl} reduce={!!reduce} inline />
+          </div>
+
+          <div
+            className="relative mt-3 outline-none"
+            role="group"
+            aria-label="Navegar entre os serviços"
+            tabIndex={0}
+            onKeyDown={onKeyDown}
+          >
+            <ProgressBar
+              count={N}
+              activeIndex={active}
+              fillRefs={fillRefs}
+              labels={works.map((w) => w.label)}
+              onSelect={select}
+              reduce={!!reduce}
+            />
           </div>
 
           {/* grade estática substitui a órbita quando o usuário pede menos movimento */}

@@ -3,22 +3,34 @@
 import { LAYER } from './constants'
 
 /**
- * Chip flutuante sobre a base do aparelho.
+ * Chip do CTA. Por padrão flutua sobre a base do aparelho; com `inline`,
+ * renderiza como um bloco normal no fluxo (usado abaixo do celular, fora da
+ * órbita, pra não competir com o vídeo do slide ativo).
  *
  * A centralização é feita por um wrapper flex de largura total, e não por
  * left:50% + translateX(-50%): a flutuação também escreve em `transform`, e as
  * duas coisas juntas se atrapalhavam (o chip saía do centro no mobile). Assim a
  * animação mexe só no eixo Y e a posição horizontal não depende dela.
  */
-export default function CtaChip({ href, reduce }: { href: string; reduce: boolean }) {
+export default function CtaChip({
+  href,
+  reduce,
+  inline = false,
+}: {
+  href: string
+  reduce: boolean
+  inline?: boolean
+}) {
   return (
     <div
-      className="pointer-events-none absolute inset-x-0 flex justify-center"
+      className={
+        inline
+          ? 'flex justify-center'
+          : 'pointer-events-none absolute inset-x-0 flex justify-center'
+      }
       // Sobre a base da tela do celular. Percentual da caixa da órbita, que
-      // começa junto com o aparelho — mais alto que antes pra sobrar espaço
-      // pro nome do serviço e a barra de progresso, que agora flutuam mais
-      // abaixo, também sobre o aparelho.
-      style={{ top: '58%', zIndex: LAYER.cta }}
+      // começa junto com o aparelho.
+      style={inline ? undefined : { top: '58%', zIndex: LAYER.cta }}
     >
       <a
         href={href}
