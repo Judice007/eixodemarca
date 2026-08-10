@@ -248,8 +248,9 @@ export default function ServiceOrbit() {
       style={reduce ? undefined : { height: `${N * SCROLL.vhPerService}vh` }}
     >
       <div
-        // pt maior que pb porque o header é fixo e ficava por cima do "02".
-        className={`${reduce ? '' : 'sticky top-0 h-screen'} flex flex-col justify-center overflow-hidden px-[var(--gutter)] pb-10 pt-28`}
+        // pt só o suficiente pra header fixo não cobrir o "02". Pb quase zero:
+        // o aparelho vai até a base da seção de propósito (fade cuida do corte).
+        className={`${reduce ? '' : 'sticky top-0 h-screen'} flex flex-col justify-center overflow-hidden px-[var(--gutter)] pb-2 pt-16`}
       >
         {/* grão + vinheta */}
         <span aria-hidden className="eixo-stage-grain pointer-events-none absolute inset-0" />
@@ -336,6 +337,62 @@ export default function ServiceOrbit() {
               />
 
               <CtaChip href={whatsappUrl} reduce={!!reduce} />
+
+              {/* nome do serviço ativo — flutua sobre o aparelho, não abaixo dele.
+                  zIndex explícito: sem isso, o aparelho (que tem zIndex próprio)
+                  pinta por cima mesmo vindo depois no DOM. */}
+              <div
+                className="pointer-events-none absolute inset-x-0 text-center"
+                style={{ top: '84%', zIndex: LAYER.cta }}
+              >
+                <AnimatePresence mode="wait">
+                  <motion.div key={current.id} aria-hidden>
+                    <h3
+                      className="font-serif italic text-stage-text [text-shadow:0_2px_12px_rgba(8,3,20,.7)]"
+                      style={{ fontSize: 'clamp(1.1rem, 2.2vw, 1.7rem)' }}
+                    >
+                      {current.label.split('').map((char, i) => (
+                        <motion.span
+                          key={`${current.id}-${i}`}
+                          className="inline-block whitespace-pre"
+                          initial={reduce ? false : { y: 14, opacity: 0, filter: 'blur(6px)' }}
+                          animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+                          exit={reduce ? { opacity: 0 } : { y: -10, opacity: 0, filter: 'blur(6px)' }}
+                          transition={{ duration: 0.4, delay: reduce ? 0 : i * 0.02, ease: [0.25, 1, 0.5, 1] }}
+                        >
+                          {char}
+                        </motion.span>
+                      ))}
+                    </h3>
+                    <p className="mx-auto mt-1 max-w-[32ch] text-[11px] leading-snug text-stage-text-muted [text-shadow:0_2px_10px_rgba(8,3,20,.8)] sm:text-[13px]">
+                      {current.caption}
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* leitor de tela: só isto anuncia a troca, o título acima é decorativo */}
+                <p aria-live="polite" className="sr-only">
+                  {current.label}. {current.caption}
+                </p>
+              </div>
+
+              <div
+                className="pointer-events-auto absolute inset-x-0 outline-none"
+                style={{ top: '95%', zIndex: LAYER.cta }}
+                role="group"
+                aria-label="Navegar entre os serviços"
+                tabIndex={0}
+                onKeyDown={onKeyDown}
+              >
+                <ProgressBar
+                  count={N}
+                  activeIndex={active}
+                  fillRefs={fillRefs}
+                  labels={works.map((w) => w.label)}
+                  onSelect={select}
+                  reduce={!!reduce}
+                />
+              </div>
             </div>
 
             {/* aparelho */}
@@ -350,56 +407,6 @@ export default function ServiceOrbit() {
               <StaticCards works={works} activeIndex={active} onSelect={select} />
             </div>
           )}
-
-          {/* nome do serviço ativo */}
-          <div className="relative mt-5 text-center sm:mt-7">
-            <AnimatePresence mode="wait">
-              <motion.div key={current.id} aria-hidden>
-                <h3
-                  className="font-serif italic text-stage-text"
-                  style={{ fontSize: 'clamp(1.4rem, 2.6vw, 2.1rem)' }}
-                >
-                  {current.label.split('').map((char, i) => (
-                    <motion.span
-                      key={`${current.id}-${i}`}
-                      className="inline-block whitespace-pre"
-                      initial={reduce ? false : { y: 14, opacity: 0, filter: 'blur(6px)' }}
-                      animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                      exit={reduce ? { opacity: 0 } : { y: -10, opacity: 0, filter: 'blur(6px)' }}
-                      transition={{ duration: 0.4, delay: reduce ? 0 : i * 0.02, ease: [0.25, 1, 0.5, 1] }}
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                </h3>
-                <p className="mx-auto mt-1.5 max-w-[42ch] text-[13px] leading-relaxed text-stage-text-muted">
-                  {current.caption}
-                </p>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* leitor de tela: só isto anuncia a troca, o título acima é decorativo */}
-            <p aria-live="polite" className="sr-only">
-              {current.label}. {current.caption}
-            </p>
-          </div>
-
-          <div
-            className="mt-5 outline-none"
-            role="group"
-            aria-label="Navegar entre os serviços"
-            tabIndex={0}
-            onKeyDown={onKeyDown}
-          >
-            <ProgressBar
-              count={N}
-              activeIndex={active}
-              fillRefs={fillRefs}
-              labels={works.map((w) => w.label)}
-              onSelect={select}
-              reduce={!!reduce}
-            />
-          </div>
         </div>
       </div>
     </section>
