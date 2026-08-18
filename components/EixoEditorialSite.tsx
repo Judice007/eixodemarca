@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer-motion'
 import { contactInfo, mailtoUrl, methodSteps, services, whatsappUrl } from '@/lib/data'
 import ServiceOrbit from '@/components/hero/ServiceOrbit'
+import PontoCegoCta from '@/components/PontoCegoCta'
 
 const mediaStrip = [
   { src: '/portfolio-media/social-acai.webp', alt: 'Conteúdo para Di Casa Açaí', position: 'center 42%' },
@@ -443,13 +444,21 @@ export default function EixoEditorialSite() {
       <section className="relative flex min-h-[100svh] flex-col justify-between px-[var(--gutter)] pb-0 pt-[clamp(130px,18vh,190px)]">
         <div className="mx-auto w-full max-w-[1420px] text-center">
           <motion.p
-            className="mx-auto mb-7 w-fit border border-ink/12 px-4 py-2 font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-ink/65"
+            className="mx-auto mb-4 w-fit border border-ink/12 px-4 py-2 font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-ink/65"
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
             Estratégia · criação · gestão
           </motion.p>
+          <motion.div
+            className="mx-auto mb-7 w-fit"
+            initial={reduce ? false : { opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <PontoCegoCta variant="solid" />
+          </motion.div>
           <motion.h1
             className="mx-auto max-w-[1250px] [text-wrap:balance] font-display text-[clamp(28px,5vw,78px)] font-black uppercase leading-[0.9] tracking-[-0.05em] max-sm:text-[24px] max-sm:leading-[0.96] max-sm:tracking-[-0.035em]"
             initial={reduce ? false : { opacity: 0, y: 45 }}
@@ -679,6 +688,10 @@ export default function EixoEditorialSite() {
               <a href={mailtoUrl} className="border border-white/25 px-6 py-3.5 text-[13px] font-bold transition-colors hover:border-white">
                 {contactInfo.email}
               </a>
+              {/* Segunda chance de captura pra quem rolou a página inteira sem
+                  converter na hero — mesma oferta, sem repetir a cor sólida
+                  do CTA principal do rodapé. */}
+              <PontoCegoCta variant="outline" />
             </div>
             <a href="#top" className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/55 transition-colors hover:text-white">Voltar ao topo ↑</a>
           </div>

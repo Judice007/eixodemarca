@@ -40,7 +40,12 @@ export const contactInfo = {
 
 const WHATSAPP_MESSAGE = 'Olá, Eixo de Marca. Quero conversar sobre um projeto para a minha marca.'
 
+// Mensagem própria pro CTA da análise gratuita, pra identificar esse lead
+// (o time responde com o link do formulário assim que vê essa frase).
+const PONTO_CEGO_MESSAGE = 'Oi! Quero descobrir meu Ponto Cego 👀'
+
 export const whatsappUrl = `https://wa.me/${contactInfo.phone}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
+export const pontoCegoWhatsappUrl = `https://wa.me/${contactInfo.phone}?text=${encodeURIComponent(PONTO_CEGO_MESSAGE)}`
 export const mailtoUrl = `mailto:${contactInfo.email}?subject=${encodeURIComponent('Projeto com o Eixo de Marca')}`
 
 export type MethodStep = {
