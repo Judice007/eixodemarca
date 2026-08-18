@@ -26,14 +26,21 @@ export default function PontoCegoCta({
   variant = 'solid',
   className = '',
 }: {
-  /** solid: pílula ink cheia, pro fundo claro da hero. outline: contorno, pro rodapé (já é bg-ink). */
-  variant?: 'solid' | 'outline'
+  /**
+   * solid: pílula ink cheia, pro fundo claro da hero.
+   * outline: contorno claro, pro rodapé (já é bg-ink).
+   * header: mesma pílula ink cheia do solid, só compacta — é o CTA principal
+   * do cabeçalho agora (no lugar do antigo "Vamos conversar" genérico).
+   */
+  variant?: 'solid' | 'outline' | 'header'
   className?: string
 }) {
   const skin =
     variant === 'solid'
-      ? 'rounded-full bg-ink text-paper shadow-[0_14px_32px_-14px_rgba(42,16,74,.6)]'
-      : 'border border-white/25 text-white hover:border-azure/60'
+      ? 'rounded-full bg-ink text-paper shadow-[0_14px_32px_-14px_rgba(42,16,74,.6)] px-5 py-3 text-[13px] sm:text-[14px]'
+      : variant === 'outline'
+        ? 'border border-white/25 text-white hover:border-azure/60 px-5 py-3 text-[13px] sm:text-[14px]'
+        : 'rounded-full bg-ink text-paper px-4 py-2 text-[12px] sm:text-[13px]'
 
   return (
     <a
@@ -41,7 +48,7 @@ export default function PontoCegoCta({
       target="_blank"
       rel="noopener noreferrer"
       onMouseMove={spotlightMove}
-      className={`group relative flex w-fit items-center gap-2.5 overflow-hidden px-5 py-3 text-[13px] font-bold transition-transform hover:-translate-y-0.5 sm:text-[14px] ${skin} ${className}`}
+      className={`group relative flex w-fit items-center gap-2 overflow-hidden font-bold transition-transform hover:-translate-y-0.5 ${skin} ${className}`}
     >
       <span
         aria-hidden
@@ -52,11 +59,19 @@ export default function PontoCegoCta({
       />
       <TargetIcon />
       <span className="relative">
-        Quero descobrir meu <span className="text-azure">Ponto Cego</span>
+        {variant === 'header' ? (
+          <span className="text-azure">Ponto Cego</span>
+        ) : (
+          <>
+            Quero descobrir meu <span className="text-azure">Ponto Cego</span>
+          </>
+        )}
       </span>
-      <span aria-hidden className="relative">
-        ↗
-      </span>
+      {variant !== 'header' && (
+        <span aria-hidden className="relative">
+          ↗
+        </span>
+      )}
     </a>
   )
 }

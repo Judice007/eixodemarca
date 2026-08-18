@@ -1,0 +1,146 @@
+// Dados do portfólio, separados de lib/data.ts porque são usados pela home
+// (seção "Marcas e histórias") E pelas páginas dedicadas /portfolio/artes e
+// /portfolio/video — mantê-los aqui evita duplicar os arrays em cada lugar.
+
+export const projects = [
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/design-ukimports.webp',
+    alt: 'Campanha de smartphones para UK Imports',
+    client: 'UK Imports',
+    tags: 'Campanha · Design',
+    fit: 'cover' as const,
+    position: 'center 45%',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/social-acai.webp',
+    alt: 'Conteúdo para Di Casa Açaí',
+    client: 'Di Casa Açaí',
+    tags: 'Social media · Conteúdo',
+    fit: 'cover' as const,
+    position: 'center 42%',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/identidade-vista-bajeko.webp',
+    alt: 'Identidade visual Vista Bajeko',
+    client: 'Vista Bajeko',
+    tags: 'Marca · Identidade visual',
+    fit: 'contain' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/social-reset.webp',
+    alt: 'Campanha sustentável para Reset Madeira Ecológica',
+    client: 'Reset',
+    tags: 'Estratégia · Social media',
+    fit: 'cover' as const,
+    position: 'center 50%',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/portfolio-eixo.webp',
+    alt: 'Peça da Eixo de Marca sobre direção de conteúdo',
+    client: 'Eixo de Marca',
+    tags: 'Posicionamento · Design',
+    fit: 'cover' as const,
+    position: 'center 50%',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/landing-pousada.webp',
+    alt: 'Landing page da Pousada da Praia',
+    client: 'Pousada da Praia',
+    tags: 'Web · Landing page',
+    fit: 'cover' as const,
+    position: 'center 46%',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/trafego-itamang.webp',
+    alt: 'Campanha de tráfego para Itamang',
+    client: 'Itamang',
+    tags: 'Tráfego pago',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/post-lembrada.webp',
+    alt: 'Post sobre clareza de marca para a Eixo de Marca',
+    client: 'Eixo de Marca',
+    tags: 'Posicionamento · Design',
+    fit: 'cover' as const,
+    position: 'center 30%',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/post-laura-dispositivo.webp',
+    alt: 'Post sobre dispositivo de estética para Laura Anjos',
+    client: 'Laura Anjos',
+    tags: 'Social media · Estética',
+    fit: 'cover' as const,
+    position: 'center 30%',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/post-laura-pele-desidratada.webp',
+    alt: 'Post sobre sinais de pele desidratada para Laura Anjos',
+    client: 'Laura Anjos',
+    tags: 'Social media · Estética',
+    fit: 'cover' as const,
+    position: 'center 55%',
+  },
+]
+
+export const portfolioVideos = [
+  {
+    src: '/portfolio-media/videos/video-pousada-01.mp4',
+    poster: '/portfolio-media/videos/poster-pousada-01.webp',
+    title: 'Pousada da Praia',
+    tag: 'Turismo · Apresentação',
+  },
+  {
+    src: '/portfolio-media/videos/video-trafego-pago.mp4',
+    poster: '/portfolio-media/videos/poster-trafego-pago.webp',
+    title: 'Beleza ou estratégia',
+    tag: 'Gancho · Tráfego pago',
+  },
+  {
+    src: '/portfolio-media/videos/video-massagem.mp4',
+    poster: '/portfolio-media/videos/poster-massagem.webp',
+    title: 'Bem-estar & spa',
+    tag: 'Gancho · Reels',
+  },
+  {
+    src: '/portfolio-media/videos/video-portfolio-01.mp4',
+    poster: '/portfolio-media/videos/poster-procedimento-estetico.webp',
+    title: 'Procedimento estético',
+    tag: 'Captação · Edição',
+  },
+  {
+    src: '/portfolio-media/videos/video-portfolio-02.mp4',
+    poster: '/portfolio-media/videos/poster-conteudo-fitness.webp',
+    title: 'Conteúdo fitness',
+    tag: 'Ritmo · Edição',
+  },
+  {
+    src: '/portfolio-media/videos/video-portfolio-03.mp4',
+    poster: '/portfolio-media/videos/poster-movimenta-angra.webp',
+    title: 'Movimenta Angra',
+    tag: 'Apresentação · Cobertura',
+  },
+] as const
+
+export const marks = [
+  { src: '/portfolio-media/marca-eixo.webp', alt: 'Eixo de Marca' },
+  { src: '/portfolio-media/identidade-vista-bajeko.webp', alt: 'Vista Bajeko' },
+  { src: '/portfolio-media/marca-espaco-dos-anjos.webp', alt: 'Espaço dos Anjos' },
+  { src: '/portfolio-media/marca-laura-anjos.webp', alt: 'Laura Anjos' },
+  { src: '/portfolio-media/marca-viva-angra.webp', alt: 'Viva Angra' },
+  { src: '/portfolio-media/marca-luciane-judice.webp', alt: 'Luciane Júdice' },
+  { src: '/portfolio-media/marca-itamang.webp', alt: 'Itamang' },
+  { src: '/portfolio-media/marca-bm.webp', alt: 'BIG' },
+]
