@@ -37,7 +37,9 @@ export const SCROLL = { vhPerService: 500 / 7, smoothing: 0.12 } as const
  * órbita, pra que halo, trilha e cards girem em torno do centro REAL do
  * celular em vez do centro do palco (que inclui a faixa do título).
  */
-export const TITLE_BAND = 'clamp(2rem, 8vw, 6.5rem)'
+// Cresceu pra caber o título E o nome do serviço ativo empilhados (antes só
+// tinha o título — a legenda ficava flutuando por cima do aparelho).
+export const TITLE_BAND = 'clamp(5.5rem, 15vw, 10.5rem)'
 
 /**
  * Distância horizontal entre dois slots vizinhos, em px, por breakpoint.

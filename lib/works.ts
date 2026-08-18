@@ -3,9 +3,10 @@
 //
 // Regras que valem pra qualquer edição futura deste arquivo:
 //   • Todo caminho aqui existe em /public. Nada de placeholder ou stock.
-//   • A tela do device aponta pra /videos/device/: loops de 12s e 480p de
-//     altura, porque ali o vídeo roda num retângulo de ~190px. O arquivo cheio
-//     continua no grid do portfólio, que é click-to-play.
+//   • A tela do device aponta pra /videos/device/: loops de 12s, 720p de
+//     altura (mesma resolução do arquivo cheio — é o teto disponível, o
+//     mockup cresceu e 480p ficava visivelmente borrado nele). O arquivo
+//     cheio continua no grid do portfólio, que é click-to-play.
 //   • `card` é SEMPRE .webp (o card orbita e não pode carregar vídeo). Quando a
 //     tela é vídeo, o card usa o poster já gerado pra esse vídeo.
 //   • `format` descreve a proporção REAL do arquivo de `card` — a proporção

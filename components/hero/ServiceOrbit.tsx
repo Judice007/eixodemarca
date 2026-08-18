@@ -254,7 +254,7 @@ export default function ServiceOrbit() {
         // preencher a tela, e -center deixava metade da folga flutuando
         // ACIMA do "02" também. Com -start, o respiro extra vira gap entre
         // os elementos (em vh, ver abaixo) em vez de vão vazio nas pontas.
-        className={`${reduce ? '' : 'sticky top-0 h-screen'} flex flex-col justify-start overflow-hidden px-[var(--gutter)] pb-2 pt-11 sm:justify-center`}
+        className={`${reduce ? '' : 'sticky top-0 h-screen'} flex flex-col justify-start overflow-hidden px-[var(--gutter)] pb-2 pt-7 sm:justify-center`}
       >
         {/* grão + vinheta */}
         <span aria-hidden className="eixo-stage-grain pointer-events-none absolute inset-0" />
@@ -282,13 +282,55 @@ export default function ServiceOrbit() {
             // continua cabendo na tela presa.
             style={{ perspective: 1200, paddingTop: TITLE_BAND }}
           >
-            {/* Título gigante, na faixa reservada pelo padding do topo. */}
-            <h2
-              className="pointer-events-none absolute top-0 left-1/2 w-full -translate-x-1/2 text-center font-display font-black uppercase leading-[0.92] tracking-[-0.04em] text-stage-display/[.92]"
-              style={{ zIndex: LAYER.title, fontSize: 'clamp(1.4rem, 7vw, 6rem)' }}
+            {/* Título + legenda, empilhados na faixa reservada pelo padding do
+                topo (TITLE_BAND cresceu pra caber os dois). A legenda fica
+                assim entre o título e o aparelho, nunca por cima do vídeo. */}
+            <div
+              className="pointer-events-none absolute inset-x-0 top-0 flex flex-col items-center justify-between"
+              style={{ height: TITLE_BAND, zIndex: LAYER.title }}
             >
-              Sempre no eixo
-            </h2>
+              <h2
+                className="w-full text-center font-display font-black uppercase leading-[0.92] tracking-[-0.04em] text-stage-display/[.92]"
+                style={{ fontSize: 'clamp(1.4rem, 7vw, 6rem)' }}
+              >
+                Sempre no eixo
+              </h2>
+
+              {/* nome do serviço ativo. Fundo próprio: mesmo aqui fora do
+                  celular, o halo/cards atrás variam de cor e o texto ficava
+                  fraco só com text-shadow. */}
+              <div className="relative flex justify-center px-4 text-center" style={{ zIndex: LAYER.cta }}>
+                <AnimatePresence mode="wait">
+                  <motion.div key={current.id} aria-hidden className="rounded-xl bg-ink/65 px-4 py-2.5 backdrop-blur-sm">
+                    <h3
+                      className="font-serif italic text-stage-text"
+                      style={{ fontSize: 'clamp(1.1rem, 2.2vw, 1.7rem)' }}
+                    >
+                      {current.label.split('').map((char, i) => (
+                        <motion.span
+                          key={`${current.id}-${i}`}
+                          className="inline-block whitespace-pre"
+                          initial={reduce ? false : { y: 14, opacity: 0, filter: 'blur(6px)' }}
+                          animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+                          exit={reduce ? { opacity: 0 } : { y: -10, opacity: 0, filter: 'blur(6px)' }}
+                          transition={{ duration: 0.4, delay: reduce ? 0 : i * 0.02, ease: [0.25, 1, 0.5, 1] }}
+                        >
+                          {char}
+                        </motion.span>
+                      ))}
+                    </h3>
+                    <p className="mx-auto mt-1 max-w-[32ch] text-[11px] leading-snug text-stage-text-muted sm:text-[13px]">
+                      {current.caption}
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* leitor de tela: só isto anuncia a troca, o título acima é decorativo */}
+                <p aria-live="polite" className="sr-only">
+                  {current.label}. {current.caption}
+                </p>
+              </div>
+            </div>
 
             {/* Caixa da órbita: começa onde o aparelho começa, então 50%/50%
                 aqui dentro é o centro real do celular. Antes o halo e a trilha
@@ -339,44 +381,6 @@ export default function ServiceOrbit() {
                 className="absolute bottom-[1%] left-1/2 h-[6%] w-[38%] -translate-x-1/2 rounded-[50%]"
                 style={{ zIndex: LAYER.halo, background: 'rgba(8,3,20,.55)', filter: 'blur(22px)' }}
               />
-
-              {/* nome do serviço ativo — flutua sobre o aparelho, não abaixo dele.
-                  zIndex explícito: sem isso, o aparelho (que tem zIndex próprio)
-                  pinta por cima mesmo vindo depois no DOM. */}
-              <div
-                className="pointer-events-none absolute inset-x-0 text-center"
-                style={{ top: '84%', zIndex: LAYER.cta }}
-              >
-                <AnimatePresence mode="wait">
-                  <motion.div key={current.id} aria-hidden>
-                    <h3
-                      className="font-serif italic text-stage-text [text-shadow:0_2px_12px_rgba(8,3,20,.7)]"
-                      style={{ fontSize: 'clamp(1.1rem, 2.2vw, 1.7rem)' }}
-                    >
-                      {current.label.split('').map((char, i) => (
-                        <motion.span
-                          key={`${current.id}-${i}`}
-                          className="inline-block whitespace-pre"
-                          initial={reduce ? false : { y: 14, opacity: 0, filter: 'blur(6px)' }}
-                          animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                          exit={reduce ? { opacity: 0 } : { y: -10, opacity: 0, filter: 'blur(6px)' }}
-                          transition={{ duration: 0.4, delay: reduce ? 0 : i * 0.02, ease: [0.25, 1, 0.5, 1] }}
-                        >
-                          {char}
-                        </motion.span>
-                      ))}
-                    </h3>
-                    <p className="mx-auto mt-1 max-w-[32ch] text-[11px] leading-snug text-stage-text-muted [text-shadow:0_2px_10px_rgba(8,3,20,.8)] sm:text-[13px]">
-                      {current.caption}
-                    </p>
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* leitor de tela: só isto anuncia a troca, o título acima é decorativo */}
-                <p aria-live="polite" className="sr-only">
-                  {current.label}. {current.caption}
-                </p>
-              </div>
             </div>
 
             {/* aparelho */}
