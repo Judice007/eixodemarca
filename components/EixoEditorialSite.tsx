@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform, type Variants } from 'framer-motion'
 import { contactInfo, mailtoUrl, methodSteps, services, whatsappUrl } from '@/lib/data'
 import ServiceOrbit from '@/components/hero/ServiceOrbit'
 import PontoCegoCta from '@/components/PontoCegoCta'
@@ -232,6 +232,43 @@ function RevealItem({ children, className = '' }: { children: React.ReactNode; c
     <motion.div className={className} variants={reduce ? undefined : revealItemVariants}>
       {children}
     </motion.div>
+  )
+}
+
+/**
+ * A grade inteira é tratada como um painel único (não cada card por si) que
+ * sobe uma "ladeira": além de girar (rotateX) e crescer (scale), ela também
+ * se desloca de baixo pra cima (y), ligada à posição do scroll — não é só
+ * virar de frente, é subir E nivelar ao mesmo tempo, como se estivesse
+ * escalando uma rampa até chegar no plano reto da tela. transformOrigin
+ * embaixo: o painel gira a partir da base, então a base fica "ancorada"
+ * enquanto o topo se aproxima do plano da tela.
+ */
+function TiltGrid({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const reduce = useReducedMotion()
+  // Janela mais larga (98% -> 15%) = mais distância de scroll pro efeito
+  // acontecer, ou seja, transição mais lenta/gradual.
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 98%', 'start 15%'] })
+  const rotateX = useTransform(scrollYProgress, [0, 1], [50, 0])
+  const scale = useTransform(scrollYProgress, [0, 1], [0.68, 1])
+  const y = useTransform(scrollYProgress, [0, 1], [140, 0])
+  const opacity = useTransform(scrollYProgress, [0, 0.4], [0.25, 1])
+
+  if (reduce) {
+    return (
+      <div ref={ref} className={className}>
+        {children}
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ perspective: 1400 }}>
+      <motion.div ref={ref} className={className} style={{ rotateX, scale, y, opacity, transformOrigin: '50% 100%' }}>
+        {children}
+      </motion.div>
+    </div>
   )
 }
 
@@ -551,9 +588,9 @@ export default function EixoEditorialSite() {
             </Reveal>
           </div>
 
-          <RevealGroup className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-5">
+          <TiltGrid className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-5">
             {projects.map((project, index) => (
-              <RevealItem key={`${project.client}-${index}`}>
+              <div key={`${project.client}-${index}`}>
                 <article className="group">
                   <div className="relative aspect-[4/5] overflow-hidden bg-white/5">
                     <Image
@@ -575,9 +612,9 @@ export default function EixoEditorialSite() {
                     </div>
                   </div>
                 </article>
-              </RevealItem>
+              </div>
             ))}
-          </RevealGroup>
+          </TiltGrid>
 
           <div className="mt-[clamp(76px,9vw,126px)] border-t border-white/15 pt-10">
             <Reveal>
