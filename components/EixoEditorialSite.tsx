@@ -47,27 +47,30 @@ export default function EixoEditorialSite() {
           globalColor="brand"
           className="flex min-h-[100svh] flex-col justify-between px-[var(--gutter)] pb-0 pt-[clamp(130px,18vh,190px)]"
         >
-          <div className="mx-auto w-full max-w-[1420px] text-center">
-            <motion.p
-              className="mx-auto mb-4 w-fit border border-white/20 px-4 py-2 font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-white/70"
-              initial={reduce ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-            >
-              Estratégia · criação · gestão
-            </motion.p>
-            <motion.div
-              className="mx-auto mb-7 w-fit"
-              initial={reduce ? false : { opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <PontoCegoCta variant="outline" />
-            </motion.div>
-            <div className="relative">
-              {!reduce && <HeroMascot />}
+          {/* Texto à esquerda, mascote à direita: são irmãos no flex, então o
+              robô não cobre mais o fim de "chama atenção." como cobria quando
+              era absolute por cima do h1. Abaixo de lg o mascote some e o
+              texto volta a ser centralizado. */}
+          <div className="mx-auto flex w-full max-w-[1420px] flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
+            <div className="w-full text-center lg:flex-1 lg:text-left">
+              <motion.p
+                className="mx-auto mb-4 w-fit border border-white/20 px-4 py-2 font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-white/70 lg:mx-0"
+                initial={reduce ? false : { opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6 }}
+              >
+                Sua marca fora do automático
+              </motion.p>
+              <motion.div
+                className="mx-auto mb-7 w-fit lg:mx-0"
+                initial={reduce ? false : { opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
+                <PontoCegoCta variant="outline" />
+              </motion.div>
               <motion.h1
-                className="mx-auto max-w-[1250px] [text-wrap:balance] font-display text-[clamp(28px,5vw,78px)] font-black uppercase leading-[0.9] tracking-[-0.05em] text-paper max-sm:text-[24px] max-sm:leading-[0.96] max-sm:tracking-[-0.035em]"
+                className="mx-auto max-w-[1250px] [text-wrap:balance] font-display text-[clamp(28px,5vw,78px)] font-black uppercase leading-[0.9] tracking-[-0.05em] text-paper max-sm:text-[24px] max-sm:leading-[0.96] max-sm:tracking-[-0.035em] lg:mx-0"
                 initial={reduce ? false : { opacity: 0, y: 45 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
@@ -75,23 +78,25 @@ export default function EixoEditorialSite() {
                 <span className="block whitespace-nowrap">Conteúdo que</span>
                 <span className="block whitespace-nowrap text-azure">chama atenção.</span>
               </motion.h1>
-            </div>
-            <motion.div
-              className="mx-auto mt-9 flex max-w-[900px] flex-col items-center justify-between gap-6 md:flex-row"
-              initial={reduce ? false : { opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.18 }}
-            >
-              <p className="max-w-[590px] text-[15px] leading-relaxed text-white/65 md:text-left md:text-[17px]">
-                Unimos social media, design, vídeo e organização para transformar ideias em presença digital — e tirar cada projeto do papel.
-              </p>
-              <a
-                href="#portfolio"
-                className="inline-flex shrink-0 items-center gap-3 bg-azure px-6 py-3.5 text-[13px] font-bold text-ink transition-colors hover:bg-white"
+              <motion.div
+                className="mx-auto mt-9 flex max-w-[900px] flex-col items-center justify-between gap-6 md:flex-row lg:mx-0"
+                initial={reduce ? false : { opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.75, delay: 0.18 }}
               >
-                Ver projetos <span aria-hidden>↓</span>
-              </a>
-            </motion.div>
+                <p className="max-w-[590px] text-[15px] leading-relaxed text-white/65 md:text-left md:text-[17px]">
+                  Unimos social media, design, vídeo e organização para transformar ideias em presença digital — e tirar cada projeto do papel.
+                </p>
+                <a
+                  href="#portfolio"
+                  className="inline-flex shrink-0 items-center gap-3 bg-azure px-6 py-3.5 text-[13px] font-bold text-ink transition-colors hover:bg-white"
+                >
+                  Ver projetos <span aria-hidden>↓</span>
+                </a>
+              </motion.div>
+            </div>
+
+            {!reduce && <HeroMascot />}
           </div>
 
           {/* Carrossel 3D no lugar da faixa que rolava sozinha — mesmas 9
