@@ -16,6 +16,8 @@ import { Reveal, RevealGroup, RevealItem, SectionNumber } from '@/components/rev
 import KineticGrid from '@/components/ui/kinetic-grid'
 import { CoverflowCarousel } from '@/components/ui/coverflow-carousel'
 import HeroMascot from '@/components/hero/HeroMascot'
+import WorkSphere from '@/components/visual/WorkSphere'
+import { projects } from '@/lib/portfolio'
 
 const mediaStrip = [
   { src: '/portfolio-media/social-acai.webp', alt: 'Conteúdo para Di Casa Açaí', position: 'center 42%' },
@@ -27,6 +29,13 @@ const mediaStrip = [
   { src: '/portfolio-media/post-direcao.webp', alt: 'Post sobre direção de marca para a Eixo de Marca', position: 'center 40%' },
   { src: '/portfolio-media/post-ia.webp', alt: 'Post sobre marcas e inteligência artificial para a Eixo de Marca', position: 'center 40%' },
   { src: '/portfolio-media/post-laura-protetor-solar.webp', alt: 'Post sobre protetor solar para Laura Anjos', position: 'center 40%' },
+]
+
+// Artes + marcas reais viram as bolhas da esfera da seção 01. As marcas são
+// 1:1 e recortam redondo sem perder nada; as artes 4:5 entram por object-cover.
+const sphereImages = [
+  ...identities.map((identity) => ({ src: identity.src, alt: identity.alt })),
+  ...projects.map((project) => ({ src: project.src, alt: project.alt })),
 ]
 
 export default function EixoEditorialSite() {
@@ -114,17 +123,45 @@ export default function EixoEditorialSite() {
         </KineticGrid>
       </section>
 
-      <section className="border-t border-ink/10 px-[var(--gutter)] py-[clamp(82px,11vw,146px)]">
-        <div className="mx-auto flex max-w-[1420px] flex-col gap-6">
-          <SectionNumber number="01" />
+      {/* Seção 01: esfera de trabalhos girando atrás, texto entrando em fade
+          por cima. Fundo escuro de propósito — a profundidade das bolhas (as
+          de trás apagam) só lê contra o escuro; no creme antigo elas sumiam.
+          O scrim radial no meio segura o contraste do texto. */}
+      <section className="relative isolate overflow-hidden border-t border-white/10 bg-ink px-[var(--gutter)] py-[clamp(120px,15vw,200px)] text-white">
+        {/* No mobile a esfera desce pro rodapé da seção (o texto ocupa quase
+            toda a altura) e fica mais apagada; no desktop ela sobe pro centro
+            e vai pra direita, ao lado do texto. */}
+        <WorkSphere
+          images={sphereImages}
+          className="opacity-45 [--sphere-x:50%] [--sphere-y:86%] lg:opacity-100 lg:[--sphere-x:74%] lg:[--sphere-y:50%]"
+        />
+        {/* Escurece só a faixa da esquerda, onde o texto vive. Um scrim radial
+            no meio apagava justamente as bolhas maiores da frente, que são o
+            ponto do efeito. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{
+            background:
+              'linear-gradient(100deg, rgba(23,10,42,.96) 0%, rgba(23,10,42,.9) 34%, rgba(23,10,42,.55) 56%, transparent 78%)',
+          }}
+        />
+
+        <div className="relative z-10 mx-auto flex max-w-[1420px] flex-col gap-6">
+          <div className="flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-white/60">
+            <span className="h-px w-10 bg-white/25" />
+            01
+          </div>
           <div>
             <Reveal>
-              <h2 className="max-w-[1180px] [text-wrap:balance] font-display text-[clamp(23px,3.7vw,57px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
-                Aqui tudo começa com <span className="text-azure-heading">direção.</span> Entregamos comunicação pensada, não apenas automática.
+              {/* Medida mais estreita que antes (era 1180px): mantém o texto
+                  na metade esquerda, longe do miolo da esfera. */}
+              <h2 className="max-w-[880px] [text-shadow:0_2px_20px_rgba(23,10,42,.95)] [text-wrap:balance] font-display text-[clamp(23px,3.4vw,50px)] font-black uppercase leading-[0.98] tracking-[-0.035em] text-paper max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
+                Aqui tudo começa com <span className="text-azure">direção.</span> Entregamos comunicação pensada, não apenas automática.
               </h2>
             </Reveal>
             <Reveal className="mt-12 max-w-[720px]" delay={0.08}>
-              <p className="text-[16px] leading-[1.7] text-ink/60 sm:text-[19px]">
+              <p className="text-[16px] leading-[1.7] text-white/70 [text-shadow:0_2px_16px_rgba(23,10,42,.95)] sm:text-[19px]">
                 Estratégia, criatividade e processo trabalhando juntos. Cada escolha precisa reforçar a marca, aproximar pessoas e conduzir o projeto para uma entrega clara.
               </p>
             </Reveal>
