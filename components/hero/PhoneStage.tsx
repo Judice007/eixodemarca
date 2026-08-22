@@ -50,13 +50,18 @@ function ScreenLayer({
       aria-hidden
       style={{
         opacity: active ? 1 : 0,
+        // O conteúdo ENTRA na tela: sobe de baixo e assenta na escala normal,
+        // como um reel trocando. A camada inativa fica estacionada embaixo e
+        // um tico maior, então a que entra sempre vem "de fora" da tela.
+        transform: active ? 'translateY(0) scale(1)' : 'translateY(9%) scale(1.05)',
         // esconde de verdade depois do fade, pra camada inativa nem compor
         visibility: active ? 'visible' : 'hidden',
         transition: reduce
           ? 'none'
-          : `opacity ${TRANSITION.screen}s cubic-bezier(.25,1,.5,1), visibility 0s linear ${
-              active ? '0s' : `${TRANSITION.screen}s`
-            }`,
+          : `opacity ${TRANSITION.screen}s cubic-bezier(.25,1,.5,1), ` +
+            `transform ${TRANSITION.screen}s cubic-bezier(.22,1,.28,1), ` +
+            `visibility 0s linear ${active ? '0s' : `${TRANSITION.screen}s`}`,
+        willChange: reduce ? undefined : 'transform, opacity',
       }}
     >
       {work.screen.type === 'video' ? (

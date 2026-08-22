@@ -1,25 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import type { MutableRefObject } from 'react'
 import type { Work } from '@/lib/works'
-import { CARD_SIZE, FLOAT } from './constants'
-
-/**
- * Os cards que orbitam o celular.
- *
- * O transform de cada card é escrito direto no style pelo ticker do
- * ServiceOrbit (translate/scale/rotate), então a flutuação leve mora num
- * wrapper interno — dois transforms no mesmo elemento se sobrescreveriam.
- */
-
-/** Duração da flutuação derivada do índice (nada de Math.random: quebraria a hidratação). */
-function floatTiming(index: number) {
-  const span = FLOAT.maxDuration - FLOAT.minDuration
-  const duration = FLOAT.minDuration + ((index * 0.37) % 1) * span
-  const delay = ((index * 0.61) % 1) * -duration
-  return { animationDuration: `${duration.toFixed(2)}s`, animationDelay: `${delay.toFixed(2)}s` }
-}
+import { CARD_SIZE } from './constants'
 
 function CardFace({ work, sizes }: { work: Work; sizes: string }) {
   return (
@@ -45,50 +28,6 @@ function CardFace({ work, sizes }: { work: Work; sizes: string }) {
         </span>
       </span>
     </span>
-  )
-}
-
-export function OrbitCards({
-  works,
-  activeIndex,
-  cardRefs,
-  onSelect,
-}: {
-  works: Work[]
-  activeIndex: number
-  cardRefs: MutableRefObject<(HTMLButtonElement | null)[]>
-  onSelect: (index: number) => void
-}) {
-  return (
-    <div className="pointer-events-none absolute inset-0">
-      {works.map((work, i) => {
-        const size = CARD_SIZE[work.format]
-        return (
-          <button
-            key={work.id}
-            ref={(el) => {
-              cardRefs.current[i] = el
-            }}
-            type="button"
-            onClick={() => onSelect(i)}
-            aria-label={`${work.label} — ${work.caption}`}
-            aria-current={activeIndex === i ? 'step' : undefined}
-            className="pointer-events-auto absolute left-1/2 top-1/2 rounded-[26px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-stage-accent"
-            style={{
-              width: size.width,
-              aspectRatio: size.aspect,
-              // valor inicial: o ticker sobrescreve no primeiro frame
-              transform: 'translate3d(-50%, -50%, 0)',
-              willChange: 'transform, opacity, filter',
-            }}
-          >
-            <span className="eixo-card-float block h-full w-full" style={floatTiming(i)}>
-              <CardFace work={work} sizes={`${size.width}px`} />
-            </span>
-          </button>
-        )
-      })}
-    </div>
   )
 }
 

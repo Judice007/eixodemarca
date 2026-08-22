@@ -3,15 +3,19 @@
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 import { methodSteps, services } from '@/lib/data'
-import { marks } from '@/lib/portfolio'
+import { identities } from '@/lib/portfolio'
+import Link from 'next/link'
 import ServiceOrbit from '@/components/hero/ServiceOrbit'
 import PontoCegoCta from '@/components/PontoCegoCta'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import ArtGrid from '@/components/portfolio/ArtGrid'
-import VideoGrid from '@/components/portfolio/VideoGrid'
+import VideoMosaic from '@/components/portfolio/VideoMosaic'
 import PortfolioTabs from '@/components/portfolio/PortfolioTabs'
 import { Reveal, RevealGroup, RevealItem, SectionNumber } from '@/components/reveal'
+import KineticGrid from '@/components/ui/kinetic-grid'
+import { CoverflowCarousel } from '@/components/ui/coverflow-carousel'
+import HeroMascot from '@/components/hero/HeroMascot'
 
 const mediaStrip = [
   { src: '/portfolio-media/social-acai.webp', alt: 'Conteúdo para Di Casa Açaí', position: 'center 42%' },
@@ -27,84 +31,82 @@ const mediaStrip = [
 
 export default function EixoEditorialSite() {
   const reduce = useReducedMotion()
-  const duplicatedMedia = [...mediaStrip, ...mediaStrip]
   const duplicatedServices = [...services, ...services]
 
   return (
     <main id="top" className="min-h-screen bg-[#fffdfa] text-ink">
       <SiteHeader />
 
-      <section className="relative flex min-h-[100svh] flex-col justify-between px-[var(--gutter)] pb-0 pt-[clamp(130px,18vh,190px)]">
-        <div className="mx-auto w-full max-w-[1420px] text-center">
-          <motion.p
-            className="mx-auto mb-4 w-fit border border-ink/12 px-4 py-2 font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-ink/65"
-            initial={reduce ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-          >
-            Estratégia · criação · gestão
-          </motion.p>
-          <motion.div
-            className="mx-auto mb-7 w-fit"
-            initial={reduce ? false : { opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <PontoCegoCta variant="solid" />
-          </motion.div>
-          <motion.h1
-            className="mx-auto max-w-[1250px] [text-wrap:balance] font-display text-[clamp(28px,5vw,78px)] font-black uppercase leading-[0.9] tracking-[-0.05em] max-sm:text-[24px] max-sm:leading-[0.96] max-sm:tracking-[-0.035em]"
-            initial={reduce ? false : { opacity: 0, y: 45 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <span className="block whitespace-nowrap">Conteúdo que</span>
-            <span className="block whitespace-nowrap text-azure-heading">chama atenção.</span>
-          </motion.h1>
-          <motion.div
-            className="mx-auto mt-9 flex max-w-[900px] flex-col items-center justify-between gap-6 md:flex-row"
-            initial={reduce ? false : { opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, delay: 0.18 }}
-          >
-            <p className="max-w-[590px] text-[15px] leading-relaxed text-ink/60 md:text-left md:text-[17px]">
-              Unimos social media, design, vídeo e organização para transformar ideias em presença digital — e tirar cada projeto do papel.
-            </p>
-            <a
-              href="#portfolio"
-              className="inline-flex shrink-0 items-center gap-3 bg-ink px-6 py-3.5 text-[13px] font-bold text-white transition-colors hover:bg-azure"
+      <section className="relative">
+        {/* Fundo interativo: grade que se distorce perto do cursor e ondula
+            no clique, recolorida pra paleta do Eixo (ink + coral) em vez do
+            azul padrão do componente. Hero virou um bloco escuro por causa
+            disso — todo o texto abaixo foi reajustado pra contraste em fundo
+            escuro (antes assumia o fundo creme do resto do site). */}
+        <KineticGrid
+          globalColor="brand"
+          className="flex min-h-[100svh] flex-col justify-between px-[var(--gutter)] pb-0 pt-[clamp(130px,18vh,190px)]"
+        >
+          <div className="mx-auto w-full max-w-[1420px] text-center">
+            <motion.p
+              className="mx-auto mb-4 w-fit border border-white/20 px-4 py-2 font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-white/70"
+              initial={reduce ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6 }}
             >
-              Ver projetos <span aria-hidden>↓</span>
-            </a>
-          </motion.div>
-        </div>
-
-        <div className="relative mt-[clamp(54px,9vh,96px)] -mx-[var(--gutter)] overflow-hidden pb-4">
-          <div className={`eixo-media-marquee flex w-max gap-4 px-2 ${reduce ? '' : 'will-change-transform'}`}>
-            {duplicatedMedia.map((item, index) => (
-              <figure
-                key={`${item.src}-${index}`}
-                className="relative h-[220px] w-[170px] shrink-0 overflow-hidden bg-lavanda sm:h-[300px] sm:w-[235px] lg:h-[360px] lg:w-[285px]"
+              Estratégia · criação · gestão
+            </motion.p>
+            <motion.div
+              className="mx-auto mb-7 w-fit"
+              initial={reduce ? false : { opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <PontoCegoCta variant="outline" />
+            </motion.div>
+            <div className="relative">
+              {!reduce && <HeroMascot />}
+              <motion.h1
+                className="mx-auto max-w-[1250px] [text-wrap:balance] font-display text-[clamp(28px,5vw,78px)] font-black uppercase leading-[0.9] tracking-[-0.05em] text-paper max-sm:text-[24px] max-sm:leading-[0.96] max-sm:tracking-[-0.035em]"
+                initial={reduce ? false : { opacity: 0, y: 45 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               >
-                <Image
-                  src={item.src}
-                  alt={index < mediaStrip.length ? item.alt : ''}
-                  fill
-                  // As 6 primeiras imagens do primeiro loop precisam de priority=true -- testei
-                  // limitar a 2 (achando que o preload das 6 competia com as fontes) e o
-                  // atraso de renderização do LCP voltou a ~2.2s. Com as 6 fica em ~470ms,
-                  // então o preload "competindo" era menor problema que ficar sem ele.
-                  // Fixo em 6 (não mediaStrip.length): o array cresceu para 9 itens e todas
-                  // passaram a levar priority=true, o que trouxe o mesmo regressão de LCP de volta.
-                  priority={index < 6}
-                  sizes="(min-width: 1024px) 285px, (min-width: 640px) 235px, 170px"
-                  className="object-cover transition-transform duration-700 hover:scale-[1.04]"
-                  style={{ objectPosition: item.position }}
-                />
-              </figure>
-            ))}
+                <span className="block whitespace-nowrap">Conteúdo que</span>
+                <span className="block whitespace-nowrap text-azure">chama atenção.</span>
+              </motion.h1>
+            </div>
+            <motion.div
+              className="mx-auto mt-9 flex max-w-[900px] flex-col items-center justify-between gap-6 md:flex-row"
+              initial={reduce ? false : { opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.18 }}
+            >
+              <p className="max-w-[590px] text-[15px] leading-relaxed text-white/65 md:text-left md:text-[17px]">
+                Unimos social media, design, vídeo e organização para transformar ideias em presença digital — e tirar cada projeto do papel.
+              </p>
+              <a
+                href="#portfolio"
+                className="inline-flex shrink-0 items-center gap-3 bg-azure px-6 py-3.5 text-[13px] font-bold text-ink transition-colors hover:bg-white"
+              >
+                Ver projetos <span aria-hidden>↓</span>
+              </a>
+            </motion.div>
           </div>
-        </div>
+
+          {/* Carrossel 3D no lugar da faixa que rolava sozinha — mesmas 9
+              imagens reais do portfólio, agora navegável (arrasta ou usa as
+              setas) em vez de só decorativo. */}
+          <div className="relative mt-[clamp(28px,5vh,60px)] pb-6">
+            <CoverflowCarousel
+              slides={mediaStrip}
+              showNavigation
+              autoplayMs={3200}
+              label="Trabalhos do Eixo de Marca"
+              cardClassName="bg-[#1d0b35]"
+            />
+          </div>
+        </KineticGrid>
       </section>
 
       <section className="border-t border-ink/10 px-[var(--gutter)] py-[clamp(82px,11vw,146px)]">
@@ -166,7 +168,7 @@ export default function EixoEditorialSite() {
               </div>
             </Reveal>
 
-            <VideoGrid />
+            <VideoMosaic />
           </div>
         </div>
       </section>
@@ -215,30 +217,40 @@ export default function EixoEditorialSite() {
         </div>
       </section>
 
-      <section className="border-t border-ink/10 px-[var(--gutter)] py-[clamp(80px,10vw,132px)]">
+      <section id="identidade" className="scroll-mt-24 border-t border-ink/10 px-[var(--gutter)] py-[clamp(80px,10vw,132px)]">
         <div className="mx-auto max-w-[1420px]">
           <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
             <div>
               <SectionNumber number="05" />
               <Reveal>
                 <h2 className="mt-8 max-w-[820px] [text-wrap:balance] font-display text-[clamp(22px,3.3vw,47px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
-                  Identidades que já passaram pelo nosso <span className="text-azure-heading">eixo.</span>
+                  Marcas criadas pelo nosso <span className="text-azure-heading">eixo.</span>
                 </h2>
               </Reveal>
             </div>
-            <p className="max-w-[320px] text-[14px] leading-relaxed text-ink/65">Seleção de marcas e sistemas visuais presentes no portfólio.</p>
+            <p className="max-w-[320px] text-[14px] leading-relaxed text-ink/65">Clique numa marca pra ver a identidade visual completa.</p>
           </div>
           {/* Os arquivos têm fundo próprio (3 escuros, 3 brancos, 1 coral). Com
               object-contain num quadro branco cada um virava um retângulo de cor
               diferente dentro da célula — o efeito xadrez. Todos são 1:1, então
               object-cover preenche a célula sem cortar nada e o grid vira uma
               parede de marcas uniforme; o grayscale amarra os tons e a cor real
-              volta no hover. */}
+              volta no hover. Agora cada célula também é um link pra
+              /identidade-visual/[slug] — a legenda "Ver identidade" só
+              aparece no hover pra não competir com a "parede uniforme" que o
+              grayscale já constrói. */}
           <div className="mt-11 grid grid-cols-2 border-l border-t border-ink/10 sm:grid-cols-4">
-            {marks.map((mark) => (
-              <div key={mark.src} className="relative aspect-square overflow-hidden border-b border-r border-ink/10 bg-ink">
-                <Image src={mark.src} alt={mark.alt} fill sizes="25vw" className="object-cover grayscale transition-all duration-500 hover:grayscale-0" />
-              </div>
+            {identities.map((mark) => (
+              <Link
+                key={mark.slug}
+                href={`/identidade-visual/${mark.slug}`}
+                className="group relative aspect-square overflow-hidden border-b border-r border-ink/10 bg-ink"
+              >
+                <Image src={mark.src} alt={mark.alt} fill sizes="25vw" className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0" />
+                <span className="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 to-transparent p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <span className="font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-white">Ver identidade ↗</span>
+                </span>
+              </Link>
             ))}
           </div>
         </div>

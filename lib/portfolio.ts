@@ -134,13 +134,19 @@ export const portfolioVideos = [
   },
 ] as const
 
-export const marks = [
-  { src: '/portfolio-media/marca-eixo.webp', alt: 'Eixo de Marca' },
-  { src: '/portfolio-media/identidade-vista-bajeko.webp', alt: 'Vista Bajeko' },
-  { src: '/portfolio-media/marca-espaco-dos-anjos.webp', alt: 'Espaço dos Anjos' },
-  { src: '/portfolio-media/marca-laura-anjos.webp', alt: 'Laura Anjos' },
-  { src: '/portfolio-media/marca-viva-angra.webp', alt: 'Viva Angra' },
-  { src: '/portfolio-media/marca-luciane-judice.webp', alt: 'Luciane Júdice' },
-  { src: '/portfolio-media/marca-itamang.webp', alt: 'Itamang' },
-  { src: '/portfolio-media/marca-bm.webp', alt: 'BIG' },
-]
+// Uma marca por item hoje (a maioria só tem a logo no projeto ainda — só a
+// Vista Bajeko tem uma segunda peça, o mockup de camiseta, usado aqui em vez
+// da logo plana por mostrar a marca aplicada). `accent` é só a cor de fundo
+// do card na página /identidade-visual/[slug] — não é conteúdo, é estilo.
+export const identities = [
+  { slug: 'eixo-de-marca', name: 'Eixo de Marca', src: '/portfolio-media/marca-eixo.webp', alt: 'Eixo de Marca', accent: '#2a104a' },
+  { slug: 'vista-bajeko', name: 'Vista Bajeko', src: '/portfolio-media/identidade-vista-bajeko-manual.webp', alt: 'Vista Bajeko', accent: '#0b4a5c' },
+  { slug: 'espaco-dos-anjos', name: 'Espaço dos Anjos', src: '/portfolio-media/marca-espaco-dos-anjos.webp', alt: 'Espaço dos Anjos', accent: '#b8879a' },
+  { slug: 'laura-anjos', name: 'Laura Anjos', src: '/portfolio-media/marca-laura-anjos.webp', alt: 'Laura Anjos', accent: '#caa153' },
+  { slug: 'viva-angra', name: 'Viva Angra', src: '/portfolio-media/marca-viva-angra.webp', alt: 'Viva Angra', accent: '#2f7d6b' },
+  { slug: 'luciane-judice', name: 'Luciane Júdice', src: '/portfolio-media/marca-luciane-judice.webp', alt: 'Luciane Júdice', accent: '#8b4bc8' },
+  { slug: 'itamang', name: 'Itamang', src: '/portfolio-media/marca-itamang.webp', alt: 'Itamang', accent: '#3a5a8c' },
+  { slug: 'bm', name: 'BIG', src: '/portfolio-media/marca-bm.webp', alt: 'BIG', accent: '#ff665c' },
+] as const
+
+export const marks = identities.map(({ src, alt }) => ({ src, alt }))
