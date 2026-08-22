@@ -27,7 +27,7 @@ export default function SiteFooter() {
         </div>
         <div className="mt-20 flex flex-col justify-between gap-4 border-t border-white/10 pt-6 text-[11px] text-white/60 sm:flex-row">
           <span>© 2026 Eixo de Marca — Brasil</span>
-          <span>Estratégia · criação · gestão</span>
+          <span>Sua marca fora do automático</span>
         </div>
       </div>
     </footer>
