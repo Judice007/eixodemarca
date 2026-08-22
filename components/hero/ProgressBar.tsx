@@ -3,9 +3,13 @@
 import type { MutableRefObject } from 'react'
 
 /**
- * Um traço por serviço. O traço ativo preenche no ritmo real da órbita — quem
- * escreve o scaleX é o ticker do ServiceOrbit, então ele acompanha a pausa do
- * hover e o salto do clique em vez de rodar num tempo próprio e dessincronizar.
+ * Um traço por serviço, com o nome embaixo. O traço ativo preenche no ritmo
+ * real da órbita — quem escreve o scaleX é o ticker do ServiceOrbit, então ele
+ * acompanha a pausa do hover e o salto do clique em vez de rodar num tempo
+ * próprio e dessincronizar.
+ *
+ * Os nomes aparecem até lg; a partir daí a lista lateral já cumpre esse papel
+ * e repetir os sete nomes duas vezes na mesma tela seria ruído.
  */
 export default function ProgressBar({
   count,
@@ -24,7 +28,7 @@ export default function ProgressBar({
   reduce: boolean
 }) {
   return (
-    <div className="flex items-center justify-center gap-2">
+    <div className="flex flex-wrap items-start justify-center gap-x-2 gap-y-2">
       {Array.from({ length: count }, (_, i) => (
         <button
           key={i}
@@ -32,9 +36,9 @@ export default function ProgressBar({
           onClick={() => onSelect(i)}
           aria-label={`Ir para ${labels[i]}`}
           aria-current={activeIndex === i ? 'step' : undefined}
-          className="group relative h-4 w-10 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stage-accent"
+          className="group relative flex flex-col items-center gap-1.5 rounded-lg px-1 py-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stage-accent"
         >
-          <span className="absolute inset-x-0 top-1/2 h-[3px] -translate-y-1/2 overflow-hidden rounded-full bg-stage-text/20">
+          <span className="relative block h-[3px] w-10 overflow-hidden rounded-full bg-stage-text/20">
             <span
               ref={(el) => {
                 fillRefs.current[i] = el
@@ -42,6 +46,13 @@ export default function ProgressBar({
               className="block h-full w-full origin-left rounded-full bg-stage-accent"
               style={{ transform: `scaleX(${reduce && activeIndex === i ? 1 : 0})` }}
             />
+          </span>
+          <span
+            className={`font-sans text-[10px] leading-none transition-colors lg:hidden ${
+              activeIndex === i ? 'font-bold text-stage-text' : 'text-stage-text-muted group-hover:text-stage-text'
+            }`}
+          >
+            {labels[i]}
           </span>
         </button>
       ))}

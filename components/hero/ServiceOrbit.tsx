@@ -1,25 +1,27 @@
 'use client'
 
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { works } from '@/lib/works'
-import { whatsappUrl } from '@/lib/data'
+import { services, whatsappUrl } from '@/lib/data'
 import PhoneStage from './PhoneStage'
-import { StaticCards } from './OrbitCards'
+import { OrbitCards, StaticCards } from './OrbitCards'
 import ProgressBar from './ProgressBar'
+import ServiceList from './ServiceList'
 import CtaChip from './CtaChip'
-import { CircularGallery, type GalleryItem } from '@/components/ui/circular-gallery-2'
-import { LAYER, PARALLAX, SCROLL, TITLE_BAND } from './constants'
+import { DEPTH, LAYER, PARALLAX, SCROLL, SPACING, SPAN, TITLE_BAND } from './constants'
 
 const N = works.length
 
-// Os cards que orbitavam viraram essa galeria curva em WebGL — não tem mais
-// clique-pra-selecionar nem destaque do serviço ativo (o componente não
-// expõe esses ganchos), é só visual agora. Rolar a página continua trocando
-// o vídeo do celular normalmente, isso não dependia dos cards.
-const GALLERY_ITEMS: GalleryItem[] = works.map((work) => ({ image: work.card, text: work.label }))
+// A descrição cheia de cada serviço mora em lib/data.ts; works.ts só carrega o
+// `caption` curto (4 palavras), que não explica o que é entregue. Casa pelo
+// título, com o caption como reserva se algum nome deixar de bater.
+// Map<string, string> explícito: `services` é `as const`, então sem isso as
+// chaves viram a união literal dos sete títulos e `get(label)` não compila.
+const BLURBS = new Map<string, string>(services.map((service) => [service.title, service.text]))
+const blurbFor = (label: string, fallback: string) => BLURBS.get(label) ?? fallback
 
 /** Módulo sempre positivo — o `%` do JS devolve negativo e quebraria a órbita. */
 const mod = (n: number, m: number) => ((n % m) + m) % m
@@ -47,12 +49,34 @@ export default function ServiceOrbit() {
   const haloRef = useRef<HTMLDivElement>(null)
   const shadowRef = useRef<HTMLDivElement>(null)
   const fillRefs = useRef<(HTMLSpanElement | null)[]>([])
+  const cardRefs = useRef<(HTMLButtonElement | null)[]>([])
 
   // estado da animação vive em refs: o ticker roda fora do ciclo de render
   const phase = useRef(0)
   const targetPhase = useRef(0)
+  const layout = useRef<{ spacing: number; span: number }>({ spacing: SPACING.xl, span: SPAN.xl })
   const pointer = useRef({ tx: 0, ty: 0, x: 0, y: 0 })
   const activeRef = useRef(0)
+
+  /** Distância/alcance mudam por breakpoint (e não dá pra fazer isso só com CSS). */
+  useEffect(() => {
+    const xl = window.matchMedia('(min-width: 1280px)')
+    const md = window.matchMedia('(min-width: 768px)')
+    const apply = () => {
+      layout.current = xl.matches
+        ? { spacing: SPACING.xl, span: SPAN.xl }
+        : md.matches
+          ? { spacing: SPACING.md, span: SPAN.md }
+          : { spacing: SPACING.base, span: SPAN.base }
+    }
+    apply()
+    xl.addEventListener('change', apply)
+    md.addEventListener('change', apply)
+    return () => {
+      xl.removeEventListener('change', apply)
+      md.removeEventListener('change', apply)
+    }
+  }, [])
 
   /** Quanto de rolagem existe dentro da seção presa. */
   const scrollRange = useCallback(() => {
@@ -97,6 +121,39 @@ export default function ServiceOrbit() {
           deviceRef.current.style.transform =
             `translate3d(${(px * PARALLAX.device).toFixed(2)}px, ${(py * PARALLAX.device).toFixed(2)}px, 0)` +
             ` rotateY(${(px * PARALLAX.deviceTilt).toFixed(2)}deg)`
+        }
+
+        // cards em órbita: cada um fica a `t` slots do centro
+        const { spacing, span } = layout.current
+        for (let i = 0; i < N; i++) {
+          const el = cardRefs.current[i]
+          if (!el) continue
+
+          let t = mod(i - phase.current, N)
+          if (t > N / 2) t -= N
+          const a = Math.abs(t)
+
+          const x = t * spacing - px * PARALLAX.cards
+          const y = Math.pow(a, DEPTH.liftPow) * DEPTH.lift - py * PARALLAX.cards
+          const clamped = Math.min(a, DEPTH.scaleClamp)
+          const scale = 1 - clamped * DEPTH.scaleStep
+          const rotate = t * DEPTH.rotate
+          const blur = Math.min(a * DEPTH.blurStep, DEPTH.blurMax)
+          const bright = 1 - clamped * DEPTH.dim
+          // Some no fim do alcance (sem corte seco) e também ao chegar no
+          // centro: ali o card fica exatamente atrás do aparelho, então
+          // dissolvê-lo evita que ele apareça pelas bordas quando for maior que
+          // o celular, e reforça a leitura de que ele "entrou" na tela.
+          const entrando = Math.min(1, a / 0.55)
+          const opacity = a >= span ? 0 : Math.min(1, (span - a) / 0.7) * entrando
+
+          el.style.transform =
+            `translate3d(calc(-50% + ${x.toFixed(2)}px), calc(-50% + ${y.toFixed(2)}px), 0)` +
+            ` scale(${scale.toFixed(4)}) rotate(${rotate.toFixed(2)}deg)`
+          el.style.opacity = opacity.toFixed(3)
+          el.style.filter = `blur(${blur.toFixed(2)}px) brightness(${bright.toFixed(3)})`
+          el.style.zIndex = String(LAYER.cardBase - Math.round(a))
+          el.style.pointerEvents = opacity < 0.05 ? 'none' : 'auto'
         }
 
         // barra: o traço ativo preenche conforme o serviço atravessa o centro
@@ -251,7 +308,9 @@ export default function ServiceOrbit() {
               {/* nome do serviço ativo. Fundo próprio: mesmo aqui fora do
                   celular, o halo/cards atrás variam de cor e o texto ficava
                   fraco só com text-shadow. */}
-              <div className="relative flex justify-center px-4 text-center" style={{ zIndex: LAYER.cta }}>
+              {/* lg:hidden — a partir de lg quem mostra o serviço ativo é o
+                  painel da direita, com nome grande e descrição cheia. */}
+              <div className="relative flex justify-center px-4 text-center lg:hidden" style={{ zIndex: LAYER.cta }}>
                 <AnimatePresence mode="wait">
                   <motion.div key={current.id} aria-hidden className="rounded-xl bg-ink/65 px-4 py-2.5 backdrop-blur-sm">
                     <h3
@@ -276,12 +335,15 @@ export default function ServiceOrbit() {
                     </p>
                   </motion.div>
                 </AnimatePresence>
-
-                {/* leitor de tela: só isto anuncia a troca, o título acima é decorativo */}
-                <p aria-live="polite" className="sr-only">
-                  {current.label}. {current.caption}
-                </p>
               </div>
+
+              {/* Leitor de tela: só isto anuncia a troca, os títulos visuais são
+                  decorativos (aria-hidden). Fica FORA do bloco lg:hidden acima —
+                  `hidden` tira o elemento da árvore de acessibilidade, então
+                  ali dentro o anúncio sumiria justamente no desktop. */}
+              <p aria-live="polite" className="sr-only">
+                {current.label}. {blurbFor(current.label, current.caption)}
+              </p>
             </div>
 
             {/* Caixa da órbita: começa onde o aparelho começa, então 50%/50%
@@ -302,25 +364,58 @@ export default function ServiceOrbit() {
                 }}
               />
 
-              {/* Galeria curva em WebGL no lugar dos cards que orbitavam —
-                  só visual agora (ver nota no topo do arquivo sobre a perda
-                  do clique-pra-selecionar). Sem gate de reduced-motion no
-                  componente em si, então o guarda-chuva `!reduce` do resto
-                  da seção continua sendo o que evita rodar a animação. */}
+              {/* Cards em órbita de volta no lugar da galeria WebGL: cada card
+                  É um serviço, o ativo fica destacado e o clique leva até ele.
+                  A galeria curva era bonita mas rodava solta — as imagens não
+                  tinham relação com o serviço que estava na tela do celular. */}
               {!reduce && (
-                <div
-                  className="pointer-events-auto absolute left-1/2 top-1/2 h-[46%] w-full -translate-x-1/2 -translate-y-1/2"
-                  style={{ zIndex: LAYER.track }}
-                >
-                  <CircularGallery
-                    items={GALLERY_ITEMS}
-                    bend={2}
-                    borderRadius={0.06}
-                    scrollSpeed={1.2}
-                    fontClassName="text-stage-text font-sans text-[13px] font-bold"
-                  />
-                </div>
+                <OrbitCards
+                  works={works}
+                  activeIndex={active}
+                  cardRefs={cardRefs}
+                  onSelect={select}
+                />
               )}
+
+              {/* Painéis laterais: lista à esquerda, detalhe do serviço ativo à
+                  direita. Ficam acima dos cards (LAYER.cta) e têm fundo
+                  próprio, então o arco passa atrás deles em vez de disputar o
+                  espaço. Só a partir de lg — abaixo disso não há largura
+                  sobrando ao lado do aparelho, e o nome no topo + a barra de
+                  baixo com os nomes já cobrem a navegação. */}
+              <div
+                className="pointer-events-auto absolute left-0 top-1/2 hidden -translate-y-1/2 lg:block"
+                style={{ zIndex: LAYER.cta }}
+              >
+                <ServiceList works={works} activeIndex={active} onSelect={select} />
+              </div>
+
+              <div
+                className="pointer-events-auto absolute right-0 top-1/2 hidden w-[268px] -translate-y-1/2 rounded-2xl border border-white/10 bg-ink/70 p-5 backdrop-blur-md lg:block"
+                style={{ zIndex: LAYER.cta }}
+              >
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={current.id}
+                    initial={reduce ? false : { opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={reduce ? { opacity: 0 } : { opacity: 0, y: -10 }}
+                    transition={{ duration: 0.38, ease: [0.25, 1, 0.5, 1] }}
+                  >
+                    <span
+                      aria-hidden
+                      className="mb-3 block h-1 w-9 rounded-full"
+                      style={{ backgroundColor: current.accent }}
+                    />
+                    <h3 className="font-display text-[24px] font-black uppercase leading-[1.02] tracking-[-0.03em] text-stage-text">
+                      {current.label}
+                    </h3>
+                    <p className="mt-3 text-[13px] leading-[1.6] text-stage-text-muted">
+                      {blurbFor(current.label, current.caption)}
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
 
               {/* sombra de contato */}
               <div
