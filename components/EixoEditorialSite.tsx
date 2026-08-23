@@ -186,9 +186,9 @@ export default function EixoEditorialSite() {
                 <p className="max-w-[290px] text-[14px] leading-relaxed text-white/55">Projetos reais de comunicação, identidade e conteúdo.</p>
               </div>
             </Reveal>
-            {/* Mesmo filtro que existe nas páginas dedicadas — daqui dá pra
-                pular direto pra "só artes" ou "só vídeo" sem rolar tudo. */}
-            <PortfolioTabs />
+            {/* Mesmo filtro das páginas dedicadas, sem "Vídeos": aqui embaixo
+                já vem o mosaico de vídeo, então a aba era caminho redundante. */}
+            <PortfolioTabs hidden={['video']} />
           </div>
 
           <ArtGrid />

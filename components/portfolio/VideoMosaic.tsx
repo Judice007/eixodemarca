@@ -36,7 +36,11 @@ export default function VideoMosaic() {
       containerClassName="mt-10"
       // grid-flow-row-dense: sem isso os spans diferentes deixam buracos no
       // meio do mosaico em vez de encaixarem uns nos outros.
-      gridClassName="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 sm:auto-rows-[40px] sm:grid-flow-row-dense"
+      //
+      // A largura máxima e a altura das auto-rows caem juntas (~0.71 das
+      // medidas antigas, 40px/gap-4 -> 28px/gap-3): encolhe o mosaico sem
+      // mexer na proporção vertical de cada célula.
+      gridClassName="grid grid-cols-2 gap-3 sm:mx-auto sm:w-full sm:max-w-[860px] sm:grid-cols-3 sm:auto-rows-[28px] sm:grid-flow-row-dense"
     />
   )
 }
