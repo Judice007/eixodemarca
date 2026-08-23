@@ -108,9 +108,15 @@ export default function VideoMosaic() {
     // grid-flow-row-dense: sem isso os spans diferentes deixam buracos no meio
     // do mosaico em vez de encaixarem uns nos outros.
     //
-    // A largura máxima e a altura das auto-rows andam juntas (28px + gap 12):
-    // mexer numa sem a outra distorce a proporção das células.
-    <RevealGroup className="mt-10 grid grid-cols-2 gap-3 sm:mx-auto sm:w-full sm:max-w-[860px] sm:auto-rows-[28px] sm:grid-cols-3 sm:grid-flow-row-dense">
+    // Sem max-w/mx-auto: o mosaico acompanha a largura do container da seção,
+    // então a primeira coluna nasce na mesma margem do título. Centralizado e
+    // mais estreito que o texto, ele lia como um bloco solto no meio.
+    //
+    // Em lg vira 4 colunas: na largura cheia, 3 colunas dariam células de
+    // 440px e o formato sairia de reels pra quase 4:5. Com 4 colunas a célula
+    // fica em ~325px e as auto-rows de 27px seguram a proporção entre 0.44 e
+    // 0.60 — largura da coluna e auto-rows andam sempre juntas.
+    <RevealGroup className="mt-10 grid grid-cols-2 gap-3 sm:auto-rows-[28px] sm:grid-cols-3 sm:grid-flow-row-dense lg:auto-rows-[27px] lg:grid-cols-4 lg:gap-5">
       {portfolioVideos.map((video, index) => (
         <MosaicTile key={video.src} video={video} index={index} />
       ))}
