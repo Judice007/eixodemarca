@@ -43,7 +43,10 @@ export default function SiteHeader() {
             height={573}
             priority
             sizes="64px"
-            className={`w-auto transition-all duration-500 ${scrolled ? 'h-[18px]' : 'h-[21px] sm:h-6'}`}
+            // ~15% maior: a pílula do "Ponto Cego" pesava mais que a própria
+            // marca no cabeçalho. O CTA continua evidente, mas deixa de
+            // competir com a logo.
+            className={`w-auto transition-all duration-500 ${scrolled ? 'h-[21px]' : 'h-[24px] sm:h-7'}`}
             style={{ filter: 'brightness(0) saturate(100%) invert(11%) sepia(37%) saturate(3825%) hue-rotate(258deg) brightness(76%) contrast(104%)' }}
           />
         </Link>

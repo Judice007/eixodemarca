@@ -40,7 +40,10 @@ export default function PontoCegoCta({
       ? 'rounded-full bg-ink text-paper shadow-[0_14px_32px_-14px_rgba(42,16,74,.6)] px-5 py-3 text-[13px] sm:text-[14px]'
       : variant === 'outline'
         ? 'border border-white/25 text-white hover:border-azure/60 px-5 py-3 text-[13px] sm:text-[14px]'
-        : 'rounded-full bg-ink text-paper px-4 py-2 text-[12px] sm:text-[13px]'
+        // Um pouco menor que antes (px-4 py-2 / 12-13px): no cabeçalho a
+        // pílula chamava mais atenção que a logo. Segue sendo o CTA do topo,
+        // só não disputa mais com a marca.
+        : 'rounded-full bg-ink text-paper px-3.5 py-1.5 text-[11px] sm:text-[12px]'
 
   return (
     <a

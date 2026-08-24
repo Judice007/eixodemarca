@@ -202,9 +202,20 @@ export default function EixoEditorialSite() {
                     Histórias que também ganham <span className="text-azure">ritmo.</span>
                   </h2>
                 </div>
-                <p className="max-w-[300px] text-[14px] leading-relaxed text-white/55">
-                  Os seis vídeos do portfólio reunidos em uma seleção de conteúdo vertical, turismo, apresentação e cobertura.
-                </p>
+                <div className="max-w-[300px]">
+                  <p className="text-[14px] leading-relaxed text-white/55">
+                    Os seis vídeos do portfólio reunidos em uma seleção de conteúdo vertical, turismo, apresentação e cobertura.
+                  </p>
+                  {/* A página dedicada de vídeos não tinha nenhuma porta de
+                      entrada na home depois que as abas saíram — quem não
+                      soubesse a URL não chegava nela. */}
+                  <Link
+                    href="/portfolio/video"
+                    className="mt-4 inline-flex items-center gap-2 border-b border-azure/40 pb-1 font-sans text-[13px] font-bold text-azure transition-colors hover:border-azure hover:text-white"
+                  >
+                    Ver todos os vídeos <span aria-hidden>↗</span>
+                  </Link>
+                </div>
               </div>
             </Reveal>
 
@@ -247,7 +258,10 @@ export default function EixoEditorialSite() {
         </div>
       </section>
 
-      <section id="identidade" className="scroll-mt-24 border-t border-ink/10 px-[var(--gutter)] py-[clamp(80px,10vw,132px)]">
+      {/* pb menor que o pt: a grade de marcas é a última prova de trabalho
+          antes da chamada final, e o vão grande entre as duas quebrava o
+          ritmo bem no ponto em que ele mais importa. */}
+      <section id="identidade" className="scroll-mt-24 border-t border-ink/10 px-[var(--gutter)] pb-[clamp(48px,5vw,72px)] pt-[clamp(80px,10vw,132px)]">
         <div className="mx-auto max-w-[1420px]">
           <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
             <div>
