@@ -9,7 +9,7 @@ import ServiceOrbit from '@/components/hero/ServiceOrbit'
 import PontoCegoCta from '@/components/PontoCegoCta'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
-import ArtGrid from '@/components/portfolio/ArtGrid'
+import ArtArc from '@/components/portfolio/ArtArc'
 import VideoMosaic from '@/components/portfolio/VideoMosaic'
 import PortfolioTabs from '@/components/portfolio/PortfolioTabs'
 import { Reveal, RevealGroup, RevealItem, SectionNumber } from '@/components/reveal'
@@ -191,7 +191,10 @@ export default function EixoEditorialSite() {
             <PortfolioTabs hidden={['video']} />
           </div>
 
-          <ArtGrid />
+          {/* Arco curvo no lugar da grade: as artes ficam numa curva e a
+              pessoa arrasta pra percorrer. A grade segue viva em
+              /portfolio/artes, que é onde se vê tudo de uma vez. */}
+          <ArtArc />
 
           <div className="mt-[clamp(76px,9vw,126px)] border-t border-white/15 pt-10">
             <Reveal>
