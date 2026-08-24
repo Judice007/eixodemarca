@@ -3,5 +3,3 @@ allowBuilds:
   sharp: true
   unrs-resolver: true
   workerd: true
-minimumReleaseAgeExclude:
-  - '@splinetool/runtime@2.0.5'

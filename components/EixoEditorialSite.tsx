@@ -16,7 +16,6 @@ import PortfolioTabs from '@/components/portfolio/PortfolioTabs'
 import { Reveal, RevealGroup, RevealItem, SectionNumber } from '@/components/reveal'
 import KineticGrid from '@/components/ui/kinetic-grid'
 import { CoverflowCarousel } from '@/components/ui/coverflow-carousel'
-import HeroMascot from '@/components/hero/HeroMascot'
 import WorkSphere from '@/components/visual/WorkSphere'
 import { projects } from '@/lib/portfolio'
 
@@ -57,10 +56,10 @@ export default function EixoEditorialSite() {
           globalColor="brand"
           className="flex min-h-[100svh] flex-col justify-between px-[var(--gutter)] pb-0 pt-[clamp(130px,18vh,190px)]"
         >
-          {/* Texto à esquerda, mascote à direita: são irmãos no flex, então o
-              robô não cobre mais o fim de "chama atenção." como cobria quando
-              era absolute por cima do h1. Abaixo de lg o mascote some e o
-              texto volta a ser centralizado. */}
+          {/* Texto alinhado à esquerda no desktop, centralizado abaixo de lg.
+              O mascote 3D que ficava à direita saiu: o runtime da Spline
+              custava 1,4 MB de JS e um contexto WebGL vivo por um robô
+              decorativo, que nem era o panda da marca. */}
           <div className="mx-auto flex w-full max-w-[1420px] flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
             <div className="w-full text-center lg:flex-1 lg:text-left">
               <motion.p
@@ -105,8 +104,6 @@ export default function EixoEditorialSite() {
                 </a>
               </motion.div>
             </div>
-
-            {!reduce && <HeroMascot />}
           </div>
 
           {/* Carrossel 3D no lugar da faixa que rolava sozinha — mesmas 9
