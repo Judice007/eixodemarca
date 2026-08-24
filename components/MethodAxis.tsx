@@ -4,58 +4,60 @@ import { useRef } from 'react'
 import { motion, useInView, useReducedMotion, useScroll, useSpring } from 'framer-motion'
 import type { MethodStep } from '@/lib/data'
 
-/**
- * As etapas do método sobre um eixo que se preenche conforme a página rola.
- *
- * O eixo é o nome da marca, então ele carrega o significado aqui: o traço de
- * coral avança com a rolagem e cada etapa acende quando a linha a alcança —
- * o processo andando, não um enfeite.
- *
- * Nada de texto claro sobre claro: o numeral inativo é ink/60 (5.7:1) e o
- * ativo é azure-heading (3.5:1, o mínimo pra texto grande). A mudança de
- * estado é de COR, não de opacidade, justamente pra não haver estado ilegível.
- */
+const cellLayout = [
+  'md:border-b md:border-r md:pb-20 md:pr-24',
+  'md:border-b md:items-end md:pb-20 md:pl-24 md:text-right',
+  'md:border-r md:pr-24 md:pt-20',
+  'md:items-end md:pl-24 md:pt-20 md:text-right',
+] as const
+
 function Step({ step, index, reduce }: { step: MethodStep; index: number; reduce: boolean }) {
   const ref = useRef<HTMLElement>(null)
-  // margem estreita: só a etapa que está na faixa central da tela fica acesa,
-  // então existe sempre uma "etapa atual" enquanto se rola.
-  const active = useInView(ref, { margin: '-42% 0px -45% 0px' })
+  const active = useInView(ref, { margin: '-24% 0px -24% 0px', amount: 0.35 })
   const on = reduce || active
 
   return (
     <motion.article
       ref={ref}
-      className="relative grid items-baseline gap-x-8 gap-y-2 py-[clamp(28px,3.4vw,48px)] md:grid-cols-[4.6rem_minmax(0,1fr)] md:pl-12"
+      className={`group relative flex min-h-[270px] flex-col overflow-hidden border-white/14 p-7 transition-colors duration-500 sm:p-9 md:min-h-[350px] md:p-12 ${
+        index < 3 ? 'max-md:border-b' : ''
+      } ${cellLayout[index]}`}
       initial={reduce ? false : { opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, amount: 0.28 }}
+      transition={{ duration: 0.75, delay: (index % 2) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      style={{ backgroundColor: on ? 'rgba(255,255,255,0.045)' : 'transparent' }}
     >
-      {/* marcador sobre o eixo */}
-      <span
+      <motion.span
         aria-hidden
-        className="absolute left-0 top-[clamp(34px,3.9vw,56px)] hidden size-[13px] rounded-full border-[3px] border-[#fffdfa] transition-all duration-500 md:block"
-        style={{
-          backgroundColor: on ? 'var(--color-azure-heading)' : 'var(--color-ink)',
-          opacity: on ? 1 : 0.28,
-          transform: on ? 'scale(1.25)' : 'scale(1)',
-        }}
+        className={`absolute top-0 h-1 bg-azure-heading ${index % 2 === 0 ? 'left-0' : 'right-0'}`}
+        animate={{ width: on ? '34%' : '10%' }}
+        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
       />
 
       <span
-        className="font-display text-[clamp(38px,4.4vw,60px)] font-black leading-[0.8] tracking-[-0.05em] transition-colors duration-500"
-        style={{ color: on ? 'var(--color-azure-heading)' : 'rgba(42, 16, 74, 0.6)' }}
+        aria-hidden
+        className={`pointer-events-none absolute top-5 font-display text-[clamp(82px,9vw,142px)] font-black leading-none tracking-[-0.08em] transition-colors duration-500 md:top-8 ${
+          index % 2 === 0 ? 'right-6 md:right-9' : 'left-6 md:left-9'
+        }`}
+        style={{ color: on ? 'rgba(255,103,96,0.24)' : 'rgba(255,255,255,0.07)' }}
       >
         0{index + 1}
       </span>
 
-      <div className="max-md:mt-2">
-        <h3 className="font-display text-[clamp(22px,2.3vw,31px)] font-black leading-[1.02] tracking-[-0.03em]">
+      <div className="relative z-10 mt-auto max-w-[520px]">
+        <div className={`mb-5 flex items-center gap-3 ${index % 2 === 1 ? 'md:justify-end' : ''}`}>
+          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-azure-heading">Movimento</span>
+          <span aria-hidden className="h-px w-8 bg-azure-heading/70" />
+          <span className="font-mono text-[10px] text-white/55">0{index + 1}</span>
+        </div>
+
+        <h3 className="font-display text-[clamp(28px,3vw,42px)] font-black leading-[0.98] tracking-[-0.035em] text-white">
           {step.label}
         </h3>
-        <p className="mt-3 max-w-[52ch] text-[15px] leading-[1.7] text-ink/65">{step.description}</p>
-        <p className="mt-4 font-mono text-[10px] uppercase leading-relaxed tracking-[0.12em] text-ink/70">
-          {step.bullets.join(' · ')}
+        <p className="mt-4 max-w-[48ch] text-[14px] leading-[1.7] text-white/68 sm:text-[15px]">{step.description}</p>
+        <p className="mt-6 font-mono text-[9px] uppercase leading-relaxed tracking-[0.14em] text-white/52 sm:text-[10px]">
+          {step.bullets.join(' / ')}
         </p>
       </div>
     </motion.article>
@@ -64,35 +66,53 @@ function Step({ step, index, reduce }: { step: MethodStep; index: number; reduce
 
 export default function MethodAxis({ steps }: { steps: MethodStep[] }) {
   const reduce = useReducedMotion()
-  const listRef = useRef<HTMLDivElement>(null)
-
-  // O traço acompanha a rolagem DESTA lista, não da página: assim ele começa
-  // vazio ao entrar na seção e termina cheio ao sair dela.
+  const gridRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
-    target: listRef,
-    offset: ['start 65%', 'end 55%'],
+    target: gridRef,
+    offset: ['start 78%', 'end 42%'],
   })
-  const fill = useSpring(scrollYProgress, { stiffness: 80, damping: 26, mass: 0.4 })
+  const fill = useSpring(scrollYProgress, { stiffness: 72, damping: 24, mass: 0.45 })
 
   return (
-    <div ref={listRef} className="relative mt-[clamp(40px,5vw,72px)]">
-      {/* trilho do eixo */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute bottom-[clamp(34px,3.9vw,56px)] left-[6px] top-[clamp(34px,3.9vw,56px)] hidden w-px bg-ink/12 md:block"
-      />
-      {/* preenchimento coral que avança com a rolagem */}
-      <motion.span
-        aria-hidden
-        className="pointer-events-none absolute bottom-[clamp(34px,3.9vw,56px)] left-[6px] top-[clamp(34px,3.9vw,56px)] hidden w-px origin-top bg-azure-heading md:block"
-        style={{ scaleY: reduce ? 1 : fill }}
-      />
+    <div
+      ref={gridRef}
+      className="relative mt-[clamp(42px,6vw,80px)] overflow-hidden border border-ink/16 bg-ink text-white shadow-[0_36px_90px_-55px_rgba(42,16,74,.72)]"
+      style={{
+        backgroundImage:
+          'linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px)',
+        backgroundSize: '42px 42px',
+      }}
+    >
+      <div aria-hidden className="pointer-events-none absolute inset-0 hidden md:block">
+        <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-white/12" />
+        <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-white/12" />
+        <motion.span
+          className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 origin-center bg-azure-heading"
+          style={{ scaleY: reduce ? 1 : fill }}
+        />
+        <motion.span
+          className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 origin-center bg-azure-heading"
+          style={{ scaleX: reduce ? 1 : fill }}
+        />
+      </div>
 
-      <div className="divide-y divide-ink/10">
+      <div className="relative z-10 grid md:grid-cols-2">
         {steps.map((step, index) => (
           <Step key={step.key} step={step} index={index} reduce={!!reduce} />
         ))}
       </div>
+
+      <div
+        aria-hidden
+        className="absolute left-1/2 top-1/2 z-20 hidden size-28 -translate-x-1/2 -translate-y-1/2 rotate-45 place-items-center border border-azure-heading bg-ink shadow-[0_0_0_10px_rgba(42,16,74,.88)] md:grid"
+      >
+        <div className="flex -rotate-45 flex-col items-center justify-center leading-none">
+          <span className="font-display text-[46px] font-black tracking-[-0.08em] text-azure-heading">X</span>
+          <span className="mt-1 font-mono text-[8px] uppercase tracking-[0.28em] text-white/70">Eixo</span>
+        </div>
+      </div>
+
+      <div aria-hidden className="pointer-events-none absolute -bottom-24 -right-24 size-56 rotate-45 border border-white/8" />
     </div>
   )
 }
