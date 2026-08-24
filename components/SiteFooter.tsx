@@ -2,10 +2,18 @@ import Link from 'next/link'
 import { contactInfo, mailtoUrl, whatsappUrl } from '@/lib/data'
 import PontoCegoCta from '@/components/PontoCegoCta'
 
+// min-h-svh + justify-center: o rodapé tinha 620px numa janela de 910, e como
+// ele é o fim da página não havia rolagem suficiente pra encostá-lo no topo —
+// clicar em "Contato" parava no máximo da rolagem com 290px da seção anterior
+// ainda ocupando o alto da tela. Preenchendo a tela, a âncora sempre chega no
+// lugar certo, e o fecho ganha peso de página inteira.
 export default function SiteFooter() {
   return (
-    <footer id="contato" className="scroll-mt-24 bg-ink px-[var(--gutter)] pb-8 pt-[clamp(88px,11vw,150px)] text-white">
-      <div className="mx-auto max-w-[1420px]">
+    <footer
+      id="contato"
+      className="flex min-h-svh scroll-mt-24 flex-col justify-center bg-ink px-[var(--gutter)] pb-8 pt-[clamp(88px,11vw,150px)] text-white"
+    >
+      <div className="mx-auto w-full max-w-[1420px]">
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-azure">Próximo projeto</p>
         <h2 className="mt-6 max-w-[1250px] [text-wrap:balance] font-display text-[clamp(29px,5.2vw,80px)] font-black uppercase leading-[0.9] tracking-[-0.05em] max-sm:leading-[0.96] max-sm:tracking-[-0.035em]">
           Vamos fazer sua marca <span className="text-azure">aparecer.</span>
