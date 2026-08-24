@@ -232,7 +232,7 @@ export default function EixoEditorialSite() {
                 <h2 className="max-w-[1050px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
                   Criatividade precisa de <span className="text-azure-heading">processo.</span>
                 </h2>
-                <p className="max-w-[300px] text-[14px] leading-relaxed text-ink/55">
+                <p className="max-w-[300px] text-[14px] leading-relaxed text-ink/65">
                   Quatro etapas, na ordem. Cada uma só começa quando a anterior deu o que a próxima precisa.
                 </p>
               </div>
@@ -260,7 +260,12 @@ export default function EixoEditorialSite() {
                     className="absolute left-0 hidden size-[15px] translate-y-[6px] rounded-full border-[3px] border-[#fffdfa] bg-ink/25 ring-1 ring-ink/15 transition-colors duration-300 group-hover:bg-azure-heading md:block"
                   />
 
-                  <span className="font-display text-[34px] font-black leading-none tracking-[-0.04em] text-ink/[0.16] transition-colors duration-300 group-hover:text-azure-heading/30">
+                  {/* Coral, não ink a 16%: naquela opacidade o numeral dava
+                      1.45:1 contra o creme — claro no claro, ilegível.
+                      `azure-heading` é a variante escurecida que o projeto
+                      reserva pra texto grande em negrito (3.51:1, acima do
+                      3:1 exigido nesse tamanho). */}
+                  <span className="font-display text-[34px] font-black leading-none tracking-[-0.04em] text-azure-heading">
                     0{index + 1}
                   </span>
 
@@ -272,8 +277,10 @@ export default function EixoEditorialSite() {
                     {step.description}
                   </p>
 
-                  {/* entregas em linha corrida, sem caixinha */}
-                  <p className="font-mono text-[10px] uppercase leading-relaxed tracking-[0.1em] text-ink/45 max-md:mt-3">
+                  {/* entregas em linha corrida, sem caixinha. ink/70, não /45:
+                      a 45% dava 3.35:1, abaixo dos 4.5:1 que texto de 10px
+                      exige. */}
+                  <p className="font-mono text-[10px] uppercase leading-relaxed tracking-[0.1em] text-ink/70 max-md:mt-3">
                     {step.bullets.join(' · ')}
                   </p>
                 </article>
