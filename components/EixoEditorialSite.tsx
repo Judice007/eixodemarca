@@ -260,26 +260,49 @@ export default function EixoEditorialSite() {
             </div>
             <p className="max-w-[320px] text-[14px] leading-relaxed text-ink/65">Clique numa marca pra ver a identidade visual completa.</p>
           </div>
-          {/* Os arquivos têm fundo próprio (3 escuros, 3 brancos, 1 coral). Com
-              object-contain num quadro branco cada um virava um retângulo de cor
-              diferente dentro da célula — o efeito xadrez. Todos são 1:1, então
-              object-cover preenche a célula sem cortar nada e o grid vira uma
-              parede de marcas uniforme; o grayscale amarra os tons e a cor real
-              volta no hover. Agora cada célula também é um link pra
-              /identidade-visual/[slug] — a legenda "Ver identidade" só
-              aparece no hover pra não competir com a "parede uniforme" que o
-              grayscale já constrói. */}
-          <div className="mt-11 grid grid-cols-2 border-l border-t border-ink/10 sm:grid-cols-4">
+          {/* Duas coisas mudaram aqui, ambas por bom motivo:
+              1. O nome da marca é PERMANENTE. Antes só aparecia no hover — e
+                 como no toque não existe hover, no celular ele nunca aparecia:
+                 oito quadrados cinzas sem identificação nenhuma.
+              2. Sem grayscale. Numa seção que mostra IDENTIDADE VISUAL, apagar
+                 a cor apaga metade do trabalho. A "parede uniforme" que ele
+                 criava custava a personalidade de cada marca.
+              O acento de cada marca vira o filete que acende no hover, então a
+              cor própria dela é o que responde ao cursor. */}
+          <div className="mt-11 grid grid-cols-2 gap-x-4 gap-y-7 sm:grid-cols-4 sm:gap-x-5">
             {identities.map((mark) => (
               <Link
                 key={mark.slug}
                 href={`/identidade-visual/${mark.slug}`}
-                className="group relative aspect-square overflow-hidden border-b border-r border-ink/10 bg-ink"
+                className="group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-azure-heading"
               >
-                <Image src={mark.src} alt={mark.alt} fill sizes="25vw" className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0" />
-                <span className="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 to-transparent p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <span className="font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-white">Ver identidade ↗</span>
-                </span>
+                <div className="relative aspect-square overflow-hidden rounded-xl bg-ink">
+                  <Image
+                    src={mark.src}
+                    alt={mark.alt}
+                    fill
+                    sizes="(min-width: 640px) 25vw, 50vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
+                  {/* filete na cor da própria marca */}
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
+                    style={{ backgroundColor: mark.accent }}
+                  />
+                </div>
+
+                <div className="mt-3 flex items-baseline justify-between gap-3">
+                  <h3 className="font-display text-[15px] font-bold uppercase leading-tight tracking-[-0.02em]">
+                    {mark.name}
+                  </h3>
+                  <span
+                    aria-hidden
+                    className="shrink-0 font-mono text-[11px] text-ink/35 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-azure-heading"
+                  >
+                    ↗
+                  </span>
+                </div>
               </Link>
             ))}
           </div>

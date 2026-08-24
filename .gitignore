@@ -35,3 +35,8 @@ next-env.d.ts
 
 .vercel
 dev.cmd
+
+# Cópias de conflito do OneDrive: ele duplica arquivos com sufixo do usuário
+# quando duas máquinas tocam o mesmo arquivo. São sempre versões velhas e
+# quebram o typecheck (ficam apontando pra imports que já saíram).
+*-Judice007*
