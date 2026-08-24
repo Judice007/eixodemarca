@@ -18,6 +18,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: `${identity.name} — Identidade Visual — Eixo de Marca`,
     description: `Identidade visual de ${identity.name}, criada pelo Eixo de Marca.`,
     alternates: { canonical: `/identidade-visual/${identity.slug}` },
+    // Sem isto a página herda o openGraph global e TODAS as marcas são
+    // compartilhadas com o mesmo título e a mesma imagem.
+    openGraph: {
+      title: `${identity.name} — Identidade Visual`,
+      description: `Identidade visual de ${identity.name}, criada pelo Eixo de Marca.`,
+      images: [{ url: identity.src, alt: identity.name }],
+    },
   }
 }
 

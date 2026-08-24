@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   title: 'Vídeos — Eixo de Marca',
   description: 'Reels, coberturas e conteúdo vertical produzidos pelo Eixo de Marca.',
   alternates: { canonical: '/portfolio/video' },
+  openGraph: {
+    title: 'Vídeos — Eixo de Marca',
+    description: 'Reels, coberturas e conteúdo vertical produzidos pelo Eixo de Marca.',
+  },
 }
 
 export default function PortfolioVideoPage() {

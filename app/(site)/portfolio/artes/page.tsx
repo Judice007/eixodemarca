@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   title: 'Artes e design — Eixo de Marca',
   description: 'Campanhas, identidade visual e peças de design produzidas pelo Eixo de Marca.',
   alternates: { canonical: '/portfolio/artes' },
+  openGraph: {
+    title: 'Artes e design — Eixo de Marca',
+    description: 'Campanhas, identidade visual e peças de design produzidas pelo Eixo de Marca.',
+  },
 }
 
 export default function PortfolioArtesPage() {

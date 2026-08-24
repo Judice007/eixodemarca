@@ -23,6 +23,13 @@ export async function generateMetadata({
     title: `${client.name} — Artes | Eixo de Marca`,
     description: `Peças de ${client.tags.toLowerCase()} produzidas pelo Eixo de Marca para ${client.name}.`,
     alternates: { canonical: `/portfolio/artes/${client.slug}` },
+    // Cada marca compartilha com o próprio nome e a própria capa, em vez do
+    // openGraph global.
+    openGraph: {
+      title: `${client.name} — Artes`,
+      description: `Peças de ${client.tags.toLowerCase()} produzidas pelo Eixo de Marca para ${client.name}.`,
+      images: [{ url: client.cover, alt: client.name }],
+    },
   }
 }
 

@@ -28,7 +28,7 @@ export default function ProgressBar({
   reduce: boolean
 }) {
   return (
-    <div className="flex flex-wrap items-start justify-center gap-x-2 gap-y-2">
+    <div className="flex flex-wrap items-start justify-center gap-x-1 gap-y-1 lg:gap-x-2 lg:gap-y-2">
       {Array.from({ length: count }, (_, i) => (
         <button
           key={i}
@@ -36,7 +36,10 @@ export default function ProgressBar({
           onClick={() => onSelect(i)}
           aria-label={`Ir para ${labels[i]}`}
           aria-current={activeIndex === i ? 'step' : undefined}
-          className="group relative flex flex-col items-center gap-1.5 rounded-lg px-1 py-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stage-accent"
+          // min-h-11 = 44px, o alvo de toque mínimo. Antes o botão media
+          // 70x27 e era desconfortável de acertar no dedo. O padding vertical
+          // cresce junto pra área clicável ser real, não só a caixa.
+          className="group relative flex min-h-11 flex-col items-center justify-center gap-2 rounded-lg px-2 py-2.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stage-accent lg:min-h-0 lg:gap-1.5 lg:px-1 lg:py-1"
         >
           <span className="relative block h-[3px] w-10 overflow-hidden rounded-full bg-stage-text/20">
             <span
@@ -47,9 +50,11 @@ export default function ProgressBar({
               style={{ transform: `scaleX(${reduce && activeIndex === i ? 1 : 0})` }}
             />
           </span>
+          {/* Inativo em text-stage-text/75, não no muted: no muted o rótulo
+              ficava apagado demais sobre o palco escuro. */}
           <span
-            className={`font-sans text-[10px] leading-none transition-colors lg:hidden ${
-              activeIndex === i ? 'font-bold text-stage-text' : 'text-stage-text-muted group-hover:text-stage-text'
+            className={`font-sans text-[11px] leading-none transition-colors lg:hidden ${
+              activeIndex === i ? 'font-bold text-stage-text' : 'font-medium text-stage-text/75 group-hover:text-stage-text'
             }`}
           >
             {labels[i]}

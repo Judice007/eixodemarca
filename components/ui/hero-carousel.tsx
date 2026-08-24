@@ -47,6 +47,8 @@ export interface HeroCarouselProps {
   index?: number
   /** Focused slide on mount when uncontrolled. @default 0 */
   defaultIndex?: number
+  /** Nível do título do slide. h1 quando o carrossel é o conteúdo principal da página. */
+  headingLevel?: 'h1' | 'h2'
   /** Fires on every focus change, from any input. @default undefined */
   onIndexChange?: (index: number) => void
   /** Wordmark in the middle of the top bar. @default undefined */
@@ -94,8 +96,14 @@ export function HeroCarousel({
   onMenu,
   autoplay = false,
   autoplayDelay = 4000,
+  headingLevel = 'h2',
   className,
 }: HeroCarouselProps) {
+  // O título do slide é o nome da marca. Quando o carrossel é o conteúdo
+  // principal da página (a página da identidade), ele precisa ser o h1 — sem
+  // isso a página fica sem h1 nenhum. Como prop, e não fixo, porque num uso
+  // futuro dentro de outra página ele volta a ser h2.
+  const Heading = motion[headingLevel]
   const stageRef = React.useRef<HTMLDivElement>(null)
   const [box, setBox] = React.useState({ w: 0, h: 0 })
   const [uncontrolled, setUncontrolled] = React.useState(defaultIndex)
@@ -322,7 +330,7 @@ export function HeroCarousel({
       >
         <div className="flex w-full flex-wrap items-end gap-x-[6vw] gap-y-2">
           <AnimatePresence mode="popLayout" initial={false}>
-            <motion.h2
+            <Heading
               key={index}
               className="font-semibold leading-[0.88] tracking-[-0.03em]"
               style={{ fontSize: Math.max(24, Math.round(box.h * TITLE)) }}
@@ -347,7 +355,7 @@ export function HeroCarousel({
                   </motion.span>
                 </span>
               ))}
-            </motion.h2>
+            </Heading>
           </AnimatePresence>
 
           {active.credit ? (

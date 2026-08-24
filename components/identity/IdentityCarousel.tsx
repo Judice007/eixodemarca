@@ -22,5 +22,14 @@ export default function IdentityCarousel({ slug }: { slug?: string }) {
   // Sem onBack/brand/onMenu: o SiteHeader acima já cobre navegação (logo
   // volta pra home, nav tem Portfólio etc.) — a barra interna do carrossel
   // ficava embaixo do header fixo, escondida, então era só ruído redundante.
-  return <HeroCarousel items={ITEMS} defaultIndex={defaultIndex} className="min-h-[80vh]" />
+  // headingLevel h1: o carrossel É o conteúdo da página da identidade, e o
+  // nome da marca é o título dela. Sem isso a página não tinha h1 nenhum.
+  return (
+    <HeroCarousel
+      items={ITEMS}
+      defaultIndex={defaultIndex}
+      headingLevel="h1"
+      className="min-h-[80vh]"
+    />
+  )
 }
