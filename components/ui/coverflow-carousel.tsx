@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -334,12 +335,19 @@ export function CoverflowCarousel({
                 )}
                 style={{ width: "var(--cf-card)" }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                {/* next/image, não <img>: em resolução cheia estes 9 slides
+                    somavam 656 KB baixados na abertura, acima da dobra, sendo
+                    que o card renderiza no máximo ~317px de largura. O
+                    `object-fit` continua sendo escrito pelo ticker (paint), por
+                    isso ele NÃO entra no className aqui. */}
+                <Image
                   src={slide.src}
                   alt={slide.alt}
+                  fill
+                  sizes="(min-width: 1200px) 320px, 26vw"
                   draggable={false}
-                  className="h-full w-full select-none object-cover"
+                  priority={index < 3}
+                  className="select-none"
                 />
               </div>
             ))}

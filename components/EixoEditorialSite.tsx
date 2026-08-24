@@ -11,7 +11,6 @@ import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import ArtGallery from '@/components/portfolio/ArtGallery'
 import VideoMosaic from '@/components/portfolio/VideoMosaic'
-import PortfolioTabs from '@/components/portfolio/PortfolioTabs'
 import { Reveal, RevealGroup, RevealItem, SectionNumber } from '@/components/reveal'
 import KineticGrid from '@/components/ui/kinetic-grid'
 import { CoverflowCarousel } from '@/components/ui/coverflow-carousel'
@@ -187,9 +186,6 @@ export default function EixoEditorialSite() {
                 <p className="max-w-[290px] text-[14px] leading-relaxed text-white/55">Projetos reais de comunicação, identidade e conteúdo.</p>
               </div>
             </Reveal>
-            {/* Mesmo filtro das páginas dedicadas, sem "Vídeos": aqui embaixo
-                já vem o mosaico de vídeo, então a aba era caminho redundante. */}
-            <PortfolioTabs hidden={['video']} />
           </div>
 
           <ArtGallery />
