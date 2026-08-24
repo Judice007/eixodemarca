@@ -239,41 +239,41 @@ export default function EixoEditorialSite() {
             </Reveal>
           </div>
 
-          {/* Antes eram quatro células de card idênticas com chips de contorno
-              em cada uma. Virou um diagrama sobre o eixo: uma régua contínua,
-              o marcador de cada etapa nela, o número grande como âncora e as
-              entregas em linha corrida — sem caixinha. */}
-          <RevealGroup className="relative mt-16 grid gap-x-10 gap-y-14 md:grid-cols-2 xl:grid-cols-4">
-            {/* a régua: some abaixo de xl, onde as etapas quebram em linhas */}
+          {/* O eixo corre na VERTICAL e cada etapa é uma linha.
+              Em quatro colunas lado a lado, as descrições tinham 2 ou 3 linhas
+              e os títulos ora uma ora duas, então os filetes e as entregas
+              nunca alinhavam — ficava tudo desencontrado. Em linhas, a grade
+              garante o alinhamento por construção. */}
+          <RevealGroup className="relative mt-14">
+            {/* o eixo: passa pelo centro dos marcadores */}
             <span
               aria-hidden
-              className="pointer-events-none absolute inset-x-0 top-[7px] hidden h-px bg-ink/15 xl:block"
+              className="pointer-events-none absolute bottom-8 left-[7px] top-8 hidden w-px bg-ink/15 md:block"
             />
 
             {methodSteps.map((step, index) => (
               <RevealItem key={step.key}>
-                <article className="group relative">
-                  {/* marcador na régua */}
+                <article className="group relative grid items-baseline gap-x-8 gap-y-2 border-t border-ink/10 py-8 md:grid-cols-[3.4rem_minmax(0,0.85fr)_minmax(0,1.5fr)_minmax(0,1fr)] md:pl-9">
+                  {/* marcador sobre o eixo */}
                   <span
                     aria-hidden
-                    className="block size-[15px] rounded-full border-[3px] border-[#fffdfa] bg-ink/25 ring-1 ring-ink/15 transition-colors duration-300 group-hover:bg-azure-heading"
+                    className="absolute left-0 hidden size-[15px] translate-y-[6px] rounded-full border-[3px] border-[#fffdfa] bg-ink/25 ring-1 ring-ink/15 transition-colors duration-300 group-hover:bg-azure-heading md:block"
                   />
 
-                  <div className="mt-7 flex items-baseline gap-3">
-                    <span className="font-display text-[46px] font-black leading-none tracking-[-0.04em] text-ink/[0.13] transition-colors duration-300 group-hover:text-azure-heading/25">
-                      0{index + 1}
-                    </span>
-                    <h3 className="font-display text-[26px] font-black leading-[1.05] tracking-[-0.025em]">
-                      {step.label}
-                    </h3>
-                  </div>
+                  <span className="font-display text-[34px] font-black leading-none tracking-[-0.04em] text-ink/[0.16] transition-colors duration-300 group-hover:text-azure-heading/30">
+                    0{index + 1}
+                  </span>
 
-                  <p className="mt-4 max-w-[34ch] text-[14px] leading-[1.65] text-ink/60">
+                  <h3 className="font-display text-[26px] font-black leading-[1.05] tracking-[-0.025em] max-md:mt-1">
+                    {step.label}
+                  </h3>
+
+                  <p className="text-[14px] leading-[1.65] text-ink/60 max-md:mt-2">
                     {step.description}
                   </p>
 
-                  {/* entregas em linha corrida, separadas por ponto médio */}
-                  <p className="mt-5 border-t border-ink/10 pt-4 font-mono text-[10px] uppercase leading-relaxed tracking-[0.1em] text-ink/45">
+                  {/* entregas em linha corrida, sem caixinha */}
+                  <p className="font-mono text-[10px] uppercase leading-relaxed tracking-[0.1em] text-ink/45 max-md:mt-3">
                     {step.bullets.join(' · ')}
                   </p>
                 </article>
