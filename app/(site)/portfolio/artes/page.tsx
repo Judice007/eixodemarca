@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import ArtGrid from '@/components/portfolio/ArtGrid'
-import PortfolioTabs from '@/components/portfolio/PortfolioTabs'
 
 export const metadata: Metadata = {
   title: 'Artes e design — Eixo de Marca',
@@ -28,7 +27,6 @@ export default function PortfolioArtesPage() {
               </h1>
               <p className="max-w-[290px] text-[14px] leading-relaxed text-white/55">Campanhas, identidade visual e peças de design produzidas pelo Eixo de Marca.</p>
             </div>
-            <PortfolioTabs />
           </div>
 
           <ArtGrid />

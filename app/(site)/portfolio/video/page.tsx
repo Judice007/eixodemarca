@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import VideoGrid from '@/components/portfolio/VideoGrid'
-import PortfolioTabs from '@/components/portfolio/PortfolioTabs'
 
 export const metadata: Metadata = {
   title: 'Vídeos — Eixo de Marca',
@@ -28,7 +27,6 @@ export default function PortfolioVideoPage() {
               </h1>
               <p className="max-w-[290px] text-[14px] leading-relaxed text-white/55">Reels, coberturas, takes e conteúdos verticais produzidos pelo Eixo de Marca.</p>
             </div>
-            <PortfolioTabs />
           </div>
 
           <VideoGrid className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5" />
