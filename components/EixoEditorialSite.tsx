@@ -10,6 +10,7 @@ import PontoCegoCta from '@/components/PontoCegoCta'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import ArtShowcase from '@/components/portfolio/ArtShowcase'
+import ArtStream from '@/components/portfolio/ArtStream'
 import VideoMosaic from '@/components/portfolio/VideoMosaic'
 import PortfolioTabs from '@/components/portfolio/PortfolioTabs'
 import { Reveal, RevealGroup, RevealItem, SectionNumber } from '@/components/reveal'
@@ -173,11 +174,16 @@ export default function EixoEditorialSite() {
 
       <section id="portfolio" className="scroll-mt-24 bg-ink px-[var(--gutter)] py-[clamp(82px,10vw,140px)] text-white">
         <div className="mx-auto max-w-[1420px]">
+          {/* Abertura: as peças vêm voando de longe pelos dois trilhos. Logo
+              abaixo, na grade, é onde elas assentam — as duas metades do
+              mesmo gesto. */}
+          <ArtStream />
+
           {/* Texto fixo à esquerda, cards descendo à direita. A coluna da
               esquerda é sticky: ela fica parada enquanto a grade passa, que é
               o efeito da referência. Abaixo de lg vira uma coluna só e o
               sticky some — não há largura pra duas colunas. */}
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,2fr)] lg:gap-16">
+          <div className="mt-[clamp(48px,6vw,88px)] grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,2fr)] lg:gap-16">
             <div className="flex flex-col gap-6 lg:sticky lg:top-28 lg:self-start">
               <div className="flex items-center gap-3 self-start font-mono text-[11px] uppercase tracking-[0.18em] text-white/60">
                 <span className="h-px w-10 bg-white/20" />
