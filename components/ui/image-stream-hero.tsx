@@ -71,6 +71,21 @@ export type CorridorPath = {
   turnBirth?: number;
   /** Y-rotation at exit, degrees. @default 28 */
   turnExit?: number;
+  /**
+   * World-space drop at exit, in cqw. The cards nearest the viewer dive
+   * downward instead of leaving flat, so the stream aims at whatever sits
+   * below the corridor. Zero keeps the original flat exit.
+   *
+   * Careful: this is a WORLD offset, so the projection multiplies it by the
+   * card's scale — at the exit that is `exitHeight / cardHeight`. A value that
+   * reads as small here lands far bigger on screen. @default 0
+   */
+  dropExit?: number;
+  /**
+   * How back-loaded the drop is. Above 1 keeps the far cards flat and bends
+   * only the near end down. @default 2.8
+   */
+  dropCurve?: number;
   /** Keyframe stops used to trace the curve. Raise only if motion looks faceted. @default 24 */
   stops?: number;
 };
@@ -87,6 +102,8 @@ const PATH: Required<CorridorPath> = {
   fan: 3.3,
   turnBirth: 6,
   turnExit: 28,
+  dropExit: 0,
+  dropCurve: 2.8,
   stops: 24,
 };
 
@@ -104,10 +121,13 @@ function keyframes(dir: 1 | -1, name: string, p: Required<CorridorPath>) {
     const rail =
       p.railExit - (p.railExit - p.railBirth) * Math.pow(1 - u, p.fan);
     const turn = p.turnBirth + (p.turnExit - p.turnBirth) * u;
+    // Back-loaded: as cartas do fundo saem retas e só as da frente mergulham,
+    // então o fluxo aponta pro que estiver embaixo do corredor.
+    const drop = p.dropExit * Math.pow(u, p.dropCurve);
     steps.push(
       `${(u * 100).toFixed(2)}%{transform:translate3d(${(dir * rail).toFixed(
         2,
-      )}cqw,0,${z.toFixed(2)}cqw) rotateY(${(-dir * turn).toFixed(2)}deg)}`,
+      )}cqw,${drop.toFixed(2)}cqw,${z.toFixed(2)}cqw) rotateY(${(-dir * turn).toFixed(2)}deg)}`,
     );
   }
   return `@keyframes ${name}{${steps.join("")}}`;

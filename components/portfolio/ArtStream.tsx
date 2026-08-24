@@ -28,12 +28,21 @@ export default function ArtStream() {
       images={IMAGES}
       cards={9}
       speed={20}
-      axis={52}
+      axis={46}
       className="h-[clamp(240px,34vw,440px)] w-full rounded-[20px] bg-ink"
-      path={{ cardRadius: 0.5 }}
+      // dropExit em unidades de MUNDO: a projeção multiplica pela escala da
+      // carta, que na saída é exitHeight/cardHeight = 46/25 = 1.84. Então 9
+      // aqui viram ~16.6cqw na tela (~225px num bloco de 440px) — as peças da
+      // frente mergulham pra baixo, na direção da grade, enquanto as do fundo
+      // seguem retas.
+      //
+      // O eixo sobe pra 46% justamente pra abrir esse espaço de queda.
+      path={{ cardRadius: 0.5, dropExit: 9, dropCurve: 2.8 }}
     >
       {/* Bordas dissolvidas: sem isso as cartas somem num corte reto na quina
-          do bloco, e a leitura de "vindo de longe" quebra na saída. */}
+          do bloco, e a leitura de "vindo de longe" quebra na saída. O fundo
+          também dissolve, pra peça que mergulha entregar o movimento à grade
+          em vez de ser decepada na borda. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -41,6 +50,11 @@ export default function ArtStream() {
           background:
             'linear-gradient(90deg, rgba(23,10,42,.95) 0%, transparent 18%, transparent 82%, rgba(23,10,42,.95) 100%)',
         }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[26%]"
+        style={{ background: 'linear-gradient(to bottom, transparent, rgba(23,10,42,.92))' }}
       />
     </ImageStreamHero>
   )
