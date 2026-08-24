@@ -9,8 +9,7 @@ import ServiceOrbit from '@/components/hero/ServiceOrbit'
 import PontoCegoCta from '@/components/PontoCegoCta'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
-import ArtShowcase from '@/components/portfolio/ArtShowcase'
-import ArtStream from '@/components/portfolio/ArtStream'
+import ArtGallery from '@/components/portfolio/ArtGallery'
 import VideoMosaic from '@/components/portfolio/VideoMosaic'
 import PortfolioTabs from '@/components/portfolio/PortfolioTabs'
 import { Reveal, RevealGroup, RevealItem, SectionNumber } from '@/components/reveal'
@@ -171,37 +170,29 @@ export default function EixoEditorialSite() {
 
       <section id="portfolio" className="scroll-mt-24 bg-ink px-[var(--gutter)] py-[clamp(82px,10vw,140px)] text-white">
         <div className="mx-auto max-w-[1420px]">
-          {/* Abertura: as peças vêm voando de longe pelos dois trilhos. Logo
-              abaixo, na grade, é onde elas assentam — as duas metades do
-              mesmo gesto. */}
-          <ArtStream />
-
-          {/* Texto fixo à esquerda, cards descendo à direita. A coluna da
-              esquerda é sticky: ela fica parada enquanto a grade passa, que é
-              o efeito da referência. Abaixo de lg vira uma coluna só e o
-              sticky some — não há largura pra duas colunas. */}
-          {/* Folga curta de propósito: a peça que mergulha dissolve no rodapé
-              da faixa e a grade começa logo abaixo, pra entrega parecer o
-              mesmo gesto e não dois blocos separados. */}
-          <div className="mt-[clamp(20px,3vw,44px)] grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,2fr)] lg:gap-16">
-            <div className="flex flex-col gap-6 lg:sticky lg:top-28 lg:self-start">
-              <div className="flex items-center gap-3 self-start font-mono text-[11px] uppercase tracking-[0.18em] text-white/60">
-                <span className="h-px w-10 bg-white/20" />
-                03
-              </div>
-              <Reveal>
-                <h2 className="[text-wrap:balance] font-display text-[clamp(24px,3.2vw,46px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
+          {/* Galeria de cards flutuantes no lugar do corredor + coluna fixa +
+              grade que existiam aqui: a peça inclina com o cursor e abre no
+              clique. Cabeçalho volta a ser uma faixa normal no topo, já que a
+              coluna sticky saiu junto. */}
+          <div className="flex flex-col gap-6">
+            <div className="flex items-center gap-3 self-start font-mono text-[11px] uppercase tracking-[0.18em] text-white/60">
+              <span className="h-px w-10 bg-white/20" />
+              03
+            </div>
+            <Reveal>
+              <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+                <h2 className="max-w-[980px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
                   Marcas e histórias que ganharam <span className="text-azure">forma.</span>
                 </h2>
-                <p className="mt-5 max-w-[290px] text-[14px] leading-relaxed text-white/55">Projetos reais de comunicação, identidade e conteúdo.</p>
-              </Reveal>
-              {/* Mesmo filtro das páginas dedicadas, sem "Vídeos": aqui embaixo
-                  já vem o mosaico de vídeo, então a aba era caminho redundante. */}
-              <PortfolioTabs hidden={['video']} />
-            </div>
-
-            <ArtShowcase />
+                <p className="max-w-[290px] text-[14px] leading-relaxed text-white/55">Projetos reais de comunicação, identidade e conteúdo.</p>
+              </div>
+            </Reveal>
+            {/* Mesmo filtro das páginas dedicadas, sem "Vídeos": aqui embaixo
+                já vem o mosaico de vídeo, então a aba era caminho redundante. */}
+            <PortfolioTabs hidden={['video']} />
           </div>
+
+          <ArtGallery />
 
           <div className="mt-[clamp(76px,9vw,126px)] border-t border-white/15 pt-10">
             <Reveal>
