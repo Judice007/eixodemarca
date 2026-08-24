@@ -65,18 +65,30 @@ function ScreenLayer({
       }}
     >
       {work.screen.type === 'video' ? (
-        <video
-          ref={videoRef}
-          className="h-full w-full object-cover"
-          muted
-          loop
-          playsInline
-          // nunca baixa sozinho: só quando esta camada vira a ativa e dá play()
-          preload="none"
-          poster={work.screen.poster}
-          src={work.screen.src}
-          aria-hidden
-        />
+        <>
+          {/* Capa como next/image em vez do atributo `poster`: são 7 camadas
+              montadas de uma vez, e o poster de cada uma era buscado na
+              abertura da página — inclusive das 6 escondidas — sem passar pelo
+              otimizador. Assim ela é lazy e sai no tamanho da tela do celular. */}
+          <Image
+            src={work.screen.poster}
+            alt=""
+            fill
+            sizes="(min-width: 1280px) 240px, (min-width: 768px) 195px, 155px"
+            className="object-cover"
+          />
+          <video
+            ref={videoRef}
+            className="relative h-full w-full object-cover"
+            muted
+            loop
+            playsInline
+            // nunca baixa sozinho: só quando esta camada vira a ativa e dá play()
+            preload="none"
+            src={work.screen.src}
+            aria-hidden
+          />
+        </>
       ) : (
         <Image
           src={work.screen.src}

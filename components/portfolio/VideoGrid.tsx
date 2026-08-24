@@ -34,17 +34,29 @@ function PortfolioVideoCard({ video, index }: { video: (typeof portfolioVideos)[
     <RevealItem>
       <article className="group">
         <div className="relative aspect-[9/16] overflow-hidden bg-white/5">
+          {/* Capa como next/image em vez do atributo `poster`: o poster é
+              buscado sempre, mesmo com o card longe da dobra, e sem passar
+              pelo otimizador. Como next/image ele é lazy e sai no tamanho
+              certo. Some quando o vídeo começa. */}
+          {!playing && (
+            <Image
+              src={video.poster}
+              alt=""
+              fill
+              sizes="(min-width: 640px) 33vw, 50vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+            />
+          )}
           <video
             ref={videoRef}
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+            className="relative h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
             muted
             loop
             playsInline
             // "none", não "metadata": com metadata o navegador abria as 6
             // requisições e montava os 6 decoders assim que a página
-            // carregava. O poster já cobre o card até o clique.
+            // carregava. A capa acima cobre o card até o clique.
             preload="none"
-            poster={video.poster}
             // Só depois do primeiro play. Antes disso a barra nativa aparecia
             // por cima do botão redondo custom, com dois controles empilhados.
             controls={playing}
