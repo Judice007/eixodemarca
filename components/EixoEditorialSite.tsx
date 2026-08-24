@@ -6,12 +6,13 @@ import { methodSteps, services } from '@/lib/data'
 import { identities } from '@/lib/portfolio'
 import Link from 'next/link'
 import ServiceOrbit from '@/components/hero/ServiceOrbit'
+import MethodAxis from '@/components/MethodAxis'
 import PontoCegoCta from '@/components/PontoCegoCta'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import ArtGallery from '@/components/portfolio/ArtGallery'
 import VideoMosaic from '@/components/portfolio/VideoMosaic'
-import { Reveal, RevealGroup, RevealItem, SectionNumber } from '@/components/reveal'
+import { Reveal, SectionNumber } from '@/components/reveal'
 import KineticGrid from '@/components/ui/kinetic-grid'
 import { CoverflowCarousel } from '@/components/ui/coverflow-carousel'
 import WorkSphere from '@/components/visual/WorkSphere'
@@ -239,54 +240,10 @@ export default function EixoEditorialSite() {
             </Reveal>
           </div>
 
-          {/* O eixo corre na VERTICAL e cada etapa é uma linha.
-              Em quatro colunas lado a lado, as descrições tinham 2 ou 3 linhas
-              e os títulos ora uma ora duas, então os filetes e as entregas
-              nunca alinhavam — ficava tudo desencontrado. Em linhas, a grade
-              garante o alinhamento por construção. */}
-          <RevealGroup className="relative mt-14">
-            {/* o eixo: passa pelo centro dos marcadores */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute bottom-8 left-[7px] top-8 hidden w-px bg-ink/15 md:block"
-            />
-
-            {methodSteps.map((step, index) => (
-              <RevealItem key={step.key}>
-                <article className="group relative grid items-baseline gap-x-8 gap-y-2 border-t border-ink/10 py-8 md:grid-cols-[3.4rem_minmax(0,0.85fr)_minmax(0,1.5fr)_minmax(0,1fr)] md:pl-9">
-                  {/* marcador sobre o eixo */}
-                  <span
-                    aria-hidden
-                    className="absolute left-0 hidden size-[15px] translate-y-[6px] rounded-full border-[3px] border-[#fffdfa] bg-ink/25 ring-1 ring-ink/15 transition-colors duration-300 group-hover:bg-azure-heading md:block"
-                  />
-
-                  {/* Coral, não ink a 16%: naquela opacidade o numeral dava
-                      1.45:1 contra o creme — claro no claro, ilegível.
-                      `azure-heading` é a variante escurecida que o projeto
-                      reserva pra texto grande em negrito (3.51:1, acima do
-                      3:1 exigido nesse tamanho). */}
-                  <span className="font-display text-[34px] font-black leading-none tracking-[-0.04em] text-azure-heading">
-                    0{index + 1}
-                  </span>
-
-                  <h3 className="font-display text-[26px] font-black leading-[1.05] tracking-[-0.025em] max-md:mt-1">
-                    {step.label}
-                  </h3>
-
-                  <p className="text-[14px] leading-[1.65] text-ink/60 max-md:mt-2">
-                    {step.description}
-                  </p>
-
-                  {/* entregas em linha corrida, sem caixinha. ink/70, não /45:
-                      a 45% dava 3.35:1, abaixo dos 4.5:1 que texto de 10px
-                      exige. */}
-                  <p className="font-mono text-[10px] uppercase leading-relaxed tracking-[0.1em] text-ink/70 max-md:mt-3">
-                    {step.bullets.join(' · ')}
-                  </p>
-                </article>
-              </RevealItem>
-            ))}
-          </RevealGroup>
+          {/* Etapas sobre um eixo que se preenche conforme a rolagem: o
+              traço de coral avança e cada etapa acende quando é alcançada.
+              O eixo é o nome da marca, então ele carrega o significado aqui. */}
+          <MethodAxis steps={methodSteps} />
         </div>
       </section>
 
