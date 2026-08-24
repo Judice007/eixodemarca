@@ -150,3 +150,63 @@ export const identities = [
 ] as const
 
 export const marks = identities.map(({ src, alt }) => ({ src, alt }))
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Artes agrupadas por cliente.
+//
+// A home mostra um card por CLIENTE (não por peça) e o clique leva a
+// /portfolio/artes/[slug], que reúne tudo o que fizemos pra aquela marca.
+// Agrupar aqui é o que funde as duplicatas: "Eixo de Marca" e "Laura Anjos"
+// aparecem duas vezes em `projects` e viravam dois cards iguais na home.
+//
+// Pra adicionar arte nova: basta acrescentar em `projects` com o mesmo
+// `client` — ela entra na página daquele cliente sozinha, sem mexer aqui.
+
+export type Project = (typeof projects)[number]
+
+export type ArtClient = {
+  slug: string
+  name: string
+  /** tags da primeira peça, usada como categoria do card */
+  tags: string
+  cover: string
+  coverAlt: string
+  items: Project[]
+}
+
+/** "Di Casa Açaí" -> "di-casa-acai" */
+function slugify(value: string) {
+  return value
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+export const artClients: ArtClient[] = (() => {
+  const porSlug = new Map<string, ArtClient>()
+
+  for (const project of projects) {
+    const slug = slugify(project.client)
+    const existente = porSlug.get(slug)
+    if (existente) {
+      existente.items.push(project)
+      continue
+    }
+    porSlug.set(slug, {
+      slug,
+      name: project.client,
+      tags: project.tags,
+      cover: project.src,
+      coverAlt: project.alt,
+      items: [project],
+    })
+  }
+
+  return [...porSlug.values()]
+})()
+
+export function artClientBySlug(slug: string) {
+  return artClients.find((client) => client.slug === slug)
+}
