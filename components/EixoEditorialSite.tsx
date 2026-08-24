@@ -180,7 +180,10 @@ export default function EixoEditorialSite() {
               esquerda é sticky: ela fica parada enquanto a grade passa, que é
               o efeito da referência. Abaixo de lg vira uma coluna só e o
               sticky some — não há largura pra duas colunas. */}
-          <div className="mt-[clamp(48px,6vw,88px)] grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,2fr)] lg:gap-16">
+          {/* Folga curta de propósito: a peça que mergulha dissolve no rodapé
+              da faixa e a grade começa logo abaixo, pra entrega parecer o
+              mesmo gesto e não dois blocos separados. */}
+          <div className="mt-[clamp(20px,3vw,44px)] grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,2fr)] lg:gap-16">
             <div className="flex flex-col gap-6 lg:sticky lg:top-28 lg:self-start">
               <div className="flex items-center gap-3 self-start font-mono text-[11px] uppercase tracking-[0.18em] text-white/60">
                 <span className="h-px w-10 bg-white/20" />

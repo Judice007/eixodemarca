@@ -35,33 +35,29 @@ export default function ArtStream() {
       images={IMAGES}
       cards={9}
       speed={20}
-      axis={46}
-      className="h-[clamp(240px,34vw,440px)] w-full rounded-[20px] bg-ink data-[paused=true]:[&_*]:[animation-play-state:paused]"
-      // dropExit em unidades de MUNDO: a projeção multiplica pela escala da
-      // carta, que na saída é exitHeight/cardHeight = 46/25 = 1.84. Então 9
-      // aqui viram ~16.6cqw na tela (~225px num bloco de 440px) — as peças da
-      // frente mergulham pra baixo, na direção da grade, enquanto as do fundo
-      // seguem retas.
+      // Eixo bem alto: toda a altura abaixo dele vira pista de queda.
+      axis={30}
+      // Sem rounded/bg próprio: era uma CAIXA fechada, e as peças grandes
+      // batiam na borda de baixo e eram decepadas antes de chegar perto da
+      // grade. Agora a faixa se funde ao fundo da seção, então a peça sai de
+      // cena descendo em vez de esbarrar numa parede visível.
       //
-      // O eixo sobe pra 46% justamente pra abrir esse espaço de queda.
-      path={{ cardRadius: 0.5, dropExit: 9, dropCurve: 2.8 }}
+      // Fica na largura do container, não em w-screen: sangrar criaria rolagem
+      // horizontal, e conter isso com overflow-hidden na seção quebraria a
+      // coluna sticky do texto (sticky não funciona sob ancestral com overflow).
+      className="h-[clamp(300px,42vw,560px)] w-full data-[paused=true]:[&_*]:[animation-play-state:paused]"
+      // dropExit em unidades de MUNDO: a projeção multiplica pela escala da
+      // carta, que na saída é exitHeight/cardHeight = 46/25 = 1.84. Então 20
+      // aqui viram ~37cqw na tela — a peça da frente desce quase meia largura
+      // de container antes de sair, enquanto as do fundo seguem retas.
+      path={{ cardRadius: 0.5, dropExit: 20, dropCurve: 2.6 }}
     >
-      {/* Bordas dissolvidas: sem isso as cartas somem num corte reto na quina
-          do bloco, e a leitura de "vindo de longe" quebra na saída. O fundo
-          também dissolve, pra peça que mergulha entregar o movimento à grade
-          em vez de ser decepada na borda. */}
+      {/* Fade só embaixo, e forte: a peça dissolve descendo, entregando o
+          movimento à grade em vez de terminar num corte reto. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            'linear-gradient(90deg, rgba(23,10,42,.95) 0%, transparent 18%, transparent 82%, rgba(23,10,42,.95) 100%)',
-        }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[26%]"
-        style={{ background: 'linear-gradient(to bottom, transparent, rgba(23,10,42,.92))' }}
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%]"
+        style={{ background: 'linear-gradient(to bottom, transparent, #2a104a 82%)' }}
       />
     </ImageStreamHero>
   )

@@ -40,7 +40,10 @@ function PortfolioVideoCard({ video, index }: { video: (typeof portfolioVideos)[
             muted
             loop
             playsInline
-            preload="metadata"
+            // "none", não "metadata": com metadata o navegador abria as 6
+            // requisições e montava os 6 decoders assim que a página
+            // carregava. O poster já cobre o card até o clique.
+            preload="none"
             poster={video.poster}
             // Só depois do primeiro play. Antes disso a barra nativa aparecia
             // por cima do botão redondo custom, com dois controles empilhados.

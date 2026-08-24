@@ -54,7 +54,10 @@ function MosaicTile({ video, index }: { video: (typeof portfolioVideos)[number];
           muted
           loop
           playsInline
-          preload="metadata"
+          // "none", não "metadata": com metadata o navegador abria as 6
+          // requisições e montava os 6 decoders assim que a home carregava,
+          // travando a abertura. O poster já cobre o card até o clique.
+          preload="none"
           poster={video.poster}
           // Só depois do primeiro play, senão a barra nativa aparece por cima
           // do botão redondo custom, com dois controles empilhados.
