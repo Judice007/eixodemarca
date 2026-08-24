@@ -228,27 +228,54 @@ export default function EixoEditorialSite() {
           <div className="flex flex-col gap-6">
             <SectionNumber number="04" />
             <Reveal>
-              <h2 className="max-w-[1050px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
-                Criatividade precisa de <span className="text-azure-heading">processo.</span>
-              </h2>
+              <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+                <h2 className="max-w-[1050px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
+                  Criatividade precisa de <span className="text-azure-heading">processo.</span>
+                </h2>
+                <p className="max-w-[300px] text-[14px] leading-relaxed text-ink/55">
+                  Quatro etapas, na ordem. Cada uma só começa quando a anterior deu o que a próxima precisa.
+                </p>
+              </div>
             </Reveal>
           </div>
-          <RevealGroup className="mt-12 grid gap-px bg-ink/15 md:grid-cols-2 xl:grid-cols-4">
+
+          {/* Antes eram quatro células de card idênticas com chips de contorno
+              em cada uma. Virou um diagrama sobre o eixo: uma régua contínua,
+              o marcador de cada etapa nela, o número grande como âncora e as
+              entregas em linha corrida — sem caixinha. */}
+          <RevealGroup className="relative mt-16 grid gap-x-10 gap-y-14 md:grid-cols-2 xl:grid-cols-4">
+            {/* a régua: some abaixo de xl, onde as etapas quebram em linhas */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 top-[7px] hidden h-px bg-ink/15 xl:block"
+            />
+
             {methodSteps.map((step, index) => (
-              <RevealItem key={step.key} className="h-full">
-                {/* min-h fixo de 330px deixava ~150px mortos abaixo dos chips.
-                    O h-full já iguala a altura das células da linha. */}
-                <article className="flex h-full flex-col bg-[#fffdfa] p-7 transition-colors duration-300 hover:bg-lavanda">
-                  <span className="font-mono text-[10px] text-azure-label">0{index + 1}</span>
-                  <h3 className="mt-6 font-display text-[30px] font-black leading-[1.08] tracking-[-0.02em]">{step.label}</h3>
-                  <p className="mt-4 text-[13px] leading-relaxed text-ink/65">{step.description}</p>
-                  <ul className="mt-5 flex flex-wrap gap-2">
-                    {step.bullets.map((bullet) => (
-                      <li key={bullet} className="border border-ink/12 px-2.5 py-1 text-[8px] font-semibold uppercase tracking-[0.12em] text-ink/65">
-                        {bullet}
-                      </li>
-                    ))}
-                  </ul>
+              <RevealItem key={step.key}>
+                <article className="group relative">
+                  {/* marcador na régua */}
+                  <span
+                    aria-hidden
+                    className="block size-[15px] rounded-full border-[3px] border-[#fffdfa] bg-ink/25 ring-1 ring-ink/15 transition-colors duration-300 group-hover:bg-azure-heading"
+                  />
+
+                  <div className="mt-7 flex items-baseline gap-3">
+                    <span className="font-display text-[46px] font-black leading-none tracking-[-0.04em] text-ink/[0.13] transition-colors duration-300 group-hover:text-azure-heading/25">
+                      0{index + 1}
+                    </span>
+                    <h3 className="font-display text-[26px] font-black leading-[1.05] tracking-[-0.025em]">
+                      {step.label}
+                    </h3>
+                  </div>
+
+                  <p className="mt-4 max-w-[34ch] text-[14px] leading-[1.65] text-ink/60">
+                    {step.description}
+                  </p>
+
+                  {/* entregas em linha corrida, separadas por ponto médio */}
+                  <p className="mt-5 border-t border-ink/10 pt-4 font-mono text-[10px] uppercase leading-relaxed tracking-[0.1em] text-ink/45">
+                    {step.bullets.join(' · ')}
+                  </p>
                 </article>
               </RevealItem>
             ))}
