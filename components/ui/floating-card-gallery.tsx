@@ -35,6 +35,18 @@ function noise(seed: number) {
   return ((Math.sin(seed * 12.9898) * 43758.5453) % 1 + 1) / 2
 }
 
+/**
+ * Arredonda antes de virar string.
+ *
+ * `noise` já é determinístico, mas o valor cru tem precisão total no cliente
+ * (5.804225974539804px) e sai arredondado a 6 dígitos no HTML do servidor
+ * (5.80423px). Mesmo número, strings diferentes — e é isso que dispara o aviso
+ * de hidratação, não aleatoriedade.
+ */
+function fixo(valor: number) {
+  return valor.toFixed(2)
+}
+
 export default function FloatingCardGallery({
   cards,
   accentColor = 'rgba(255, 102, 92, 0.5)',
@@ -177,10 +189,10 @@ export default function FloatingCardGallery({
               key={i}
               className="absolute rounded-full bg-white opacity-10"
               style={{
-                width: `${noise(i + 1) * 5 + 1}px`,
-                height: `${noise(i + 2) * 5 + 1}px`,
-                top: `${noise(i + 3) * 100}%`,
-                left: `${noise(i + 4) * 100}%`,
+                width: `${fixo(noise(i + 1) * 5 + 1)}px`,
+                height: `${fixo(noise(i + 2) * 5 + 1)}px`,
+                top: `${fixo(noise(i + 3) * 100)}%`,
+                left: `${fixo(noise(i + 4) * 100)}%`,
               }}
             />
           ))}
