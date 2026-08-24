@@ -62,7 +62,13 @@ export default function ArtShowcase() {
   const reduce = useReducedMotion()
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+    // overflow-x-clip: as cartas ainda não reveladas ficam paradas em x ±170,
+    // fora do container, e isso criava 145px de rolagem horizontal na página.
+    //
+    // `clip` e não `hidden` de propósito: hidden forçaria o eixo Y a virar
+    // scroll container, o que cortaria as sombras dos cards e quebraria o
+    // sticky da coluna de texto. `overflow-x: clip` corta sem criar container.
+    <div className="grid grid-cols-1 gap-4 overflow-x-clip sm:grid-cols-2 sm:gap-5">
       {projects.map((project, index) => (
         <ArtCard
           key={`${project.client}-${index}`}
