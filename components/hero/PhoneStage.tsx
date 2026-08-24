@@ -133,7 +133,10 @@ export default function PhoneStage({
       // quadrado), então o teto em vh é o que impede o aparelho de empurrar
       // o rótulo e a barra pra fora da tela presa. O fator em vw sobe no
       // mobile: com 38vw o celular ficava menor que o próprio chip de CTA.
-      className="relative w-[min(90vw,54vh)] sm:w-[min(64vw,57vh)] lg:w-[min(54vw,650px,65vh)]"
+      // 58vh em lg (era 65vh): com o header ocupando ~88px do topo, 65vh não
+      // sobrava altura pro título, o CTA e a barra numa tela de 700px, e a
+      // cena estourava pra cima.
+      className="relative w-[min(90vw,54vh)] sm:w-[min(64vw,57vh)] lg:w-[min(54vw,650px,58vh)]"
       style={{ minWidth: 150, aspectRatio: String(ASSET_ASPECT) }}
     >
       {/* conteúdo da tela — fica atrás do asset */}

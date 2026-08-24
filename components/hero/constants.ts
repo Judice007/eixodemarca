@@ -39,7 +39,13 @@ export const SCROLL = { vhPerService: 500 / 7, smoothing: 0.12 } as const
  */
 // Cresceu pra caber o título E o nome do serviço ativo empilhados (antes só
 // tinha o título — a legenda ficava flutuando por cima do aparelho).
-export const TITLE_BAND = 'clamp(5.5rem, 15vw, 10.5rem)'
+//
+// `min(13vw, 17vh)`: antes era só vw, então numa tela larga e baixa (1280x700,
+// notebook comum) a faixa ficava com 168px enquanto a altura total não
+// comportava — o `justify-center` do palco empurrava o topo pra debaixo do
+// header e o título sumia atrás dele. Amarrando também à altura, a cena
+// inteira encolhe junto quando a tela é baixa.
+export const TITLE_BAND = 'clamp(4.75rem, min(13vw, 17vh), 10.5rem)'
 
 /**
  * Distância horizontal entre dois slots vizinhos, em px, por breakpoint.

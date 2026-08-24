@@ -274,7 +274,10 @@ export default function ServiceOrbit() {
         // ACIMA do "02" também. Com -start, o respiro extra vira gap entre
         // os elementos (em vh, ver abaixo) em vez de vão vazio nas pontas.
         ref={visibilityRef}
-        className={`${reduce ? '' : 'sticky top-0 h-screen'} flex flex-col justify-start overflow-hidden px-[var(--gutter)] pb-2 pt-7 sm:justify-center`}
+        // pt maior a partir de sm: o header é fixo (~79px) e com
+        // `justify-center` o conteúdo era centralizado ignorando isso, então
+        // em telas baixas o topo da cena passava por baixo dele.
+        className={`${reduce ? '' : 'sticky top-0 h-screen'} flex flex-col justify-start overflow-hidden px-[var(--gutter)] pb-2 pt-7 sm:justify-center sm:pt-[88px]`}
       >
         {/* grão + vinheta */}
         <span aria-hidden className="eixo-stage-grain pointer-events-none absolute inset-0" />
@@ -311,7 +314,9 @@ export default function ServiceOrbit() {
             >
               <h2
                 className="w-full text-center font-display font-black uppercase leading-[0.92] tracking-[-0.04em] text-stage-display/[.92]"
-                style={{ fontSize: 'clamp(1.4rem, 7vw, 6rem)' }}
+                // min(7vw, 10vh) pelo mesmo motivo da TITLE_BAND: em tela larga
+                // e baixa o título crescia por vw e não cabia na altura.
+                style={{ fontSize: 'clamp(1.4rem, min(7vw, 10vh), 6rem)' }}
               >
                 Sempre no eixo
               </h2>
