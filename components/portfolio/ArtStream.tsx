@@ -2,6 +2,7 @@
 
 import { ImageStreamHero, type StreamImage } from '@/components/ui/image-stream-hero'
 import { projects } from '@/lib/portfolio'
+import { useVisible } from '@/components/hooks/useVisible'
 
 // As mesmas peças reais da grade logo abaixo: o corredor traz as artes voando
 // e, mais adiante na seção, elas se assentam na grade.
@@ -23,13 +24,19 @@ const IMAGES: StreamImage[] = projects.map((project) => ({
  * relação nomeada das peças já existe na grade abaixo.
  */
 export default function ArtStream() {
+  const [ref, visible] = useVisible<HTMLDivElement>()
+
   return (
     <ImageStreamHero
+      ref={ref}
+      // Composição 3D de 18 camadas: parada fora da tela, senão a GPU segue
+      // compondo o corredor inteiro com a seção longe.
+      data-paused={visible ? undefined : 'true'}
       images={IMAGES}
       cards={9}
       speed={20}
       axis={46}
-      className="h-[clamp(240px,34vw,440px)] w-full rounded-[20px] bg-ink"
+      className="h-[clamp(240px,34vw,440px)] w-full rounded-[20px] bg-ink data-[paused=true]:[&_*]:[animation-play-state:paused]"
       // dropExit em unidades de MUNDO: a projeção multiplica pela escala da
       // carta, que na saída é exitHeight/cardHeight = 46/25 = 1.84. Então 9
       // aqui viram ~16.6cqw na tela (~225px num bloco de 440px) — as peças da

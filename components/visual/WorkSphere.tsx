@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 import { useReducedMotion } from 'framer-motion'
+import { useVisible } from '@/components/hooks/useVisible'
 
 export type SphereImage = { src: string; alt: string }
 
@@ -51,10 +52,12 @@ export default function WorkSphere({
   images: SphereImage[]
   className?: string
 }) {
-  const rootRef = useRef<HTMLDivElement>(null)
+  const [rootRef, visible] = useVisible<HTMLDivElement>()
   const itemRefs = useRef<(HTMLDivElement | null)[]>([])
   const radiusRef = useRef(0)
   const rafRef = useRef<number | null>(null)
+  /** tempo acumulado de giro, pra esfera retomar de onde parou */
+  const elapsed = useRef(0)
   const reduce = useReducedMotion()
 
   useEffect(() => {
@@ -120,23 +123,35 @@ export default function WorkSphere({
       return () => observer.disconnect()
     }
 
-    let start: number | null = null
+    const observer = new ResizeObserver(measure)
+    observer.observe(root)
+
+    // Fora da tela (ou aba em segundo plano) não roda nada: antes o rAF
+    // desenhava as 18 bolhas pra sempre, mesmo com a seção longe.
+    if (!visible) {
+      // deixa uma pose desenhada, senão a seção reaparece vazia ao voltar
+      draw(elapsed.current * 0.114)
+      return () => observer.disconnect()
+    }
+
+    let last: number | null = null
     const step = (now: number) => {
-      if (start === null) start = now
+      if (last === null) last = now
+      // acumula o tempo em vez de medir desde o início: sem isso a esfera
+      // saltava pra frente ao voltar pra tela, como se tivesse girado sozinha
+      elapsed.current += (now - last) / 1000
+      last = now
       // volta completa em ~55s — devagar o bastante pra não competir com o texto
-      draw(((now - start) / 1000) * 0.114)
+      draw(elapsed.current * 0.114)
       rafRef.current = requestAnimationFrame(step)
     }
     rafRef.current = requestAnimationFrame(step)
-
-    const observer = new ResizeObserver(measure)
-    observer.observe(root)
 
     return () => {
       observer.disconnect()
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
     }
-  }, [images.length, reduce])
+  }, [images.length, reduce, visible])
 
   return (
     <div

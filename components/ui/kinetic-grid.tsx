@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useCallback, ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { useVisible } from "@/components/hooks/useVisible";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -60,6 +61,7 @@ export default function KineticGrid({
   globalColor?: "default" | "monochrome" | "brand";
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [rootRef, visible] = useVisible<HTMLDivElement>();
 
   const mouseRef = useRef<Point>({ x: -9999, y: -9999 });
   const targetMouseRef = useRef<Point>({ x: -9999, y: -9999 });
@@ -385,7 +387,16 @@ export default function KineticGrid({
 
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("click", onClick);
-    rafRef.current = requestAnimationFrame(animate);
+
+    // Só desenha com a seção na tela e a aba em primeiro plano. Antes o rAF
+    // redesenhava a grade inteira pra sempre — inclusive com o hero a várias
+    // telas de distância, disputando CPU com o resto da máquina.
+    if (visible) {
+      rafRef.current = requestAnimationFrame(animate);
+    } else {
+      // um quadro parado, senão o fundo fica preto ao voltar pro topo
+      draw(performance.now());
+    }
 
     return () => {
       window.removeEventListener("resize", setSize);
@@ -395,12 +406,13 @@ export default function KineticGrid({
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, [animate]);
+  }, [animate, draw, visible]);
 
   // ── Render ──────────────────────────────────────────────────────────────────
 
   return (
     <div
+      ref={rootRef}
       className={cn(
         "relative w-full min-h-screen overflow-hidden",
         globalColor === "monochrome" ? "bg-[#000000]" : globalColor === "brand" ? "bg-[#2a104a]" : "bg-[#161618]",

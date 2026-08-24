@@ -11,6 +11,7 @@ import { OrbitCards, StaticCards } from './OrbitCards'
 import ProgressBar from './ProgressBar'
 import ServiceList from './ServiceList'
 import CtaChip from './CtaChip'
+import { useVisible } from '@/components/hooks/useVisible'
 import { DEPTH, LAYER, PARALLAX, SCROLL, SPACING, SPAN, TITLE_BAND } from './constants'
 
 const N = works.length
@@ -44,6 +45,7 @@ export default function ServiceOrbit() {
   const [active, setActive] = useState(0)
 
   const sectionRef = useRef<HTMLElement>(null)
+  const [visibilityRef, visible] = useVisible<HTMLDivElement>()
   const stageRef = useRef<HTMLDivElement>(null)
   const deviceRef = useRef<HTMLDivElement>(null)
   const haloRef = useRef<HTMLDivElement>(null)
@@ -174,7 +176,15 @@ export default function ServiceOrbit() {
 
       readScroll()
       phase.current = targetPhase.current
-      gsap.ticker.add(draw)
+
+      // Só roda com a seção na tela e a aba em primeiro plano. Antes o ticker
+      // reposicionava os 7 cards + aparelho + barra a cada frame pra sempre,
+      // mesmo com esta seção longe da tela.
+      if (visible) {
+        gsap.ticker.add(draw)
+      } else {
+        draw()
+      }
       window.addEventListener('scroll', readScroll, { passive: true })
       window.addEventListener('resize', readScroll)
 
@@ -184,7 +194,7 @@ export default function ServiceOrbit() {
         window.removeEventListener('resize', readScroll)
       }
     },
-    { scope: sectionRef, dependencies: [reduce, scrollRange] }
+    { scope: sectionRef, dependencies: [reduce, scrollRange, visible] }
   )
 
   /** Halo e sombra de contato reagem à troca de serviço. */
@@ -263,6 +273,7 @@ export default function ServiceOrbit() {
         // preencher a tela, e -center deixava metade da folga flutuando
         // ACIMA do "02" também. Com -start, o respiro extra vira gap entre
         // os elementos (em vh, ver abaixo) em vez de vão vazio nas pontas.
+        ref={visibilityRef}
         className={`${reduce ? '' : 'sticky top-0 h-screen'} flex flex-col justify-start overflow-hidden px-[var(--gutter)] pb-2 pt-7 sm:justify-center`}
       >
         {/* grão + vinheta */}
