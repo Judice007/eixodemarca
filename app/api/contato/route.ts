@@ -68,14 +68,15 @@ export async function POST(request: Request) {
   const chave = process.env.RESEND_API_KEY
   const remetente = process.env.RESEND_FROM
   if (!chave || !remetente) {
-    // Diagnóstico: diz QUAL variável falta, pra distinguir "salvou no projeto
-    // errado" (faltam as duas) de "errou o nome de uma" (falta só uma).
-    // Só booleano — nenhum valor de chave sai daqui.
+    // O nome da variável ausente vai só pro log do servidor. Chegou a sair na
+    // resposta enquanto eu caçava o problema da configuração, mas expor isso
+    // numa API pública entrega detalhe da infraestrutura sem necessidade.
+    console.error(
+      'Contato sem configuração:',
+      [!chave && 'RESEND_API_KEY', !remetente && 'RESEND_FROM'].filter(Boolean).join(', ')
+    )
     return NextResponse.json(
-      {
-        erro: 'Envio por e-mail não configurado. Fale com a gente pelo WhatsApp.',
-        faltando: [!chave && 'RESEND_API_KEY', !remetente && 'RESEND_FROM'].filter(Boolean),
-      },
+      { erro: 'Envio por e-mail não configurado. Fale com a gente pelo WhatsApp.' },
       { status: 503 }
     )
   }
