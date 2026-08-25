@@ -29,7 +29,13 @@ export const SCREEN_RADIUS_PCT = SCREEN.radius * (100 / SCREEN.width)
  *  - SMOOTHING: lerp entre a posição alvo (do scroll) e a desenhada, pra roda
  *    do mouse não sair aos saltos.
  */
-export const SCROLL = { vhPerService: 500 / 7, smoothing: 0.12 } as const
+// 35vh por serviço (245vh no total, ~2,7 telas). Estava em 500/7 ≈ 71vh, o que
+// dava 500vh: a seção prendia por CINCO telas inteiras e, como o palco é
+// sticky, rolar ali não mexia nada visível além do conteúdo do celular. O
+// cliente relatou como "a rolagem está bugada" — a rolagem estava correta
+// (medido: 6 giros de roda = 720px exatos), o que faltava era a tela
+// responder ao movimento.
+export const SCROLL = { vhPerService: 245 / 7, smoothing: 0.12 } as const
 
 /**
  * Faixa reservada no topo do palco pro título gigante. É também o quanto o
