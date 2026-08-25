@@ -2,9 +2,25 @@ import Image from 'next/image'
 import { projects } from '@/lib/portfolio'
 import { TiltGrid } from '@/components/reveal'
 
-export default function ArtGrid({ className = 'mt-12 grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-5' }: { className?: string }) {
+/**
+ * `tilt` desliga a entrada 3D da grade.
+ *
+ * Na página de artes a galeria de abertura já faz esse mesmo movimento
+ * (rotateX partindo de tombado). Com os dois ligados, a parede levantava e
+ * logo em seguida a grade levantava de novo — duas animações iguais em
+ * sequência, na mesma tela.
+ */
+export default function ArtGrid({
+  className = 'mt-12 grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-5',
+  tilt = true,
+}: {
+  className?: string
+  tilt?: boolean
+}) {
+  const Wrapper = tilt ? TiltGrid : 'div'
+
   return (
-    <TiltGrid className={className}>
+    <Wrapper className={className}>
       {projects.map((project, index) => (
         <div key={`${project.client}-${index}`}>
           <article className="group">
@@ -30,6 +46,6 @@ export default function ArtGrid({ className = 'mt-12 grid grid-cols-2 gap-4 md:g
           </article>
         </div>
       ))}
-    </TiltGrid>
+    </Wrapper>
   )
 }

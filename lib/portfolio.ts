@@ -376,7 +376,7 @@ export type ArtClient = {
 }
 
 /** "Di Casa Açaí" -> "di-casa-acai" */
-function slugify(value: string) {
+export function slugify(value: string) {
   return value
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '')

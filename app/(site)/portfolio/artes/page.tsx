@@ -37,8 +37,10 @@ export default function PortfolioArtesPage() {
           <ArtScrollGallery />
 
           {/* A galeria 3D é a abertura; a grade abaixo é o acervo completo,
-              onde dá pra varrer tudo sem depender de scroll cronometrado. */}
-          <ArtGrid className="mt-[clamp(60px,8vw,110px)] grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-5" />
+              onde dá pra varrer tudo sem depender de scroll cronometrado.
+              `tilt={false}`: a abertura já fez a entrada 3D e repeti-la aqui
+              punha duas animações iguais em sequência. */}
+          <ArtGrid tilt={false} className="mt-[clamp(60px,8vw,110px)] grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-5" />
         </div>
       </section>
 

@@ -31,11 +31,20 @@ type ContainerScrollContextValue = {
 
 const ContainerScrollContext = React.createContext<ContainerScrollContextValue | undefined>(undefined)
 
-function useContainerScrollContext() {
+export function useContainerScrollContext() {
   const context = React.useContext(ContainerScrollContext)
   if (!context) throw new Error('Use os componentes da galeria dentro de <ContainerScroll>.')
   return context
 }
+
+/**
+ * Onde a cena termina de se montar, em progresso de scroll.
+ *
+ * Tudo — rotação, escala e o deslize das colunas — acaba aqui. Depois deste
+ * ponto a parede fica PARADA até a seção sair: é o intervalo em que os nomes
+ * dos clientes aparecem e dá pra ler sem nada se mexendo em volta.
+ */
+export const POUSO = 0.55
 
 export function ContainerScroll({ children, className, style, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   const scrollRef = React.useRef<HTMLDivElement>(null)
@@ -76,8 +85,11 @@ export function ContainerSticky({ className, style, ...props }: React.HTMLAttrib
 
 export function GalleryContainer({ children, className, style, ...props }: HTMLMotionProps<'div'>) {
   const { scrollYProgress, reduce } = useContainerScrollContext()
-  const rotateX = useTransform(scrollYProgress, [0, 0.5], [72, 0])
-  const scale = useTransform(scrollYProgress, [0.5, 0.9], [1.2, 1])
+  // Rotação e escala terminam juntas em POUSO. No original a escala só
+  // fechava em 0.9, então a parede continuava crescendo bem depois de já
+  // estar de frente — movimento sobrando justo na hora de olhar as peças.
+  const rotateX = useTransform(scrollYProgress, [0, POUSO * 0.78], [72, 0])
+  const scale = useTransform(scrollYProgress, [POUSO * 0.78, POUSO], [1.12, 1])
 
   return (
     <motion.div
@@ -96,7 +108,10 @@ export function GalleryContainer({ children, className, style, ...props }: HTMLM
 
 export function GalleryCol({ className, style, yRange = ['0%', '-10%'], ...props }: HTMLMotionProps<'div'> & { yRange?: string[] }) {
   const { scrollYProgress, reduce } = useContainerScrollContext()
-  const y = useTransform(scrollYProgress, [0.5, 1], yRange)
+  // O deslize das colunas acontece DURANTE a subida e para junto com ela. No
+  // original ele ia de 0.5 a 1, ou seja, começava só quando a parede acabava
+  // de levantar: era a segunda animação, colada na primeira.
+  const y = useTransform(scrollYProgress, [0, POUSO], yRange)
 
   return <motion.div className={cn('relative flex w-full flex-col gap-2', className)} style={reduce ? style : { y, ...style }} {...props} />
 }
