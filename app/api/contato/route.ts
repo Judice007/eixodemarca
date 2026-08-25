@@ -68,8 +68,14 @@ export async function POST(request: Request) {
   const chave = process.env.RESEND_API_KEY
   const remetente = process.env.RESEND_FROM
   if (!chave || !remetente) {
+    // Diagnóstico: diz QUAL variável falta, pra distinguir "salvou no projeto
+    // errado" (faltam as duas) de "errou o nome de uma" (falta só uma).
+    // Só booleano — nenhum valor de chave sai daqui.
     return NextResponse.json(
-      { erro: 'Envio por e-mail não configurado. Fale com a gente pelo WhatsApp.' },
+      {
+        erro: 'Envio por e-mail não configurado. Fale com a gente pelo WhatsApp.',
+        faltando: [!chave && 'RESEND_API_KEY', !remetente && 'RESEND_FROM'].filter(Boolean),
+      },
       { status: 503 }
     )
   }
