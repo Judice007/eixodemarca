@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import ArtGrid from '@/components/portfolio/ArtGrid'
+import ArtScrollGallery from '@/components/portfolio/ArtScrollGallery'
 
 export const metadata: Metadata = {
   title: 'Artes e design — Eixo de Marca',
@@ -33,7 +34,11 @@ export default function PortfolioArtesPage() {
             </div>
           </div>
 
-          <ArtGrid />
+          <ArtScrollGallery />
+
+          {/* A galeria 3D é a abertura; a grade abaixo é o acervo completo,
+              onde dá pra varrer tudo sem depender de scroll cronometrado. */}
+          <ArtGrid className="mt-[clamp(60px,8vw,110px)] grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-5" />
         </div>
       </section>
 
