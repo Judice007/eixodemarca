@@ -297,6 +297,21 @@ export const projects = [
 ]
 
 export const portfolioVideos = [
+  // Os dois primeiros vêm de render em 1440x2560 e saíram em 1080x1920 — o
+  // resto do acervo está em 406x720, que é a origem da pixelação na tela do
+  // celular. Ficam na frente por serem os de melhor qualidade.
+  {
+    src: '/portfolio-media/videos/video-well-calcados.mp4',
+    poster: '/portfolio-media/videos/poster-well-calcados.webp',
+    title: 'Well Calçados',
+    tag: 'Unboxing · Reels',
+  },
+  {
+    src: '/portfolio-media/videos/video-tudo-acaba-em-pizza.mp4',
+    poster: '/portfolio-media/videos/poster-tudo-acaba-em-pizza.webp',
+    title: 'Tudo acaba em pizza',
+    tag: 'Bastidores · Captação',
+  },
   {
     src: '/portfolio-media/videos/video-pousada-01.mp4',
     poster: '/portfolio-media/videos/poster-pousada-01.webp',
