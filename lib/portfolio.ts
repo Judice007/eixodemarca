@@ -348,6 +348,16 @@ export const identities = [
   { slug: 'luciane-judice', name: 'Luciane Júdice', src: '/portfolio-media/marca-luciane-judice.webp', alt: 'Luciane Júdice', accent: '#8b4bc8' },
   { slug: 'itamang', name: 'Itamang', src: '/portfolio-media/marca-itamang.webp', alt: 'Itamang', accent: '#3a5a8c' },
   { slug: 'bm', name: 'BIG', src: '/portfolio-media/marca-bm.webp', alt: 'BIG', accent: '#ff665c' },
+  // Manual fechado em 29/08/2026. Card montado em 1080x1440 — o 3:4 exato do
+  // carrossel — com a logo aparada até o lettering: o PNG de origem tinha
+  // margem demais e a marca saía boiando no cartão.
+  {
+    slug: 'jo-salao-de-beleza',
+    name: 'JO Salão de Beleza',
+    src: '/portfolio-media/marca-jo-salao-de-beleza.webp',
+    alt: 'JO Salão de Beleza',
+    accent: '#922b1a',
+  },
 ] as const
 
 export const marks = identities.map(({ src, alt }) => ({ src, alt }))
