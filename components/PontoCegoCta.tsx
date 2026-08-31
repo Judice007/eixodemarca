@@ -37,7 +37,7 @@ export default function PontoCegoCta({
 }) {
   const skin =
     variant === 'solid'
-      ? 'rounded-full bg-ink text-paper shadow-[0_14px_32px_-14px_rgba(42,16,74,.6)] px-5 py-3 text-[13px] sm:text-[14px]'
+      ? 'rounded-full bg-ink text-paper shadow-[0_14px_32px_-14px_rgba(40,17,46,.6)] px-5 py-3 text-[13px] sm:text-[14px]'
       : variant === 'outline'
         ? 'border border-white/25 text-white hover:border-azure/60 px-5 py-3 text-[13px] sm:text-[14px]'
         // Um pouco menor que antes (px-4 py-2 / 12-13px): no cabeçalho a

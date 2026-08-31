@@ -76,7 +76,7 @@ export default function MethodAxis({ steps }: { steps: MethodStep[] }) {
   return (
     <div
       ref={gridRef}
-      className="relative mt-[clamp(42px,6vw,80px)] overflow-hidden border border-ink/16 bg-ink text-white shadow-[0_36px_90px_-55px_rgba(42,16,74,.72)]"
+      className="relative mt-[clamp(42px,6vw,80px)] overflow-hidden border border-ink/16 bg-ink text-white shadow-[0_36px_90px_-55px_rgba(40,17,46,.72)]"
       style={{
         backgroundImage:
           'linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px)',
@@ -104,7 +104,7 @@ export default function MethodAxis({ steps }: { steps: MethodStep[] }) {
 
       <div
         aria-hidden
-        className="absolute left-1/2 top-1/2 z-20 hidden size-28 -translate-x-1/2 -translate-y-1/2 rotate-45 place-items-center border border-azure-heading bg-ink shadow-[0_0_0_10px_rgba(42,16,74,.88)] md:grid"
+        className="absolute left-1/2 top-1/2 z-20 hidden size-28 -translate-x-1/2 -translate-y-1/2 rotate-45 place-items-center border border-azure-heading bg-ink shadow-[0_0_0_10px_rgba(40,17,46,.88)] md:grid"
       >
         <div className="flex -rotate-45 flex-col items-center justify-center leading-none">
           <span className="font-display text-[46px] font-black tracking-[-0.08em] text-azure-heading">X</span>
