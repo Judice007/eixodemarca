@@ -39,15 +39,20 @@ export default function SiteHeader() {
           <Image
             src="/eixo-wordmark.png"
             alt="Eixo de Marca"
-            width={1515}
-            height={573}
+            width={1600}
+            height={489}
             priority
-            sizes="64px"
+            sizes="72px"
             // ~15% maior: a pílula do "Ponto Cego" pesava mais que a própria
             // marca no cabeçalho. O CTA continua evidente, mas deixa de
             // competir com a logo.
+            //
+            // Sem `filter`: o arquivo antigo era monocromático e precisava de
+            // uma pilha de brightness/invert/hue-rotate pra virar roxo. O
+            // logotipo novo já sai do kit nas cores certas (Roxo Norte + X
+            // Vermelho Movimento), então o hack saiu junto — e o X volta a ser
+            // vermelho no cabeçalho, que o filtro achatava.
             className={`w-auto transition-all duration-500 ${scrolled ? 'h-[21px]' : 'h-[24px] sm:h-7'}`}
-            style={{ filter: 'brightness(0) saturate(100%) invert(11%) sepia(37%) saturate(3825%) hue-rotate(258deg) brightness(76%) contrast(104%)' }}
           />
         </Link>
 

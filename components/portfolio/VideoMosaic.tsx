@@ -95,7 +95,7 @@ function MosaicTile({ video, index }: { video: (typeof portfolioVideos)[number];
             playing ? 'opacity-0' : 'opacity-100'
           }`}
         >
-          <p className="font-sans text-[9px] font-semibold uppercase tracking-[0.14em] text-azure">{video.tag}</p>
+          <p className="font-sans text-[9px] font-semibold uppercase tracking-[0.14em] text-azure-on-dark">{video.tag}</p>
           <h3 className="mt-1 font-display text-[15px] font-bold uppercase leading-[1.1] tracking-[-0.02em] text-white">
             {video.title}
           </h3>

@@ -172,7 +172,7 @@ export default function KineticGrid({
         // Paleta do Eixo: fundo ink (--color-ink) e acento coral (--color-azure)
         // no lugar do azul genérico do componente original.
         brand: {
-          bg: "#2a104a",
+          bg: "#28112e",
           lineActive: { r: 255, g: 102, b: 92, a: 0.9 },
           nodeActive: { r: 255, g: 102, b: 92, a: 1.0 },
           glow: "255,102,92",
@@ -415,7 +415,7 @@ export default function KineticGrid({
       ref={rootRef}
       className={cn(
         "relative w-full min-h-screen overflow-hidden",
-        globalColor === "monochrome" ? "bg-[#000000]" : globalColor === "brand" ? "bg-[#2a104a]" : "bg-[#161618]",
+        globalColor === "monochrome" ? "bg-[#000000]" : globalColor === "brand" ? "bg-[#28112e]" : "bg-[#161618]",
         className,
       )}
     >

@@ -32,7 +32,7 @@ export const works: Work[] = [
     label: 'Social media',
     caption: 'Rotina editorial e conteúdo',
     format: 'portrait', // poster 640x1138 (9:16)
-    accent: '#ff665c',
+    accent: '#da2d3a',
     card: '/portfolio-media/videos/poster-movimenta-angra.webp',
     screen: {
       type: 'video',
@@ -45,7 +45,7 @@ export const works: Work[] = [
     label: 'Identidade visual',
     caption: 'Marcas e sistemas visuais',
     format: 'square', // marca Vista Bajeko 1080x1080 (1:1)
-    accent: '#2a104a',
+    accent: '#28112e',
     // Card = a marca da Vista Bajeko; tela = a mesma marca aplicada no manual.
     card: '/portfolio-media/identidade-vista-bajeko.webp',
     screen: { type: 'image', src: '/portfolio-media/identidade-vista-bajeko-manual.webp' },

@@ -14,7 +14,7 @@ function spotlightMove(event: React.MouseEvent<HTMLAnchorElement>) {
 /** Mira: remete a "pinpointar" o ponto cego em vez de um emoji genérico. */
 function TargetIcon() {
   return (
-    <svg aria-hidden width="16" height="16" viewBox="0 0 16 16" fill="none" className="relative shrink-0 text-azure">
+    <svg aria-hidden width="16" height="16" viewBox="0 0 16 16" fill="none" className="relative shrink-0 text-azure-on-dark">
       <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.4" />
       <circle cx="8" cy="8" r="1.6" fill="currentColor" />
       <path d="M8 .5V3M8 13v2.5M.5 8H3M13 8h2.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
@@ -63,10 +63,10 @@ export default function PontoCegoCta({
       <TargetIcon />
       <span className="relative">
         {variant === 'header' ? (
-          <span className="text-azure">Ponto Cego</span>
+          <span className="text-azure-on-dark">Ponto Cego</span>
         ) : (
           <>
-            Quero descobrir meu <span className="text-azure">Ponto Cego</span>
+            Quero descobrir meu <span className="text-azure-on-dark">Ponto Cego</span>
           </>
         )}
       </span>

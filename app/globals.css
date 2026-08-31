@@ -1,43 +1,58 @@
 @import "tailwindcss";
 
 @theme {
-  --color-main: #180525;
-  --color-card: #260b45;
-  --color-accent: #ff665c;
-  --color-muted: #806f92;
+  /* ─────────────────────────────────────────────────────────────────────
+     Identidade de 31/08/2026. As três bases vêm do kit da marca
+     (2026/Eixo/Logos), lidas dos próprios SVGs:
 
-  --color-dark: #180525;
-  --color-ink: #2a104a;
-  --color-paper: #fff8f2;
-  --color-lavanda: #f4efff;
-  --color-azure: #ff665c;
-  /* #ff665c como TEXTO sobre fundo claro (bone/branco/lavanda) não passa no
-     mínimo de contraste da WCAG — 2.83:1, abaixo até do limiar de 3:1 pra
-     texto grande. Essas duas variantes escurecidas são só pra isso; o coral
-     original continua intacto em botões, fundos e texto sobre fundo escuro
-     (onde já passa com folga). */
-  --color-azure-heading: #e35b52; /* título grande em negrito (precisa 3:1) — 3.51:1 */
-  --color-azure-label: #b84942; /* rótulo/contador pequeno (precisa 4.5:1) — 5.08:1 */
-  --color-cyan: #e8deff;
-  --color-bone: #fff8f2;
-  --color-bone-2: #eadfff;
+       Roxo Norte          #28112e
+       Vermelho Movimento  #da2d3a
+       Papel               #f3efe8
+
+     As derivadas NÃO foram substituídas, foram recalculadas: o roxo antigo
+     (#2a104a) e o novo têm matizes diferentes, então trocar só as bases
+     deixaria toda a família (palco, card, sobrelinhas) fora de tom. Cada
+     derivada mantém o mesmo degrau de luminosidade que tinha em relação ao
+     ink antigo, reconstruída no matiz novo. Ver scripts/derivar-paleta.mjs.
+     ───────────────────────────────────────────────────────────────────── */
+  --color-main: #0a030c;
+  --color-card: #230d28;
+  --color-accent: #da2d3a;
+  --color-muted: #7a687e;
+
+  --color-dark: #0a030c;
+  --color-ink: #28112e;
+  --color-paper: #f3efe8;
+  /* Quase-brancos saem do Papel, não do roxo: derivados do roxo vinham
+     rosados, e a identidade nova não tem branco arroxeado — tem Papel. */
+  --color-lavanda: #f2eee6;
+  --color-azure: #da2d3a;
+  /* O vermelho novo já dá 4.15:1 sobre o Papel (o coral antigo dava 2.51:1),
+     então ele mesmo serve como título grande. Só o rótulo pequeno, que precisa
+     de 4.5:1, ainda pede uma variante escurecida. */
+  --color-azure-heading: #da2d3a; /* título grande (precisa 3:1) — 4.15:1 */
+  --color-azure-label: #d22532; /* rótulo pequeno (precisa 4.5:1) — 4.52:1 */
+  /* Sobre o roxo o vermelho cai pra 3.65:1. Esta variante clareada é pra
+     quando ele é texto pequeno em seção escura — 4.52:1. */
+  --color-azure-on-dark: #e0505b;
+  --color-cyan: #ece6db;
+  --color-bone: #f3efe8;
+  --color-bone-2: #ece6dc;
 
   /* Palco da vitrine de serviços. Namespace "stage-" de propósito: é uma
      variante mais profunda da marca, e não pode colidir com --color-ink /
      --color-azure, que continuam mandando no resto do site. */
-  --color-stage-deep: #12062b;
-  --color-stage-mid: #1b0b3b;
-  --color-stage-lift: #2a1358;
-  --color-stage-card: #f4f1ea;
-  --color-stage-card-ink: #1b0b3b;
-  /* O #7c7488 do desenho original dava só 3.95:1 sobre o card creme — reprova
-     no mínimo de 4.5:1, e ele é usado em texto de 9-10px (legenda do card e
-     sobrelinha do CTA). Escurecido 8% no mesmo matiz: 4.70:1. */
-  --color-stage-card-muted: #70687a;
-  --color-stage-text: #f6f2ff;
-  --color-stage-text-muted: #a79cc4;
-  --color-stage-display: #ede6ff;
-  --color-stage-accent: #f4655a;
+  --color-stage-deep: #0e0511;
+  --color-stage-mid: #1c0b20;
+  --color-stage-lift: #33163a;
+  --color-stage-card: #e7e5e1;
+  --color-stage-card-ink: #1c0b20;
+  /* Texto de 9-10px sobre o card claro, então precisa dos 4.5:1 cheios: 4.53:1. */
+  --color-stage-card-muted: #726176;
+  --color-stage-text: #f3efe8;
+  --color-stage-text-muted: #ac92b3;
+  --color-stage-display: #efeae0;
+  --color-stage-accent: #ca303c;
 
   --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -64,12 +79,12 @@ body.cursor-ready * { cursor: none !important; }
 
 /* Intro screen */
 .intro-screen {
-  position: fixed; inset: 0; z-index: 10000; background: #180525;
+  position: fixed; inset: 0; z-index: 10000; background: #0a030c;
   display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 24px;
   transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
 }
 .intro-screen.exit { transform: translateY(-100%); }
-.intro-progress { position: absolute; bottom: 0; left: 0; height: 2px; background: #ff665c; transition: width 0.28s linear; }
+.intro-progress { position: absolute; bottom: 0; left: 0; height: 2px; background: #da2d3a; transition: width 0.28s linear; }
 
 /* =========================================================
    LUSION REDESIGN — one world, one scroll

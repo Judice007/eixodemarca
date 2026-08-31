@@ -15,7 +15,7 @@ export default function SiteFooter() {
       className="flex min-h-svh scroll-mt-24 flex-col justify-center bg-ink px-[var(--gutter)] pb-8 pt-[clamp(88px,11vw,150px)] text-white"
     >
       <div className="mx-auto w-full max-w-[1420px]">
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-azure">Próximo projeto</p>
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-azure-on-dark">Próximo projeto</p>
         <h2 className="mt-6 max-w-[1250px] [text-wrap:balance] font-display text-[clamp(29px,5.2vw,80px)] font-black uppercase leading-[0.9] tracking-[-0.05em] max-sm:leading-[0.96] max-sm:tracking-[-0.035em]">
           Vamos fazer sua marca <span className="text-azure">aparecer.</span>
         </h2>
@@ -35,7 +35,7 @@ export default function SiteFooter() {
 
         <div className="mt-12 flex flex-col justify-between gap-8 border-t border-white/15 pt-8 md:flex-row md:items-center">
           <div className="flex flex-wrap gap-3">
-            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="bg-azure px-6 py-3.5 text-[13px] font-bold text-ink transition-colors hover:bg-white">
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="bg-azure px-6 py-3.5 text-[13px] font-bold text-white transition-colors hover:bg-white">
               Falar no WhatsApp ↗
             </a>
             <a href={mailtoUrl} className="border border-white/25 px-6 py-3.5 text-[13px] font-bold transition-colors hover:border-white">

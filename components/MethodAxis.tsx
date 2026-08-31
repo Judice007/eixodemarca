@@ -47,7 +47,7 @@ function Step({ step, index, reduce }: { step: MethodStep; index: number; reduce
 
       <div className="relative z-10 mt-auto max-w-[520px]">
         <div className={`mb-5 flex items-center gap-3 ${index % 2 === 1 ? 'md:justify-end' : ''}`}>
-          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-azure-heading">Movimento</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-azure-on-dark">Movimento</span>
           <span aria-hidden className="h-px w-8 bg-azure-heading/70" />
           <span className="font-mono text-[10px] text-white/55">0{index + 1}</span>
         </div>

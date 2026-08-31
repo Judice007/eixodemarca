@@ -71,13 +71,13 @@ export default function ContactForm() {
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor={`${id}-nome`} className={rotulo}>
-            Nome <span className="text-azure">*</span>
+            Nome <span className="text-azure-on-dark">*</span>
           </label>
           <input id={`${id}-nome`} name="nome" required autoComplete="name" placeholder="Como te chamo?" className={campo} />
         </div>
         <div>
           <label htmlFor={`${id}-telefone`} className={rotulo}>
-            WhatsApp <span className="text-azure">*</span>
+            WhatsApp <span className="text-azure-on-dark">*</span>
           </label>
           <input
             id={`${id}-telefone`}
@@ -109,7 +109,7 @@ export default function ContactForm() {
 
       <div>
         <label htmlFor={`${id}-servico`} className={rotulo}>
-          O que você procura <span className="text-azure">*</span>
+          O que você procura <span className="text-azure-on-dark">*</span>
         </label>
         {/* A lista sai de lib/data.ts, a mesma que monta a seção de serviços —
             assim serviço novo aparece aqui sozinho, sem duplicar a lista. */}
@@ -130,7 +130,7 @@ export default function ContactForm() {
 
       <div>
         <label htmlFor={`${id}-expectativa`} className={rotulo}>
-          O que você espera <span className="text-azure">*</span>
+          O que você espera <span className="text-azure-on-dark">*</span>
         </label>
         <textarea
           id={`${id}-expectativa`}
@@ -164,7 +164,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={estado === 'enviando'}
-          className="bg-azure px-6 py-3.5 text-[13px] font-bold text-ink transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
+          className="bg-azure px-6 py-3.5 text-[13px] font-bold text-white transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {estado === 'enviando' ? 'Enviando…' : 'Enviar'}
         </button>
@@ -172,7 +172,7 @@ export default function ContactForm() {
         {/* aria-live: quem usa leitor de tela precisa ouvir o resultado, que
             de outro modo só existe visualmente. */}
         <p aria-live="polite" className="text-[13px]">
-          {estado === 'enviado' && <span className="text-azure">Recebido. Respondo em breve.</span>}
+          {estado === 'enviado' && <span className="text-azure-on-dark">Recebido. Respondo em breve.</span>}
           {estado === 'erro' && <span className="text-white/70">{erro}</span>}
         </p>
       </div>

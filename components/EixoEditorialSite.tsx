@@ -97,7 +97,7 @@ export default function EixoEditorialSite() {
                 </p>
                 <a
                   href="#portfolio"
-                  className="inline-flex shrink-0 items-center gap-3 bg-azure px-6 py-3.5 text-[13px] font-bold text-ink transition-colors hover:bg-white"
+                  className="inline-flex shrink-0 items-center gap-3 bg-azure px-6 py-3.5 text-[13px] font-bold text-white transition-colors hover:bg-white"
                 >
                   Ver projetos <span aria-hidden>↓</span>
                 </a>
@@ -195,7 +195,7 @@ export default function EixoEditorialSite() {
             <Reveal>
               <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
                 <div>
-                  <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-azure">Portfólio em movimento</p>
+                  <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-azure-on-dark">Portfólio em movimento</p>
                   {/* h2, não h3: é título de seção e vinha depois dos h3 dos
                       cards de projeto, quebrando a hierarquia do documento. */}
                   <h2 className="mt-4 max-w-[820px] [text-wrap:balance] font-display text-[clamp(21px,3.1vw,43px)] font-black uppercase leading-[1] tracking-[-0.035em]">
@@ -211,7 +211,7 @@ export default function EixoEditorialSite() {
                       soubesse a URL não chegava nela. */}
                   <Link
                     href="/portfolio/video"
-                    className="mt-4 inline-flex items-center gap-2 border-b border-azure/40 pb-1 font-sans text-[13px] font-bold text-azure transition-colors hover:border-azure hover:text-white"
+                    className="mt-4 inline-flex items-center gap-2 border-b border-azure/40 pb-1 font-sans text-[13px] font-bold text-azure-on-dark transition-colors hover:border-azure hover:text-white"
                   >
                     Ver todos os vídeos <span aria-hidden>↗</span>
                   </Link>
@@ -229,7 +229,10 @@ export default function EixoEditorialSite() {
           {duplicatedServices.map((service, index) => (
             <div key={`${service.title}-${index}`} className="flex items-center">
               <span className="px-5 font-display text-[clamp(19px,2.8vw,40px)] font-black uppercase leading-none tracking-[-0.025em]">{service.title}</span>
-              <span className="text-[clamp(14px,2.2vw,31px)] text-ink">✦</span>
+              {/* Separador, não conteúdo — daí o aria-hidden. Em branco porque
+                  o roxo sobre o vermelho novo dá 3.65:1, e a 14px isso reprova
+                  (os nomes dos serviços ao lado passam por serem grandes). */}
+              <span aria-hidden className="text-[clamp(14px,2.2vw,31px)] text-white">✦</span>
             </div>
           ))}
         </div>
