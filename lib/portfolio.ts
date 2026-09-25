@@ -464,14 +464,27 @@ export const projects: ProjectItem[] = [
 ]
 
 export const portfolioVideos = [
-  // Os dois primeiros vêm de render em 1440x2560 e saíram em 1080x1920 — o
-  // resto do acervo está em 406x720, que é a origem da pixelação na tela do
-  // celular. Ficam na frente por serem os de melhor qualidade.
+  // Ordem calculada, não cronológica: nenhum cliente aparece duas vezes seguidas
+  // (Eixo, Well Calçados, Espaço dos Anjos, Laura Anjos, Chef Luciane, Pousada...).
+  // Vídeos novos de set/2026 estão reencodados em 720x1280 (os tiles do mosaico
+  // têm ~200px; 1080p seria peso à toa): 0,9 a 3,9 MB cada.
   {
     src: '/portfolio-media/videos/video-well-calcados.mp4',
     poster: '/portfolio-media/videos/poster-well-calcados.webp',
     title: 'Well Calçados',
     tag: 'Unboxing · Reels',
+  },
+  {
+    src: '/portfolio-media/videos/video-eixo-concorrente.mp4',
+    poster: '/portfolio-media/videos/poster-eixo-concorrente.webp',
+    title: 'Concorrente vende mais',
+    tag: 'Explicativo · Eixo',
+  },
+  {
+    src: '/portfolio-media/videos/video-espaco-sessao-massagem.mp4',
+    poster: '/portfolio-media/videos/poster-espaco-sessao-massagem.webp',
+    title: 'Uma sessão de massagem',
+    tag: 'Bem-estar · Espaço dos Anjos',
   },
   {
     src: '/portfolio-media/videos/video-tudo-acaba-em-pizza.mp4',
@@ -480,50 +493,21 @@ export const portfolioVideos = [
     tag: 'Bastidores · Captação',
   },
   {
+    src: '/portfolio-media/videos/video-laura-limpeza-de-pele.mp4',
+    poster: '/portfolio-media/videos/poster-laura-limpeza-de-pele.webp',
+    title: 'Você merece uma limpeza de pele',
+    tag: 'Estética · Laura Anjos',
+  },
+  {
     src: '/portfolio-media/videos/video-pousada-01.mp4',
     poster: '/portfolio-media/videos/poster-pousada-01.webp',
     title: 'Pousada da Praia',
     tag: 'Turismo · Apresentação',
   },
   {
-    src: '/portfolio-media/videos/video-trafego-pago.mp4',
-    poster: '/portfolio-media/videos/poster-trafego-pago.webp',
-    title: 'Beleza ou estratégia',
-    tag: 'Gancho · Tráfego pago',
-  },
-  {
-    src: '/portfolio-media/videos/video-massagem.mp4',
-    poster: '/portfolio-media/videos/poster-massagem.webp',
-    title: 'Bem-estar & spa',
-    tag: 'Gancho · Reels',
-  },
-  {
-    src: '/portfolio-media/videos/video-portfolio-01.mp4',
-    poster: '/portfolio-media/videos/poster-procedimento-estetico.webp',
-    title: 'Procedimento estético',
-    tag: 'Captação · Edição',
-  },
-  {
-    src: '/portfolio-media/videos/video-portfolio-02.mp4',
-    poster: '/portfolio-media/videos/poster-conteudo-fitness.webp',
-    title: 'Conteúdo fitness',
-    tag: 'Ritmo · Edição',
-  },
-  {
-    src: '/portfolio-media/videos/video-portfolio-03.mp4',
-    poster: '/portfolio-media/videos/poster-movimenta-angra.webp',
-    title: 'Movimenta Angra',
-    tag: 'Apresentação · Cobertura',
-  },
-  // Setembro/2026: vídeos já postados da Eixo e da Well Calçados. Reencodados
-  // em 720x1280 (os tiles do mosaico têm ~200px; 1080p seria peso à toa) —
-  // 0,9 a 3,9 MB cada. Ficaram de fora as versões longas (52-57 s) e as
-  // variações da mesma mensagem (três cortes de Landing Page, dois de
-  // "antes e depois").
-  {
-    src: '/portfolio-media/videos/video-eixo-concorrente.mp4',
-    poster: '/portfolio-media/videos/poster-eixo-concorrente.webp',
-    title: 'Concorrente vende mais',
+    src: '/portfolio-media/videos/video-eixo-feed-bonito.mp4',
+    poster: '/portfolio-media/videos/poster-eixo-feed-bonito.webp',
+    title: 'Feed bonito',
     tag: 'Explicativo · Eixo',
   },
   {
@@ -533,10 +517,22 @@ export const portfolioVideos = [
     tag: 'Produto · Well Calçados',
   },
   {
-    src: '/portfolio-media/videos/video-eixo-feed-bonito.mp4',
-    poster: '/portfolio-media/videos/poster-eixo-feed-bonito.webp',
-    title: 'Feed bonito',
-    tag: 'Explicativo · Eixo',
+    src: '/portfolio-media/videos/video-espaco-recuperacao.mp4',
+    poster: '/portfolio-media/videos/poster-espaco-recuperacao.webp',
+    title: 'Investir na recuperação',
+    tag: 'Bem-estar · Espaço dos Anjos',
+  },
+  {
+    src: '/portfolio-media/videos/video-trafego-pago.mp4',
+    poster: '/portfolio-media/videos/poster-trafego-pago.webp',
+    title: 'Beleza ou estratégia',
+    tag: 'Gancho · Tráfego pago',
+  },
+  {
+    src: '/portfolio-media/videos/video-laura-pele-nao-melhora.mp4',
+    poster: '/portfolio-media/videos/poster-laura-pele-nao-melhora.webp',
+    title: 'Minha pele não melhora nunca',
+    tag: 'Estética · Laura Anjos',
   },
   {
     src: '/portfolio-media/videos/video-well-transicao.mp4',
@@ -545,10 +541,28 @@ export const portfolioVideos = [
     tag: 'Edição · Well Calçados',
   },
   {
+    src: '/portfolio-media/videos/video-portfolio-03.mp4',
+    poster: '/portfolio-media/videos/poster-movimenta-angra.webp',
+    title: 'Movimenta Angra',
+    tag: 'Apresentação · Cobertura',
+  },
+  {
     src: '/portfolio-media/videos/video-eixo-landing-page.mp4',
     poster: '/portfolio-media/videos/poster-eixo-landing-page.webp',
     title: 'Landing page',
     tag: 'Explicativo · Eixo',
+  },
+  {
+    src: '/portfolio-media/videos/video-chef-workshops.mp4',
+    poster: '/portfolio-media/videos/poster-chef-workshops.webp',
+    title: 'Workshops',
+    tag: 'Gastronomia · Chef Luciane Júdice',
+  },
+  {
+    src: '/portfolio-media/videos/video-massagem.mp4',
+    poster: '/portfolio-media/videos/poster-massagem.webp',
+    title: 'Bem-estar & spa',
+    tag: 'Gancho · Reels',
   },
   {
     src: '/portfolio-media/videos/video-well-dias-da-semana.mp4',
@@ -557,10 +571,22 @@ export const portfolioVideos = [
     tag: 'Produto · Well Calçados',
   },
   {
+    src: '/portfolio-media/videos/video-portfolio-01.mp4',
+    poster: '/portfolio-media/videos/poster-procedimento-estetico.webp',
+    title: 'Procedimento estético',
+    tag: 'Captação · Edição',
+  },
+  {
     src: '/portfolio-media/videos/video-eixo-antes-depois.mp4',
     poster: '/portfolio-media/videos/poster-eixo-antes-depois.webp',
     title: 'Antes e depois de edição',
     tag: 'Edição · Eixo',
+  },
+  {
+    src: '/portfolio-media/videos/video-portfolio-02.mp4',
+    poster: '/portfolio-media/videos/poster-conteudo-fitness.webp',
+    title: 'Conteúdo fitness',
+    tag: 'Ritmo · Edição',
   },
 ] as const
 
