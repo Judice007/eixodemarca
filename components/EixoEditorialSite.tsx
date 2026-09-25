@@ -12,7 +12,7 @@ import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import ArtGallery from '@/components/portfolio/ArtGallery'
 import VideoMosaic from '@/components/portfolio/VideoMosaic'
-import { Reveal, SectionNumber } from '@/components/reveal'
+import { Reveal } from '@/components/reveal'
 import KineticGrid from '@/components/ui/kinetic-grid'
 import { CoverflowCarousel } from '@/components/ui/coverflow-carousel'
 import WorkSphere from '@/components/visual/WorkSphere'
@@ -157,15 +157,11 @@ export default function EixoEditorialSite() {
         />
 
         <div className="relative z-10 mx-auto flex max-w-[1420px] flex-col gap-6">
-          <div className="flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-white/60">
-            <span className="h-px w-10 bg-white/25" />
-            01
-          </div>
           <div>
             <Reveal>
               {/* Medida mais estreita que antes (era 1180px): mantém o texto
                   na metade esquerda, longe do miolo da esfera. */}
-              <h2 className="max-w-[880px] [text-shadow:0_2px_20px_rgba(23,10,42,.95)] [text-wrap:balance] font-display text-[clamp(23px,3.4vw,50px)] font-black uppercase leading-[0.98] tracking-[-0.035em] text-paper max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
+              <h2 className="max-w-[880px] [text-shadow:0_2px_20px_rgba(23,10,42,.95)] [text-wrap:balance] font-display text-[clamp(23px,3.4vw,50px)] font-black uppercase leading-[1.08] tracking-[-0.005em] [word-spacing:0.1em] text-paper max-sm:leading-[1.1] max-sm:tracking-[0em]">
                 Aqui tudo começa com <span className="text-azure">direção.</span> Entregamos comunicação pensada, não apenas automática.
               </h2>
             </Reveal>
@@ -187,16 +183,20 @@ export default function EixoEditorialSite() {
               clique. Cabeçalho volta a ser uma faixa normal no topo, já que a
               coluna sticky saiu junto. */}
           <div className="flex flex-col gap-6">
-            <div className="flex items-center gap-3 self-start font-mono text-[11px] uppercase tracking-[0.18em] text-white/60">
-              <span className="h-px w-10 bg-white/20" />
-              03
-            </div>
             <Reveal>
               <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-                <h2 className="max-w-[980px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
+                <h2 className="max-w-[980px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[1.08] tracking-[-0.005em] [word-spacing:0.1em] max-sm:leading-[1.1] max-sm:tracking-[0em]">
                   Marcas e histórias que ganharam <span className="text-azure">forma.</span>
                 </h2>
-                <p className="max-w-[290px] text-[14px] leading-relaxed text-white/55">Projetos reais de comunicação, identidade e conteúdo.</p>
+                {/* Antes: "Projetos reais de comunicação, identidade e conteúdo." — dizia
+                    o óbvio (o que está embaixo são projetos reais). Agora o espaço
+                    serve de porta pra página completa de artes, como já é nos vídeos. */}
+                <Link
+                  href="/portfolio/artes"
+                  className="inline-flex shrink-0 items-center gap-2 self-start border-b border-azure/40 pb-1 font-sans text-[13px] font-bold text-azure-on-dark transition-colors hover:border-azure hover:text-white md:self-end"
+                >
+                  Ver todas as artes <span aria-hidden>↗</span>
+                </Link>
               </div>
             </Reveal>
           </div>
@@ -210,7 +210,7 @@ export default function EixoEditorialSite() {
                   <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-azure-on-dark">Portfólio em movimento</p>
                   {/* h2, não h3: é título de seção e vinha depois dos h3 dos
                       cards de projeto, quebrando a hierarquia do documento. */}
-                  <h2 className="mt-4 max-w-[820px] [text-wrap:balance] font-display text-[clamp(21px,3.1vw,43px)] font-black uppercase leading-[1] tracking-[-0.035em]">
+                  <h2 className="mt-4 max-w-[820px] [text-wrap:balance] font-display text-[clamp(21px,3.1vw,43px)] font-black uppercase leading-[1.08] tracking-[-0.005em] [word-spacing:0.1em]">
                     Histórias que também ganham <span className="text-azure">ritmo.</span>
                   </h2>
                 </div>
@@ -250,14 +250,13 @@ export default function EixoEditorialSite() {
       <section id="metodo" className="scroll-mt-24 px-[var(--gutter)] py-[clamp(82px,11vw,148px)]">
         <div className="mx-auto max-w-[1420px]">
           <div className="flex flex-col gap-6">
-            <SectionNumber number="04" />
             <Reveal>
               <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-                <h2 className="max-w-[1050px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
+                <h2 className="max-w-[1050px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[1.08] tracking-[-0.005em] [word-spacing:0.1em] max-sm:leading-[1.1] max-sm:tracking-[0em]">
                   Criatividade precisa de <span className="text-azure-heading">processo.</span>
                 </h2>
                 <p className="max-w-[300px] text-[14px] leading-relaxed text-ink/65">
-                  Quatro etapas, sempre nessa ordem: primeiro a gente entende o seu negócio, só depois cria.
+                  Antes de qualquer arte ou vídeo, a gente entende o seu negócio. O resto vem depois, um passo de cada vez.
                 </p>
               </div>
             </Reveal>
@@ -278,9 +277,8 @@ export default function EixoEditorialSite() {
         <div className="mx-auto max-w-[1420px]">
           <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
             <div>
-              <SectionNumber number="05" />
               <Reveal>
-                <h2 className="mt-8 max-w-[820px] [text-wrap:balance] font-display text-[clamp(22px,3.3vw,47px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
+                <h2 className="mt-8 max-w-[820px] [text-wrap:balance] font-display text-[clamp(22px,3.3vw,47px)] font-black uppercase leading-[1.08] tracking-[-0.005em] [word-spacing:0.1em] max-sm:leading-[1.1] max-sm:tracking-[0em]">
                   Marcas criadas pelo nosso <span className="text-azure-heading">eixo.</span>
                 </h2>
               </Reveal>

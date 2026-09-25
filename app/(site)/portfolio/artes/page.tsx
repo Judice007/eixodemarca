@@ -27,7 +27,7 @@ export default function PortfolioArtesPage() {
               Portfólio
             </div>
             <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-              <h1 className="max-w-[980px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[0.98] tracking-[-0.035em] max-sm:leading-[1.02] max-sm:tracking-[-0.025em]">
+              <h1 className="max-w-[980px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[1.08] tracking-[-0.005em] [word-spacing:0.1em] max-sm:leading-[1.1] max-sm:tracking-[0em]">
                 Artes e design que ganharam <span className="text-azure">forma.</span>
               </h1>
               <p className="max-w-[290px] text-[14px] leading-relaxed text-white/55">Campanhas, identidade visual e peças de design produzidas pelo Eixo de Marca.</p>

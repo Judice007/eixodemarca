@@ -28,7 +28,7 @@ export default function SiteFooter() {
     >
       <div className="mx-auto w-full max-w-[1420px]">
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-azure-on-dark">Próximo projeto</p>
-        <h2 className="mt-6 max-w-[1250px] [text-wrap:balance] font-display text-[clamp(29px,5.2vw,80px)] font-black uppercase leading-[0.9] tracking-[-0.05em] max-sm:leading-[0.96] max-sm:tracking-[-0.035em]">
+        <h2 className="mt-6 max-w-[1250px] [text-wrap:balance] font-display text-[clamp(29px,5.2vw,80px)] font-black uppercase leading-[1.05] tracking-[-0.01em] [word-spacing:0.1em] max-sm:leading-[1.08] max-sm:tracking-[-0.005em] [word-spacing:0.1em]">
           Vamos fazer sua marca <span className="text-azure">aparecer.</span>
         </h2>
         {/* Formulário ao lado da chamada: até aqui todo caminho de conversão

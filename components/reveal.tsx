@@ -3,15 +3,6 @@
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform, type Variants } from 'framer-motion'
 
-export function SectionNumber({ number }: { number: string }) {
-  return (
-    <div className="flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/65">
-      <span className="h-px w-10 bg-ink/20" />
-      {number}
-    </div>
-  )
-}
-
 export function Reveal({
   children,
   className = '',

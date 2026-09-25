@@ -77,7 +77,7 @@ export default function ArtScrollGallery() {
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-azure">O que já saiu daqui</p>
         </ContainerAnimated>
         <ContainerAnimated>
-          <h2 className="mx-auto mt-4 max-w-[16ch] [text-wrap:balance] font-display text-[clamp(26px,4.4vw,60px)] font-black uppercase leading-[0.98] tracking-[-0.035em]">
+          <h2 className="mx-auto mt-4 max-w-[16ch] [text-wrap:balance] font-display text-[clamp(26px,4.4vw,60px)] font-black uppercase leading-[1.08] tracking-[-0.005em] [word-spacing:0.1em]">
             Cada peça no <span className="text-azure">eixo</span> da marca
           </h2>
         </ContainerAnimated>
