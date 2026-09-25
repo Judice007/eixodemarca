@@ -278,12 +278,22 @@ export default function EixoEditorialSite() {
           <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
             <div>
               <Reveal>
-                <h2 className="mt-8 max-w-[820px] [text-wrap:balance] font-display text-[clamp(22px,3.3vw,47px)] font-black uppercase leading-[1.08] tracking-[-0.005em] [word-spacing:0.1em] max-sm:leading-[1.1] max-sm:tracking-[0em]">
+                <h2 className="max-w-[820px] [text-wrap:balance] font-display text-[clamp(22px,3.3vw,47px)] font-black uppercase leading-[1.08] tracking-[-0.005em] [word-spacing:0.1em] max-sm:leading-[1.1] max-sm:tracking-[0em]">
                   Marcas criadas pelo nosso <span className="text-azure-heading">eixo.</span>
                 </h2>
               </Reveal>
             </div>
-            <p className="max-w-[320px] text-[14px] leading-relaxed text-ink/65">Clique numa marca pra ver a identidade visual completa.</p>
+            {/* Antes: "Clique numa marca pra ver a identidade visual completa." — além
+                de dizer o óbvio, prometia demais: a página de cada marca mostra o
+                cartão da logo no carrossel, não um sistema de identidade completo.
+                O espaço vira porta pra página das identidades, como nas artes e
+                nos vídeos. */}
+            <Link
+              href="/identidade-visual"
+              className="inline-flex shrink-0 items-center gap-2 self-start border-b border-azure-label/40 pb-1 font-sans text-[13px] font-bold text-azure-label transition-colors hover:border-azure-label hover:text-ink md:self-end"
+            >
+              Ver todas as identidades <span aria-hidden>↗</span>
+            </Link>
           </div>
           {/* Duas coisas mudaram aqui, ambas por bom motivo:
               1. O nome da marca é PERMANENTE. Antes só aparecia no hover — e
