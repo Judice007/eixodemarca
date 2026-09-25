@@ -11,13 +11,33 @@ import { RevealGroup, RevealItem } from '@/components/reveal'
 //
 // No mobile o `aspect-[9/16]` manda; de `sm` pra cima o row-span assume (por
 // isso o `sm:aspect-auto`), com auto-rows curtas fazendo o escalonamento.
+// Alturas calculadas, não sorteadas: scripts/balancear-mosaico.mjs escolhe o
+// row-span de cada vídeo pra que as colunas terminem na mesma altura. Com 19
+// vídeos em 6 colunas, uma coluna sempre ganha um vídeo a mais — a saída é a
+// coluna de 4 ter tiles mais baixos (17) e as de 3 mais altos (23). Resultado:
+// 6 colunas terminam com ~40px de diferença; 3 colunas, exato. (Em 4 e 5
+// colunas sobra ~260-320px: 19 não divide por 4 nem por 5.)
+// Se a lista de vídeos mudar, rode o script de novo e cole o array aqui.
 const SPANS = [
-  'aspect-[9/16] sm:aspect-auto sm:row-span-19',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-21',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-22',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-17',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-17',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
   'aspect-[9/16] sm:aspect-auto sm:row-span-22',
   'aspect-[9/16] sm:aspect-auto sm:row-span-20',
   'aspect-[9/16] sm:aspect-auto sm:row-span-21',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-18',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-17',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
   'aspect-[9/16] sm:aspect-auto sm:row-span-22',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-22',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-20',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-17',
 ]
 
 function MosaicTile({ video, index }: { video: (typeof portfolioVideos)[number]; index: number }) {

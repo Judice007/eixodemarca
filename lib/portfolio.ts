@@ -493,10 +493,10 @@ export const portfolioVideos = [
     tag: 'Bastidores · Captação',
   },
   {
-    src: '/portfolio-media/videos/video-laura-limpeza-de-pele.mp4',
-    poster: '/portfolio-media/videos/poster-laura-limpeza-de-pele.webp',
-    title: 'Você merece uma limpeza de pele',
-    tag: 'Estética · Laura Anjos',
+    src: '/portfolio-media/videos/video-portfolio-02.mp4',
+    poster: '/portfolio-media/videos/poster-conteudo-fitness.webp',
+    title: 'Conteúdo fitness',
+    tag: 'Ritmo · Edição',
   },
   {
     src: '/portfolio-media/videos/video-pousada-01.mp4',
@@ -581,12 +581,6 @@ export const portfolioVideos = [
     poster: '/portfolio-media/videos/poster-eixo-antes-depois.webp',
     title: 'Antes e depois de edição',
     tag: 'Edição · Eixo',
-  },
-  {
-    src: '/portfolio-media/videos/video-portfolio-02.mp4',
-    poster: '/portfolio-media/videos/poster-conteudo-fitness.webp',
-    title: 'Conteúdo fitness',
-    tag: 'Ritmo · Edição',
   },
 ] as const
 
