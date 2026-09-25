@@ -18,13 +18,26 @@ import { CoverflowCarousel } from '@/components/ui/coverflow-carousel'
 import WorkSphere from '@/components/visual/WorkSphere'
 import { projects } from '@/lib/portfolio'
 
+// Carrossel da hero. Ordem pensada pra alternar: nunca duas peças da Eixo
+// (fundo roxo escuro) nem dois posts do mesmo cliente em sequência — o
+// coverflow mostra 3 cards de uma vez, e vizinhos parecidos liam como repetição.
+// As peças da Eixo aqui são todas da identidade atual; as antigas (logo com
+// seta, gradiente coral) saíram.
 const mediaStrip = [
   { src: '/portfolio-media/social-acai.webp', alt: 'Conteúdo para Di Casa Açaí', position: 'center 42%' },
+  { src: '/portfolio-media/artes/eixo-de-marca-03.webp', alt: 'Carrossel da Eixo de Marca sobre direção no marketing', position: 'center' },
   { src: '/portfolio-media/design-ukimports.webp', alt: 'Campanha para UK Imports', position: 'center 48%' },
+  { src: '/portfolio-media/artes/well-calcados-03.webp', alt: 'Post criativo da Well Calçados com tênis em formato de nuvem', position: 'center' },
   { src: '/portfolio-media/social-reset.webp', alt: 'Conteúdo para Reset Madeira Ecológica', position: 'center 52%' },
+  { src: '/portfolio-media/artes/espaco-dos-anjos-03.webp', alt: 'Post do Espaço dos Anjos "Seu olhar é a sua assinatura"', position: 'center' },
   { src: '/portfolio-media/landing-pousada.webp', alt: 'Conteúdo para Pousada da Praia', position: 'center 46%' },
+  { src: '/portfolio-media/artes/eixo-de-marca-05.webp', alt: 'Post da Eixo de Marca: trocaram sua logo pela do concorrente e ninguém notou', position: 'center' },
   { src: '/portfolio-media/portfolio-cuidados-pele.webp', alt: 'Conteúdo de beleza e estética', position: 'center 44%' },
+  { src: '/portfolio-media/artes/ecoutil-04.webp', alt: 'Post da EcoUtil sobre durabilidade, elegância e sustentabilidade', position: 'center' },
   { src: '/portfolio-media/post-laura-protetor-solar.webp', alt: 'Post sobre protetor solar para Laura Anjos', position: 'center 40%' },
+  { src: '/portfolio-media/artes/eixo-de-marca-08.webp', alt: 'Post da Eixo de Marca: boca a boca é ótimo, mas você não controla a torneira', position: 'center' },
+  { src: '/portfolio-media/artes/itamang-01.webp', alt: 'Post da Itamang com mangueira de jardim', position: 'center' },
+  { src: '/portfolio-media/artes/uk-imports-02.webp', alt: 'Post da UK Imports: Orange is the new black?', position: 'center' },
 ]
 
 // Artes + marcas reais viram as bolhas da esfera da seção 01. As marcas são
@@ -104,8 +117,8 @@ export default function EixoEditorialSite() {
             </motion.div>
           </div>
 
-          {/* Carrossel 3D no lugar da faixa que rolava sozinha — mesmas 9
-              imagens reais do portfólio, agora navegável (arrasta ou usa as
+          {/* Carrossel 3D no lugar da faixa que rolava sozinha — imagens reais do
+              portfólio, agora navegável (arrasta ou usa as
               setas) em vez de só decorativo. */}
           <div className="relative mt-[clamp(28px,5vh,60px)] pb-6">
             <CoverflowCarousel
