@@ -215,15 +215,12 @@ export default function EixoEditorialSite() {
                   </h2>
                 </div>
                 <div className="max-w-[300px]">
-                  <p className="text-[14px] leading-relaxed text-white/55">
-                    Os seis vídeos do portfólio reunidos em uma seleção de conteúdo vertical, turismo, apresentação e cobertura.
-                  </p>
                   {/* A página dedicada de vídeos não tinha nenhuma porta de
                       entrada na home depois que as abas saíram — quem não
                       soubesse a URL não chegava nela. */}
                   <Link
                     href="/portfolio/video"
-                    className="mt-4 inline-flex items-center gap-2 border-b border-azure/40 pb-1 font-sans text-[13px] font-bold text-azure-on-dark transition-colors hover:border-azure hover:text-white"
+                    className="inline-flex items-center gap-2 border-b border-azure/40 pb-1 font-sans text-[13px] font-bold text-azure-on-dark transition-colors hover:border-azure hover:text-white"
                   >
                     Ver todos os vídeos <span aria-hidden>↗</span>
                   </Link>

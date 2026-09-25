@@ -515,6 +515,53 @@ export const portfolioVideos = [
     title: 'Movimenta Angra',
     tag: 'Apresentação · Cobertura',
   },
+  // Setembro/2026: vídeos já postados da Eixo e da Well Calçados. Reencodados
+  // em 720x1280 (os tiles do mosaico têm ~200px; 1080p seria peso à toa) —
+  // 0,9 a 3,9 MB cada. Ficaram de fora as versões longas (52-57 s) e as
+  // variações da mesma mensagem (três cortes de Landing Page, dois de
+  // "antes e depois").
+  {
+    src: '/portfolio-media/videos/video-eixo-concorrente.mp4',
+    poster: '/portfolio-media/videos/poster-eixo-concorrente.webp',
+    title: 'Concorrente vende mais',
+    tag: 'Explicativo · Eixo',
+  },
+  {
+    src: '/portfolio-media/videos/video-well-cliente-esperta.mp4',
+    poster: '/portfolio-media/videos/poster-well-cliente-esperta.webp',
+    title: 'Quando a cliente é esperta',
+    tag: 'Produto · Well Calçados',
+  },
+  {
+    src: '/portfolio-media/videos/video-eixo-feed-bonito.mp4',
+    poster: '/portfolio-media/videos/poster-eixo-feed-bonito.webp',
+    title: 'Feed bonito',
+    tag: 'Explicativo · Eixo',
+  },
+  {
+    src: '/portfolio-media/videos/video-well-transicao.mp4',
+    poster: '/portfolio-media/videos/poster-well-transicao.webp',
+    title: 'Transição de tênis',
+    tag: 'Edição · Well Calçados',
+  },
+  {
+    src: '/portfolio-media/videos/video-eixo-landing-page.mp4',
+    poster: '/portfolio-media/videos/poster-eixo-landing-page.webp',
+    title: 'Landing page',
+    tag: 'Explicativo · Eixo',
+  },
+  {
+    src: '/portfolio-media/videos/video-well-dias-da-semana.mp4',
+    poster: '/portfolio-media/videos/poster-well-dias-da-semana.webp',
+    title: 'Dias da semana',
+    tag: 'Produto · Well Calçados',
+  },
+  {
+    src: '/portfolio-media/videos/video-eixo-antes-depois.mp4',
+    poster: '/portfolio-media/videos/poster-eixo-antes-depois.webp',
+    title: 'Antes e depois de edição',
+    tag: 'Edição · Eixo',
+  },
 ] as const
 
 // Uma marca por item hoje (a maioria só tem a logo no projeto ainda — só a

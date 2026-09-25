@@ -12,12 +12,12 @@ import { RevealGroup, RevealItem } from '@/components/reveal'
 // No mobile o `aspect-[9/16]` manda; de `sm` pra cima o row-span assume (por
 // isso o `sm:aspect-auto`), com auto-rows curtas fazendo o escalonamento.
 const SPANS = [
-  'aspect-[9/16] sm:aspect-auto sm:row-span-13',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-16',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-14',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-15',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-12',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-16',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-19',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-22',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-20',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-21',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-18',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-22',
 ]
 
 function MosaicTile({ video, index }: { video: (typeof portfolioVideos)[number]; index: number }) {
@@ -59,7 +59,7 @@ function MosaicTile({ video, index }: { video: (typeof portfolioVideos)[number];
             src={video.poster}
             alt=""
             fill
-            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+            sizes="(min-width: 1280px) 16vw, (min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, 50vw"
             className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
           />
         )}
@@ -83,20 +83,20 @@ function MosaicTile({ video, index }: { video: (typeof portfolioVideos)[number];
           <source src={video.src} type="video/mp4" />
         </video>
 
-        <span className="pointer-events-none absolute left-3 top-3 border border-white/30 bg-ink/70 px-2.5 py-1 font-sans text-[9px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur">
-          0{index + 1}
+        <span className="pointer-events-none absolute left-2 top-2 border border-white/30 bg-ink/70 px-2 py-0.5 font-sans text-[8px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur">
+          {String(index + 1).padStart(2, '0')}
         </span>
 
         {/* Legenda sempre visível, não só no hover: no toque não existe hover,
             então antes o nome do projeto nunca aparecia no celular. Some
             enquanto toca pra não brigar com os controles nativos embaixo. */}
         <div
-          className={`pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink via-ink/70 to-transparent p-3 pt-10 transition-opacity duration-300 ${
+          className={`pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink via-ink/70 to-transparent p-2.5 pt-9 transition-opacity duration-300 ${
             playing ? 'opacity-0' : 'opacity-100'
           }`}
         >
-          <p className="font-sans text-[9px] font-semibold uppercase tracking-[0.14em] text-azure-on-dark">{video.tag}</p>
-          <h3 className="mt-1 font-display text-[15px] font-bold uppercase leading-[1.1] tracking-[-0.02em] text-white">
+          <p className="font-sans text-[8px] font-semibold uppercase tracking-[0.12em] text-azure-on-dark">{video.tag}</p>
+          <h3 className="mt-1 font-display text-[12px] font-bold uppercase leading-[1.1] tracking-[-0.02em] text-white">
             {video.title}
           </h3>
         </div>
@@ -108,8 +108,8 @@ function MosaicTile({ video, index }: { video: (typeof portfolioVideos)[number];
             aria-label={`Reproduzir vídeo: ${video.title}`}
             className="absolute inset-0 flex items-center justify-center bg-ink/15 transition-colors group-hover:bg-ink/25"
           >
-            <span className="grid size-11 place-items-center rounded-full bg-white/95 text-ink shadow-lg transition-transform group-hover:scale-105">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden>
+            <span className="grid size-9 place-items-center rounded-full bg-white/95 text-ink shadow-lg transition-transform group-hover:scale-105">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden>
                 <path d="M8 5v14l11-7z" />
               </svg>
             </span>
@@ -129,11 +129,16 @@ export default function VideoMosaic() {
     // então a primeira coluna nasce na mesma margem do título. Centralizado e
     // mais estreito que o texto, ele lia como um bloco solto no meio.
     //
-    // Em lg vira 4 colunas: na largura cheia, 3 colunas dariam células de
+    // Densidade (pedido: mais vídeos, grade menor): 3 colunas em sm, 4 em md,
+    // 5 em lg, 6 em xl, sempre com gap de 12px e auto-rows de 8px — altura da
+    // célula = 20*span - 12. Com spans 18-22 a proporção fica entre ~0.44 e
+    // ~0.61 em qualquer coluna de 175 a 215px, ainda formato reels.
+    //
+    // (Comentário antigo, pra 4 colunas grandes:) Em lg vira 4 colunas: na largura cheia, 3 colunas dariam células de
     // 440px e o formato sairia de reels pra quase 4:5. Com 4 colunas a célula
     // fica em ~325px e as auto-rows de 27px seguram a proporção entre 0.44 e
     // 0.60 — largura da coluna e auto-rows andam sempre juntas.
-    <RevealGroup className="mt-10 grid grid-cols-2 gap-3 sm:auto-rows-[28px] sm:grid-cols-3 sm:grid-flow-row-dense lg:auto-rows-[27px] lg:grid-cols-4 lg:gap-5">
+    <RevealGroup className="mt-10 grid grid-cols-2 gap-3 sm:auto-rows-[8px] sm:grid-cols-3 sm:grid-flow-row-dense md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
       {portfolioVideos.map((video, index) => (
         <MosaicTile key={video.src} video={video} index={index} />
       ))}
