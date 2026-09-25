@@ -31,35 +31,40 @@ export const works: Work[] = [
     id: 'social-media',
     label: 'Social media',
     caption: 'Rotina editorial e conteúdo',
-    format: 'portrait', // poster 640x1138 (9:16)
+    format: 'portrait', // poster 480x854 (9:16)
     accent: '#da2d3a',
-    card: '/portfolio-media/videos/poster-movimenta-angra.webp',
+    card: '/portfolio-media/videos/poster-social-feed.webp',
     screen: {
       type: 'video',
-      src: '/portfolio-media/videos/device/video-portfolio-03.mp4',
-      poster: '/portfolio-media/videos/poster-movimenta-angra.webp',
+      src: '/portfolio-media/videos/device/video-social-feed.mp4',
+      poster: '/portfolio-media/videos/poster-social-feed.webp',
     },
   },
   {
     id: 'identidade-visual',
     label: 'Identidade visual',
     caption: 'Marcas e sistemas visuais',
-    format: 'square', // marca Vista Bajeko 1080x1080 (1:1)
+    format: 'portrait', // poster 480x854 (9:16)
     accent: '#28112e',
-    // Card = a marca da Vista Bajeko; tela = a mesma marca aplicada no manual.
-    card: '/portfolio-media/identidade-vista-bajeko.webp',
-    screen: { type: 'image', src: '/portfolio-media/identidade-vista-bajeko-manual.webp' },
+    card: '/portfolio-media/videos/poster-identidade-kit.webp',
+    screen: {
+      type: 'video',
+      src: '/portfolio-media/videos/device/video-identidade-kit.mp4',
+      poster: '/portfolio-media/videos/poster-identidade-kit.webp',
+    },
   },
   {
     id: 'design',
     label: 'Design',
     caption: 'Campanhas e lançamentos',
-    // 640x800 (4:5). Em 'portrait' (9:19.5) a peça perderia quase toda a
-    // diagramação no corte; 'square' corta pouco e mantém o assunto.
-    format: 'square',
+    format: 'portrait', // poster 480x854 (9:16)
     accent: '#ef5a78',
-    card: '/portfolio-media/design-ukimports.webp',
-    screen: { type: 'image', src: '/portfolio-media/design-ukimports.webp' },
+    card: '/portfolio-media/videos/poster-design-carrossel.webp',
+    screen: {
+      type: 'video',
+      src: '/portfolio-media/videos/device/video-design-carrossel.mp4',
+      poster: '/portfolio-media/videos/poster-design-carrossel.webp',
+    },
   },
   {
     id: 'edicao-de-video',
