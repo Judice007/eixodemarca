@@ -373,6 +373,18 @@ export const identities = [
     alt: 'JO Salão de Beleza',
     accent: '#922b1a',
   },
+  // Kit fechado em set/2026: wordmark + símbolo (o W dentro do tênis) +
+  // mascote 3D, em navy (#000e29) e roxo (#682898). Card usa a versão branca
+  // do logo sobre o navy — é a cor dominante do desenho (tênis + "Well").
+  // accent é o roxo da marca, não o navy do card: bate mais forte no
+  // re-hue do carrossel (o navy quase preto achataria o efeito).
+  {
+    slug: 'well-calcados',
+    name: 'Well Calçados',
+    src: '/portfolio-media/marca-well-calcados.webp',
+    alt: 'Well Calçados',
+    accent: '#682898',
+  },
 ] as const
 
 export const marks = identities.map(({ src, alt }) => ({ src, alt }))
