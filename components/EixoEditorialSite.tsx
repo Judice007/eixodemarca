@@ -80,7 +80,7 @@ export default function EixoEditorialSite() {
                 Sua marca fora do automático
               </motion.p>
               <motion.h1
-                className="mx-auto max-w-[1250px] [text-wrap:balance] font-display text-[clamp(28px,5vw,78px)] font-black uppercase leading-[0.92] tracking-[-0.005em] [word-spacing:0.12em] text-paper max-sm:text-[24px] max-sm:leading-[0.98] max-sm:tracking-[0em] lg:mx-0"
+                className="mx-auto max-w-[1250px] [text-wrap:balance] font-display text-[clamp(28px,5vw,78px)] font-black uppercase leading-[1.08] tracking-[-0.005em] [word-spacing:0.12em] text-paper max-sm:text-[24px] max-sm:leading-[1.12] max-sm:tracking-[0em] lg:mx-0"
                 initial={reduce ? false : { opacity: 0, y: 45 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
@@ -95,7 +95,7 @@ export default function EixoEditorialSite() {
                 transition={{ duration: 0.75, delay: 0.18 }}
               >
                 <p className="max-w-[590px] text-[15px] leading-relaxed text-white/65 md:text-left md:text-[17px]">
-                  Unimos social media, design, vídeo e organização para transformar ideias em presença digital — e tirar cada projeto do papel.
+                  Unimos social media, design, vídeo e organização para transformar ideias em presença digital e tirar cada projeto do papel.
                 </p>
                 <a
                   href="#portfolio"
