@@ -354,15 +354,32 @@ export const portfolioVideos = [
 // Vista Bajeko tem uma segunda peça, o mockup de camiseta, usado aqui em vez
 // da logo plana por mostrar a marca aplicada). `accent` é só a cor de fundo
 // do card na página /identidade-visual/[slug] — não é conteúdo, é estilo.
+// Ordem calculada, não cronológica: alterna card claro/escuro pra não
+// empilhar tons parecidos em sequência (aconteceu com Espaço dos Anjos,
+// Laura Anjos e Viva Angra — três fundos brancos seguidos na grade de
+// 5 colunas). Checkerboard D-L-D-L-D / L-D-L-D-L nas duas linhas.
+//
+// Os nomes de arquivo com hash (.xxxxxxxx.webp) são propositais: os headers
+// em next.config.ts cacheiam /portfolio-media/ por 1 ano como `immutable`.
+// Sobrescrever o mesmo nome não invalida o cache do navegador nem da CDN —
+// o arquivo muda no servidor, mas quem já visitou continua vendo o antigo.
+// Trocar o nome força uma URL nova, sem cache pra brigar. Sempre que um
+// destes arquivos for re-editado, gerar um hash novo (sha1 dos primeiros
+// bytes, 8 caracteres) em vez de sobrescrever o mesmo arquivo.
 export const identities = [
-  { slug: 'eixo-de-marca', name: 'Eixo de Marca', src: '/portfolio-media/marca-eixo.webp', alt: 'Eixo de Marca', accent: '#28112e' },
-  { slug: 'vista-bajeko', name: 'Vista Bajeko', src: '/portfolio-media/marca-vista-bajeko.webp', alt: 'Vista Bajeko', accent: '#0b4a5c' },
+  // fundo escuro (roxo norte, a própria cor da marca) — wordmark claro
+  {
+    slug: 'eixo-de-marca',
+    name: 'Eixo de Marca',
+    src: '/portfolio-media/marca-eixo.ab7dfce5.webp',
+    alt: 'Eixo de Marca',
+    accent: '#28112e',
+  },
   { slug: 'espaco-dos-anjos', name: 'Espaço dos Anjos', src: '/portfolio-media/marca-espaco-dos-anjos.webp', alt: 'Espaço dos Anjos', accent: '#b8879a' },
+  { slug: 'vista-bajeko', name: 'Vista Bajeko', src: '/portfolio-media/marca-vista-bajeko.webp', alt: 'Vista Bajeko', accent: '#0b4a5c' },
   { slug: 'laura-anjos', name: 'Laura Anjos', src: '/portfolio-media/marca-laura-anjos.webp', alt: 'Laura Anjos', accent: '#caa153' },
-  { slug: 'viva-angra', name: 'Viva Angra', src: '/portfolio-media/marca-viva-angra.webp', alt: 'Viva Angra', accent: '#2f7d6b' },
-  { slug: 'luciane-judice', name: 'Luciane Júdice', src: '/portfolio-media/marca-luciane-judice.webp', alt: 'Luciane Júdice', accent: '#8b4bc8' },
-  { slug: 'itamang', name: 'Itamang', src: '/portfolio-media/marca-itamang.webp', alt: 'Itamang', accent: '#3a5a8c' },
   { slug: 'bm', name: 'BIG', src: '/portfolio-media/marca-bm.webp', alt: 'BIG', accent: '#da2d3a' },
+  { slug: 'viva-angra', name: 'Viva Angra', src: '/portfolio-media/marca-viva-angra.webp', alt: 'Viva Angra', accent: '#2f7d6b' },
   // Manual fechado em 29/08/2026. Card montado em 1080x1440 — o 3:4 exato do
   // carrossel — com a logo aparada até o lettering: o PNG de origem tinha
   // margem demais e a marca saía boiando no cartão.
@@ -373,15 +390,24 @@ export const identities = [
     alt: 'JO Salão de Beleza',
     accent: '#922b1a',
   },
+  // Master positivo (tinta preta, transparente) achado no material do
+  // cliente — o card anterior usava a versão branca-em-negativo.
+  {
+    slug: 'itamang',
+    name: 'Itamang',
+    src: '/portfolio-media/marca-itamang.fe777fe4.webp',
+    alt: 'Itamang',
+    accent: '#3a5a8c',
+  },
+  { slug: 'luciane-judice', name: 'Luciane Júdice', src: '/portfolio-media/marca-luciane-judice.webp', alt: 'Luciane Júdice', accent: '#8b4bc8' },
   // Kit fechado em set/2026: wordmark + símbolo (o W dentro do tênis) +
-  // mascote 3D, em navy (#000e29) e roxo (#682898). Card usa a versão branca
-  // do logo sobre o navy — é a cor dominante do desenho (tênis + "Well").
-  // accent é o roxo da marca, não o navy do card: bate mais forte no
-  // re-hue do carrossel (o navy quase preto achataria o efeito).
+  // mascote 3D, em navy (#000e29) e roxo (#682898). Card usa a versão
+  // COLORIDA oficial (não a branca-em-negativo que estava antes) — o desenho
+  // do tênis depende do fundo claro pra funcionar, então foi pro papel.
   {
     slug: 'well-calcados',
     name: 'Well Calçados',
-    src: '/portfolio-media/marca-well-calcados.webp',
+    src: '/portfolio-media/marca-well-calcados.8561f7cc.webp',
     alt: 'Well Calçados',
     accent: '#682898',
   },
