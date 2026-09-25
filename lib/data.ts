@@ -30,13 +30,22 @@ export const services = [
 ] as const
 
 export const contactInfo = {
-  email: 'lipejudice@gmail.com',
+  // E-mail PÚBLICO: aparece no rodapé e é o destino do mailto.
+  email: 'eixodemarca@gmail.com',
   // WhatsApp — formato internacional (55 + DDD + número), sem símbolos.
   phone: '552433662420',
   instagram: 'https://www.instagram.com/eixodemarca/',
   linkedin: '',
   facebook: '',
 }
+
+// Caixa que RECEBE o formulário de contato — de propósito separada do e-mail
+// público acima. O remetente do envio é o de teste do Resend
+// (onboarding@resend.dev, variável RESEND_FROM), que só entrega no e-mail do
+// DONO DA CONTA. Apontar pro e-mail público sem antes verificar um domínio no
+// Resend (ou sem esse ser o e-mail da conta) faria todo envio falhar com 403 —
+// e o visitante veria erro e o lead se perderia. Trocar só depois disso.
+export const leadsInbox = 'lipejudice@gmail.com'
 
 const WHATSAPP_MESSAGE = 'Olá, Eixo de Marca. Quero conversar sobre um projeto para a minha marca.'
 

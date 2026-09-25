@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { contactInfo, services } from '@/lib/data'
+import { leadsInbox, services } from '@/lib/data'
 
 /**
  * Recebe o formulário do rodapé e manda por e-mail.
@@ -129,7 +129,7 @@ export async function POST(request: Request) {
     },
     body: JSON.stringify({
       from: remetente,
-      to: [contactInfo.email],
+      to: [leadsInbox],
       // Responder no cliente de e-mail vai direto pra pessoa. Só dá pra fazer
       // isso quando ela informou e-mail — se não, o contato é pelo telefone.
       ...(email ? { reply_to: email } : {}),
