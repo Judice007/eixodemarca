@@ -6,7 +6,7 @@ import { methodSteps, services } from '@/lib/data'
 import { identities } from '@/lib/portfolio'
 import Link from 'next/link'
 import ServiceOrbit from '@/components/hero/ServiceOrbit'
-import MethodAxis from '@/components/MethodAxis'
+import MethodProcess from '@/components/MethodProcess'
 import PontoCegoCta from '@/components/PontoCegoCta'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
@@ -253,10 +253,11 @@ export default function EixoEditorialSite() {
             </Reveal>
           </div>
 
-          {/* Etapas sobre um eixo que se preenche conforme a rolagem: o
-              traço de coral avança e cada etapa acende quando é alcançada.
-              O eixo é o nome da marca, então ele carrega o significado aqui. */}
-          <MethodAxis steps={methodSteps} />
+          {/* Lista editorial sobre um eixo vermelho que se preenche etapa por
+              etapa. Substitui o quadro escuro 2x2 com números fantasma, que
+              lia como template gerado. Aqui a numeração fica porque a ordem é
+              informação real (cada etapa só começa quando a anterior entrega). */}
+          <MethodProcess steps={methodSteps} />
         </div>
       </section>
 
