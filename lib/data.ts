@@ -16,8 +16,8 @@ export const services = [
     text: 'Reels, coberturas, takes e conteúdos verticais com ritmo para prender a atenção.',
   },
   {
-    title: 'Gestão de projetos',
-    text: 'Organização de tarefas, profissionais e processos para o trabalho fluir melhor.',
+    title: 'Gestão de conteúdo',
+    text: 'Calendário de posts, prazos e publicações organizados para as redes andarem em dia.',
   },
   {
     title: 'Landing pages',

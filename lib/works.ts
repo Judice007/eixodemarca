@@ -46,11 +46,11 @@ export const works: Work[] = [
     caption: 'Marcas e sistemas visuais',
     format: 'portrait', // poster 480x854 (9:16)
     accent: '#28112e',
-    card: '/portfolio-media/videos/poster-identidade-kit.webp',
+    card: '/portfolio-media/videos/poster-identidade-kit-2.webp',
     screen: {
       type: 'video',
-      src: '/portfolio-media/videos/device/video-identidade-kit.mp4',
-      poster: '/portfolio-media/videos/poster-identidade-kit.webp',
+      src: '/portfolio-media/videos/device/video-identidade-kit-2.mp4',
+      poster: '/portfolio-media/videos/poster-identidade-kit-2.webp',
     },
   },
   {
@@ -59,11 +59,11 @@ export const works: Work[] = [
     caption: 'Campanhas e lançamentos',
     format: 'portrait', // poster 480x854 (9:16)
     accent: '#ef5a78',
-    card: '/portfolio-media/videos/poster-design-carrossel.webp',
+    card: '/portfolio-media/videos/poster-design-carrosseis-2.webp',
     screen: {
       type: 'video',
-      src: '/portfolio-media/videos/device/video-design-carrossel.mp4',
-      poster: '/portfolio-media/videos/poster-design-carrossel.webp',
+      src: '/portfolio-media/videos/device/video-design-carrosseis-2.mp4',
+      poster: '/portfolio-media/videos/poster-design-carrosseis-2.webp',
     },
   },
   {
@@ -80,8 +80,8 @@ export const works: Work[] = [
     },
   },
   {
-    id: 'gestao-de-projetos',
-    label: 'Gestão de projetos',
+    id: 'gestao-de-conteudo',
+    label: 'Gestão de conteúdo',
     caption: 'Vários clientes, um calendário',
     format: 'portrait', // poster 480x854 (9:16)
     accent: '#6a3fb0',
@@ -98,11 +98,11 @@ export const works: Work[] = [
     caption: 'Páginas que convertem',
     format: 'portrait', // poster 480x854 (9:16)
     accent: '#d94f96',
-    card: '/portfolio-media/videos/poster-landing-manoa-mobile.webp',
+    card: '/portfolio-media/videos/poster-landing-manoa-rapido.webp',
     screen: {
       type: 'video',
-      src: '/portfolio-media/videos/device/video-landing-manoa-mobile.mp4',
-      poster: '/portfolio-media/videos/poster-landing-manoa-mobile.webp',
+      src: '/portfolio-media/videos/device/video-landing-manoa-rapido.mp4',
+      poster: '/portfolio-media/videos/poster-landing-manoa-rapido.webp',
     },
   },
   {
