@@ -55,31 +55,33 @@ export type MethodStep = {
   bullets: string[]
 }
 
-// As 4 etapas do método do Eixo (mesmos rótulos usados na coluna "Processo" do
-// rodapé) — processo, não pessoas ou serviços, para não repetir axisServices.
+// As 4 etapas do método, escritas do lado de quem contrata: verbo simples no
+// lugar de jargão de agência (Diagnóstico, Otimização, "rota editorial",
+// "leitura de dados"). Só diz o que já era verdade no texto anterior — nenhuma
+// promessa nova. As `key` ficam como estavam: são só chave do React.
 export const methodSteps: MethodStep[] = [
   {
     key: 'diagnostico',
-    label: 'Diagnóstico',
-    description: 'Entender a marca, a oferta, o público e os canais antes de definir qualquer entrega.',
-    bullets: ['Briefing', 'Contexto da marca', 'Objetivos'],
+    label: 'Entender',
+    description: 'Conversamos pra conhecer seu negócio, seu cliente e onde ele te encontra — antes de criar qualquer coisa.',
+    bullets: ['Seu negócio', 'Seu cliente', 'Seus objetivos'],
   },
   {
     key: 'planejamento',
-    label: 'Planejamento',
-    description: 'Organizar calendário, campanha, prioridades e responsáveis para o projeto ganhar ritmo.',
-    bullets: ['Rota editorial', 'Cronograma', 'Prioridades'],
+    label: 'Planejar',
+    description: 'Montamos o calendário: o que postar, quando e por quê, com cada tarefa e cada responsável definidos.',
+    bullets: ['Calendário de posts', 'Prazos', 'Quem faz o quê'],
   },
   {
     key: 'producao',
-    label: 'Produção',
-    description: 'Transformar a estratégia em design, identidade, vídeo, conteúdo e páginas prontas para o público.',
-    bullets: ['Design e identidade', 'Edição de vídeo', 'Landing pages'],
+    label: 'Criar',
+    description: 'Criamos tudo o que vai ao ar: artes, vídeos, textos, identidade visual e páginas.',
+    bullets: ['Artes e identidade visual', 'Vídeos', 'Páginas'],
   },
   {
     key: 'otimizacao',
-    label: 'Gestão & Otimização',
-    description: 'Acompanhar tarefas, mídia e resultados para ajustar a rota sem perder prazos ou consistência.',
-    bullets: ['Gestão do fluxo', 'Leitura de dados', 'Ajustes contínuos'],
+    label: 'Acompanhar',
+    description: 'Olhamos os resultados e ajustamos o caminho: o que deu certo continua, o que não deu muda.',
+    bullets: ['Resultados', 'Anúncios', 'Ajustes no caminho'],
   },
 ]

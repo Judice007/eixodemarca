@@ -247,7 +247,7 @@ export default function EixoEditorialSite() {
                   Criatividade precisa de <span className="text-azure-heading">processo.</span>
                 </h2>
                 <p className="max-w-[300px] text-[14px] leading-relaxed text-ink/65">
-                  Quatro etapas, na ordem. Cada uma só começa quando a anterior deu o que a próxima precisa.
+                  Quatro etapas, sempre nessa ordem: primeiro a gente entende o seu negócio, só depois cria.
                 </p>
               </div>
             </Reveal>
