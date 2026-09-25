@@ -104,14 +104,14 @@ export const works: Work[] = [
   {
     id: 'trafego-pago',
     label: 'Tráfego pago',
-    caption: 'Campanhas com público certo',
+    caption: 'Resultados reais, mês a mês',
     format: 'portrait', // poster 480x854 (9:16)
     accent: '#8b4bc8',
-    card: '/portfolio-media/videos/poster-trafego-pago.webp',
+    card: '/portfolio-media/videos/poster-trafego-painel-well.webp',
     screen: {
       type: 'video',
-      src: '/portfolio-media/videos/device/video-trafego-pago.mp4',
-      poster: '/portfolio-media/videos/poster-trafego-pago.webp',
+      src: '/portfolio-media/videos/device/video-trafego-painel-well.mp4',
+      poster: '/portfolio-media/videos/poster-trafego-painel-well.webp',
     },
   },
 ]
