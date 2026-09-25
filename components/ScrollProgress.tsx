@@ -1,5 +1,6 @@
 'use client'
 
+import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
 
 /**
@@ -14,6 +15,15 @@ import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'fr
  */
 export default function ScrollProgress() {
   const reduce = useReducedMotion()
+  const arrastando = useRef(false)
+
+  // Clique ou arraste no trilho leva a página à posição proporcional. Só mouse
+  // e caneta: no toque a lateral continua sendo rolagem normal.
+  const irPara = (clientY: number) => {
+    const r = (clientY - 12) / (window.innerHeight - 24)
+    const alvo = Math.min(1, Math.max(0, r)) * (document.documentElement.scrollHeight - window.innerHeight)
+    window.scrollTo({ top: alvo, behavior: 'auto' })
+  }
   const { scrollYProgress } = useScroll()
   const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 24, mass: 0.5 })
 
@@ -25,6 +35,25 @@ export default function ScrollProgress() {
 
   return (
     <div aria-hidden className="pointer-events-none fixed inset-y-0 right-3 z-[60] w-0">
+      <div
+        className="pointer-events-auto absolute inset-y-0 left-0"
+        style={{ width: 28, marginLeft: -14, cursor: 'pointer', touchAction: 'none' }}
+        onPointerDown={(e) => {
+          if (e.pointerType === 'touch') return
+          arrastando.current = true
+          e.currentTarget.setPointerCapture(e.pointerId)
+          irPara(e.clientY)
+        }}
+        onPointerMove={(e) => {
+          if (arrastando.current) irPara(e.clientY)
+        }}
+        onPointerUp={() => {
+          arrastando.current = false
+        }}
+        onPointerCancel={() => {
+          arrastando.current = false
+        }}
+      />
       <div className="absolute inset-y-3 left-0 w-px -translate-x-1/2 bg-ink/10" />
       <motion.div
         className="absolute left-0 top-3 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-azure/60 to-azure"
