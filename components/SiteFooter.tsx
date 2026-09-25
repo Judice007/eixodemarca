@@ -3,6 +3,18 @@ import { contactInfo, mailtoUrl, whatsappUrl } from '@/lib/data'
 import PontoCegoCta from '@/components/PontoCegoCta'
 import ContactForm from '@/components/ContactForm'
 
+/** Câmera com o furo do flash — glifo padrão do Instagram, sem depender de
+ * lib de ícone (o lucide-react instalado aqui não tem o ícone Instagram). */
+function InstagramIcon() {
+  return (
+    <svg aria-hidden width="16" height="16" viewBox="0 0 24 24" fill="none" className="shrink-0">
+      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="12" cy="12" r="4.2" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" />
+    </svg>
+  )
+}
+
 // min-h-svh + justify-center: o rodapé tinha 620px numa janela de 910, e como
 // ele é o fim da página não havia rolagem suficiente pra encostá-lo no topo —
 // clicar em "Contato" parava no máximo da rolagem com 290px da seção anterior
@@ -40,6 +52,18 @@ export default function SiteFooter() {
             </a>
             <a href={mailtoUrl} className="border border-white/25 px-6 py-3.5 text-[13px] font-bold transition-colors hover:border-white">
               {contactInfo.email}
+            </a>
+            {/* Prova social: quem contrata social media quer ver o feed antes
+                de fechar. Sem isso o site de uma agência de social media não
+                linkava o próprio Instagram em lugar nenhum. */}
+            <a
+              href={contactInfo.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 border border-white/25 px-6 py-3.5 text-[13px] font-bold transition-colors hover:border-white"
+            >
+              <InstagramIcon />
+              @eixodemarca
             </a>
             {/* Segunda chance de captura pra quem rolou a página inteira sem
                 converter na hero — mesma oferta, sem repetir a cor sólida

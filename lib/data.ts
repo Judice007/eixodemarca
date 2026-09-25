@@ -33,7 +33,7 @@ export const contactInfo = {
   email: 'lipejudice@gmail.com',
   // WhatsApp — formato internacional (55 + DDD + número), sem símbolos.
   phone: '552433662420',
-  instagram: '',
+  instagram: 'https://www.instagram.com/eixodemarca/',
   linkedin: '',
   facebook: '',
 }

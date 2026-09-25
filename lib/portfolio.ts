@@ -356,7 +356,7 @@ export const portfolioVideos = [
 // do card na página /identidade-visual/[slug] — não é conteúdo, é estilo.
 export const identities = [
   { slug: 'eixo-de-marca', name: 'Eixo de Marca', src: '/portfolio-media/marca-eixo.webp', alt: 'Eixo de Marca', accent: '#28112e' },
-  { slug: 'vista-bajeko', name: 'Vista Bajeko', src: '/portfolio-media/identidade-vista-bajeko-manual.webp', alt: 'Vista Bajeko', accent: '#0b4a5c' },
+  { slug: 'vista-bajeko', name: 'Vista Bajeko', src: '/portfolio-media/marca-vista-bajeko.webp', alt: 'Vista Bajeko', accent: '#0b4a5c' },
   { slug: 'espaco-dos-anjos', name: 'Espaço dos Anjos', src: '/portfolio-media/marca-espaco-dos-anjos.webp', alt: 'Espaço dos Anjos', accent: '#b8879a' },
   { slug: 'laura-anjos', name: 'Laura Anjos', src: '/portfolio-media/marca-laura-anjos.webp', alt: 'Laura Anjos', accent: '#caa153' },
   { slug: 'viva-angra', name: 'Viva Angra', src: '/portfolio-media/marca-viva-angra.webp', alt: 'Viva Angra', accent: '#2f7d6b' },
