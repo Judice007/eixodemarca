@@ -286,7 +286,7 @@ export default function EixoEditorialSite() {
                  criava custava a personalidade de cada marca.
               O acento de cada marca vira o filete que acende no hover, então a
               cor própria dela é o que responde ao cursor. */}
-          <div className="mt-11 grid grid-cols-2 gap-x-4 gap-y-7 sm:grid-cols-4 sm:gap-x-5">
+          <div className="mt-11 grid grid-cols-2 gap-x-4 gap-y-7 sm:grid-cols-5 sm:gap-x-5">
             {identities.map((mark) => (
               <Link
                 key={mark.slug}
