@@ -28,17 +28,17 @@ export default function SiteFooter() {
     >
       <div className="mx-auto w-full max-w-[1420px]">
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-azure-on-dark">Próximo projeto</p>
-        <h2 className="mt-6 max-w-[1250px] [text-wrap:balance] font-display text-[clamp(29px,5.2vw,80px)] font-black uppercase leading-[1.05] tracking-[-0.01em] [word-spacing:0.1em] max-sm:leading-[1.08] max-sm:tracking-[-0.005em] [word-spacing:0.1em]">
+        <h2 className="mt-6 max-w-[1250px] [text-wrap:balance] font-display text-[clamp(29px,5.2vw,80px)] font-black uppercase leading-[1.05] tracking-[-0.01em] [word-spacing:0.1em] max-sm:leading-[1.08] max-sm:tracking-[0em]">
           Vamos fazer sua marca <span className="text-azure">aparecer.</span>
         </h2>
         {/* Formulário ao lado da chamada: até aqui todo caminho de conversão
             do site levava ao WhatsApp, e isso filtra quem pesquisa frio, quem
             é de empresa ou quem está fora do horário. O WhatsApp segue logo
             abaixo, pra quem prefere. */}
-        <div className="mt-12 grid gap-10 border-t border-white/15 pt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
-          <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/55">Conte o que precisa</p>
-            <p className="mt-3 max-w-[380px] text-[15px] leading-relaxed text-white/65">
+        <div className="mt-12 border-t border-white/15 pt-10">
+          <div className="mb-8 flex flex-col gap-2 md:flex-row md:items-baseline md:gap-10">
+            <p className="shrink-0 font-mono text-[10px] uppercase tracking-[0.18em] text-white/55">Conte o que precisa</p>
+            <p className="max-w-[560px] text-[15px] leading-relaxed text-white/65">
               Escreve aqui e eu respondo por e-mail. Se preferir conversa direta, o WhatsApp está logo abaixo.
             </p>
           </div>

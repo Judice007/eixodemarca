@@ -66,48 +66,49 @@ export default function ContactForm() {
 
   const rotulo = 'mb-1.5 block font-mono text-[9px] uppercase tracking-[0.14em] text-white/50'
 
+  // Layout deitado: 12 colunas no desktop. Linha 1 = quem é você (4 x 3
+  // colunas); linha 2 = o que você quer (serviço 3 + expectativa 6 + e-mail 3);
+  // linha 3 = enviar. Antes era uma coluna alta de 7 campos ao lado de um texto
+  // curto, que deixava metade da largura vazia. Em sm são 2 colunas; no
+  // celular, uma só.
   return (
-    <form ref={formRef} onSubmit={enviar} className="flex flex-col gap-4">
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor={`${id}-nome`} className={rotulo}>
-            Nome <span className="text-azure-on-dark">*</span>
-          </label>
-          <input id={`${id}-nome`} name="nome" required autoComplete="name" placeholder="Como te chamo?" className={campo} />
-        </div>
-        <div>
-          <label htmlFor={`${id}-telefone`} className={rotulo}>
-            WhatsApp <span className="text-azure-on-dark">*</span>
-          </label>
-          <input
-            id={`${id}-telefone`}
-            name="telefone"
-            required
-            type="tel"
-            inputMode="tel"
-            autoComplete="tel"
-            placeholder="(24) 99999-0000"
-            className={campo}
-          />
-        </div>
+    <form ref={formRef} onSubmit={enviar} className="grid gap-x-4 gap-y-5 sm:grid-cols-2 lg:grid-cols-12">
+      <div className="lg:col-span-3">
+        <label htmlFor={`${id}-nome`} className={rotulo}>
+          Nome <span className="text-azure-on-dark">*</span>
+        </label>
+        <input id={`${id}-nome`} name="nome" required autoComplete="name" placeholder="Como te chamo?" className={campo} />
+      </div>
+      <div className="lg:col-span-3">
+        <label htmlFor={`${id}-telefone`} className={rotulo}>
+          WhatsApp <span className="text-azure-on-dark">*</span>
+        </label>
+        <input
+          id={`${id}-telefone`}
+          name="telefone"
+          required
+          type="tel"
+          inputMode="tel"
+          autoComplete="tel"
+          placeholder="(24) 99999-0000"
+          className={campo}
+        />
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor={`${id}-cidade`} className={rotulo}>
-            Cidade
-          </label>
-          <input id={`${id}-cidade`} name="cidade" autoComplete="address-level2" placeholder="Angra dos Reis" className={campo} />
-        </div>
-        <div>
-          <label htmlFor={`${id}-instagram`} className={rotulo}>
-            Instagram
-          </label>
-          <input id={`${id}-instagram`} name="instagram" placeholder="@suamarca" className={campo} />
-        </div>
+      <div className="lg:col-span-3">
+        <label htmlFor={`${id}-cidade`} className={rotulo}>
+          Cidade
+        </label>
+        <input id={`${id}-cidade`} name="cidade" autoComplete="address-level2" placeholder="Angra dos Reis" className={campo} />
+      </div>
+      <div className="lg:col-span-3">
+        <label htmlFor={`${id}-instagram`} className={rotulo}>
+          Instagram
+        </label>
+        <input id={`${id}-instagram`} name="instagram" placeholder="@suamarca" className={campo} />
       </div>
 
-      <div>
+      <div className="sm:col-span-2 lg:col-span-3">
         <label htmlFor={`${id}-servico`} className={rotulo}>
           O que você procura <span className="text-azure-on-dark">*</span>
         </label>
@@ -128,7 +129,7 @@ export default function ContactForm() {
         </select>
       </div>
 
-      <div>
+      <div className="sm:col-span-2 lg:col-span-6">
         <label htmlFor={`${id}-expectativa`} className={rotulo}>
           O que você espera <span className="text-azure-on-dark">*</span>
         </label>
@@ -136,13 +137,13 @@ export default function ContactForm() {
           id={`${id}-expectativa`}
           name="expectativa"
           required
-          rows={3}
+          rows={2}
           placeholder="Conta rapidinho o momento da sua marca e onde quer chegar."
           className={`${campo} resize-y`}
         />
       </div>
 
-      <div>
+      <div className="sm:col-span-2 lg:col-span-3">
         <label htmlFor={`${id}-email`} className={rotulo}>
           E-mail <span className="normal-case tracking-normal text-white/35">(opcional)</span>
         </label>
@@ -160,7 +161,7 @@ export default function ContactForm() {
         className="pointer-events-none absolute left-[-9999px] h-0 w-0 opacity-0"
       />
 
-      <div className="mt-1 flex flex-wrap items-center gap-4">
+      <div className="flex flex-wrap items-center gap-4 sm:col-span-2 lg:col-span-12">
         <button
           type="submit"
           disabled={estado === 'enviando'}
