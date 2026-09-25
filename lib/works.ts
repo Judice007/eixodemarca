@@ -64,14 +64,14 @@ export const works: Work[] = [
   {
     id: 'edicao-de-video',
     label: 'Edição de vídeo',
-    caption: 'Reels, takes e coberturas',
+    caption: 'Antes e depois de edição',
     format: 'portrait', // poster 480x854 (9:16)
     accent: '#b04ab0',
-    card: '/portfolio-media/videos/poster-edicao-institucional.webp',
+    card: '/portfolio-media/videos/poster-eixo-antes-depois.webp',
     screen: {
       type: 'video',
-      src: '/portfolio-media/videos/device/video-edicao-institucional.mp4',
-      poster: '/portfolio-media/videos/poster-edicao-institucional.webp',
+      src: '/portfolio-media/videos/device/video-eixo-antes-depois.mp4',
+      poster: '/portfolio-media/videos/poster-eixo-antes-depois.webp',
     },
   },
   {
@@ -89,11 +89,11 @@ export const works: Work[] = [
     caption: 'Páginas que convertem',
     format: 'portrait', // poster 480x854 (9:16)
     accent: '#d94f96',
-    card: '/portfolio-media/videos/poster-manoa-tour.webp',
+    card: '/portfolio-media/videos/poster-landing-manoa-mobile.webp',
     screen: {
       type: 'video',
-      src: '/portfolio-media/videos/device/video-manoa-tour.mp4',
-      poster: '/portfolio-media/videos/poster-manoa-tour.webp',
+      src: '/portfolio-media/videos/device/video-landing-manoa-mobile.mp4',
+      poster: '/portfolio-media/videos/poster-landing-manoa-mobile.webp',
     },
   },
   {
