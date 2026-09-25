@@ -1,33 +1,22 @@
 import type { Metadata } from 'next'
-import { Inter, Instrument_Serif, Montserrat, Syncopate } from 'next/font/google'
+import { Inter, Cal_Sans } from 'next/font/google'
 import './globals.css'
 
 const SITE_URL = 'https://eixodemarca.vercel.app'
 
-const montserrat = Montserrat({
-  subsets: ['latin'],
-  variable: '--font-montserrat',
-  display: 'swap',
-})
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-})
-
-const instrument = Instrument_Serif({
+// Fonte principal da marca.
+const calSans = Cal_Sans({
   subsets: ['latin'],
   weight: '400',
-  style: ['normal', 'italic'],
-  variable: '--font-instrument',
+  variable: '--font-cal-sans',
   display: 'swap',
 })
 
-const syncopate = Syncopate({
+// Fonte secundária — carrega itálico p/ o texto de acento (--font-serif → Inter).
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['700'],
-  variable: '--font-syncopate',
+  style: ['normal', 'italic'],
+  variable: '--font-inter',
   display: 'swap',
 })
 
@@ -72,7 +61,7 @@ const organizationJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${montserrat.variable} ${inter.variable} ${instrument.variable} ${syncopate.variable}`}>
+    <html lang="pt-BR" className={`${calSans.variable} ${inter.variable}`}>
       <body className="antialiased">
         <script
           type="application/ld+json"

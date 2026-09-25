@@ -5,7 +5,7 @@
 // sairia fora de tom. A regra aqui é: manter o MESMO degrau de luminosidade
 // que a rampa antiga tinha em relação ao ink, e reconstruir no matiz novo.
 
-const ROXO = '#28112e', VERMELHO = '#da2d3a', PAPEL = '#f3efe8'
+const ROXO = '#2a0b2e', VERMELHO = '#da2d3a', PAPEL = '#f3efe8'
 const INK_ANTIGO = '#2a104a', BONE_ANTIGO = '#fff8f2', AZURE_ANTIGO = '#ff665c'
 
 const rgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16))

@@ -2,26 +2,25 @@
 
 @theme {
   /* ─────────────────────────────────────────────────────────────────────
-     Identidade de 31/08/2026. As três bases vêm do kit da marca
-     (2026/Eixo/Logos), lidas dos próprios SVGs:
+     Cores oficiais do kit da marca (2026/Eixo), atualizadas 10/09/2026:
 
-       Roxo Norte          #28112e
+       Roxo Norte          #2a0b2e
        Vermelho Movimento  #da2d3a
        Papel               #f3efe8
 
-     As derivadas NÃO foram substituídas, foram recalculadas: o roxo antigo
-     (#2a104a) e o novo têm matizes diferentes, então trocar só as bases
-     deixaria toda a família (palco, card, sobrelinhas) fora de tom. Cada
-     derivada mantém o mesmo degrau de luminosidade que tinha em relação ao
-     ink antigo, reconstruída no matiz novo. Ver scripts/derivar-paleta.mjs.
+     As derivadas NÃO foram substituídas, foram recalculadas: matizes
+     diferentes entre a base antiga e a nova deixariam toda a família
+     (palco, card, sobrelinhas) fora de tom. Cada derivada mantém o mesmo
+     degrau de luminosidade que tinha em relação ao ink antigo, reconstruída
+     no matiz novo. Ver scripts/derivar-paleta.mjs.
      ───────────────────────────────────────────────────────────────────── */
-  --color-main: #0a030c;
-  --color-card: #230d28;
+  --color-main: #070108;
+  --color-card: #240728;
   --color-accent: #da2d3a;
-  --color-muted: #7a687e;
+  --color-muted: #7b617f;
 
-  --color-dark: #0a030c;
-  --color-ink: #28112e;
+  --color-dark: #070108;
+  --color-ink: #2a0b2e;
   --color-paper: #f3efe8;
   /* Quase-brancos saem do Papel, não do roxo: derivados do roxo vinham
      rosados, e a identidade nova não tem branco arroxeado — tem Papel. */
@@ -32,9 +31,9 @@
      de 4.5:1, ainda pede uma variante escurecida. */
   --color-azure-heading: #da2d3a; /* título grande (precisa 3:1) — 4.15:1 */
   --color-azure-label: #d22532; /* rótulo pequeno (precisa 4.5:1) — 4.52:1 */
-  /* Sobre o roxo o vermelho cai pra 3.65:1. Esta variante clareada é pra
-     quando ele é texto pequeno em seção escura — 4.52:1. */
-  --color-azure-on-dark: #e0505b;
+  /* Sobre o roxo o vermelho não bate 4.5:1. Esta variante clareada é pra
+     quando ele é texto pequeno em seção escura — 4.50:1. */
+  --color-azure-on-dark: #e04c57;
   --color-cyan: #ece6db;
   --color-bone: #f3efe8;
   --color-bone-2: #ece6dc;
@@ -42,23 +41,25 @@
   /* Palco da vitrine de serviços. Namespace "stage-" de propósito: é uma
      variante mais profunda da marca, e não pode colidir com --color-ink /
      --color-azure, que continuam mandando no resto do site. */
-  --color-stage-deep: #0e0511;
-  --color-stage-mid: #1c0b20;
-  --color-stage-lift: #33163a;
+  --color-stage-deep: #0c020e;
+  --color-stage-mid: #1c061f;
+  --color-stage-lift: #370e3c;
   --color-stage-card: #e7e5e1;
-  --color-stage-card-ink: #1c0b20;
-  /* Texto de 9-10px sobre o card claro, então precisa dos 4.5:1 cheios: 4.53:1. */
-  --color-stage-card-muted: #726176;
+  --color-stage-card-ink: #1c061f;
+  /* Texto de 9-10px sobre o card claro, então precisa dos 4.5:1 cheios: 4.55:1. */
+  --color-stage-card-muted: #775e7b;
   --color-stage-text: #f3efe8;
-  --color-stage-text-muted: #ac92b3;
+  --color-stage-text-muted: #b188b7;
   --color-stage-display: #efeae0;
   --color-stage-accent: #ca303c;
 
-  --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  /* Fontes oficiais: Cal Sans (principal, display) + Inter (secundária, tudo
+     o mais). O site não tem serifada — --font-serif aponta pra Inter, então
+     o texto de acento em itálico continua funcionando sem trocar componentes. */
+  --font-display: var(--font-cal-sans), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-instrument), Georgia, serif;
-  --font-syncopate: var(--font-syncopate), sans-serif;
+  --font-serif: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Noise texture overlay */
