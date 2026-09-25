@@ -82,14 +82,14 @@ export const works: Work[] = [
   {
     id: 'gestao-de-conteudo',
     label: 'Gestão de conteúdo',
-    caption: 'Posts no dia, sem atraso',
+    caption: 'Vários clientes, todo mês',
     format: 'portrait', // poster 480x854 (9:16)
     accent: '#6a3fb0',
-    card: '/portfolio-media/videos/poster-gestao-trello.webp',
+    card: '/portfolio-media/videos/poster-gestao-instagram.webp',
     screen: {
       type: 'video',
-      src: '/portfolio-media/videos/device/video-gestao-trello.mp4',
-      poster: '/portfolio-media/videos/poster-gestao-trello.webp',
+      src: '/portfolio-media/videos/device/video-gestao-instagram.mp4',
+      poster: '/portfolio-media/videos/poster-gestao-instagram.webp',
     },
   },
   {
