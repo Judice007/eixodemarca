@@ -97,7 +97,7 @@ export default function FloatingCardGallery({
     >
       <div
         ref={gridRef}
-        className="relative z-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
+        className="relative z-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5"
         style={{ transformStyle: 'preserve-3d', transition: 'transform .25s ease-out' }}
       >
         {displayCards.map((card, index) => (
@@ -109,7 +109,7 @@ export default function FloatingCardGallery({
             viewport={{ once: true, amount: 0.2 }}
             transition={{
               duration: 0.6,
-              delay: reduce ? 0 : (index % 4) * 0.08,
+              delay: reduce ? 0 : (index % 5) * 0.08,
               type: 'spring',
               stiffness: 100,
             }}
@@ -141,13 +141,13 @@ export default function FloatingCardGallery({
                   src={card.image}
                   alt={card.description || card.title}
                   fill
-                  sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 90vw"
+                  sizes="(min-width: 1024px) 18vw, (min-width: 640px) 45vw, 90vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 />
               </div>
 
               <div className="mt-3 flex items-start justify-between gap-2">
-                <h3 className="font-display text-[15px] font-bold uppercase leading-tight tracking-[-0.02em] text-white">
+                <h3 className="font-display text-[14px] font-bold uppercase leading-tight tracking-[-0.02em] text-white">
                   {card.title}
                 </h3>
                 <span
@@ -158,7 +158,7 @@ export default function FloatingCardGallery({
                 </span>
               </div>
 
-              <div className="mt-3 flex items-center justify-between gap-2">
+              <div className="mt-3 flex flex-wrap items-center justify-between gap-x-2 gap-y-1.5">
                 {card.author && (
                   <span className="flex items-center gap-2">
                     {card.avatar && (
