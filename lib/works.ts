@@ -82,11 +82,15 @@ export const works: Work[] = [
   {
     id: 'gestao-de-projetos',
     label: 'Gestão de projetos',
-    caption: 'Tarefas, pessoas e processos',
-    format: 'square', // 640x961 (2:3) — foto, aceita corte central sem perder o assunto
+    caption: 'Vários clientes, um calendário',
+    format: 'portrait', // poster 480x854 (9:16)
     accent: '#6a3fb0',
-    card: '/portfolio-media/gestao-projetos-equipe.webp',
-    screen: { type: 'image', src: '/portfolio-media/gestao-projetos-equipe.webp' },
+    card: '/portfolio-media/videos/poster-gestao-calendario.webp',
+    screen: {
+      type: 'video',
+      src: '/portfolio-media/videos/device/video-gestao-calendario.mp4',
+      poster: '/portfolio-media/videos/poster-gestao-calendario.webp',
+    },
   },
   {
     id: 'landing-pages',
