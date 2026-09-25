@@ -97,7 +97,7 @@ export default function FloatingCardGallery({
     >
       <div
         ref={gridRef}
-        className="relative z-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        className="relative z-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
         style={{ transformStyle: 'preserve-3d', transition: 'transform .25s ease-out' }}
       >
         {displayCards.map((card, index) => (
@@ -109,7 +109,7 @@ export default function FloatingCardGallery({
             viewport={{ once: true, amount: 0.2 }}
             transition={{
               duration: 0.6,
-              delay: reduce ? 0 : (index % 3) * 0.08,
+              delay: reduce ? 0 : (index % 4) * 0.08,
               type: 'spring',
               stiffness: 100,
             }}
@@ -131,7 +131,7 @@ export default function FloatingCardGallery({
                 tinha URL própria. Agora leva a uma página real da marca. */}
             <Link
               href={card.href}
-              className="relative flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-azure"
+              className="relative flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] p-3.5 backdrop-blur-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-azure"
               style={{ transformStyle: 'preserve-3d', boxShadow: '0 25px 50px -12px rgba(0,0,0,.5)' }}
             >
               {/* 4:5 — mesma proporção das peças reais, então a arte aparece
@@ -141,13 +141,13 @@ export default function FloatingCardGallery({
                   src={card.image}
                   alt={card.description || card.title}
                   fill
-                  sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
+                  sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 90vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 />
               </div>
 
-              <div className="mt-4 flex items-start justify-between gap-3">
-                <h3 className="font-display text-[18px] font-bold uppercase leading-tight tracking-[-0.02em] text-white">
+              <div className="mt-3 flex items-start justify-between gap-2">
+                <h3 className="font-display text-[15px] font-bold uppercase leading-tight tracking-[-0.02em] text-white">
                   {card.title}
                 </h3>
                 <span
@@ -158,11 +158,11 @@ export default function FloatingCardGallery({
                 </span>
               </div>
 
-              <div className="mt-4 flex items-center justify-between gap-3">
+              <div className="mt-3 flex items-center justify-between gap-2">
                 {card.author && (
                   <span className="flex items-center gap-2">
                     {card.avatar && (
-                      <span className="relative size-7 shrink-0 overflow-hidden rounded-full border border-white/25 bg-ink/60">
+                      <span className="relative size-6 shrink-0 overflow-hidden rounded-full border border-white/25 bg-ink/60">
                         <Image src={card.avatar} alt="" fill sizes="28px" className="object-contain p-1" />
                       </span>
                     )}

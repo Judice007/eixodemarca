@@ -23,10 +23,7 @@ const mediaStrip = [
   { src: '/portfolio-media/design-ukimports.webp', alt: 'Campanha para UK Imports', position: 'center 48%' },
   { src: '/portfolio-media/social-reset.webp', alt: 'Conteúdo para Reset Madeira Ecológica', position: 'center 52%' },
   { src: '/portfolio-media/landing-pousada.webp', alt: 'Conteúdo para Pousada da Praia', position: 'center 46%' },
-  { src: '/portfolio-media/portfolio-eixo.webp', alt: 'Campanha da Eixo de Marca', position: 'center 50%' },
   { src: '/portfolio-media/portfolio-cuidados-pele.webp', alt: 'Conteúdo de beleza e estética', position: 'center 44%' },
-  { src: '/portfolio-media/post-direcao.webp', alt: 'Post sobre direção de marca para a Eixo de Marca', position: 'center 40%' },
-  { src: '/portfolio-media/post-ia.webp', alt: 'Post sobre marcas e inteligência artificial para a Eixo de Marca', position: 'center 40%' },
   { src: '/portfolio-media/post-laura-protetor-solar.webp', alt: 'Post sobre protetor solar para Laura Anjos', position: 'center 40%' },
 ]
 
@@ -62,23 +59,15 @@ export default function EixoEditorialSite() {
           <div className="mx-auto flex w-full max-w-[1420px] flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
             <div className="w-full text-center lg:flex-1 lg:text-left">
               <motion.p
-                className="mx-auto mb-4 w-fit border border-white/20 px-4 py-2 font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-white/70 lg:mx-0"
+                className="mx-auto mb-6 w-fit border border-white/30 px-5 py-2.5 font-display text-[clamp(12px,1.05vw,15px)] font-normal uppercase tracking-[0.16em] text-white/90 lg:mx-0"
                 initial={reduce ? false : { opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6 }}
               >
                 Sua marca fora do automático
               </motion.p>
-              <motion.div
-                className="mx-auto mb-7 w-fit lg:mx-0"
-                initial={reduce ? false : { opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                <PontoCegoCta variant="outline" />
-              </motion.div>
               <motion.h1
-                className="mx-auto max-w-[1250px] [text-wrap:balance] font-display text-[clamp(28px,5vw,78px)] font-black uppercase leading-[0.9] tracking-[-0.05em] text-paper max-sm:text-[24px] max-sm:leading-[0.96] max-sm:tracking-[-0.035em] lg:mx-0"
+                className="mx-auto max-w-[1250px] [text-wrap:balance] font-display text-[clamp(28px,5vw,78px)] font-black uppercase leading-[0.92] tracking-[-0.005em] [word-spacing:0.12em] text-paper max-sm:text-[24px] max-sm:leading-[0.98] max-sm:tracking-[0em] lg:mx-0"
                 initial={reduce ? false : { opacity: 0, y: 45 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
@@ -103,6 +92,16 @@ export default function EixoEditorialSite() {
                 </a>
               </motion.div>
             </div>
+
+            {/* À direita no desktop; abaixo do texto quando empilha. */}
+            <motion.div
+              className="w-fit shrink-0"
+              initial={reduce ? false : { opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <PontoCegoCta variant="hero" />
+            </motion.div>
           </div>
 
           {/* Carrossel 3D no lugar da faixa que rolava sozinha — mesmas 9

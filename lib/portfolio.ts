@@ -2,7 +2,21 @@
 // (seção "Marcas e histórias") E pelas páginas dedicadas /portfolio/artes e
 // /portfolio/video — mantê-los aqui evita duplicar os arrays em cada lugar.
 
-export const projects = [
+// Tipado à mão de propósito: inferido de `as const`, o campo `fit` só aceitava
+// os valores que existiam nas entradas. Quando a única peça com 'contain'
+// (Vista Bajeko) saiu, `fit === 'contain'` nos componentes passou a ser erro
+// de compilação — e voltaria a ser sempre que a lista mudasse.
+type ProjectItem = {
+  type: 'image'
+  src: string
+  alt: string
+  client: string
+  tags: string
+  fit: 'cover' | 'contain'
+  position: string
+}
+
+export const projects: ProjectItem[] = [
   {
     type: 'image' as const,
     src: '/portfolio-media/design-ukimports.webp',
@@ -23,28 +37,10 @@ export const projects = [
   },
   {
     type: 'image' as const,
-    src: '/portfolio-media/identidade-vista-bajeko.webp',
-    alt: 'Identidade visual Vista Bajeko',
-    client: 'Vista Bajeko',
-    tags: 'Marca · Identidade visual',
-    fit: 'contain' as const,
-    position: 'center',
-  },
-  {
-    type: 'image' as const,
     src: '/portfolio-media/social-reset.webp',
     alt: 'Campanha sustentável para Reset Madeira Ecológica',
     client: 'Reset',
     tags: 'Estratégia · Social media',
-    fit: 'cover' as const,
-    position: 'center 50%',
-  },
-  {
-    type: 'image' as const,
-    src: '/portfolio-media/portfolio-eixo.webp',
-    alt: 'Peça da Eixo de Marca sobre direção de conteúdo',
-    client: 'Eixo de Marca',
-    tags: 'Posicionamento · Design',
     fit: 'cover' as const,
     position: 'center 50%',
   },
@@ -65,15 +61,6 @@ export const projects = [
     tags: 'Tráfego pago',
     fit: 'cover' as const,
     position: 'center',
-  },
-  {
-    type: 'image' as const,
-    src: '/portfolio-media/post-lembrada.webp',
-    alt: 'Post sobre clareza de marca para a Eixo de Marca',
-    client: 'Eixo de Marca',
-    tags: 'Posicionamento · Design',
-    fit: 'cover' as const,
-    position: 'center 30%',
   },
   // Setembro/2026: carrosséis e estáticos da própria Eixo (pilar "direção
   // estratégica"). Curadoria de ~20 peças disponíveis — 6 escolhidas por
@@ -605,16 +592,15 @@ export const identities = [
     accent: '#682898',
   },
   { slug: 'luciane-judice', name: 'Luciane Júdice', src: '/portfolio-media/marca-luciane-judice.webp', alt: 'Luciane Júdice', accent: '#8b4bc8' },
-  // De volta pro fundo escuro (era assim antes de eu trocar por engano pro
-  // papel). Mesmo master positivo de antes (tinta sólida, sem perder o
-  // leão nem o escudo) — só invertido: negate({alpha:false}) vira a tinta
-  // preta em branca preservando o alpha exato, então é o MESMO desenho,
-  // não uma versão reduzida. Fundo preto puro, não papel: a marca não tem
-  // cor própria, e preto é o que ela realmente usa nos materiais do cliente.
+  // Arquivo ORIGINAL do card (preto com contorno branco), restaurado do git
+  // (commit efa362cf) a pedido do usuário. Duas tentativas minhas de
+  // "melhorar" — positivo sobre papel e branco sólido sobre preto — eram
+  // desenhos diferentes do que ele queria; o pedido era o de antes, byte
+  // a byte. Nome com hash pra furar o cache immutable de /portfolio-media/.
   {
     slug: 'itamang',
     name: 'Itamang',
-    src: '/portfolio-media/marca-itamang.385b9a88.webp',
+    src: '/portfolio-media/marca-itamang.f47834c8.webp',
     alt: 'Itamang',
     accent: '#3a5a8c',
   },
