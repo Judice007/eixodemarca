@@ -251,14 +251,9 @@ export default function EixoEditorialSite() {
         <div className="mx-auto max-w-[1420px]">
           <div className="flex flex-col gap-6">
             <Reveal>
-              <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-                <h2 className="max-w-[1050px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[1.08] tracking-[-0.005em] [word-spacing:0.1em] max-sm:leading-[1.1] max-sm:tracking-[0em]">
+              <h2 className="max-w-[1050px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[1.08] tracking-[-0.005em] [word-spacing:0.1em] max-sm:leading-[1.1] max-sm:tracking-[0em]">
                   Criatividade precisa de <span className="text-azure-heading">processo.</span>
                 </h2>
-                <p className="max-w-[300px] text-[14px] leading-relaxed text-ink/65">
-                  Antes de qualquer arte ou vídeo, a gente entende o seu negócio. O resto vem depois, um passo de cada vez.
-                </p>
-              </div>
             </Reveal>
           </div>
 

@@ -72,7 +72,7 @@ export const methodSteps: MethodStep[] = [
   {
     key: 'diagnostico',
     label: 'Entender',
-    description: 'Conversamos pra conhecer seu negócio, seu cliente e onde ele te encontra — antes de criar qualquer coisa.',
+    description: 'Antes de criar qualquer coisa, conversamos pra conhecer seu negócio, seu cliente e onde ele te encontra.',
     bullets: ['Seu negócio', 'Seu cliente', 'Seus objetivos'],
   },
   {
