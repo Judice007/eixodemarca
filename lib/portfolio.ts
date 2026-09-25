@@ -366,6 +366,29 @@ export const portfolioVideos = [
 // Trocar o nome força uma URL nova, sem cache pra brigar. Sempre que um
 // destes arquivos for re-editado, gerar um hash novo (sha1 dos primeiros
 // bytes, 8 caracteres) em vez de sobrescrever o mesmo arquivo.
+// Ordem calculada, não cronológica — ver comentário completo acima do
+// array original no histórico do git. Resumo: 6 marcas de fundo escuro
+// (eixo, vista-bajeko, bm, jo-salao, luciane-judice, itamang) contra só 4
+// claras (espaço-dos-anjos, laura-anjos, viva-angra, well-calcados).
+//
+// Numa grade de 5 colunas × 2 linhas, o máximo de células que dá pra
+// preencher sem NENHUMA vizinha do mesmo grupo (nem na horizontal, nem na
+// vertical entre as duas linhas) é 5 — é o tamanho do maior conjunto
+// independente desse grid. Com 6 escuros é matematicamente impossível
+// zerar todo contato entre eles; a única escolha real é ONDE sobra esse
+// contato. Aqui sobra no Itamang (preto/branco), que toca só Luciane
+// (coral) e JO (terracota) — cores bem diferentes da dele, então lê como
+// "card colorido do lado do card P&B", não como "dois cards pretos
+// repetidos". O que não pode de jeito nenhum é Itamang encostar no BM
+// (também preto) — aí sim pareceriam a mesma marca duplicada.
+//
+// Os nomes de arquivo com hash (.xxxxxxxx.webp) são propositais: os headers
+// em next.config.ts cacheiam /portfolio-media/ por 1 ano como `immutable`.
+// Sobrescrever o mesmo nome não invalida o cache do navegador nem da CDN —
+// o arquivo muda no servidor, mas quem já visitou continua vendo o antigo.
+// Trocar o nome força uma URL nova, sem cache pra brigar. Sempre que um
+// destes arquivos for re-editado, gerar um hash novo (sha1 dos primeiros
+// bytes, 8 caracteres) em vez de sobrescrever o mesmo arquivo.
 export const identities = [
   // fundo escuro (roxo norte, a própria cor da marca) — wordmark claro
   {
@@ -378,8 +401,6 @@ export const identities = [
   { slug: 'espaco-dos-anjos', name: 'Espaço dos Anjos', src: '/portfolio-media/marca-espaco-dos-anjos.webp', alt: 'Espaço dos Anjos', accent: '#b8879a' },
   { slug: 'vista-bajeko', name: 'Vista Bajeko', src: '/portfolio-media/marca-vista-bajeko.webp', alt: 'Vista Bajeko', accent: '#0b4a5c' },
   { slug: 'laura-anjos', name: 'Laura Anjos', src: '/portfolio-media/marca-laura-anjos.webp', alt: 'Laura Anjos', accent: '#caa153' },
-  { slug: 'bm', name: 'BIG', src: '/portfolio-media/marca-bm.webp', alt: 'BIG', accent: '#da2d3a' },
-  { slug: 'viva-angra', name: 'Viva Angra', src: '/portfolio-media/marca-viva-angra.webp', alt: 'Viva Angra', accent: '#2f7d6b' },
   // Manual fechado em 29/08/2026. Card montado em 1080x1440 — o 3:4 exato do
   // carrossel — com a logo aparada até o lettering: o PNG de origem tinha
   // margem demais e a marca saía boiando no cartão.
@@ -390,16 +411,8 @@ export const identities = [
     alt: 'JO Salão de Beleza',
     accent: '#922b1a',
   },
-  // Master positivo (tinta preta, transparente) achado no material do
-  // cliente — o card anterior usava a versão branca-em-negativo.
-  {
-    slug: 'itamang',
-    name: 'Itamang',
-    src: '/portfolio-media/marca-itamang.fe777fe4.webp',
-    alt: 'Itamang',
-    accent: '#3a5a8c',
-  },
-  { slug: 'luciane-judice', name: 'Luciane Júdice', src: '/portfolio-media/marca-luciane-judice.webp', alt: 'Luciane Júdice', accent: '#8b4bc8' },
+  { slug: 'viva-angra', name: 'Viva Angra', src: '/portfolio-media/marca-viva-angra.webp', alt: 'Viva Angra', accent: '#2f7d6b' },
+  { slug: 'bm', name: 'BIG', src: '/portfolio-media/marca-bm.webp', alt: 'BIG', accent: '#da2d3a' },
   // Kit fechado em set/2026: wordmark + símbolo (o W dentro do tênis) +
   // mascote 3D, em navy (#000e29) e roxo (#682898). Card usa a versão
   // COLORIDA oficial (não a branca-em-negativo que estava antes) — o desenho
@@ -410,6 +423,20 @@ export const identities = [
     src: '/portfolio-media/marca-well-calcados.8561f7cc.webp',
     alt: 'Well Calçados',
     accent: '#682898',
+  },
+  { slug: 'luciane-judice', name: 'Luciane Júdice', src: '/portfolio-media/marca-luciane-judice.webp', alt: 'Luciane Júdice', accent: '#8b4bc8' },
+  // De volta pro fundo escuro (era assim antes de eu trocar por engano pro
+  // papel). Mesmo master positivo de antes (tinta sólida, sem perder o
+  // leão nem o escudo) — só invertido: negate({alpha:false}) vira a tinta
+  // preta em branca preservando o alpha exato, então é o MESMO desenho,
+  // não uma versão reduzida. Fundo preto puro, não papel: a marca não tem
+  // cor própria, e preto é o que ela realmente usa nos materiais do cliente.
+  {
+    slug: 'itamang',
+    name: 'Itamang',
+    src: '/portfolio-media/marca-itamang.385b9a88.webp',
+    alt: 'Itamang',
+    accent: '#3a5a8c',
   },
 ] as const
 
