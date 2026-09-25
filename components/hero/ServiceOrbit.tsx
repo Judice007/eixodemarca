@@ -288,11 +288,6 @@ export default function ServiceOrbit() {
         />
 
         <div className="relative mx-auto w-full max-w-[1420px]">
-          <div className="flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-stage-text-muted">
-            <span className="h-px w-10 bg-stage-text/20" />
-            02
-          </div>
-
           {/* palco */}
           <div
             ref={stageRef}
@@ -313,7 +308,7 @@ export default function ServiceOrbit() {
               style={{ height: TITLE_BAND, zIndex: LAYER.title }}
             >
               <h2
-                className="w-full text-center font-display font-black uppercase leading-[0.92] tracking-[-0.04em] text-stage-display/[.92]"
+                className="w-full text-center font-display font-black uppercase leading-[1.05] tracking-[-0.005em] [word-spacing:0.1em] text-stage-display/[.92]"
                 // min(7vw, 10vh) pelo mesmo motivo da TITLE_BAND: em tela larga
                 // e baixa o título crescia por vw e não cabia na altura.
                 style={{ fontSize: 'clamp(1.4rem, min(7vw, 10vh), 6rem)' }}
@@ -423,7 +418,7 @@ export default function ServiceOrbit() {
                       className="mb-3 block h-1 w-9 rounded-full"
                       style={{ backgroundColor: current.accent }}
                     />
-                    <h3 className="font-display text-[24px] font-black uppercase leading-[1.02] tracking-[-0.03em] text-stage-text">
+                    <h3 className="font-display text-[24px] font-black uppercase leading-[1.05] tracking-[-0.005em] [word-spacing:0.08em] text-stage-text">
                       {current.label}
                     </h3>
                     <p className="mt-3 text-[13px] leading-[1.6] text-stage-text-muted">
