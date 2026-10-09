@@ -405,6 +405,33 @@ export const projects: ProjectItem[] = [
     fit: 'cover' as const,
     position: 'center',
   },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/well-calcados-05.webp',
+    alt: 'Capa de carrossel da Well Calçados no Dia das Crianças, "Pequenos passos, grandes aventuras", com tênis infantil azul',
+    client: 'Well Calçados',
+    tags: 'Carrossel · Dia das Crianças',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/well-calcados-06.webp',
+    alt: 'Capa de carrossel da Well Calçados no Dia das Crianças, "O presente do seu pequeno tá na Well", com tênis rosa',
+    client: 'Well Calçados',
+    tags: 'Carrossel · Dia das Crianças',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/well-calcados-07.webp',
+    alt: 'Slide de carrossel da Well Calçados "Cada pequeno, um estilo", com grade de tênis infantis e numerações',
+    client: 'Well Calçados',
+    tags: 'Carrossel · Produto',
+    fit: 'cover' as const,
+    position: 'center',
+  },
   // ── Espaço dos Anjos (setembro/2026) — primeira entrada no portfólio de
   // artes; até aqui a marca só tinha a identidade visual.
   {
@@ -475,10 +502,22 @@ export const portfolioVideos = [
     tag: 'Unboxing · Reels',
   },
   {
+    src: '/portfolio-media/videos/video-sushi-algoritmo.mp4',
+    poster: '/portfolio-media/videos/poster-sushi-algoritmo.webp',
+    title: 'O algoritmo sabe o que você precisa',
+    tag: 'Gastronomia · Reels',
+  },
+  {
     src: '/portfolio-media/videos/video-eixo-concorrente.mp4',
     poster: '/portfolio-media/videos/poster-eixo-concorrente.webp',
     title: 'Concorrente vende mais',
     tag: 'Explicativo · Eixo',
+  },
+  {
+    src: '/portfolio-media/videos/video-boulevard-feliz-no-simples.mp4',
+    poster: '/portfolio-media/videos/poster-boulevard-feliz-no-simples.webp',
+    title: 'Seja feliz no simples',
+    tag: 'Turismo · Boulevard Náutico',
   },
   {
     src: '/portfolio-media/videos/video-espaco-sessao-massagem.mp4',
@@ -487,10 +526,22 @@ export const portfolioVideos = [
     tag: 'Bem-estar · Espaço dos Anjos',
   },
   {
+    src: '/portfolio-media/videos/video-sushi-to-com-fome.mp4',
+    poster: '/portfolio-media/videos/poster-sushi-to-com-fome.webp',
+    title: 'Tô com fome',
+    tag: 'Gastronomia · Gancho',
+  },
+  {
     src: '/portfolio-media/videos/video-tudo-acaba-em-pizza.mp4',
     poster: '/portfolio-media/videos/poster-tudo-acaba-em-pizza.webp',
     title: 'Tudo acaba em pizza',
     tag: 'Bastidores · Captação',
+  },
+  {
+    src: '/portfolio-media/videos/video-well-branco-azul.mp4',
+    poster: '/portfolio-media/videos/poster-well-branco-azul.webp',
+    title: 'Olha esse azul',
+    tag: 'Produto · Well Calçados',
   },
   {
     src: '/portfolio-media/videos/video-portfolio-02.mp4',
@@ -499,15 +550,21 @@ export const portfolioVideos = [
     tag: 'Ritmo · Edição',
   },
   {
+    src: '/portfolio-media/videos/video-boulevard-preciso-sair.mp4',
+    poster: '/portfolio-media/videos/poster-boulevard-preciso-sair.webp',
+    title: 'Preciso sair',
+    tag: 'Turismo · Boulevard Náutico',
+  },
+  {
     src: '/portfolio-media/videos/video-pousada-01.mp4',
     poster: '/portfolio-media/videos/poster-pousada-01.webp',
     title: 'Pousada da Praia',
     tag: 'Turismo · Apresentação',
   },
   {
-    src: '/portfolio-media/videos/video-eixo-feed-bonito.mp4',
-    poster: '/portfolio-media/videos/poster-eixo-feed-bonito.webp',
-    title: 'Feed bonito',
+    src: '/portfolio-media/videos/video-eixo-tenho-que-aparecer.mp4',
+    poster: '/portfolio-media/videos/poster-eixo-tenho-que-aparecer.webp',
+    title: 'Tenho que aparecer',
     tag: 'Explicativo · Eixo',
   },
   {
@@ -517,10 +574,22 @@ export const portfolioVideos = [
     tag: 'Produto · Well Calçados',
   },
   {
+    src: '/portfolio-media/videos/video-sushi-desculpa-cenas.mp4',
+    poster: '/portfolio-media/videos/poster-sushi-desculpa-cenas.webp',
+    title: 'Desculpa por essas cenas',
+    tag: 'Gastronomia · Reels',
+  },
+  {
     src: '/portfolio-media/videos/video-espaco-recuperacao.mp4',
     poster: '/portfolio-media/videos/poster-espaco-recuperacao.webp',
     title: 'Investir na recuperação',
     tag: 'Bem-estar · Espaço dos Anjos',
+  },
+  {
+    src: '/portfolio-media/videos/video-boulevard-trabalhar-duro.mp4',
+    poster: '/portfolio-media/videos/poster-boulevard-trabalhar-duro.webp',
+    title: 'Trabalhar duro para ter uma segunda assim',
+    tag: 'Turismo · Boulevard Náutico',
   },
   {
     src: '/portfolio-media/videos/video-trafego-pago.mp4',
@@ -529,10 +598,22 @@ export const portfolioVideos = [
     tag: 'Gancho · Tráfego pago',
   },
   {
+    src: '/portfolio-media/videos/video-eixo-feed-bonito.mp4',
+    poster: '/portfolio-media/videos/poster-eixo-feed-bonito.webp',
+    title: 'Feed bonito',
+    tag: 'Explicativo · Eixo',
+  },
+  {
     src: '/portfolio-media/videos/video-laura-pele-nao-melhora.mp4',
     poster: '/portfolio-media/videos/poster-laura-pele-nao-melhora.webp',
     title: 'Minha pele não melhora nunca',
     tag: 'Estética · Laura Anjos',
+  },
+  {
+    src: '/portfolio-media/videos/video-sushi-cartao-virou.mp4',
+    poster: '/portfolio-media/videos/poster-sushi-cartao-virou.webp',
+    title: 'Pov: o cartão virou',
+    tag: 'Gastronomia · Gancho',
   },
   {
     src: '/portfolio-media/videos/video-well-transicao.mp4',
@@ -559,10 +640,22 @@ export const portfolioVideos = [
     tag: 'Gastronomia · Chef Luciane Júdice',
   },
   {
+    src: '/portfolio-media/videos/video-well-branco-prata.mp4',
+    poster: '/portfolio-media/videos/poster-well-branco-prata.webp',
+    title: 'Qual look vai com ele?',
+    tag: 'Produto · Well Calçados',
+  },
+  {
     src: '/portfolio-media/videos/video-massagem.mp4',
     poster: '/portfolio-media/videos/poster-massagem.webp',
     title: 'Bem-estar & spa',
     tag: 'Gancho · Reels',
+  },
+  {
+    src: '/portfolio-media/videos/video-sushi-mil-oportunidades.mp4',
+    poster: '/portfolio-media/videos/poster-sushi-mil-oportunidades.webp',
+    title: 'Mil oportunidades de gastar com sushi',
+    tag: 'Gastronomia · Reels',
   },
   {
     src: '/portfolio-media/videos/video-well-dias-da-semana.mp4',
