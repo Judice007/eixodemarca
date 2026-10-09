@@ -532,6 +532,12 @@ export const portfolioVideos = [
     tag: 'Gastronomia · Gancho',
   },
   {
+    src: '/portfolio-media/videos/video-laura-gordura-localizada.mp4',
+    poster: '/portfolio-media/videos/poster-laura-gordura-localizada.webp',
+    title: 'O ultrassom faz com a gordura localizada',
+    tag: 'Estética · Laura Anjos',
+  },
+  {
     src: '/portfolio-media/videos/video-tudo-acaba-em-pizza.mp4',
     poster: '/portfolio-media/videos/poster-tudo-acaba-em-pizza.webp',
     title: 'Tudo acaba em pizza',
@@ -550,6 +556,12 @@ export const portfolioVideos = [
     tag: 'Ritmo · Edição',
   },
   {
+    src: '/portfolio-media/videos/video-espaco-nem-todo-remedio.mp4',
+    poster: '/portfolio-media/videos/poster-espaco-nem-todo-remedio.webp',
+    title: 'Nem todo remédio',
+    tag: 'Bem-estar · Espaço dos Anjos',
+  },
+  {
     src: '/portfolio-media/videos/video-boulevard-preciso-sair.mp4',
     poster: '/portfolio-media/videos/poster-boulevard-preciso-sair.webp',
     title: 'Preciso sair',
@@ -562,6 +574,12 @@ export const portfolioVideos = [
     tag: 'Turismo · Apresentação',
   },
   {
+    src: '/portfolio-media/videos/video-laura-uma-pausa.mp4',
+    poster: '/portfolio-media/videos/poster-laura-uma-pausa.webp',
+    title: 'Dar uma pausa para cuidar de você',
+    tag: 'Estética · Laura Anjos',
+  },
+  {
     src: '/portfolio-media/videos/video-eixo-tenho-que-aparecer.mp4',
     poster: '/portfolio-media/videos/poster-eixo-tenho-que-aparecer.webp',
     title: 'Tenho que aparecer',
@@ -572,6 +590,12 @@ export const portfolioVideos = [
     poster: '/portfolio-media/videos/poster-well-cliente-esperta.webp',
     title: 'Quando a cliente é esperta',
     tag: 'Produto · Well Calçados',
+  },
+  {
+    src: '/portfolio-media/videos/video-laura-aparelho-choque.mp4',
+    poster: '/portfolio-media/videos/poster-laura-aparelho-choque.webp',
+    title: 'Esse aparelho não vai te dar choque',
+    tag: 'Estética · Laura Anjos',
   },
   {
     src: '/portfolio-media/videos/video-sushi-desculpa-cenas.mp4',
@@ -598,6 +622,12 @@ export const portfolioVideos = [
     tag: 'Gancho · Tráfego pago',
   },
   {
+    src: '/portfolio-media/videos/video-espaco-5-coisas.mp4',
+    poster: '/portfolio-media/videos/poster-espaco-5-coisas.webp',
+    title: '5 coisas para ter menos dores',
+    tag: 'Bem-estar · Espaço dos Anjos',
+  },
+  {
     src: '/portfolio-media/videos/video-eixo-feed-bonito.mp4',
     poster: '/portfolio-media/videos/poster-eixo-feed-bonito.webp',
     title: 'Feed bonito',
@@ -622,6 +652,12 @@ export const portfolioVideos = [
     tag: 'Edição · Well Calçados',
   },
   {
+    src: '/portfolio-media/videos/video-laura-so-percebeu-depois.mp4',
+    poster: '/portfolio-media/videos/poster-laura-so-percebeu-depois.webp',
+    title: 'Você só percebeu quando fez',
+    tag: 'Estética · Laura Anjos',
+  },
+  {
     src: '/portfolio-media/videos/video-portfolio-03.mp4',
     poster: '/portfolio-media/videos/poster-movimenta-angra.webp',
     title: 'Movimenta Angra',
@@ -632,6 +668,12 @@ export const portfolioVideos = [
     poster: '/portfolio-media/videos/poster-eixo-landing-page.webp',
     title: 'Landing page',
     tag: 'Explicativo · Eixo',
+  },
+  {
+    src: '/portfolio-media/videos/video-espaco-nao-e-so-massagem.mp4',
+    poster: '/portfolio-media/videos/poster-espaco-nao-e-so-massagem.webp',
+    title: 'Não é só massagem',
+    tag: 'Bem-estar · Espaço dos Anjos',
   },
   {
     src: '/portfolio-media/videos/video-chef-workshops.mp4',
@@ -646,6 +688,12 @@ export const portfolioVideos = [
     tag: 'Produto · Well Calçados',
   },
   {
+    src: '/portfolio-media/videos/video-laura-institucional.mp4',
+    poster: '/portfolio-media/videos/poster-laura-institucional.webp',
+    title: 'Laura Anjos',
+    tag: 'Institucional · Laura Anjos',
+  },
+  {
     src: '/portfolio-media/videos/video-massagem.mp4',
     poster: '/portfolio-media/videos/poster-massagem.webp',
     title: 'Bem-estar & spa',
@@ -656,6 +704,12 @@ export const portfolioVideos = [
     poster: '/portfolio-media/videos/poster-sushi-mil-oportunidades.webp',
     title: 'Mil oportunidades de gastar com sushi',
     tag: 'Gastronomia · Reels',
+  },
+  {
+    src: '/portfolio-media/videos/video-espaco-trocaria-1-hora.mp4',
+    poster: '/portfolio-media/videos/poster-espaco-trocaria-1-hora.webp',
+    title: 'Trocaria 1h no celular por isso?',
+    tag: 'Bem-estar · Espaço dos Anjos',
   },
   {
     src: '/portfolio-media/videos/video-well-dias-da-semana.mp4',
