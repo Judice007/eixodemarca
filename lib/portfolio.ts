@@ -676,6 +676,35 @@ export const portfolioVideos = [
     tag: 'Edição · Eixo',
   },
 ] as const
+// Home: no máximo 2 vídeos por cliente, pra mostrar variedade de clientes e
+// nichos sem virar parede de vídeo. A página /portfolio/video continua com
+// todos (portfolioVideos). A ordem evita o mesmo cliente em posições vizinhas.
+const ORDEM_HOME = [
+  'video-well-branco-azul',
+  'video-sushi-algoritmo',
+  'video-eixo-concorrente',
+  'video-boulevard-feliz-no-simples',
+  'video-espaco-sessao-massagem',
+  'video-tudo-acaba-em-pizza',
+  'video-portfolio-02',
+  'video-sushi-desculpa-cenas',
+  'video-pousada-01',
+  'video-eixo-tenho-que-aparecer',
+  'video-laura-pele-nao-melhora',
+  'video-boulevard-trabalhar-duro',
+  'video-well-transicao',
+  'video-portfolio-03',
+  'video-chef-workshops',
+  'video-espaco-recuperacao',
+  'video-trafego-pago',
+  'video-portfolio-01',
+]
+
+export const homeVideos = ORDEM_HOME.map((nome) => {
+  const video = portfolioVideos.find((v) => v.src.endsWith(`/${nome}.mp4`))
+  if (!video) throw new Error(`homeVideos: ${nome} não está em portfolioVideos`)
+  return video
+})
 
 // Uma marca por item hoje (a maioria só tem a logo no projeto ainda — só a
 // Vista Bajeko tem uma segunda peça, o mockup de camiseta, usado aqui em vez

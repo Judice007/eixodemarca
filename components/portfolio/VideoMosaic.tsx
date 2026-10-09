@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import { portfolioVideos } from '@/lib/portfolio'
+import { homeVideos } from '@/lib/portfolio'
 import { RevealGroup, RevealItem } from '@/components/reveal'
 
 // Mosaico de verdade: as células têm alturas diferentes, mas TODAS ficam mais
@@ -12,44 +12,34 @@ import { RevealGroup, RevealItem } from '@/components/reveal'
 // No mobile o `aspect-[9/16]` manda; de `sm` pra cima o row-span assume (por
 // isso o `sm:aspect-auto`), com auto-rows curtas fazendo o escalonamento.
 // Alturas calculadas, não sorteadas: scripts/balancear-mosaico.mjs escolhe o
-// row-span de cada vídeo pra que as colunas terminem na mesma altura. Com 30
-// vídeos, 6 e 3 colunas fecham exatas; 5 e 4 sobram ~40-60px.
-// Se a lista de vídeos mudar, rode o script de novo e cole o array aqui.
+// row-span de cada vídeo pra que as colunas terminem na mesma altura. Com 18
+// vídeos, 6 e 3 colunas fecham exatas; 4 colunas sobram ~160px e 5 colunas
+// ~280px (18 não divide por 4 nem por 5).
+// Se a lista da home mudar, rode o script de novo (com a quantidade) e cole o array aqui.
 const SPANS = [
-  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-22',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-18',
   'aspect-[9/16] sm:aspect-auto sm:row-span-18',
   'aspect-[9/16] sm:aspect-auto sm:row-span-17',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-18',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-21',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-20',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-18',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-21',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-21',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-20',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-21',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-19',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-18',
   'aspect-[9/16] sm:aspect-auto sm:row-span-23',
   'aspect-[9/16] sm:aspect-auto sm:row-span-22',
   'aspect-[9/16] sm:aspect-auto sm:row-span-23',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-20',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-17',
   'aspect-[9/16] sm:aspect-auto sm:row-span-23',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-20',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-22',
   'aspect-[9/16] sm:aspect-auto sm:row-span-21',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-20',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-19',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-17',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-22',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-21',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-22',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-18',
   'aspect-[9/16] sm:aspect-auto sm:row-span-17',
 ]
 
 
-function MosaicTile({ video, index }: { video: (typeof portfolioVideos)[number]; index: number }) {
+
+function MosaicTile({ video, index }: { video: (typeof homeVideos)[number]; index: number }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [playing, setPlaying] = useState(false)
 
@@ -168,7 +158,7 @@ export default function VideoMosaic() {
     // fica em ~325px e as auto-rows de 27px seguram a proporção entre 0.44 e
     // 0.60 — largura da coluna e auto-rows andam sempre juntas.
     <RevealGroup className="mt-10 grid grid-cols-2 gap-3 sm:auto-rows-[8px] sm:grid-cols-3 sm:grid-flow-row-dense md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-      {portfolioVideos.map((video, index) => (
+      {homeVideos.map((video, index) => (
         <MosaicTile key={video.src} video={video} index={index} />
       ))}
     </RevealGroup>
