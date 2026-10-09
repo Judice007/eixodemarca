@@ -667,7 +667,7 @@ export const portfolioVideos = [
     src: '/portfolio-media/videos/video-portfolio-01.mp4',
     poster: '/portfolio-media/videos/poster-procedimento-estetico.webp',
     title: 'Procedimento estético',
-    tag: 'Captação · Edição',
+    tag: 'Estética · Laura Anjos',
   },
   {
     src: '/portfolio-media/videos/video-eixo-antes-depois.mp4',
