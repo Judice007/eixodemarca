@@ -36,8 +36,10 @@ export default function ScrollProgress() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-y-0 right-3 z-[60] w-0">
       <div
-        className="pointer-events-auto absolute inset-y-0 left-0"
-        style={{ width: 28, marginLeft: -14, cursor: 'pointer', touchAction: 'none' }}
+        // Só pra mouse/caneta: em tela de toque a faixa engolia a rolagem de
+        // quem encostava o dedo na borda direita.
+        className="pointer-events-auto absolute inset-y-0 left-0 [@media(pointer:coarse)]:hidden"
+        style={{ width: 28, marginLeft: -14, cursor: 'pointer', touchAction: 'pan-y' }}
         onPointerDown={(e) => {
           if (e.pointerType === 'touch') return
           arrastando.current = true

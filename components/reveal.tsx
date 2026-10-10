@@ -3,6 +3,12 @@
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform, type Variants } from 'framer-motion'
 
+// 'some' + margem no pé da tela: dispara quando o topo do bloco passa de 88%
+// da altura da tela, qualquer que seja a altura do bloco. Com amount numérico
+// (fração do bloco), uma grade mais alta que ~10 telas nunca mostrava 10% de
+// si e ficava invisível pra sempre.
+const REVEAL_VIEWPORT = { once: true, amount: 'some', margin: '0px 0px -12% 0px' } as const
+
 export function Reveal({
   children,
   className = '',
@@ -18,7 +24,7 @@ export function Reveal({
       className={className}
       initial={reduce ? false : { opacity: 0, y: 34 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.18 }}
+      viewport={REVEAL_VIEWPORT}
       transition={{ duration: reduce ? 0 : 0.72, delay, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
@@ -47,7 +53,7 @@ export function RevealGroup({ children, className = '' }: { children: React.Reac
       className={className}
       initial={reduce ? false : 'hidden'}
       whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
+      viewport={REVEAL_VIEWPORT}
       variants={reduce ? undefined : revealGroupVariants}
     >
       {children}
