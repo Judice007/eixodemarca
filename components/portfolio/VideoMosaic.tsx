@@ -102,7 +102,7 @@ function MosaicTile({ video, index }: { video: (typeof homeVideos)[number]; inde
           <source src={video.src} type="video/mp4" />
         </video>
 
-        <span className="pointer-events-none absolute left-2 top-2 border border-white/30 bg-ink/70 px-2 py-0.5 font-sans text-[8px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur">
+        <span className="pointer-events-none absolute left-2 top-2 border border-white/30 bg-ink/70 px-2 py-0.5 font-sans text-[10px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur">
           {String(index + 1).padStart(2, '0')}
         </span>
 
@@ -114,7 +114,7 @@ function MosaicTile({ video, index }: { video: (typeof homeVideos)[number]; inde
             playing ? 'opacity-0' : 'opacity-100'
           }`}
         >
-          <p className="font-sans text-[8px] font-semibold uppercase tracking-[0.12em] text-azure-on-dark">{video.tag}</p>
+          <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-azure-on-dark">{video.tag}</p>
           <h3 className="mt-1 font-display text-[12px] font-bold uppercase leading-[1.1] tracking-[-0.02em] text-white">
             {video.title}
           </h3>

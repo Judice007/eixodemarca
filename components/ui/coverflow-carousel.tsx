@@ -145,6 +145,33 @@ export function CoverflowCarousel({
     });
   }, [centerScale, count, depth, fade, falloff, gap, loop, rotate]);
 
+  // Pose do primeiro desenho, calculada com a MESMA conta do paint() mas em
+  // calc() sobre --cf-card: o servidor já entrega o carrossel aberto em leque.
+  // Sem isso os cards ficavam empilhados no centro até o JavaScript rodar, e o
+  // primeiro conteúdo do site atrasava junto (com rede lenta, ~1 s).
+  const posePrimeira = (index: number): React.CSSProperties => {
+    let offset = index;
+    if (loop) {
+      offset = ((offset % count) + count) % count;
+      if (offset > count / 2) offset -= count;
+    }
+    const distance = Math.abs(offset);
+    const ramp = Math.pow(distance, falloff);
+    const tilt = Math.min(rotate * ramp, 82) * Math.sign(offset);
+    const focus = Math.max(0, 1 - distance);
+    const scale = 1 + centerScale * focus;
+    const edge = loop ? Math.min(1, Math.max(0, count / 2 - distance)) : 1;
+    return {
+      width: "var(--cf-card)",
+      transform:
+        `translateX(calc(-50% + var(--cf-card) * ${(offset * (1 + gap)).toFixed(4)})) ` +
+        `translateZ(calc(var(--cf-card) * ${(-depth * ramp).toFixed(4)})) ` +
+        `rotateY(${(-tilt).toFixed(3)}deg) scale(${scale.toFixed(4)})`,
+      opacity: Number((Math.max(0, 1 - fade * distance) * edge).toFixed(4)),
+      zIndex: 100 - Math.round(distance),
+    };
+  };
+
   const settle = React.useCallback(
     (target: number) => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
@@ -350,7 +377,7 @@ export function CoverflowCarousel({
                   "absolute left-1/2 top-0 aspect-[4/5] overflow-hidden rounded-2xl bg-muted shadow-xl will-change-transform",
                   cardClassName,
                 )}
-                style={{ width: "var(--cf-card)" }}
+                style={posePrimeira(index)}
               >
                 {/* next/image, não <img>: em resolução cheia estes 9 slides
                     somavam 656 KB baixados na abertura, acima da dobra, sendo
@@ -380,7 +407,7 @@ export function CoverflowCarousel({
                 stopAutoplay();
                 nudge(-1);
               }}
-              className="absolute left-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-background/70 p-2 text-foreground backdrop-blur transition hover:bg-background"
+              className="absolute left-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-background/70 p-3 text-foreground backdrop-blur transition hover:bg-background"
             >
               <ChevronLeft className="size-5" />
             </button>
@@ -391,7 +418,7 @@ export function CoverflowCarousel({
                 stopAutoplay();
                 nudge(1);
               }}
-              className="absolute right-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-background/70 p-2 text-foreground backdrop-blur transition hover:bg-background"
+              className="absolute right-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-background/70 p-3 text-foreground backdrop-blur transition hover:bg-background"
             >
               <ChevronRight className="size-5" />
             </button>

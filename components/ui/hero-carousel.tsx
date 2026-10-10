@@ -434,7 +434,7 @@ export function HeroCarousel({
                   clipped card still shows a face, not a forehead. */}
               <img
                 src={item.image}
-                alt=""
+                alt={`Identidade visual: ${item.title.split("\n").join(" ")}`}
                 draggable={false}
                 className="h-full w-full object-cover"
                 style={{ objectPosition: "50% 26%" }}

@@ -62,7 +62,7 @@ function Card({ project }: { project: (typeof projects)[number] }) {
         className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent p-2.5 pt-12 sm:p-3 sm:pt-14"
         style={reduce ? undefined : { opacity }}
       >
-        <p className="font-mono text-[7px] uppercase tracking-[0.14em] text-white/70 sm:text-[8px]">{project.tags}</p>
+        <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-white/70 sm:text-[10px]">{project.tags}</p>
         <h3 className="mt-1 font-display text-[12px] font-bold leading-[1.15] tracking-[-0.01em] text-white sm:text-[15px]">
           {project.client}
         </h3>

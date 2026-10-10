@@ -70,7 +70,7 @@ export default function SiteFooter() {
                 do CTA principal do rodapé. */}
             <PontoCegoCta variant="outline" />
           </div>
-          <Link href="/#top" className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/55 transition-colors hover:text-white">Voltar ao topo ↑</Link>
+          <Link href="/#top" className="-my-3 py-3 font-mono text-[11px] uppercase tracking-[0.18em] text-white/55 transition-colors hover:text-white">Voltar ao topo ↑</Link>
         </div>
         <div className="mt-20 flex flex-col justify-between gap-4 border-t border-white/10 pt-6 text-[11px] text-white/60 sm:flex-row">
           <span>© 2026 Eixo de Marca · Angra dos Reis, RJ</span>

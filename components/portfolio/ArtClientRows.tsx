@@ -22,7 +22,7 @@ export default function ArtClientRows() {
               <h3 className="font-display text-[clamp(20px,2.4vw,32px)] font-black leading-none tracking-[-0.03em]">
                 {client.name}
               </h3>
-              <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/50">{client.tags}</p>
+              <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/65">{client.tags}</p>
             </div>
 
             <Link

@@ -192,7 +192,7 @@ export default function EixoEditorialSite() {
                     serve de porta pra página completa de artes, como já é nos vídeos. */}
                 <Link
                   href="/portfolio/artes"
-                  className="inline-flex shrink-0 items-center gap-2 self-start border-b border-azure/40 pb-1 font-sans text-[13px] font-bold text-azure-on-dark transition-colors hover:border-azure hover:text-white md:self-end"
+                  className="inline-flex shrink-0 items-center gap-2 self-start -my-2 border-b border-azure/40 py-2 font-sans text-[13px] font-bold text-azure-on-dark transition-colors hover:border-azure hover:text-white md:self-end"
                 >
                   Ver todas as artes <span aria-hidden>↗</span>
                 </Link>
@@ -219,7 +219,7 @@ export default function EixoEditorialSite() {
                       soubesse a URL não chegava nela. */}
                   <Link
                     href="/portfolio/video"
-                    className="inline-flex items-center gap-2 border-b border-azure/40 pb-1 font-sans text-[13px] font-bold text-azure-on-dark transition-colors hover:border-azure hover:text-white"
+                    className="inline-flex items-center gap-2 -my-2 border-b border-azure/40 py-2 font-sans text-[13px] font-bold text-azure-on-dark transition-colors hover:border-azure hover:text-white"
                   >
                     Ver todos os vídeos <span aria-hidden>↗</span>
                   </Link>
@@ -284,7 +284,7 @@ export default function EixoEditorialSite() {
                 nos vídeos. */}
             <Link
               href="/identidade-visual"
-              className="inline-flex shrink-0 items-center gap-2 self-start border-b border-azure-label/40 pb-1 font-sans text-[13px] font-bold text-azure-label transition-colors hover:border-azure-label hover:text-ink md:self-end"
+              className="inline-flex shrink-0 items-center gap-2 self-start -my-2 border-b border-azure-label/40 py-2 font-sans text-[13px] font-bold text-azure-label transition-colors hover:border-azure-label hover:text-ink md:self-end"
             >
               Ver todas as identidades <span aria-hidden>↗</span>
             </Link>

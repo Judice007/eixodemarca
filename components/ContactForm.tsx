@@ -158,7 +158,7 @@ export default function ContactForm() {
 
       <div className="sm:col-span-2 lg:col-span-3">
         <label htmlFor={`${id}-email`} className={rotulo}>
-          E-mail <span className="normal-case tracking-normal text-white/35">(opcional)</span>
+          E-mail <span className="normal-case tracking-normal text-white/60">(opcional)</span>
         </label>
         <input id={`${id}-email`} name="email" type="email" autoComplete="email" placeholder="seu@email.com" className={campo} />
       </div>

@@ -83,7 +83,7 @@ function PortfolioVideoCard({ video, index }: { video: (typeof portfolioVideos)[
         </div>
         <div className="flex items-start justify-between gap-4 border-t border-white/15 py-4">
           <div>
-            <p className="font-sans text-[9px] font-semibold uppercase tracking-[0.14em] text-white/45">{video.tag}</p>
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">{video.tag}</p>
             <h3 className="mt-1.5 font-display text-[20px] font-bold leading-[1.15]">{video.title}</h3>
           </div>
           <Image aria-hidden src="/eixo-symbol.png" alt="" width={16} height={16} className="mt-1 shrink-0" />

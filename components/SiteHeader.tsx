@@ -54,7 +54,7 @@ export default function SiteHeader() {
           scrolled ? 'max-w-[1160px] px-4 py-2 sm:px-5' : 'max-w-[1420px] px-4 py-3 sm:px-7'
         }`}
       >
-        <Link href="/#top" aria-label="Eixo de Marca — início" className="shrink-0">
+        <Link href="/#top" aria-label="Eixo de Marca, início" className="-my-3 shrink-0 py-3">
           <Image
             src="/eixo-wordmark.png"
             alt="Eixo de Marca"

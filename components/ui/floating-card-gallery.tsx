@@ -166,12 +166,12 @@ export default function FloatingCardGallery({
                         <Image src={card.avatar} alt="" fill sizes="28px" className="object-contain p-1" />
                       </span>
                     )}
-                    <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-white/45">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-white/65">
                       {card.author}
                     </span>
                   </span>
                 )}
-                <span className="shrink-0 rounded bg-white/10 px-2 py-1 font-mono text-[9px] uppercase tracking-[0.12em] text-white/65">
+                <span className="shrink-0 rounded bg-white/10 px-2 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-white/65">
                   {card.meta ?? card.category}
                 </span>
               </div>
