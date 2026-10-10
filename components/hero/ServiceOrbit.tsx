@@ -2,8 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
-import gsap from 'gsap'
-import { useGSAP } from '@gsap/react'
 import { works } from '@/lib/works'
 import { services, whatsappUrl } from '@/lib/data'
 import PhoneStage from './PhoneStage'
@@ -99,8 +97,7 @@ export default function ServiceOrbit() {
     [reduce, scrollRange]
   )
 
-  useGSAP(
-    () => {
+  useEffect(() => {
       if (reduce) return
 
       const readScroll = () => {
@@ -192,8 +189,13 @@ export default function ServiceOrbit() {
       // Só roda com a seção na tela e a aba em primeiro plano. Antes o ticker
       // reposicionava os 7 cards + aparelho + barra a cada frame pra sempre,
       // mesmo com esta seção longe da tela.
+      let raf = 0
+      const loop = () => {
+        draw()
+        raf = requestAnimationFrame(loop)
+      }
       if (visible) {
-        gsap.ticker.add(draw)
+        raf = requestAnimationFrame(loop)
       } else {
         draw()
       }
@@ -201,35 +203,21 @@ export default function ServiceOrbit() {
       window.addEventListener('resize', readScroll)
 
       return () => {
-        gsap.ticker.remove(draw)
+        cancelAnimationFrame(raf)
         window.removeEventListener('scroll', readScroll)
         window.removeEventListener('resize', readScroll)
       }
-    },
-    { scope: sectionRef, dependencies: [reduce, scrollRange, visible] }
-  )
+    }, [reduce, scrollRange, visible])
 
   /** Halo e sombra de contato reagem à troca de serviço. */
-  useGSAP(
-    () => {
-      if (reduce) return
-      if (haloRef.current) {
-        gsap.to(haloRef.current, {
-          backgroundColor: works[active]!.accent,
-          duration: 0.9,
-          ease: 'power2.out',
-        })
-      }
-      if (shadowRef.current) {
-        gsap.fromTo(
-          shadowRef.current,
-          { scaleX: 1 },
-          { scaleX: 1.03, duration: 0.45, yoyo: true, repeat: 1, ease: 'power2.inOut' }
-        )
-      }
-    },
-    { scope: sectionRef, dependencies: [active, reduce] }
-  )
+  useEffect(() => {
+    if (reduce) return
+    // sombra de contato dá um respiro curto a cada troca de serviço
+    shadowRef.current?.animate(
+      [{ transform: 'scaleX(1)' }, { transform: 'scaleX(1.03)' }, { transform: 'scaleX(1)' }],
+      { duration: 900, easing: 'ease-in-out' },
+    )
+  }, [active, reduce])
 
   const onMove = useCallback(
     (e: React.PointerEvent) => {
@@ -381,7 +369,9 @@ export default function ServiceOrbit() {
                 className="absolute left-1/2 top-1/2 h-[48%] w-[46%] -translate-x-1/2 -translate-y-1/2 rounded-full"
                 style={{
                   zIndex: LAYER.halo,
-                  backgroundColor: works[0]!.accent,
+                  // a cor acompanha o serviço ativo com transição CSS (era gsap)
+                  backgroundColor: current.accent,
+                  transition: reduce ? undefined : 'background-color .9s cubic-bezier(.22,1,.36,1)',
                   filter: 'blur(100px)',
                   opacity: 0.28,
                 }}
