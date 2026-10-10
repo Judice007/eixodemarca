@@ -23,11 +23,11 @@ const FUNDO = '#fffdfa'
 function Etapa({ step, index, reduce }: { step: MethodStep; index: number; reduce: boolean }) {
   const ref = useRef<HTMLLIElement>(null)
   // 0 quando o topo da etapa cruza 78% da tela, 1 quando o pé cruza 58%.
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 78%', 'end 58%'] })
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 58%', 'end 58%'] })
 
   // O texto acende logo no começo do trecho e fica aceso: é o pouso, não um
   // efeito que continua depois de lido.
-  const acende = useTransform(scrollYProgress, [0, 0.18], [0, 1])
+  const acende = useTransform(scrollYProgress, [0, 0.12], [0, 1])
   const titulo = useTransform(acende, [0, 1], [`rgba(${INK},.2)`, `rgba(${INK},1)`])
   const corpo = useTransform(acende, [0, 1], [`rgba(${INK},.26)`, `rgba(${INK},.78)`])
   const entregas = useTransform(acende, [0, 1], [`rgba(${INK},.2)`, `rgba(${INK},.62)`])

@@ -4,6 +4,16 @@ const nextConfig: NextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'eixodemarca.vercel.app' }],
+        destination: 'https://www.eixodemarca.com.br/:path*',
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {

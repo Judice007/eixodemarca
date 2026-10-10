@@ -39,7 +39,7 @@ export default function SiteFooter() {
           <div className="mb-8 flex flex-col gap-2 md:flex-row md:items-baseline md:gap-10">
             <p className="shrink-0 font-mono text-[10px] uppercase tracking-[0.18em] text-white/55">Conte o que precisa</p>
             <p className="max-w-[560px] text-[15px] leading-relaxed text-white/65">
-              Escreve aqui e eu respondo por e-mail. Se preferir conversa direta, o WhatsApp está logo abaixo.
+              Conta o que você precisa e a gente responde pelo WhatsApp. Se quiser falar agora, o botão está logo abaixo.
             </p>
           </div>
           <ContactForm />
@@ -47,7 +47,7 @@ export default function SiteFooter() {
 
         <div className="mt-12 flex flex-col justify-between gap-8 border-t border-white/15 pt-8 md:flex-row md:items-center">
           <div className="flex flex-wrap gap-3">
-            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="bg-azure px-6 py-3.5 text-[13px] font-bold text-white transition-colors hover:bg-white">
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="bg-azure px-6 py-3.5 text-[13px] font-bold text-white transition-colors hover:bg-white hover:text-ink">
               Falar no WhatsApp ↗
             </a>
             <a href={mailtoUrl} className="border border-white/25 px-6 py-3.5 text-[13px] font-bold transition-colors hover:border-white">
@@ -73,7 +73,7 @@ export default function SiteFooter() {
           <Link href="/#top" className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/55 transition-colors hover:text-white">Voltar ao topo ↑</Link>
         </div>
         <div className="mt-20 flex flex-col justify-between gap-4 border-t border-white/10 pt-6 text-[11px] text-white/60 sm:flex-row">
-          <span>© 2026 Eixo de Marca — Brasil</span>
+          <span>© 2026 Eixo de Marca · Angra dos Reis, RJ</span>
           <span>Sua marca fora do automático</span>
         </div>
       </div>

@@ -65,7 +65,7 @@ export async function POST(request: Request) {
 
   const faltando: string[] = []
   if (!nome) faltando.push('nome')
-  if (!telefone) faltando.push('telefone')
+  if (!telefone) faltando.push('WhatsApp')
   if (!servico) faltando.push('serviço')
   if (!expectativa) faltando.push('o que você espera')
   if (faltando.length) {

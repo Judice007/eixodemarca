@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { useReducedMotion } from 'framer-motion'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { works } from '@/lib/works'
@@ -106,7 +106,16 @@ export default function ServiceOrbit() {
       const readScroll = () => {
         const { top, total } = scrollRange()
         const progress = clamp((window.scrollY - top) / total, 0, 1)
-        targetPhase.current = progress * (N - 1)
+        // Fase com patamar: dentro de cada serviço, o giro acontece no miolo e
+        // os cantos ficam parados. Sem isso a órbita nunca parava (qualquer
+        // pixel de rolagem mexia os cards) e a tela do celular trocava no meio
+        // do giro. HOLD = fração do trecho em que nada se move.
+        const raw = progress * (N - 1)
+        const i = Math.min(Math.floor(raw), N - 2)
+        const f = raw - i
+        const HOLD = 0.35
+        const t = clamp((f - HOLD / 2) / (1 - HOLD), 0, 1)
+        targetPhase.current = i + t * t * (3 - 2 * t)
       }
 
       const draw = () => {
@@ -167,8 +176,11 @@ export default function ServiceOrbit() {
           fill.style.transform = `scaleX(${i === mod(centred, N) ? within.toFixed(3) : '0'})`
         }
 
+        // Só troca o serviço ativo quando o giro está quase pousado: cards,
+        // tela do celular, halo e legenda mudam juntos, num único crossfade.
         const nextActive = mod(centred, N)
-        if (nextActive !== activeRef.current) {
+        const pousou = Math.abs(phase.current - centred) < 0.2
+        if (pousou && nextActive !== activeRef.current) {
           activeRef.current = nextActive
           setActive(nextActive)
         }
@@ -257,6 +269,29 @@ export default function ServiceOrbit() {
 
   const current = works[active]!
 
+  // As 7 legendas ficam empilhadas na mesma célula e só a ativa tem opacidade:
+  // crossfade curto, sem espera de saída. Com AnimatePresence mode="wait" a
+  // legenda ficava vazia por ~1s e podia travar no serviço errado depois de
+  // uma rolagem rápida.
+  const legenda = (
+    <div aria-hidden className="grid rounded-xl bg-ink/65 px-4 py-2.5 backdrop-blur-sm">
+      {works.map((work) => (
+        <div
+          key={work.id}
+          className="[grid-area:1/1] transition-opacity duration-300"
+          style={{ opacity: work.id === current.id ? 1 : 0 }}
+        >
+          <h3 className="font-serif italic text-stage-text" style={{ fontSize: 'clamp(1.1rem, 2.2vw, 1.7rem)' }}>
+            {work.label}
+          </h3>
+          <p className="mx-auto mt-1 max-w-[32ch] text-[11px] leading-snug text-stage-text-muted sm:text-[13px]">
+            {work.caption}
+          </p>
+        </div>
+      ))}
+    </div>
+  )
+
   return (
     <section
       ref={sectionRef}
@@ -316,36 +351,13 @@ export default function ServiceOrbit() {
                 Sempre no eixo
               </h2>
 
-              {/* nome do serviço ativo. Fundo próprio: mesmo aqui fora do
-                  celular, o halo/cards atrás variam de cor e o texto ficava
-                  fraco só com text-shadow. */}
-              {/* lg:hidden — a partir de lg quem mostra o serviço ativo é o
-                  painel da direita, com nome grande e descrição cheia. */}
-              <div className="relative flex justify-center px-4 text-center lg:hidden" style={{ zIndex: LAYER.cta }}>
-                <AnimatePresence mode="wait">
-                  <motion.div key={current.id} aria-hidden className="rounded-xl bg-ink/65 px-4 py-2.5 backdrop-blur-sm">
-                    <h3
-                      className="font-serif italic text-stage-text"
-                      style={{ fontSize: 'clamp(1.1rem, 2.2vw, 1.7rem)' }}
-                    >
-                      {current.label.split('').map((char, i) => (
-                        <motion.span
-                          key={`${current.id}-${i}`}
-                          className="inline-block whitespace-pre"
-                          initial={reduce ? false : { y: 14, opacity: 0, filter: 'blur(6px)' }}
-                          animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                          exit={reduce ? { opacity: 0 } : { y: -10, opacity: 0, filter: 'blur(6px)' }}
-                          transition={{ duration: 0.4, delay: reduce ? 0 : i * 0.02, ease: [0.25, 1, 0.5, 1] }}
-                        >
-                          {char}
-                        </motion.span>
-                      ))}
-                    </h3>
-                    <p className="mx-auto mt-1 max-w-[32ch] text-[11px] leading-snug text-stage-text-muted sm:text-[13px]">
-                      {current.caption}
-                    </p>
-                  </motion.div>
-                </AnimatePresence>
+              {/* nome do serviço ativo (a partir de sm; no celular ele fica no
+                  vão abaixo do aparelho, ver mais adiante). Fundo próprio: o
+                  halo/cards atrás variam de cor e o texto ficava fraco só com
+                  text-shadow. lg:hidden — a partir de lg quem mostra o
+                  serviço ativo é o painel da direita. */}
+              <div className="relative hidden justify-center px-4 text-center sm:flex lg:hidden" style={{ zIndex: LAYER.cta }}>
+                {legenda}
               </div>
 
               {/* Leitor de tela: só isto anuncia a troca, os títulos visuais são
@@ -405,27 +417,24 @@ export default function ServiceOrbit() {
                 className="pointer-events-auto absolute right-0 top-1/2 hidden w-[268px] -translate-y-1/2 rounded-2xl border border-white/10 bg-ink/70 p-5 backdrop-blur-md lg:block"
                 style={{ zIndex: LAYER.cta }}
               >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={current.id}
-                    initial={reduce ? false : { opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={reduce ? { opacity: 0 } : { opacity: 0, y: -10 }}
-                    transition={{ duration: 0.38, ease: [0.25, 1, 0.5, 1] }}
-                  >
-                    <span
-                      aria-hidden
-                      className="mb-3 block h-1 w-9 rounded-full"
-                      style={{ backgroundColor: current.accent }}
-                    />
-                    <h3 className="font-display text-[24px] font-black uppercase leading-[1.05] tracking-[-0.005em] [word-spacing:0.08em] text-stage-text">
-                      {current.label}
-                    </h3>
-                    <p className="mt-3 text-[13px] leading-[1.6] text-stage-text-muted">
-                      {blurbFor(current.label, current.caption)}
-                    </p>
-                  </motion.div>
-                </AnimatePresence>
+                <div className="grid">
+                  {works.map((work) => (
+                    <div
+                      key={work.id}
+                      className="[grid-area:1/1] transition-opacity duration-300"
+                      style={{ opacity: work.id === current.id ? 1 : 0 }}
+                      aria-hidden={work.id === current.id ? undefined : true}
+                    >
+                      <span aria-hidden className="mb-3 block h-1 w-9 rounded-full" style={{ backgroundColor: work.accent }} />
+                      <h3 className="font-display text-[24px] font-black uppercase leading-[1.05] tracking-[-0.005em] [word-spacing:0.08em] text-stage-text">
+                        {work.label}
+                      </h3>
+                      <p className="mt-3 text-[13px] leading-[1.6] text-stage-text-muted">
+                        {blurbFor(work.label, work.caption)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* sombra de contato */}
@@ -447,15 +456,16 @@ export default function ServiceOrbit() {
               Espaçamento em vh no mobile: em celulares muito altos isso cresce
               e absorve parte do vão que sobraria vazio embaixo; volta a ser
               fixo a partir do sm, onde justify-center já centraliza tudo. */}
-          <div className="relative mt-[12vh] flex justify-center sm:mt-4">
+          <div className="relative mt-[3vh] flex justify-center px-4 text-center sm:hidden">{legenda}</div>
+
+          <div className="relative mt-[3vh] flex justify-center sm:mt-4">
             <CtaChip href={whatsappUrl} reduce={!!reduce} inline />
           </div>
 
           <div
-            className="relative mt-[9vh] outline-none sm:mt-3"
+            className="relative mt-[9vh] sm:mt-3"
             role="group"
             aria-label="Navegar entre os serviços"
-            tabIndex={0}
             onKeyDown={onKeyDown}
           >
             <ProgressBar

@@ -496,22 +496,22 @@ export const portfolioVideos = [
   // Vídeos novos de set/2026 estão reencodados em 720x1280 (os tiles do mosaico
   // têm ~200px; 1080p seria peso à toa): 0,9 a 3,9 MB cada.
   {
-    src: '/portfolio-media/videos/video-well-calcados.mp4',
+    src: '/portfolio-media/videos/video-well-calcados-720.mp4',
     poster: '/portfolio-media/videos/poster-well-calcados.webp',
-    title: 'Well Calçados',
-    tag: 'Unboxing · Reels',
+    title: 'Unboxing de tênis',
+    tag: 'Produto · Well Calçados',
   },
   {
     src: '/portfolio-media/videos/video-sushi-algoritmo.mp4',
     poster: '/portfolio-media/videos/poster-sushi-algoritmo.webp',
     title: 'O algoritmo sabe o que você precisa',
-    tag: 'Gastronomia · Reels',
+    tag: 'Gastronomia · Restaurante japonês',
   },
   {
     src: '/portfolio-media/videos/video-eixo-concorrente.mp4',
     poster: '/portfolio-media/videos/poster-eixo-concorrente.webp',
     title: 'Concorrente vende mais',
-    tag: 'Explicativo · Eixo',
+    tag: 'Explicativo · Eixo de Marca',
   },
   {
     src: '/portfolio-media/videos/video-boulevard-feliz-no-simples.mp4',
@@ -529,7 +529,7 @@ export const portfolioVideos = [
     src: '/portfolio-media/videos/video-sushi-to-com-fome.mp4',
     poster: '/portfolio-media/videos/poster-sushi-to-com-fome.webp',
     title: 'Tô com fome',
-    tag: 'Gastronomia · Gancho',
+    tag: 'Gastronomia · Restaurante japonês',
   },
   {
     src: '/portfolio-media/videos/video-laura-gordura-localizada.mp4',
@@ -538,10 +538,10 @@ export const portfolioVideos = [
     tag: 'Estética · Laura Anjos',
   },
   {
-    src: '/portfolio-media/videos/video-tudo-acaba-em-pizza.mp4',
+    src: '/portfolio-media/videos/video-tudo-acaba-em-pizza-720.mp4',
     poster: '/portfolio-media/videos/poster-tudo-acaba-em-pizza.webp',
     title: 'Tudo acaba em pizza',
-    tag: 'Bastidores · Captação',
+    tag: 'Gastronomia · Chef Luciane Júdice',
   },
   {
     src: '/portfolio-media/videos/video-well-branco-azul.mp4',
@@ -553,7 +553,7 @@ export const portfolioVideos = [
     src: '/portfolio-media/videos/video-portfolio-02.mp4',
     poster: '/portfolio-media/videos/poster-conteudo-fitness.webp',
     title: 'Conteúdo fitness',
-    tag: 'Ritmo · Edição',
+    tag: 'Vídeo · Edição',
   },
   {
     src: '/portfolio-media/videos/video-espaco-nem-todo-remedio.mp4',
@@ -571,7 +571,7 @@ export const portfolioVideos = [
     src: '/portfolio-media/videos/video-pousada-01.mp4',
     poster: '/portfolio-media/videos/poster-pousada-01.webp',
     title: 'Pousada da Praia',
-    tag: 'Turismo · Apresentação',
+    tag: 'Turismo · Pousada da Praia',
   },
   {
     src: '/portfolio-media/videos/video-laura-uma-pausa.mp4',
@@ -583,7 +583,7 @@ export const portfolioVideos = [
     src: '/portfolio-media/videos/video-eixo-tenho-que-aparecer.mp4',
     poster: '/portfolio-media/videos/poster-eixo-tenho-que-aparecer.webp',
     title: 'Tenho que aparecer',
-    tag: 'Explicativo · Eixo',
+    tag: 'Explicativo · Eixo de Marca',
   },
   {
     src: '/portfolio-media/videos/video-well-cliente-esperta.mp4',
@@ -601,7 +601,7 @@ export const portfolioVideos = [
     src: '/portfolio-media/videos/video-sushi-desculpa-cenas.mp4',
     poster: '/portfolio-media/videos/poster-sushi-desculpa-cenas.webp',
     title: 'Desculpa por essas cenas',
-    tag: 'Gastronomia · Reels',
+    tag: 'Gastronomia · Restaurante japonês',
   },
   {
     src: '/portfolio-media/videos/video-espaco-recuperacao.mp4',
@@ -619,7 +619,7 @@ export const portfolioVideos = [
     src: '/portfolio-media/videos/video-trafego-pago.mp4',
     poster: '/portfolio-media/videos/poster-trafego-pago.webp',
     title: 'Beleza ou estratégia',
-    tag: 'Gancho · Tráfego pago',
+    tag: 'Explicativo · Eixo de Marca',
   },
   {
     src: '/portfolio-media/videos/video-espaco-5-coisas.mp4',
@@ -631,7 +631,7 @@ export const portfolioVideos = [
     src: '/portfolio-media/videos/video-eixo-feed-bonito.mp4',
     poster: '/portfolio-media/videos/poster-eixo-feed-bonito.webp',
     title: 'Feed bonito',
-    tag: 'Explicativo · Eixo',
+    tag: 'Explicativo · Eixo de Marca',
   },
   {
     src: '/portfolio-media/videos/video-laura-pele-nao-melhora.mp4',
@@ -643,7 +643,7 @@ export const portfolioVideos = [
     src: '/portfolio-media/videos/video-sushi-cartao-virou.mp4',
     poster: '/portfolio-media/videos/poster-sushi-cartao-virou.webp',
     title: 'Pov: o cartão virou',
-    tag: 'Gastronomia · Gancho',
+    tag: 'Gastronomia · Restaurante japonês',
   },
   {
     src: '/portfolio-media/videos/video-well-transicao.mp4',
@@ -661,13 +661,13 @@ export const portfolioVideos = [
     src: '/portfolio-media/videos/video-portfolio-03.mp4',
     poster: '/portfolio-media/videos/poster-movimenta-angra.webp',
     title: 'Movimenta Angra',
-    tag: 'Apresentação · Cobertura',
+    tag: 'Cobertura · Movimenta Angra',
   },
   {
     src: '/portfolio-media/videos/video-eixo-landing-page.mp4',
     poster: '/portfolio-media/videos/poster-eixo-landing-page.webp',
     title: 'Landing page',
-    tag: 'Explicativo · Eixo',
+    tag: 'Explicativo · Eixo de Marca',
   },
   {
     src: '/portfolio-media/videos/video-espaco-nao-e-so-massagem.mp4',
@@ -690,20 +690,20 @@ export const portfolioVideos = [
   {
     src: '/portfolio-media/videos/video-laura-institucional.mp4',
     poster: '/portfolio-media/videos/poster-laura-institucional.webp',
-    title: 'Laura Anjos',
+    title: 'Conheça a Laura Anjos',
     tag: 'Institucional · Laura Anjos',
   },
   {
     src: '/portfolio-media/videos/video-massagem.mp4',
     poster: '/portfolio-media/videos/poster-massagem.webp',
     title: 'Bem-estar & spa',
-    tag: 'Gancho · Reels',
+    tag: 'Bem-estar · Espaço dos Anjos',
   },
   {
     src: '/portfolio-media/videos/video-sushi-mil-oportunidades.mp4',
     poster: '/portfolio-media/videos/poster-sushi-mil-oportunidades.webp',
     title: 'Mil oportunidades de gastar com sushi',
-    tag: 'Gastronomia · Reels',
+    tag: 'Gastronomia · Restaurante japonês',
   },
   {
     src: '/portfolio-media/videos/video-espaco-trocaria-1-hora.mp4',
@@ -727,7 +727,7 @@ export const portfolioVideos = [
     src: '/portfolio-media/videos/video-eixo-antes-depois.mp4',
     poster: '/portfolio-media/videos/poster-eixo-antes-depois.webp',
     title: 'Antes e depois de edição',
-    tag: 'Edição · Eixo',
+    tag: 'Edição · Eixo de Marca',
   },
 ] as const
 // Home: no máximo 2 vídeos por cliente, pra mostrar variedade de clientes e
@@ -739,7 +739,7 @@ const ORDEM_HOME = [
   'video-eixo-concorrente',
   'video-boulevard-feliz-no-simples',
   'video-espaco-sessao-massagem',
-  'video-tudo-acaba-em-pizza',
+  'video-tudo-acaba-em-pizza-720',
   'video-portfolio-02',
   'video-sushi-desculpa-cenas',
   'video-pousada-01',
@@ -884,6 +884,22 @@ export function slugify(value: string) {
     .replace(/^-+|-+$/g, '')
 }
 
+// Categoria mostrada no card de cada cliente. Sai de um mapa, e não da tag da
+// primeira peça, porque a primeira peça às vezes é só uma landing page ou um
+// anúncio e descrevia errado o trabalho do cliente inteiro.
+const CATEGORIA_POR_CLIENTE: Record<string, string> = {
+  'UK Imports': 'Campanhas · Tecnologia',
+  'Di Casa Açaí': 'Social media · Alimentação',
+  Reset: 'Social media · Estratégia',
+  'Pousada da Praia': 'Turismo · Social media',
+  Itamang: 'Social media · Anúncios',
+  'Eixo de Marca': 'Conteúdo próprio',
+  'Laura Anjos': 'Social media · Estética',
+  EcoUtil: 'Social media · Sustentabilidade',
+  'Well Calçados': 'Social media · Calçados',
+  'Espaço dos Anjos': 'Social media · Bem-estar',
+}
+
 export const artClients: ArtClient[] = (() => {
   const porSlug = new Map<string, ArtClient>()
 
@@ -897,7 +913,7 @@ export const artClients: ArtClient[] = (() => {
     porSlug.set(slug, {
       slug,
       name: project.client,
-      tags: project.tags,
+      tags: CATEGORIA_POR_CLIENTE[project.client] ?? project.tags,
       cover: project.src,
       coverAlt: project.alt,
       items: [project],

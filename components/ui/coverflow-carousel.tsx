@@ -198,13 +198,29 @@ export function CoverflowCarousel({
 
   const stopAutoplay = React.useCallback(() => setAutoplayStopped(true), []);
 
+  // Autoplay só com o carrossel na tela: antes seguia girando com o hero
+  // várias telas acima (milhares de mudanças de estilo por minuto à toa).
+  const rootRef = React.useRef<HTMLDivElement>(null);
+  const [onScreen, setOnScreen] = React.useState(true);
   React.useEffect(() => {
-    if (!autoplayMs || autoplayStopped) return;
+    const el = rootRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([entry]) => setOnScreen(!!entry?.isIntersecting));
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  React.useEffect(() => {
+    if (!autoplayMs || autoplayStopped || !onScreen) return;
+    // respeita "reduzir movimento": o sistema pediu menos movimento sozinho
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const timer = window.setInterval(() => nudge(1), autoplayMs);
     return () => window.clearInterval(timer);
-  }, [autoplayMs, autoplayStopped, nudge]);
+  }, [autoplayMs, autoplayStopped, onScreen, nudge]);
 
   const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    // quem pega o carrossel com o dedo assume o controle: o autoplay não briga
+    stopAutoplay();
     if (rafRef.current !== null) {
       cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
@@ -278,6 +294,7 @@ export function CoverflowCarousel({
 
   return (
     <div
+      ref={rootRef}
       className={cn("w-full", className)}
       style={{ ["--cf-card" as string]: cardWidth }}
       role="region"
@@ -358,7 +375,7 @@ export function CoverflowCarousel({
           <>
             <button
               type="button"
-              aria-label="Previous slide"
+              aria-label="Trabalho anterior"
               onClick={() => {
                 stopAutoplay();
                 nudge(-1);
@@ -369,7 +386,7 @@ export function CoverflowCarousel({
             </button>
             <button
               type="button"
-              aria-label="Next slide"
+              aria-label="Próximo trabalho"
               onClick={() => {
                 stopAutoplay();
                 nudge(1);

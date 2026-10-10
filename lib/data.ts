@@ -1,19 +1,19 @@
 export const services = [
   {
     title: 'Social media',
-    text: 'Planejamento, rotina editorial e conteúdo pensado para aproximar marcas e pessoas.',
+    text: 'Planejamento e criação de posts para o seu perfil falar com quem compra de você.',
   },
   {
     title: 'Design',
-    text: 'Peças para campanhas, lançamentos e presença digital com linguagem própria.',
+    text: 'Posts, carrosséis e artes de campanha com a cara da sua marca.',
   },
   {
     title: 'Identidade visual',
-    text: 'Marcas e sistemas visuais que organizam a comunicação desde o primeiro contato.',
+    text: 'Logo, cores e fontes da sua marca, para tudo sair com a mesma cara.',
   },
   {
     title: 'Edição de vídeo',
-    text: 'Reels, coberturas, takes e conteúdos verticais com ritmo para prender a atenção.',
+    text: 'Reels, coberturas e vídeos curtos editados para prender a atenção.',
   },
   {
     title: 'Gestão de conteúdo',
@@ -21,11 +21,11 @@ export const services = [
   },
   {
     title: 'Landing pages',
-    text: 'Páginas estratégicas e responsivas para apresentar ofertas, captar contatos e conduzir à conversão.',
+    text: 'Páginas que abrem bem no celular, mostram sua oferta e levam o cliente a chamar no WhatsApp.',
   },
   {
     title: 'Tráfego pago',
-    text: 'Planejamento, gestão e otimização de campanhas para alcançar o público certo e gerar resultados.',
+    text: 'Anúncios pagos: a gente monta, acompanha e ajusta para o dinheiro render mais.',
   },
 ] as const
 

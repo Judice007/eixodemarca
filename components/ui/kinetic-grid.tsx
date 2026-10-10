@@ -336,7 +336,17 @@ export default function KineticGrid({
       m.x = lerpN(m.x, t.x, LERP_SPEED);
       m.y = lerpN(m.y, t.y, LERP_SPEED);
 
+      // Sem mouse chegando e sem ondas em curso o quadro seria idêntico ao
+      // anterior: para o loop e religa no próximo movimento ou clique. No
+      // celular (sem mouse) isso deixa a grade parada, sem gastar CPU.
+      const parado =
+        Math.abs(m.x - t.x) < 0.5 && Math.abs(m.y - t.y) < 0.5 && ripplesRef.current.length === 0;
+
       draw(now);
+      if (parado) {
+        rafRef.current = 0;
+        return;
+      }
       rafRef.current = requestAnimationFrame(animateRef.current);
     },
     [draw],
@@ -371,8 +381,13 @@ export default function KineticGrid({
     setSize();
     window.addEventListener("resize", setSize);
 
+    const acorda = () => {
+      if (visible && !rafRef.current) rafRef.current = requestAnimationFrame(animate);
+    };
+
     const onMouseMove = (e: MouseEvent) => {
       targetMouseRef.current = { x: e.clientX, y: e.clientY };
+      acorda();
     };
 
     const onClick = (e: MouseEvent) => {
@@ -383,6 +398,7 @@ export default function KineticGrid({
         opacity: 1,
         born: performance.now(),
       });
+      acorda();
     };
 
     window.addEventListener("mousemove", onMouseMove);

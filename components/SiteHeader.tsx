@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import PontoCegoCta from '@/components/PontoCegoCta'
 
@@ -20,6 +20,25 @@ export default function SiteHeader() {
   const reduce = useReducedMotion()
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const botaoMenu = useRef<HTMLButtonElement>(null)
+
+  // Menu aberto: o fundo não rola, Esc fecha e o foco volta pro botão.
+  useEffect(() => {
+    if (!mobileMenuOpen) return
+    const anterior = document.documentElement.style.overflow
+    document.documentElement.style.overflow = 'hidden'
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileMenuOpen(false)
+        botaoMenu.current?.focus()
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.documentElement.style.overflow = anterior
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [mobileMenuOpen])
 
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 72)
@@ -70,11 +89,12 @@ export default function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <button
+            ref={botaoMenu}
             type="button"
             aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
             aria-expanded={mobileMenuOpen}
             onClick={() => setMobileMenuOpen((open) => !open)}
-            className="grid size-10 place-items-center border border-ink/15 lg:hidden"
+            className="grid size-11 place-items-center border border-ink/15 lg:hidden"
           >
             <span className="relative h-3.5 w-4">
               <span className={`absolute left-0 top-0.5 h-px w-4 bg-ink transition-transform ${mobileMenuOpen ? 'translate-y-[5px] rotate-45' : ''}`} />
@@ -89,6 +109,19 @@ export default function SiteHeader() {
       </div>
       <AnimatePresence>
         {mobileMenuOpen && (
+          <motion.button
+            type="button"
+            aria-label="Fechar menu"
+            tabIndex={-1}
+            onClick={() => setMobileMenuOpen(false)}
+            className="fixed inset-0 -z-10 bg-ink/40 lg:hidden"
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          />
+        )}
+        {mobileMenuOpen && (
           <motion.nav
             aria-label="Navegação mobile"
             className="mx-auto mt-2 grid max-w-[1420px] border border-white/10 bg-ink px-5 py-3 text-white shadow-2xl lg:hidden"
@@ -97,7 +130,7 @@ export default function SiteHeader() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25 }}
           >
-            {NAV_LINKS.map(([label, href], index) => (
+            {NAV_LINKS.map(([label, href]) => (
               <Link
                 key={href}
                 href={href}
@@ -105,7 +138,7 @@ export default function SiteHeader() {
                 className="flex items-center justify-between border-b border-white/10 py-3.5 font-sans text-[13px] font-semibold last:border-b-0"
               >
                 <span>{label}</span>
-                <span className="font-sans text-[9px] text-azure">0{index + 1}</span>
+                <span aria-hidden className="font-sans text-[13px] text-azure">→</span>
               </Link>
             ))}
             <PontoCegoCta variant="outline" className="mt-3 justify-center min-[430px]:hidden" />

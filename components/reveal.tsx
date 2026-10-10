@@ -1,7 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform, type Variants } from 'framer-motion'
+import { motion, useReducedMotion, type Variants } from 'framer-motion'
 
 // 'some' + margem no pé da tela: dispara quando o topo do bloco passa de 88%
 // da altura da tela, qualquer que seja a altura do bloco. Com amount numérico
@@ -70,42 +69,5 @@ export function RevealItem({ children, className = '' }: { children: React.React
     <motion.div className={className} variants={reduce ? undefined : revealItemVariants}>
       {children}
     </motion.div>
-  )
-}
-
-/**
- * A grade inteira é tratada como um painel único (não cada card por si) que
- * sobe uma "ladeira": além de girar (rotateX) e crescer (scale), ela também
- * se desloca de baixo pra cima (y), ligada à posição do scroll — não é só
- * virar de frente, é subir E nivelar ao mesmo tempo, como se estivesse
- * escalando uma rampa até chegar no plano reto da tela. transformOrigin
- * embaixo: o painel gira a partir da base, então a base fica "ancorada"
- * enquanto o topo se aproxima do plano da tela.
- */
-export function TiltGrid({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const reduce = useReducedMotion()
-  // Janela mais larga (98% -> 15%) = mais distância de scroll pro efeito
-  // acontecer, ou seja, transição mais lenta/gradual.
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 98%', 'start 15%'] })
-  const rotateX = useTransform(scrollYProgress, [0, 1], [50, 0])
-  const scale = useTransform(scrollYProgress, [0, 1], [0.68, 1])
-  const y = useTransform(scrollYProgress, [0, 1], [140, 0])
-  const opacity = useTransform(scrollYProgress, [0, 0.4], [0.25, 1])
-
-  if (reduce) {
-    return (
-      <div ref={ref} className={className}>
-        {children}
-      </div>
-    )
-  }
-
-  return (
-    <div style={{ perspective: 1400 }}>
-      <motion.div ref={ref} className={className} style={{ rotateX, scale, y, opacity, transformOrigin: '50% 100%' }}>
-        {children}
-      </motion.div>
-    </div>
   )
 }

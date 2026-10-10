@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
 
 /**
  * Indicador de progresso do scroll. A scrollbar nativa é escondida de
@@ -14,7 +14,6 @@ import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'fr
  * atraso elástico que dá a sensação de diferente/vivo.
  */
 export default function ScrollProgress() {
-  const reduce = useReducedMotion()
   const arrastando = useRef(false)
 
   // Clique ou arraste no trilho leva a página à posição proporcional. Só mouse
@@ -62,12 +61,7 @@ export default function ScrollProgress() {
         style={{ height: trailHeight }}
       />
       <motion.div className="absolute left-0 -translate-x-1/2 -translate-y-1/2" style={{ top }}>
-        <motion.span
-          className="block size-[7px] rounded-full bg-azure"
-          style={{ boxShadow: '0 0 10px 3px rgba(255,102,92,.55)' }}
-          animate={reduce ? undefined : { scale: [1, 1.3, 1] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-        />
+        <span className="block size-[7px] rounded-full bg-azure" style={{ boxShadow: '0 0 10px 3px rgba(255,102,92,.55)' }} />
       </motion.div>
     </div>
   )

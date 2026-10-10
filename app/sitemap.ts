@@ -1,26 +1,20 @@
 import type { MetadataRoute } from 'next'
+import { artClients, identities } from '@/lib/portfolio'
+import { SITE_URL } from '@/lib/site'
 
-const SITE_URL = 'https://eixodemarca.vercel.app'
-
+// Sai dos dados: cliente ou marca nova em lib/portfolio.ts entra sozinha.
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: SITE_URL,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 1,
-    },
-    {
-      url: `${SITE_URL}/portfolio/artes`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${SITE_URL}/portfolio/video`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
+  const caminhos = [
+    '',
+    '/portfolio/artes',
+    '/portfolio/video',
+    '/identidade-visual',
+    ...artClients.map((cliente) => `/portfolio/artes/${cliente.slug}`),
+    ...identities.map((marca) => `/identidade-visual/${marca.slug}`),
   ]
+  return caminhos.map((caminho) => ({
+    url: `${SITE_URL}${caminho}`,
+    changeFrequency: 'monthly',
+    priority: caminho === '' ? 1 : 0.7,
+  }))
 }

@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import { artClientBySlug, artClients } from '@/lib/portfolio'
+import { pageMeta } from '@/lib/seo'
 
 export function generateStaticParams() {
   return artClients.map((client) => ({ slug: client.slug }))
@@ -19,18 +20,17 @@ export async function generateMetadata({
   const client = artClientBySlug(slug)
   if (!client) return {}
 
-  return {
-    title: `${client.name} — Artes | Eixo de Marca`,
-    description: `Peças de ${client.tags.toLowerCase()} produzidas pelo Eixo de Marca para ${client.name}.`,
-    alternates: { canonical: `/portfolio/artes/${client.slug}` },
-    // Cada marca compartilha com o próprio nome e a própria capa, em vez do
-    // openGraph global.
-    openGraph: {
-      title: `${client.name} — Artes`,
-      description: `Peças de ${client.tags.toLowerCase()} produzidas pelo Eixo de Marca para ${client.name}.`,
-      images: [{ url: client.cover, alt: client.name }],
-    },
-  }
+  const total = client.items.length
+  return pageMeta({
+    title: `${client.name}: artes`,
+    description:
+      total === 1
+        ? `Uma peça que o Eixo de Marca criou para ${client.name}.`
+        : `${total} posts e artes que o Eixo de Marca criou para ${client.name}.`,
+    path: `/portfolio/artes/${client.slug}`,
+    image: client.cover,
+    imageAlt: client.coverAlt,
+  })
 }
 
 export default async function ArtClientPage({
@@ -89,13 +89,8 @@ export default async function ArtClientPage({
                     priority={index === 0}
                   />
                 </div>
-                <figcaption className="mt-3 flex items-baseline justify-between gap-4">
-                  <span className="font-display text-[15px] font-bold uppercase leading-tight tracking-[-0.02em] text-white">
-                    {item.client}
-                  </span>
-                  <span className="shrink-0 font-mono text-[9px] uppercase tracking-[0.14em] text-white/50">
-                    {item.tags}
-                  </span>
+                <figcaption className="mt-3">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-white/60">{item.tags}</span>
                 </figcaption>
               </figure>
             ))}

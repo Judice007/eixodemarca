@@ -63,7 +63,7 @@ export const SPACING = { base: 130, md: 170, xl: 230 } as const
  * A quantos slots do centro o card termina de sumir. É isto — e não o SPACING —
  * que define quantos cards ficam visíveis: ~2 no mobile, ~3 no tablet, ~5 no desktop.
  */
-export const SPAN = { base: 1.6, md: 2.2, xl: 2.6 } as const
+export const SPAN = { base: 1.15, md: 2.2, xl: 2.6 } as const
 
 /** Curva de profundidade: como o card encolhe, cai, gira e desfoca ao se afastar. */
 export const DEPTH = {

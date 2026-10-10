@@ -42,10 +42,26 @@ const mediaStrip = [
 
 // Artes + marcas reais viram as bolhas da esfera da seção 01. As marcas são
 // 1:1 e recortam redondo sem perder nada; as artes 4:5 entram por object-cover.
-const sphereImages = [
-  ...identities.map((identity) => ({ src: identity.src, alt: identity.alt })),
-  ...projects.map((project) => ({ src: project.src, alt: project.alt })),
-]
+// No máximo 28 bolhas, em rodízio entre os clientes: a esfera só precisa
+// sugerir volume, e com todas as peças (60+) eram centenas de KB à toa.
+function escolheBolhas(limite: number) {
+  const porCliente = new Map<string, { src: string; alt: string }[]>()
+  for (const project of projects) {
+    const lista = porCliente.get(project.client) ?? []
+    lista.push({ src: project.src, alt: project.alt })
+    porCliente.set(project.client, lista)
+  }
+  const saida: { src: string; alt: string }[] = identities.slice(0, 8).map((identity) => ({ src: identity.src, alt: identity.alt }))
+  for (let rodada = 0; saida.length < limite && rodada < 6; rodada++) {
+    for (const lista of porCliente.values()) {
+      const item = lista[rodada]
+      if (item && saida.length < limite) saida.push(item)
+    }
+  }
+  return saida
+}
+
+const sphereImages = escolheBolhas(28)
 
 export default function EixoEditorialSite() {
   const reduce = useReducedMotion()
@@ -71,50 +87,33 @@ export default function EixoEditorialSite() {
               decorativo, que nem era o panda da marca. */}
           <div className="mx-auto flex w-full max-w-[1420px] flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
             <div className="w-full text-center lg:flex-1 lg:text-left">
-              <motion.p
-                className="mx-auto mb-6 w-fit border border-white/30 px-5 py-2.5 font-display text-[clamp(12px,1.05vw,15px)] font-normal uppercase tracking-[0.16em] text-white/90 lg:mx-0"
-                initial={reduce ? false : { opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6 }}
-              >
+              {/* Entrada em CSS (classe hero-in), em fila: título pousa, depois o
+                  texto com o botão, depois o Ponto Cego. Antes tudo vinha do
+                  servidor com opacity 0 e só aparecia depois do JavaScript. */}
+              <p className="mx-auto mb-6 w-fit border border-white/30 px-5 py-2.5 font-display text-[clamp(12px,1.05vw,15px)] font-normal uppercase tracking-[0.16em] text-white/90 lg:mx-0">
                 Sua marca fora do automático
-              </motion.p>
-              <motion.h1
-                className="mx-auto max-w-[1250px] [text-wrap:balance] font-display text-[clamp(28px,5vw,78px)] font-black uppercase leading-[1.08] tracking-[-0.005em] [word-spacing:0.12em] text-paper max-sm:text-[24px] max-sm:leading-[1.12] max-sm:tracking-[0em] lg:mx-0"
-                initial={reduce ? false : { opacity: 0, y: 45 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              >
+              </p>
+              <h1 className="hero-in mx-auto max-w-[1250px] [text-wrap:balance] font-display text-[clamp(28px,5vw,78px)] font-black uppercase leading-[1.08] tracking-[-0.005em] [word-spacing:0.12em] text-paper max-sm:text-[24px] max-sm:leading-[1.12] max-sm:tracking-[0em] lg:mx-0">
                 <span className="block whitespace-nowrap">Conteúdo que</span>
                 <span className="block whitespace-nowrap text-azure">chama atenção.</span>
-              </motion.h1>
-              <motion.div
-                className="mx-auto mt-9 flex max-w-[900px] flex-col items-center justify-between gap-6 md:flex-row lg:mx-0"
-                initial={reduce ? false : { opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.18 }}
-              >
+              </h1>
+              <div className="hero-in mx-auto mt-9 flex max-w-[900px] flex-col items-center justify-between gap-6 [animation-delay:.55s] md:flex-row lg:mx-0">
                 <p className="max-w-[590px] text-[15px] leading-relaxed text-white/65 md:text-left md:text-[17px]">
-                  Unimos social media, design, vídeo e organização para transformar ideias em presença digital e tirar cada projeto do papel.
+                  Social media, design e vídeo no mesmo lugar. A gente planeja, cria e publica, e você cuida do seu negócio.
                 </p>
                 <a
                   href="#portfolio"
-                  className="inline-flex shrink-0 items-center gap-3 bg-azure px-6 py-3.5 text-[13px] font-bold text-white transition-colors hover:bg-white"
+                  className="inline-flex shrink-0 items-center gap-3 bg-azure px-6 py-3.5 text-[13px] font-bold text-white transition-colors hover:bg-white hover:text-ink"
                 >
                   Ver projetos <span aria-hidden>↓</span>
                 </a>
-              </motion.div>
+              </div>
             </div>
 
             {/* À direita no desktop; abaixo do texto quando empilha. */}
-            <motion.div
-              className="w-fit shrink-0"
-              initial={reduce ? false : { opacity: 0, x: 24 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            >
+            <div className="hero-in w-fit shrink-0 [animation-delay:.9s]">
               <PontoCegoCta variant="hero" />
-            </motion.div>
+            </div>
           </div>
 
           {/* Carrossel 3D no lugar da faixa que rolava sozinha — imagens reais do
@@ -162,12 +161,12 @@ export default function EixoEditorialSite() {
               {/* Medida mais estreita que antes (era 1180px): mantém o texto
                   na metade esquerda, longe do miolo da esfera. */}
               <h2 className="max-w-[880px] [text-shadow:0_2px_20px_rgba(23,10,42,.95)] [text-wrap:balance] font-display text-[clamp(23px,3.4vw,50px)] font-black uppercase leading-[1.08] tracking-[-0.005em] [word-spacing:0.1em] text-paper max-sm:leading-[1.1] max-sm:tracking-[0em]">
-                Aqui tudo começa com <span className="text-azure">direção.</span> Entregamos comunicação pensada, não apenas automática.
+                Aqui tudo começa com <span className="text-azure">direção.</span> Cada post tem um motivo para existir.
               </h2>
             </Reveal>
             <Reveal className="mt-12 max-w-[720px]" delay={0.08}>
               <p className="text-[16px] leading-[1.7] text-white/70 [text-shadow:0_2px_16px_rgba(23,10,42,.95)] sm:text-[19px]">
-                Estratégia, criatividade e processo trabalhando juntos. Cada escolha precisa reforçar a marca, aproximar pessoas e conduzir o projeto para uma entrega clara.
+                Antes de criar, a gente entende seu negócio e quem compra de você. Assim cada arte e cada vídeo saem com o mesmo objetivo.
               </p>
             </Reveal>
           </div>

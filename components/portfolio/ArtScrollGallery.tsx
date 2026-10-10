@@ -47,7 +47,9 @@ const colunas = COLUNAS.map((coluna) => coluna.map((nome) => porArquivo.get(nome
  */
 function Card({ project }: { project: (typeof projects)[number] }) {
   const { scrollYProgress, reduce } = useContainerScrollContext()
-  const opacity = useTransform(scrollYProgress, [POUSO, POUSO + 0.12], [0, 1])
+  // Keyframes explícitos em 0 e 1: com só dois pontos o valor era extrapolado
+  // e o nome acendia e apagava sozinho enquanto a parede ainda estava presa.
+  const opacity = useTransform(scrollYProgress, [0, POUSO, POUSO + 0.12, 1], [0, 0, 1, 1])
 
   return (
     <Link
@@ -83,7 +85,7 @@ export default function ArtScrollGallery() {
         </ContainerAnimated>
         <ContainerAnimated>
           <p className="mx-auto mt-5 max-w-[46ch] text-[14px] leading-relaxed text-white/55">
-            Role para ver o feed de cada cliente ganhar forma.
+            Role para ver o feed de cada cliente se montar.
           </p>
         </ContainerAnimated>
       </ContainerStagger>

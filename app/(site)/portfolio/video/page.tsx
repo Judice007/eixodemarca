@@ -2,16 +2,13 @@ import type { Metadata } from 'next'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import VideoGrid from '@/components/portfolio/VideoGrid'
+import { pageMeta } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Vídeos — Eixo de Marca',
-  description: 'Reels, coberturas e conteúdo vertical produzidos pelo Eixo de Marca.',
-  alternates: { canonical: '/portfolio/video' },
-  openGraph: {
-    title: 'Vídeos — Eixo de Marca',
-    description: 'Reels, coberturas e conteúdo vertical produzidos pelo Eixo de Marca.',
-  },
-}
+export const metadata: Metadata = pageMeta({
+  title: 'Vídeos',
+  description: 'Reels, coberturas e vídeos curtos editados pelo Eixo de Marca para clientes de Angra dos Reis e região.',
+  path: '/portfolio/video',
+})
 
 export default function PortfolioVideoPage() {
   return (
@@ -27,9 +24,9 @@ export default function PortfolioVideoPage() {
             </div>
             <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
               <h1 className="max-w-[980px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[1.08] tracking-[-0.005em] [word-spacing:0.1em] max-sm:leading-[1.1] max-sm:tracking-[0em]">
-                Vídeos que ganharam <span className="text-azure">ritmo.</span>
+                Vídeos que a gente <span className="text-azure">editou.</span>
               </h1>
-              <p className="max-w-[290px] text-[14px] leading-relaxed text-white/55">Reels, coberturas, takes e conteúdos verticais produzidos pelo Eixo de Marca.</p>
+              <p className="max-w-[290px] text-[14px] leading-relaxed text-white/55">Reels, coberturas e vídeos curtos feitos pelo Eixo de Marca.</p>
             </div>
           </div>
 

@@ -62,9 +62,9 @@ export default function ContactForm() {
   }
 
   const campo =
-    'w-full border border-white/20 bg-white/[0.04] px-4 py-3 text-[14px] text-white placeholder:text-white/40 transition-colors focus:border-azure focus:outline-none'
+    'w-full border border-white/20 bg-white/[0.04] px-4 py-3 text-[16px] text-white placeholder:text-white/45 transition-colors focus:border-azure focus:outline-none'
 
-  const rotulo = 'mb-1.5 block font-mono text-[9px] uppercase tracking-[0.14em] text-white/50'
+  const rotulo = 'mb-1.5 block font-mono text-[11px] uppercase tracking-[0.14em] text-white/60'
 
   // Layout deitado: 12 colunas no desktop. Linha 1 = quem é você (4 x 3
   // colunas); linha 2 = o que você quer (serviço 3 + expectativa 6 + e-mail 3);
@@ -77,7 +77,7 @@ export default function ContactForm() {
         <label htmlFor={`${id}-nome`} className={rotulo}>
           Nome <span className="text-azure-on-dark">*</span>
         </label>
-        <input id={`${id}-nome`} name="nome" required autoComplete="name" placeholder="Como te chamo?" className={campo} />
+        <input id={`${id}-nome`} name="nome" required autoComplete="name" placeholder="Como podemos te chamar?" className={campo} />
       </div>
       <div className="lg:col-span-3">
         <label htmlFor={`${id}-telefone`} className={rotulo}>
@@ -105,7 +105,7 @@ export default function ContactForm() {
         <label htmlFor={`${id}-instagram`} className={rotulo}>
           Instagram
         </label>
-        <input id={`${id}-instagram`} name="instagram" placeholder="@suamarca" className={campo} />
+        <input id={`${id}-instagram`} name="instagram" autoCapitalize="none" autoCorrect="off" spellCheck={false} placeholder="@suamarca" className={campo} />
       </div>
 
       <div className="sm:col-span-2 lg:col-span-3">
@@ -114,7 +114,16 @@ export default function ContactForm() {
         </label>
         {/* A lista sai de lib/data.ts, a mesma que monta a seção de serviços —
             assim serviço novo aparece aqui sozinho, sem duplicar a lista. */}
-        <select id={`${id}-servico`} name="servico" required defaultValue="" className={`${campo} appearance-none`}>
+        {/* Cinza enquanto nada foi escolhido (invalid:), e uma seta pra não
+            parecer um campo já respondido. */}
+        <div className="relative">
+          <select
+            id={`${id}-servico`}
+            name="servico"
+            required
+            defaultValue=""
+            className={`${campo} appearance-none pr-10 invalid:text-white/45`}
+          >
           <option value="" disabled>
             Escolha um serviço
           </option>
@@ -126,7 +135,11 @@ export default function ContactForm() {
           <option value="Ainda não sei" className="bg-ink">
             Ainda não sei
           </option>
-        </select>
+          </select>
+          <svg aria-hidden viewBox="0 0 12 8" className="pointer-events-none absolute right-4 top-1/2 h-2 w-3 -translate-y-1/2 text-white/70">
+            <path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" strokeWidth="1.6" />
+          </svg>
+        </div>
       </div>
 
       <div className="sm:col-span-2 lg:col-span-6">
@@ -165,15 +178,15 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={estado === 'enviando'}
-          className="bg-azure px-6 py-3.5 text-[13px] font-bold text-white transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
+          className="bg-azure px-6 py-3.5 text-[13px] font-bold text-white transition-colors hover:bg-white hover:text-ink disabled:cursor-not-allowed disabled:opacity-60"
         >
           {estado === 'enviando' ? 'Enviando…' : 'Enviar'}
         </button>
 
         {/* aria-live: quem usa leitor de tela precisa ouvir o resultado, que
             de outro modo só existe visualmente. */}
-        <p aria-live="polite" className="text-[13px]">
-          {estado === 'enviado' && <span className="text-azure-on-dark">Recebido. Respondo em breve.</span>}
+        <p aria-live="polite" role="status" className="text-[13px]">
+          {estado === 'enviado' && <span className="text-azure-on-dark">Recebido! A gente responde em breve.</span>}
           {estado === 'erro' && <span className="text-white/70">{erro}</span>}
         </p>
       </div>

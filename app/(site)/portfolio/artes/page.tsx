@@ -3,16 +3,13 @@ import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import ArtClientRows from '@/components/portfolio/ArtClientRows'
 import ArtScrollGallery from '@/components/portfolio/ArtScrollGallery'
+import { pageMeta } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Artes e design — Eixo de Marca',
-  description: 'Campanhas, identidade visual e peças de design produzidas pelo Eixo de Marca.',
-  alternates: { canonical: '/portfolio/artes' },
-  openGraph: {
-    title: 'Artes e design — Eixo de Marca',
-    description: 'Campanhas, identidade visual e peças de design produzidas pelo Eixo de Marca.',
-  },
-}
+export const metadata: Metadata = pageMeta({
+  title: 'Artes e design',
+  description: 'Posts, carrosséis e campanhas criados pelo Eixo de Marca para clientes de Angra dos Reis e região.',
+  path: '/portfolio/artes',
+})
 
 export default function PortfolioArtesPage() {
   return (
@@ -28,9 +25,9 @@ export default function PortfolioArtesPage() {
             </div>
             <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
               <h1 className="max-w-[980px] [text-wrap:balance] font-display text-[clamp(24px,3.8vw,55px)] font-black uppercase leading-[1.08] tracking-[-0.005em] [word-spacing:0.1em] max-sm:leading-[1.1] max-sm:tracking-[0em]">
-                Artes e design que ganharam <span className="text-azure">forma.</span>
+                Artes que já saíram <span className="text-azure">daqui.</span>
               </h1>
-              <p className="max-w-[290px] text-[14px] leading-relaxed text-white/55">Campanhas, identidade visual e peças de design produzidas pelo Eixo de Marca.</p>
+              <p className="max-w-[290px] text-[14px] leading-relaxed text-white/55">Posts, carrosséis e campanhas criados pelo Eixo de Marca para os nossos clientes.</p>
             </div>
           </div>
 

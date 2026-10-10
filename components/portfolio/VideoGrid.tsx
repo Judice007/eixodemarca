@@ -80,9 +80,6 @@ function PortfolioVideoCard({ video, index }: { video: (typeof portfolioVideos)[
               </span>
             </button>
           )}
-          <span className="pointer-events-none absolute left-4 top-4 border border-white/30 bg-ink/70 px-3 py-1.5 font-sans text-[9px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur">
-            0{index + 1}
-          </span>
         </div>
         <div className="flex items-start justify-between gap-4 border-t border-white/15 py-4">
           <div>

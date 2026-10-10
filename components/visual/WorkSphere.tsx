@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { useVisible } from '@/components/hooks/useVisible'
 
@@ -52,13 +52,28 @@ export default function WorkSphere({
   images: SphereImage[]
   className?: string
 }) {
-  const [rootRef, visible] = useVisible<HTMLDivElement>()
+  const [rootRef, visible] = useVisible<HTMLDivElement>('600px')
   const itemRefs = useRef<(HTMLDivElement | null)[]>([])
   const radiusRef = useRef(0)
-  const rafRef = useRef<number | null>(null)
-  /** tempo acumulado de giro, pra esfera retomar de onde parou */
-  const elapsed = useRef(0)
   const reduce = useReducedMotion()
+  // As bolhas só carregam imagem quando a seção chega perto: antes eram ~60
+  // imagens (674KB) baixadas antes do conteúdo do topo, no celular.
+  const [armed, setArmed] = useState(false)
+  useEffect(() => {
+    const root = rootRef.current
+    if (!root) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setArmed(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '600px' },
+    )
+    observer.observe(root)
+    return () => observer.disconnect()
+  }, [rootRef])
 
   useEffect(() => {
     const root = rootRef.current
@@ -123,33 +138,40 @@ export default function WorkSphere({
       return () => observer.disconnect()
     }
 
-    const observer = new ResizeObserver(measure)
+    // O ângulo vem da posição da seção na tela: a esfera gira enquanto você
+    // rola e PARA quando você para. Antes girava sem parar (rAF contínuo)
+    // enquanto o texto entrava, duas animações disputando a mesma tela.
+    const angleFor = () => {
+      const r = root.getBoundingClientRect()
+      const vh = window.innerHeight
+      const p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)))
+      return 0.6 + p * Math.PI * 1.2
+    }
+
+    const observer = new ResizeObserver(() => {
+      measure()
+      draw(angleFor())
+    })
     observer.observe(root)
+    draw(angleFor())
 
-    // Fora da tela (ou aba em segundo plano) não roda nada: antes o rAF
-    // desenhava as 18 bolhas pra sempre, mesmo com a seção longe.
-    if (!visible) {
-      // deixa uma pose desenhada, senão a seção reaparece vazia ao voltar
-      draw(elapsed.current * 0.114)
-      return () => observer.disconnect()
-    }
+    // Fora da tela não escuta nada.
+    if (!visible) return () => observer.disconnect()
 
-    let last: number | null = null
-    const step = (now: number) => {
-      if (last === null) last = now
-      // acumula o tempo em vez de medir desde o início: sem isso a esfera
-      // saltava pra frente ao voltar pra tela, como se tivesse girado sozinha
-      elapsed.current += (now - last) / 1000
-      last = now
-      // volta completa em ~55s — devagar o bastante pra não competir com o texto
-      draw(elapsed.current * 0.114)
-      rafRef.current = requestAnimationFrame(step)
+    let frame = 0
+    const onScroll = () => {
+      if (frame) return
+      frame = requestAnimationFrame(() => {
+        frame = 0
+        draw(angleFor())
+      })
     }
-    rafRef.current = requestAnimationFrame(step)
+    window.addEventListener('scroll', onScroll, { passive: true })
 
     return () => {
       observer.disconnect()
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
+      window.removeEventListener('scroll', onScroll)
+      if (frame) cancelAnimationFrame(frame)
     }
   }, [images.length, reduce, visible])
 
@@ -183,14 +205,16 @@ export default function WorkSphere({
               opacity: 0,
             }}
           >
-            <Image
-              src={image.src}
-              alt=""
-              width={140}
-              height={140}
-              sizes="104px"
-              className="h-full w-full rounded-full object-cover ring-1 ring-white/15"
-            />
+            {armed && (
+              <Image
+                src={image.src}
+                alt=""
+                width={140}
+                height={140}
+                sizes="(min-width: 1024px) 104px, 48px"
+                className="h-full w-full rounded-full object-cover ring-1 ring-white/15"
+              />
+            )}
           </div>
         ))}
       </div>
