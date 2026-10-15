@@ -12,30 +12,32 @@ import { RevealGroup, RevealItem } from '@/components/reveal'
 // No mobile o `aspect-[9/16]` manda; de `sm` pra cima o row-span assume (por
 // isso o `sm:aspect-auto`), com auto-rows curtas fazendo o escalonamento.
 // Alturas calculadas, não sorteadas: scripts/balancear-mosaico.mjs escolhe o
-// row-span de cada vídeo pra que as colunas terminem na mesma altura. Com 18
-// vídeos, 6 e 3 colunas fecham exatas; 4 colunas sobram ~160px e 5 colunas
-// ~280px (18 não divide por 4 nem por 5).
+// row-span de cada vídeo pra que as colunas terminem na mesma altura. Com 20
+// vídeos: 6 colunas ~40px, 5 colunas ~100px, 4 colunas ~40px, 3 colunas ~20px.
 // Se a lista da home mudar, rode o script de novo (com a quantidade) e cole o array aqui.
 const SPANS = [
+  'aspect-[9/16] sm:aspect-auto sm:row-span-17',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-17',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-22',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-17',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-17',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-22',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-22',
   'aspect-[9/16] sm:aspect-auto sm:row-span-18',
   'aspect-[9/16] sm:aspect-auto sm:row-span-17',
+  'aspect-[9/16] sm:aspect-auto sm:row-span-22',
   'aspect-[9/16] sm:aspect-auto sm:row-span-23',
   'aspect-[9/16] sm:aspect-auto sm:row-span-22',
   'aspect-[9/16] sm:aspect-auto sm:row-span-23',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-17',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-22',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-21',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-17',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-22',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-21',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-23',
-  'aspect-[9/16] sm:aspect-auto sm:row-span-22',
   'aspect-[9/16] sm:aspect-auto sm:row-span-18',
   'aspect-[9/16] sm:aspect-auto sm:row-span-17',
 ]
+
 
 
 
