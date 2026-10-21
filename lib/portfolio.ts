@@ -432,7 +432,79 @@ export const projects: ProjectItem[] = [
     fit: 'cover' as const,
     position: 'center',
   },
-  // ── Espaço dos Anjos (setembro/2026) — primeira entrada no portfólio de
+   {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/well-calcados-08.webp',
+    alt: 'Capa de carrossel da Well Calçados "Eu ia escolher só um", com três tênis em destaque',
+    client: 'Well Calçados',
+    tags: 'Carrossel · Produto',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/well-calcados-09.webp',
+    alt: 'Capa de carrossel da Well Calçados "Seu próximo tênis pode estar aqui", com tênis cinza',
+    client: 'Well Calçados',
+    tags: 'Carrossel · Produto',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/well-calcados-10.webp',
+    alt: 'Capa de carrossel da Well Calçados "Qual rosa é mais você?", com três tênis rosa',
+    client: 'Well Calçados',
+    tags: 'Carrossel · Produto',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/well-calcados-11.webp',
+    alt: 'Capa de carrossel da Well Calçados "Qual combina com o seu ritmo?", com três tênis esportivos',
+    client: 'Well Calçados',
+    tags: 'Carrossel · Produto',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/well-calcados-12.webp',
+    alt: 'Slide da Well Calçados "Preto e branco sempre têm vez", com tênis de três listras',
+    client: 'Well Calçados',
+    tags: 'Carrossel · Produto',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/well-calcados-13.webp',
+    alt: 'Slide da Well Calçados "Rosa com atitude", com tênis preto e rosa',
+    client: 'Well Calçados',
+    tags: 'Carrossel · Produto',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/well-calcados-14.webp',
+    alt: 'Slide da Well Calçados "Pra quem gosta de cor", com tênis azul-marinho',
+    client: 'Well Calçados',
+    tags: 'Carrossel · Produto',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/well-calcados-15.webp',
+    alt: 'Slide da Well Calçados "Mas esse também", com tênis marrom e branco',
+    client: 'Well Calçados',
+    tags: 'Carrossel · Produto',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+ // ── Espaço dos Anjos (setembro/2026) — primeira entrada no portfólio de
   // artes; até aqui a marca só tinha a identidade visual.
   {
     type: 'image' as const,
@@ -775,7 +847,13 @@ export const portfolioVideos = [
     title: 'Trabalhar duro para ter uma segunda assim',
     tag: 'Turismo · Boulevard Náutico',
   },
-  {
+   {
+    src: '/portfolio-media/videos/video-well-nb-marrom.mp4',
+    poster: '/portfolio-media/videos/poster-well-nb-marrom.webp',
+    title: 'Esse marrom merece zoom',
+    tag: 'Produto · Well Calçados',
+  },
+ {
     src: '/portfolio-media/videos/video-trafego-pago.mp4',
     poster: '/portfolio-media/videos/poster-trafego-pago.webp',
     title: 'Beleza ou estratégia',
@@ -787,7 +865,13 @@ export const portfolioVideos = [
     title: '5 coisas para ter menos dores',
     tag: 'Bem-estar · Espaço dos Anjos',
   },
-  {
+   {
+    src: '/portfolio-media/videos/video-well-nike-3-cores.mp4',
+    poster: '/portfolio-media/videos/poster-well-nike-3-cores.webp',
+    title: 'Nike em 3 cores',
+    tag: 'Produto · Well Calçados',
+  },
+ {
     src: '/portfolio-media/videos/video-eixo-feed-bonito.mp4',
     poster: '/portfolio-media/videos/poster-eixo-feed-bonito.webp',
     title: 'Feed bonito',
@@ -823,7 +907,13 @@ export const portfolioVideos = [
     title: 'Você só percebeu quando fez',
     tag: 'Estética · Laura Anjos',
   },
-  {
+   {
+    src: '/portfolio-media/videos/video-well-adidas-branco.mp4',
+    poster: '/portfolio-media/videos/poster-well-adidas-branco.webp',
+    title: 'Três listras, vários detalhes',
+    tag: 'Produto · Well Calçados',
+  },
+ {
     src: '/portfolio-media/videos/video-portfolio-03.mp4',
     poster: '/portfolio-media/videos/poster-movimenta-angra.webp',
     title: 'Movimenta Angra',
