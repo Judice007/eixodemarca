@@ -43,7 +43,7 @@ const exemplos: Record<string, { src: string; alt: string; legenda: string; href
     href: '/portfolio/video',
   },
   'Gestão de conteúdo': {
-    src: '/portfolio-media/videos/poster-gestao-outubro-2.webp',
+    src: '/portfolio-media/videos/poster-gestao-outubro-3.webp',
     alt: 'Calendário de outubro com os posts publicados de vários clientes',
     legenda: 'Calendário de outubro',
     href: '/',
