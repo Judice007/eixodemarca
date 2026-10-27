@@ -35,28 +35,39 @@ const pecas = (slug: string, idx: number[]) => {
   })
 }
 
-// Social media: só clientes que a gente atende hoje
-const exSocial = [
-  ...pecas('well-calcados', [0, 1]),
-  ...pecas('espaco-dos-anjos', [0, 1]),
-  ...pecas('atacadao-madeiras', [0, 3]),
-  ...pecas('eixo-de-marca', [2, 3]),
-  ...pecas('laura-anjos', [0, 1]),
+// Social media: clientes que a gente atende hoje, um card por perfil (arte + @ clicável).
+// Quem ainda não tem arte no portfólio ganha um card com a cor da marca (ou o logo).
+type ClienteIG = { nome: string; handle: string; arte?: { src: string; alt: string }; logo?: string; cor?: string }
+const arte1 = (slug: string, i: number) => {
+  const [p] = pecas(slug, [i])
+  return { src: p!.src, alt: p!.alt }
+}
+const clientesIG: ClienteIG[] = [
+  { nome: 'Well Calçados', handle: 'wellcalcados', arte: arte1('well-calcados', 0) },
+  { nome: 'Espaço dos Anjos', handle: 'dosanjos.espaco', arte: arte1('espaco-dos-anjos', 5) },
+  { nome: 'Atacadão Madeiras', handle: 'atacadaomadeirasangra', arte: arte1('atacadao-madeiras', 0) },
+  { nome: 'Laura Anjos', handle: 'biomedicalauraanjos', arte: arte1('laura-anjos', 2) },
+  { nome: 'Eixo de Marca', handle: 'eixodemarca', arte: arte1('eixo-de-marca', 2) },
+  { nome: 'Health CoWorking', handle: 'healthco.working', arte: arte1('health-coworking', 0) },
+  { nome: 'ARMC', handle: 'armc.marina', cor: '#7c4dff' },
+  { nome: 'Salobra', handle: 'sa.lo.bra', cor: '#12936f' },
+  { nome: 'Clínica Cães e Gatos', handle: 'caesgatosveterinaria', cor: '#d62f3f' },
+  { nome: 'GST Veículos Elétricos', handle: 'gstveiculoseletricos', logo: '/portfolio-media/marca-gst.webp', cor: '#ffffff' },
 ]
-// Design: uma arte de cada cliente, para mostrar a variedade
+// Design: a melhor arte de cada cliente (escolhidas a dedo), para mostrar a variedade
 const exDesign = [
-  ...pecas('uk-imports', [0]),
-  ...pecas('di-casa-acai', [1]),
-  ...pecas('reset', [1]),
-  ...pecas('pousada-da-praia', [1]),
-  ...pecas('itamang', [1]),
-  ...pecas('ecoutil', [1]),
-  ...pecas('laura-anjos', [3]),
-  ...pecas('well-calcados', [8]),
-  ...pecas('espaco-dos-anjos', [3]),
-  ...pecas('atacadao-madeiras', [5]),
-  ...pecas('health-coworking', [4]),
-  ...pecas('lobo-tech', [3]),
+  ...pecas('uk-imports', [2]),
+  ...pecas('di-casa-acai', [3]),
+  ...pecas('reset', [4]),
+  ...pecas('pousada-da-praia', [0]),
+  ...pecas('eixo-de-marca', [3]),
+  ...pecas('laura-anjos', [1]),
+  ...pecas('ecoutil', [0]),
+  ...pecas('well-calcados', [9]),
+  ...pecas('espaco-dos-anjos', [2]),
+  ...pecas('atacadao-madeiras', [8]),
+  ...pecas('health-coworking', [1]),
+  ...pecas('lobo-tech', [6]),
 ]
 const exAnuncios = pecas('health-coworking', [0, 1, 2, 3])
 
@@ -65,26 +76,26 @@ const video = (nome: string) => {
   if (!v) throw new Error(`servicos: vídeo ${nome} não existe`)
   return { src: v.src, poster: v.poster, titulo: v.title, legenda: v.tag.split('· ').pop() ?? v.tag }
 }
+// Edição: um vídeo de cada cliente
 const exEdicao = [
   'video-well-branco-azul',
   'video-sushi-algoritmo',
   'video-eixo-concorrente',
   'video-boulevard-feliz-no-simples',
-  'video-well-nike-3-cores',
+  'video-espaco-sessao-massagem',
+  'video-laura-pele-nao-melhora',
+  'video-tudo-acaba-em-pizza-720',
+  'video-atacadao-qual-madeira',
   'video-lobo-vampiro',
   'video-pousada-01',
-  'video-atacadao-qual-madeira',
 ].map(video)
-// Captação: clientes com captação feita por nós (Atacadão, Chef Luciane, Espaço dos Anjos, Laura, Eixo)
+// Captação: um de cada cliente em que a gente grava (Eixo, Laura, Espaço dos Anjos, Atacadão, Chef Luciane)
 const exCaptacao = [
-  'video-atacadao-estoque-obra',
-  'video-tudo-acaba-em-pizza-720',
-  'video-chef-workshops',
-  'video-espaco-sessao-massagem',
-  'video-espaco-recuperacao',
-  'video-laura-pele-nao-melhora',
-  'video-laura-so-percebeu-depois',
   'video-eixo-tenho-que-aparecer',
+  'video-laura-so-percebeu-depois',
+  'video-espaco-recuperacao',
+  'video-atacadao-estoque-obra',
+  'video-chef-workshops',
 ].map(video)
 
 const D = '/portfolio-media/videos/device/'
@@ -112,14 +123,58 @@ const manuais: Manual[] = [
   { id: 'espaco', nome: 'Espaço dos Anjos', nota: 'versões da logo e paleta', paginas: [pg('espaco', 1, 1600, 622), pg('espaco', 2, 1280, 720)] },
 ]
 
-// Todas as marcas que já criamos (as 10 do site + GST e Atacadão)
+// Marcas com quem já trabalhamos. Cada cartão aparece no tamanho natural da imagem
+// (sem cortar e sem moldura), por isso as dimensões ficam aqui.
+const DIM: Record<string, [number, number]> = {
+  'marca-eixo.ab7dfce5.webp': [1080, 1440],
+  'marca-espaco-dos-anjos.webp': [1000, 1000],
+  'marca-vista-bajeko.webp': [1080, 1440],
+  'marca-laura-anjos.webp': [1080, 1080],
+  'marca-jo-salao-de-beleza.webp': [1080, 1440],
+  'marca-viva-angra.webp': [1080, 1080],
+  'marca-bm.webp': [1080, 1080],
+  'marca-well-calcados.8561f7cc.webp': [1080, 1440],
+  'marca-luciane-judice.webp': [1080, 1080],
+  'marca-itamang.f47834c8.webp': [1080, 1080],
+}
 const marcas = [
-  ...identities.map((i) => ({ slug: i.slug, nome: i.name, src: i.src, alt: i.alt, accent: i.accent, href: `/identidade-visual/${i.slug}` })),
-  { slug: 'gst', nome: 'GST Veículos Elétricos', src: '/portfolio-media/marca-gst.webp', alt: 'Logo da GST Veículos Elétricos', accent: '#ffffff', href: undefined },
-  { slug: 'atacadao-madeiras', nome: 'Atacadão Madeiras', src: '/portfolio-media/marca-atacadao-madeiras.webp', alt: 'Logo do Atacadão Madeiras', accent: '#000000', href: undefined },
+  ...identities.map((i) => {
+    const d = DIM[i.src.split('/').pop()!] ?? [1080, 1080]
+    return { slug: i.slug, nome: i.name, src: i.src, alt: i.alt, w: d[0], h: d[1], href: `/identidade-visual/${i.slug}` }
+  }),
+  { slug: 'forno-da-vila', nome: 'Forno da Vila', src: '/portfolio-media/marca-forno-da-vila.webp', alt: 'Logo do Forno da Vila', w: 1080, h: 1080, href: undefined },
+  { slug: 'lobo-tech', nome: 'Lobo Tech', src: '/portfolio-media/marca-lobo-tech.webp', alt: 'Logo da Lobo Tech', w: 1080, h: 1080, href: undefined },
+  { slug: 'gst', nome: 'GST Veículos Elétricos', src: '/portfolio-media/marca-gst.webp', alt: 'Logo da GST Veículos Elétricos', w: 900, h: 1117, href: undefined },
+  { slug: 'atacadao-madeiras', nome: 'Atacadão Madeiras', src: '/portfolio-media/marca-atacadao-madeiras.webp', alt: 'Logo do Atacadão Madeiras', w: 900, h: 1125, href: undefined },
+]
+
+const resultados = [
+  {
+    cliente: 'Atacadão Madeiras',
+    periodo: 'Anúncio de mensagens no WhatsApp · 7 dias (19 a 25/10/2026)',
+    numeros: [
+      { valor: '18', rotulo: 'conversas no WhatsApp' },
+      { valor: 'R$ 3,86', rotulo: 'por conversa, 40% menos que na campanha anterior' },
+      { valor: '4.163', rotulo: 'pessoas alcançadas' },
+      { valor: 'R$ 69,49', rotulo: 'investidos no total' },
+    ],
+    nota: 'Dados da conta de anúncios, relatório da segunda campanha.',
+  },
+  {
+    cliente: 'Well Calçados',
+    periodo: 'Anúncio de engajamento · 1 mês',
+    numeros: [
+      { valor: '4.123', rotulo: 'engajamentos' },
+      { valor: 'R$ 0,03', rotulo: 'por engajamento' },
+      { valor: '9.324', rotulo: 'pessoas alcançadas' },
+      { valor: 'R$ 115,18', rotulo: 'investidos no total' },
+    ],
+    nota: 'Dados da conta de anúncios do cliente.',
+  },
 ]
 
 type Secao = {
+  centrada?: boolean
   id: string
   titulo: string
   texto: string
@@ -182,10 +237,31 @@ const secoes: Secao[] = [
     ],
     visual: (
       <>
-        <Rotulo>Clientes que atendemos hoje</Rotulo>
-        <GradeArtes itens={exSocial} cols="grid-cols-2 sm:grid-cols-5" />
+        <Rotulo>Clientes que atendemos hoje · toque para ver o perfil</Rotulo>
+        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+          {clientesIG.map((c) => (
+            <li key={c.handle}>
+              <a href={`https://www.instagram.com/${c.handle}/`} target="_blank" rel="noopener noreferrer" className="group block">
+                <div
+                  className="relative aspect-[4/5] overflow-hidden rounded-lg transition-transform duration-300 group-hover:-translate-y-0.5"
+                  style={{ backgroundColor: c.cor ?? '#eee' }}
+                >
+                  {c.arte ? (
+                    <Image src={c.arte.src} alt={c.arte.alt} fill sizes="(min-width: 1024px) 18vw, 44vw" className="object-cover" />
+                  ) : c.logo ? (
+                    <Image src={c.logo} alt={`Logo da ${c.nome}`} fill sizes="(min-width: 1024px) 18vw, 44vw" className="object-contain p-4" />
+                  ) : (
+                    <span className="absolute inset-0 grid place-items-center px-3 text-center font-display text-[clamp(18px,2vw,26px)] font-black uppercase leading-tight text-white">{c.nome}</span>
+                  )}
+                </div>
+                <span className="mt-1.5 block text-[13px] font-semibold leading-tight text-ink">{c.nome}</span>
+                <span className="block text-[12px] text-ink/55">@{c.handle} →</span>
+              </a>
+            </li>
+          ))}
+        </ul>
         <Link href="/portfolio/artes" className="mt-4 inline-block text-[13px] font-semibold underline underline-offset-4">
-          Ver todos os clientes →
+          Ver as artes de todos os clientes →
         </Link>
       </>
     ),
@@ -214,20 +290,25 @@ const secoes: Secao[] = [
       <div className="flex flex-col gap-8">
         <ManuaisDeMarca manuais={manuais} />
         <div>
-          <Rotulo>Marcas que já criamos</Rotulo>
-          <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-6">
+          <Rotulo>Marcas com quem já trabalhamos</Rotulo>
+          <ul className="columns-2 gap-3 sm:columns-3 lg:columns-4">
             {marcas.map((m) => {
               const card = (
                 <>
-                  <div className="relative aspect-square overflow-hidden rounded-lg" style={{ backgroundColor: m.accent }}>
-                    <Image src={m.src} alt={m.alt} fill sizes="(min-width: 1024px) 12vw, 30vw" className="object-contain p-2" />
-                  </div>
+                  <Image src={m.src} alt={m.alt} width={m.w} height={m.h} sizes="(min-width: 1024px) 18vw, 30vw" className="h-auto w-full rounded-lg" />
                   <span className="mt-1.5 block text-[12px] leading-snug text-ink/55">{m.nome}</span>
                 </>
               )
-              return <li key={m.slug}>{m.href ? <Link href={m.href} className="block">{card}</Link> : card}</li>
+              return (
+                <li key={m.slug} className="mb-3 break-inside-avoid">
+                  {m.href ? <Link href={m.href} className="block">{card}</Link> : card}
+                </li>
+              )
             })}
           </ul>
+          <p className="mt-2 text-[13px] leading-relaxed text-ink/55">
+            E também: ARMC, Salobra, Clínica Cães e Gatos, Health CoWorking, UK Imports, Di Casa Açaí, Reset, Pousada da Praia, EcoUtil, Boulevard Náutico, Zen Sushi e Movimenta Angra.
+          </p>
         </div>
       </div>
     ),
@@ -244,22 +325,23 @@ const secoes: Secao[] = [
       'Capa do vídeo',
       'Formato certo para Reels, Stories e anúncios',
     ],
-    visual: <GradeVideos itens={exEdicao} />,
+    visual: <GradeVideos itens={exEdicao} cols="grid-cols-2 sm:grid-cols-5" />,
   },
   {
     id: 'captacao-de-video',
     titulo: 'Captação de vídeo',
     texto:
-      'A gente vai até o seu negócio e grava produto, ambiente, equipe e atendimento, seguindo um roteiro feito antes. Uma captação bem planejada rende material para várias semanas de conteúdo e já sai pensada para a edição. Estes vídeos saíram de captações que fizemos para restaurante, clínica, madeireira e para a própria Eixo.',
+      'A gente vai até o seu negócio e grava produto, ambiente, equipe e atendimento, seguindo um roteiro feito antes. Uma captação bem planejada rende material para várias semanas de conteúdo e já sai pensada para a edição. Estes vídeos saíram de captações que fizemos para a Eixo, Laura Anjos, Espaço dos Anjos, Atacadão Madeiras e Chef Luciane Júdice.',
     inclui: [
       'Roteiro de captação antes de gravar',
       'Gravação no local: produto, espaço, equipe e atendimento',
       'Fotos e vídeos para o perfil e para anúncios',
       'Material organizado e entregue para a edição',
     ],
-    visual: <GradeVideos itens={exCaptacao} verTodos={false} />,
+    visual: <GradeVideos itens={exCaptacao} cols="grid-cols-2 sm:grid-cols-5" verTodos={false} />,
   },
   {
+    centrada: true,
     id: 'gestao-de-conteudo',
     titulo: 'Gestão de conteúdo',
     texto:
@@ -271,13 +353,20 @@ const secoes: Secao[] = [
       'Organização de prazos e materiais',
     ],
     visual: (
-      <ul className="grid max-w-[560px] grid-cols-2 gap-4">
-        <li>
-          <VideoTile src={`${D}video-gestao-setembro.mp4`} poster={`${P}poster-gestao-setembro.webp`} titulo="Calendário de setembro com os posts publicados" legenda="Setembro: 81 posts publicados em 8 perfis" />
-        </li>
-        <li>
-          <VideoTile src={`${D}video-gestao-outubro-3.mp4`} poster={`${P}poster-gestao-outubro-3.webp`} titulo="Calendário de outubro com os posts publicados" legenda="Outubro: 72 posts publicados em 9 perfis" />
-        </li>
+      <ul className="mx-auto grid max-w-[760px] gap-6 sm:grid-cols-2 sm:gap-8">
+        {[
+          { mes: 'Setembro', posts: 81, perfis: 8, src: `${D}video-gestao-setembro.mp4`, poster: `${P}poster-gestao-setembro.webp` },
+          { mes: 'Outubro', posts: 72, perfis: 9, src: `${D}video-gestao-outubro-3.mp4`, poster: `${P}poster-gestao-outubro-3.webp` },
+        ].map((m) => (
+          <li key={m.mes} className="rounded-2xl border border-ink/10 bg-white p-4 text-center sm:p-5">
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink/50">{m.mes}</span>
+            <p className="mt-1 font-display text-[clamp(30px,4vw,44px)] font-black leading-none">{m.posts} posts</p>
+            <p className="mb-4 mt-1 text-[13px] text-ink/60">publicados em {m.perfis} perfis de clientes</p>
+            <div className="mx-auto max-w-[260px]">
+              <VideoTile src={m.src} poster={m.poster} titulo={`Calendário de ${m.mes.toLowerCase()} com os posts publicados`} />
+            </div>
+          </li>
+        ))}
       </ul>
     ),
   },
@@ -323,29 +412,23 @@ const secoes: Secao[] = [
     ],
     visual: (
       <div className="flex flex-col gap-8">
-        <div className="grid items-start gap-5 sm:grid-cols-[200px_1fr]">
-          <Thumb src="/portfolio-media/videos/poster-trafego-painel-atacadao.webp" alt="Resultados dos anúncios do Atacadão Madeiras em 7 dias" ratio="aspect-[9/16]" sizes="200px" />
-          <div className="text-[15px] leading-relaxed text-ink/70">
-            <Rotulo>Resultado real · Atacadão Madeiras</Rotulo>
-            <p>
-              Em 7 dias, anúncio para quem quer madeira em Angra: <strong className="text-ink">18 conversas no WhatsApp a R$ 3,86 cada</strong>, 40% mais barato que na campanha anterior. <strong className="text-ink">4.163 pessoas alcançadas</strong> com R$ 69,49 investidos.
-            </p>
-            <p className="mt-2 text-[13px] text-ink/50">Dados da conta de anúncios, relatório do período de 19 a 25/10/2026.</p>
-            <div className="mt-4 max-w-[170px]">
-              <VideoTile src="/portfolio-media/videos/video-atacadao-orcamento.mp4" poster="/portfolio-media/videos/poster-atacadao-orcamento.webp" titulo="Vídeo do anúncio do Atacadão Madeiras" legenda="O anúncio que trouxe as conversas" />
+        <div className="grid gap-5 sm:grid-cols-2">
+          {resultados.map((r) => (
+            <div key={r.cliente} className="rounded-2xl border border-ink/10 bg-white p-5">
+              <Rotulo>Resultado real</Rotulo>
+              <h3 className="font-display text-[20px] font-black uppercase leading-tight">{r.cliente}</h3>
+              <p className="mt-1 text-[13px] text-ink/55">{r.periodo}</p>
+              <dl className="mt-4 grid grid-cols-2 gap-3">
+                {r.numeros.map((n, i) => (
+                  <div key={n.rotulo} className={`rounded-xl p-3 ${i === 0 ? 'bg-ink text-white' : 'bg-ink/[0.05]'}`}>
+                    <dd className={`font-display font-black leading-none text-[clamp(22px,2.4vw,30px)]`}>{n.valor}</dd>
+                    <dt className={`mt-1 text-[12px] leading-snug ${i === 0 ? 'text-white/70' : 'text-ink/60'}`}>{n.rotulo}</dt>
+                  </div>
+                ))}
+              </dl>
+              <p className="mt-3 text-[12px] leading-snug text-ink/50">{r.nota}</p>
             </div>
-          </div>
-        </div>
-
-        <div className="grid items-start gap-5 sm:grid-cols-[200px_1fr]">
-          <Thumb src="/portfolio-media/videos/poster-trafego-painel-well.webp" alt="Resultados dos anúncios da Well Calçados em 1 mês" ratio="aspect-[9/16]" sizes="200px" />
-          <div className="text-[15px] leading-relaxed text-ink/70">
-            <Rotulo>Resultado real · Well Calçados</Rotulo>
-            <p>
-              Em 1 mês: <strong className="text-ink">4.123 engajamentos a R$ 0,03 cada</strong>, <strong className="text-ink">9.324 pessoas alcançadas</strong> com R$ 115,18 investidos.
-            </p>
-            <p className="mt-2 text-[13px] text-ink/50">Dados da conta de anúncios do cliente.</p>
-          </div>
+          ))}
         </div>
 
         <div>
@@ -388,21 +471,36 @@ export default function ServicosPage() {
         <div className="mx-auto max-w-[1100px]">
           {secoes.map((s) => (
             <section key={s.id} id={s.id} className="scroll-mt-24 border-b border-ink/10 py-[clamp(40px,6vw,80px)] last:border-b-0">
-              <div className="grid gap-8 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-14">
-                <div>
+              {s.centrada ? (
+                <div className="mx-auto flex max-w-[860px] flex-col items-center text-center">
                   <h2 className="font-display text-[clamp(22px,2.6vw,34px)] font-black uppercase leading-tight">{s.titulo}</h2>
-                  <p className="mt-4 text-[15px] leading-relaxed text-ink/70">{s.texto}</p>
-                  <ul className="mt-5 flex flex-col gap-2 text-[14px] leading-snug text-ink/80">
+                  <p className="mt-4 max-w-[640px] text-[15px] leading-relaxed text-ink/70">{s.texto}</p>
+                  <ul className="mt-6 flex flex-wrap justify-center gap-2">
                     {s.inclui.map((t) => (
-                      <li key={t} className="flex gap-2.5">
-                        <span aria-hidden className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-azure" />
+                      <li key={t} className="rounded-full border border-ink/15 px-4 py-2 text-[13px] leading-snug text-ink/80">
                         {t}
                       </li>
                     ))}
                   </ul>
+                  <div className="mt-10 w-full">{s.visual}</div>
                 </div>
-                <div className="min-w-0">{s.visual}</div>
-              </div>
+              ) : (
+                <div className="grid gap-8 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-14">
+                  <div>
+                    <h2 className="font-display text-[clamp(22px,2.6vw,34px)] font-black uppercase leading-tight">{s.titulo}</h2>
+                    <p className="mt-4 text-[15px] leading-relaxed text-ink/70">{s.texto}</p>
+                    <ul className="mt-5 flex flex-col gap-2 text-[14px] leading-snug text-ink/80">
+                      {s.inclui.map((t) => (
+                        <li key={t} className="flex gap-2.5">
+                          <span aria-hidden className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-azure" />
+                          {t}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="min-w-0">{s.visual}</div>
+                </div>
+              )}
             </section>
           ))}
         </div>

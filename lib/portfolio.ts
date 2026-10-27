@@ -840,7 +840,7 @@ export const portfolioVideos = [
     src: '/portfolio-media/videos/video-sushi-algoritmo.mp4',
     poster: '/portfolio-media/videos/poster-sushi-algoritmo.webp',
     title: 'O algoritmo sabe o que você precisa',
-    tag: 'Gastronomia · Restaurante japonês',
+    tag: 'Gastronomia · Zen Sushi',
   },
    {
     src: '/portfolio-media/videos/video-lobo-vampiro.mp4',
@@ -876,7 +876,7 @@ export const portfolioVideos = [
     src: '/portfolio-media/videos/video-sushi-to-com-fome.mp4',
     poster: '/portfolio-media/videos/poster-sushi-to-com-fome.webp',
     title: 'Tô com fome',
-    tag: 'Gastronomia · Restaurante japonês',
+    tag: 'Gastronomia · Zen Sushi',
   },
   {
     src: '/portfolio-media/videos/video-laura-gordura-localizada.mp4',
@@ -954,7 +954,7 @@ export const portfolioVideos = [
     src: '/portfolio-media/videos/video-sushi-desculpa-cenas.mp4',
     poster: '/portfolio-media/videos/poster-sushi-desculpa-cenas.webp',
     title: 'Desculpa por essas cenas',
-    tag: 'Gastronomia · Restaurante japonês',
+    tag: 'Gastronomia · Zen Sushi',
   },
   {
     src: '/portfolio-media/videos/video-espaco-recuperacao.mp4',
@@ -1020,7 +1020,7 @@ export const portfolioVideos = [
     src: '/portfolio-media/videos/video-sushi-cartao-virou.mp4',
     poster: '/portfolio-media/videos/poster-sushi-cartao-virou.webp',
     title: 'Pov: o cartão virou',
-    tag: 'Gastronomia · Restaurante japonês',
+    tag: 'Gastronomia · Zen Sushi',
   },
   {
     src: '/portfolio-media/videos/video-well-transicao.mp4',
@@ -1098,7 +1098,7 @@ export const portfolioVideos = [
     src: '/portfolio-media/videos/video-sushi-mil-oportunidades.mp4',
     poster: '/portfolio-media/videos/poster-sushi-mil-oportunidades.webp',
     title: 'Mil oportunidades de gastar com sushi',
-    tag: 'Gastronomia · Restaurante japonês',
+    tag: 'Gastronomia · Zen Sushi',
   },
   {
     src: '/portfolio-media/videos/video-espaco-trocaria-1-hora.mp4',
