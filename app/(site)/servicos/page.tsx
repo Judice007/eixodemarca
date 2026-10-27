@@ -4,7 +4,6 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
-import ManuaisDeMarca, { type Manual } from '@/components/servicos/ManuaisDeMarca'
 import VideoTile from '@/components/servicos/VideoTile'
 import { contactInfo, whatsappUrl } from '@/lib/data'
 import { artClients, identities, portfolioVideos } from '@/lib/portfolio'
@@ -103,27 +102,11 @@ const exLanding = [
   { src: `${D}video-landing-well-mobile.mp4`, poster: `${P}poster-landing-well-mobile.webp`, titulo: 'Landing page da Well Calçados no celular', legenda: 'Well Calçados' },
 ]
 
-// Manuais de marca (páginas geradas dos PDFs entregues aos clientes)
-const M = '/portfolio-media/manuais/manual-'
-const pg = (nome: string, n: number, w: number, h: number) => ({ src: `${M}${nome}-${n}.webp`, w, h })
-const manuais: Manual[] = [
-  { id: 'jo', nome: 'JO Salão de Beleza', nota: 'versões, cores, tipografia e aplicações', paginas: [1, 2, 3, 4, 5].map((n) => pg('jo', n, 1280, 720)) },
-  { id: 'forno', nome: 'Forno da Vila', nota: 'base da marca, fachada, embalagens e uniforme', paginas: [1, 2, 3, 4, 5, 6, 7].map((n) => pg('forno', n, 1280, 720)) },
-  { id: 'laura', nome: 'Laura Anjos', nota: 'versões da logo, paleta e aplicações', paginas: [pg('laura', 1, 832, 1491), pg('laura', 2, 832, 1044), pg('laura', 3, 832, 1451), pg('laura', 4, 832, 1084)] },
-  {
-    id: 'vista',
-    nome: 'Vista Bajeko',
-    nota: 'conceito, cores e aplicações',
-    paginas: [pg('vista', 1, 832, 1491), pg('vista', 2, 832, 1534), pg('vista', 3, 832, 1065), pg('vista', 4, 832, 1534), pg('vista', 5, 832, 1492)],
-  },
-  { id: 'angra', nome: 'Angra GG', nota: 'sistema visual, cores, tipografia e usos', paginas: [1, 2, 3, 4, 5, 6].map((n) => pg('angra', n, 1280, 800)) },
-  { id: 'espaco', nome: 'Espaço dos Anjos', nota: 'versões da logo e paleta', paginas: [pg('espaco', 1, 1600, 622), pg('espaco', 2, 1280, 720)] },
-]
-
 // Marcas que a gente criou (identidade visual). Todas em quadrados do mesmo tamanho.
 const marcas = [
   ...identities.map((i) => ({ slug: i.slug, nome: i.name, href: `/identidade-visual/${i.slug}` as string | undefined })),
   { slug: 'forno-da-vila', nome: 'Forno da Vila', href: undefined },
+  { slug: 'pausa-cafe', nome: 'Pausa Café', href: undefined },
 ]
 
 const resultados = [
@@ -260,11 +243,10 @@ const secoes: Secao[] = [
     id: 'identidade-visual',
     titulo: 'Identidade visual',
     texto:
-      'Criamos a marca do zero ou organizamos a que você já tem: logo, cores, fontes e o jeito de aplicar tudo isso, para a sua empresa ter sempre a mesma cara, no perfil, no material impresso e na loja. No final entregamos um manual de marca, como estes.',
+      'Criamos a marca do zero ou organizamos a que você já tem: logo, cores, fontes e o jeito de aplicar tudo isso, para a sua empresa ter sempre a mesma cara, no perfil, no material impresso e na loja. No final entregamos um manual de marca completo.',
     inclui: ['Logo e variações de uso', 'Paleta de cores', 'Fontes', 'Manual da marca', 'Aplicações da marca: fachada, embalagem, uniforme e redes'],
     visual: (
       <div className="flex flex-col gap-8">
-        <ManuaisDeMarca manuais={manuais} />
         <div>
           <Rotulo>Marcas que criamos</Rotulo>
           <ul className="flex flex-wrap justify-center gap-3">
