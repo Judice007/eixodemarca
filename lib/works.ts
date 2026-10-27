@@ -85,11 +85,11 @@ export const works: Work[] = [
     caption: 'Vários clientes, todo mês',
     format: 'portrait', // poster 480x854 (9:16)
     accent: '#6a3fb0',
-    card: '/portfolio-media/videos/poster-gestao-outubro.webp',
+    card: '/portfolio-media/videos/poster-gestao-outubro-2.webp',
     screen: {
       type: 'video',
-      src: '/portfolio-media/videos/device/video-gestao-outubro.mp4',
-      poster: '/portfolio-media/videos/poster-gestao-outubro.webp',
+      src: '/portfolio-media/videos/device/video-gestao-outubro-2.mp4',
+      poster: '/portfolio-media/videos/poster-gestao-outubro-2.webp',
     },
   },
   {
