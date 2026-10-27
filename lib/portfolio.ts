@@ -714,6 +714,115 @@ export const projects: ProjectItem[] = [
     fit: 'cover' as const,
     position: 'center',
   },
+  // ── Lobo Tech e novidades do Atacadão Madeiras (outubro/2026)
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/atacadao-madeiras-10.webp',
+    alt: 'Capa de carrossel do Atacadão Madeiras: deck pro verão, o guia completo para planejar a sua obra',
+    client: 'Atacadão Madeiras',
+    tags: 'Carrossel · Educativo',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/atacadao-madeiras-11.webp',
+    alt: 'Slide de carrossel do Atacadão Madeiras: vai fazer um deck, a gente te ajuda a escolher',
+    client: 'Atacadão Madeiras',
+    tags: 'Carrossel · Educativo',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/lobo-tech-01.webp',
+    alt: 'Post de Halloween da Lobo Tech: o verdadeiro terror é a bateria acabar, com carregador turbo',
+    client: 'Lobo Tech',
+    tags: 'Social media · Halloween',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/lobo-tech-02.webp',
+    alt: 'Post de Halloween da Lobo Tech: doce ou travessura, com fone, smartwatch e carregador',
+    client: 'Lobo Tech',
+    tags: 'Social media · Halloween',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/lobo-tech-03.webp',
+    alt: 'Post de Halloween da Lobo Tech: o maior terror é querer ouvir música sem fone',
+    client: 'Lobo Tech',
+    tags: 'Social media · Halloween',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/lobo-tech-04.webp',
+    alt: 'Meme da Lobo Tech: todos têm uma fraqueza, música, bateria em 1% e chegar atrasado',
+    client: 'Lobo Tech',
+    tags: 'Social media · Engajamento',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/lobo-tech-05.webp',
+    alt: 'Post da Lobo Tech: qual você escolheria, fone, smartwatch ou carregador',
+    client: 'Lobo Tech',
+    tags: 'Social media · Engajamento',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/lobo-tech-06.webp',
+    alt: 'Post da Lobo Tech em formato de jogo da velha com carregador e fone',
+    client: 'Lobo Tech',
+    tags: 'Social media · Engajamento',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/lobo-tech-07.webp',
+    alt: 'Slide de carrossel da Lobo Tech: som que te leva às nuvens, fone feito de nuvem',
+    client: 'Lobo Tech',
+    tags: 'Carrossel · Produto',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/lobo-tech-08.webp',
+    alt: 'Slide de carrossel da Lobo Tech: o tempo voa, smartwatch feito de nuvem',
+    client: 'Lobo Tech',
+    tags: 'Carrossel · Produto',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/lobo-tech-09.webp',
+    alt: 'Slide de carrossel da Lobo Tech: energia lá nas alturas, carregador feito de nuvem',
+    client: 'Lobo Tech',
+    tags: 'Carrossel · Produto',
+    fit: 'cover' as const,
+    position: 'center',
+  },
+  {
+    type: 'image' as const,
+    src: '/portfolio-media/artes/lobo-tech-10.webp',
+    alt: 'Post da Lobo Tech: no ônibus, com fone e sem fone',
+    client: 'Lobo Tech',
+    tags: 'Social media · Engajamento',
+    fit: 'cover' as const,
+    position: 'center',
+  },
 ]
 
 export const portfolioVideos = [
@@ -733,13 +842,25 @@ export const portfolioVideos = [
     title: 'O algoritmo sabe o que você precisa',
     tag: 'Gastronomia · Restaurante japonês',
   },
-  {
+   {
+    src: '/portfolio-media/videos/video-lobo-vampiro.mp4',
+    poster: '/portfolio-media/videos/poster-lobo-vampiro.webp',
+    title: 'Vampiro: alho. Fone: nem o alho incomoda',
+    tag: 'Tecnologia · Lobo Tech',
+  },
+ {
     src: '/portfolio-media/videos/video-eixo-concorrente.mp4',
     poster: '/portfolio-media/videos/poster-eixo-concorrente.webp',
     title: 'Concorrente vende mais',
     tag: 'Explicativo · Eixo de Marca',
   },
-  {
+   {
+    src: '/portfolio-media/videos/video-atacadao-estoque-obra.mp4',
+    poster: '/portfolio-media/videos/poster-atacadao-estoque-obra.webp',
+    title: 'Do estoque à sua obra',
+    tag: 'Anúncio · Atacadão Madeiras',
+  },
+ {
     src: '/portfolio-media/videos/video-boulevard-feliz-no-simples.mp4',
     poster: '/portfolio-media/videos/poster-boulevard-feliz-no-simples.webp',
     title: 'Seja feliz no simples',
@@ -841,7 +962,13 @@ export const portfolioVideos = [
     title: 'Investir na recuperação',
     tag: 'Bem-estar · Espaço dos Anjos',
   },
-  {
+   {
+    src: '/portfolio-media/videos/video-lobo-fone-susto.mp4',
+    poster: '/portfolio-media/videos/poster-lobo-fone-susto.webp',
+    title: 'Halloween: o susto do fone',
+    tag: 'Tecnologia · Lobo Tech',
+  },
+ {
     src: '/portfolio-media/videos/video-boulevard-trabalhar-duro.mp4',
     poster: '/portfolio-media/videos/poster-boulevard-trabalhar-duro.webp',
     title: 'Trabalhar duro para ter uma segunda assim',
@@ -883,7 +1010,13 @@ export const portfolioVideos = [
     title: 'Minha pele não melhora nunca',
     tag: 'Estética · Laura Anjos',
   },
-  {
+   {
+    src: '/portfolio-media/videos/video-lobo-todo-mundo-fraqueza.mp4',
+    poster: '/portfolio-media/videos/poster-lobo-todo-mundo-fraqueza.webp',
+    title: 'Minha fraqueza: bateria em 1%',
+    tag: 'Tecnologia · Lobo Tech',
+  },
+ {
     src: '/portfolio-media/videos/video-sushi-cartao-virou.mp4',
     poster: '/portfolio-media/videos/poster-sushi-cartao-virou.webp',
     title: 'Pov: o cartão virou',
@@ -937,7 +1070,13 @@ export const portfolioVideos = [
     title: 'Workshops',
     tag: 'Gastronomia · Chef Luciane Júdice',
   },
-  {
+   {
+    src: '/portfolio-media/videos/video-lobo-qual-voce-escolheria.mp4',
+    poster: '/portfolio-media/videos/poster-lobo-qual-voce-escolheria.webp',
+    title: 'Preto ou branco? Qual é o seu?',
+    tag: 'Tecnologia · Lobo Tech',
+  },
+ {
     src: '/portfolio-media/videos/video-well-branco-prata.mp4',
     poster: '/portfolio-media/videos/poster-well-branco-prata.webp',
     title: 'Qual look vai com ele?',
@@ -1005,11 +1144,11 @@ const ORDEM_HOME = [
   'video-boulevard-trabalhar-duro',
   'video-atacadao-orcamento',
   'video-well-transicao',
-  'video-portfolio-03',
+  'video-lobo-vampiro',
   'video-chef-workshops',
   'video-espaco-recuperacao',
   'video-trafego-pago',
-  'video-portfolio-01',
+  'video-lobo-qual-voce-escolheria',
 ]
 
 export const homeVideos = ORDEM_HOME.map((nome) => {
@@ -1157,6 +1296,7 @@ const CATEGORIA_POR_CLIENTE: Record<string, string> = {
   'Well Calçados': 'Social media · Calçados',
   'Espaço dos Anjos': 'Social media · Bem-estar',
   'Atacadão Madeiras': 'Social media · Madeira',
+  'Lobo Tech': 'Social media · Tecnologia',
   'Health CoWorking': 'Tráfego pago · Saúde',
 }
 
