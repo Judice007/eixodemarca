@@ -48,7 +48,7 @@ const clientesIG: ClienteIG[] = [
   { nome: 'ARMC', handle: 'armc.marina', logo: 'armc' },
   { nome: 'Clínica Cães e Gatos', handle: 'caesgatosveterinaria', logo: 'caes' },
   { nome: 'GST Veículos Elétricos', handle: 'gstveiculoseletricos', logo: 'gst' },
-  { nome: 'Salobra', handle: 'sa.lo.bra', cor: '#12936f' },
+  { nome: 'Salobra', handle: 'sa.lo.bra', logo: 'salobra' },
 ]
 
 // Design: a melhor arte de cada cliente (escolhidas a dedo), para mostrar a variedade
