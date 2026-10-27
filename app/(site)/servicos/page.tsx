@@ -35,25 +35,22 @@ const pecas = (slug: string, idx: number[]) => {
   })
 }
 
-// Social media: clientes que a gente atende hoje, um card por perfil (arte + @ clicável).
-// Quem ainda não tem arte no portfólio ganha um card com a cor da marca (ou o logo).
-type ClienteIG = { nome: string; handle: string; arte?: { src: string; alt: string }; logo?: string; cor?: string }
-const arte1 = (slug: string, i: number) => {
-  const [p] = pecas(slug, [i])
-  return { src: p!.src, alt: p!.alt }
-}
+// Social media: clientes que a gente atende hoje, um card por perfil (logo + @ clicável).
+// Quem ainda não tem logo no site ganha um card com a cor da marca.
+type ClienteIG = { nome: string; handle: string; logo?: string; cor?: string }
 const clientesIG: ClienteIG[] = [
-  { nome: 'Well Calçados', handle: 'wellcalcados', arte: arte1('well-calcados', 0) },
-  { nome: 'Espaço dos Anjos', handle: 'dosanjos.espaco', arte: arte1('espaco-dos-anjos', 5) },
-  { nome: 'Atacadão Madeiras', handle: 'atacadaomadeirasangra', arte: arte1('atacadao-madeiras', 0) },
-  { nome: 'Laura Anjos', handle: 'biomedicalauraanjos', arte: arte1('laura-anjos', 2) },
-  { nome: 'Eixo de Marca', handle: 'eixodemarca', arte: arte1('eixo-de-marca', 2) },
-  { nome: 'Health CoWorking', handle: 'healthco.working', arte: arte1('health-coworking', 0) },
-  { nome: 'ARMC', handle: 'armc.marina', cor: '#7c4dff' },
+  { nome: 'Well Calçados', handle: 'wellcalcados', logo: 'well' },
+  { nome: 'Espaço dos Anjos', handle: 'dosanjos.espaco', logo: 'espaco' },
+  { nome: 'Atacadão Madeiras', handle: 'atacadaomadeirasangra', logo: 'atacadao' },
+  { nome: 'Laura Anjos', handle: 'biomedicalauraanjos', logo: 'laura' },
+  { nome: 'Eixo de Marca', handle: 'eixodemarca', logo: 'eixo' },
+  { nome: 'Health CoWorking', handle: 'healthco.working', logo: 'health' },
+  { nome: 'ARMC', handle: 'armc.marina', logo: 'armc' },
+  { nome: 'Clínica Cães e Gatos', handle: 'caesgatosveterinaria', logo: 'caes' },
+  { nome: 'GST Veículos Elétricos', handle: 'gstveiculoseletricos', logo: 'gst' },
   { nome: 'Salobra', handle: 'sa.lo.bra', cor: '#12936f' },
-  { nome: 'Clínica Cães e Gatos', handle: 'caesgatosveterinaria', cor: '#d62f3f' },
-  { nome: 'GST Veículos Elétricos', handle: 'gstveiculoseletricos', logo: '/portfolio-media/marca-gst.webp', cor: '#ffffff' },
 ]
+
 // Design: a melhor arte de cada cliente (escolhidas a dedo), para mostrar a variedade
 const exDesign = [
   ...pecas('uk-imports', [2]),
@@ -123,29 +120,10 @@ const manuais: Manual[] = [
   { id: 'espaco', nome: 'Espaço dos Anjos', nota: 'versões da logo e paleta', paginas: [pg('espaco', 1, 1600, 622), pg('espaco', 2, 1280, 720)] },
 ]
 
-// Marcas com quem já trabalhamos. Cada cartão aparece no tamanho natural da imagem
-// (sem cortar e sem moldura), por isso as dimensões ficam aqui.
-const DIM: Record<string, [number, number]> = {
-  'marca-eixo.ab7dfce5.webp': [1080, 1440],
-  'marca-espaco-dos-anjos.webp': [1000, 1000],
-  'marca-vista-bajeko.webp': [1080, 1440],
-  'marca-laura-anjos.webp': [1080, 1080],
-  'marca-jo-salao-de-beleza.webp': [1080, 1440],
-  'marca-viva-angra.webp': [1080, 1080],
-  'marca-bm.webp': [1080, 1080],
-  'marca-well-calcados.8561f7cc.webp': [1080, 1440],
-  'marca-luciane-judice.webp': [1080, 1080],
-  'marca-itamang.f47834c8.webp': [1080, 1080],
-}
+// Marcas que a gente criou (identidade visual). Todas em quadrados do mesmo tamanho.
 const marcas = [
-  ...identities.map((i) => {
-    const d = DIM[i.src.split('/').pop()!] ?? [1080, 1080]
-    return { slug: i.slug, nome: i.name, src: i.src, alt: i.alt, w: d[0], h: d[1], href: `/identidade-visual/${i.slug}` }
-  }),
-  { slug: 'forno-da-vila', nome: 'Forno da Vila', src: '/portfolio-media/marca-forno-da-vila.webp', alt: 'Logo do Forno da Vila', w: 1080, h: 1080, href: undefined },
-  { slug: 'lobo-tech', nome: 'Lobo Tech', src: '/portfolio-media/marca-lobo-tech.webp', alt: 'Logo da Lobo Tech', w: 1080, h: 1080, href: undefined },
-  { slug: 'gst', nome: 'GST Veículos Elétricos', src: '/portfolio-media/marca-gst.webp', alt: 'Logo da GST Veículos Elétricos', w: 900, h: 1117, href: undefined },
-  { slug: 'atacadao-madeiras', nome: 'Atacadão Madeiras', src: '/portfolio-media/marca-atacadao-madeiras.webp', alt: 'Logo do Atacadão Madeiras', w: 900, h: 1125, href: undefined },
+  ...identities.map((i) => ({ slug: i.slug, nome: i.name, href: `/identidade-visual/${i.slug}` as string | undefined })),
+  { slug: 'forno-da-vila', nome: 'Forno da Vila', href: undefined },
 ]
 
 const resultados = [
@@ -243,19 +221,17 @@ const secoes: Secao[] = [
             <li key={c.handle}>
               <a href={`https://www.instagram.com/${c.handle}/`} target="_blank" rel="noopener noreferrer" className="group block">
                 <div
-                  className="relative aspect-[4/5] overflow-hidden rounded-lg transition-transform duration-300 group-hover:-translate-y-0.5"
-                  style={{ backgroundColor: c.cor ?? '#eee' }}
+                  className="relative aspect-square overflow-hidden rounded-lg border border-ink/10 transition-transform duration-300 group-hover:-translate-y-0.5"
+                  style={{ backgroundColor: c.cor ?? '#fff' }}
                 >
-                  {c.arte ? (
-                    <Image src={c.arte.src} alt={c.arte.alt} fill sizes="(min-width: 1024px) 18vw, 44vw" className="object-cover" />
-                  ) : c.logo ? (
-                    <Image src={c.logo} alt={`Logo da ${c.nome}`} fill sizes="(min-width: 1024px) 18vw, 44vw" className="object-contain p-4" />
+                  {c.logo ? (
+                    <Image src={`/portfolio-media/cliente-${c.logo}.webp`} alt={`Logo da ${c.nome}`} fill sizes="(min-width: 1024px) 18vw, 44vw" className="object-cover" />
                   ) : (
                     <span className="absolute inset-0 grid place-items-center px-3 text-center font-display text-[clamp(18px,2vw,26px)] font-black uppercase leading-tight text-white">{c.nome}</span>
                   )}
                 </div>
                 <span className="mt-1.5 block text-[13px] font-semibold leading-tight text-ink">{c.nome}</span>
-                <span className="block text-[12px] text-ink/55">@{c.handle} →</span>
+                <span className="flex gap-1 text-[12px] text-ink/55"><span className="min-w-0 truncate">@{c.handle}</span><span aria-hidden className="shrink-0">→</span></span>
               </a>
             </li>
           ))}
@@ -290,25 +266,24 @@ const secoes: Secao[] = [
       <div className="flex flex-col gap-8">
         <ManuaisDeMarca manuais={manuais} />
         <div>
-          <Rotulo>Marcas com quem já trabalhamos</Rotulo>
-          <ul className="columns-2 gap-3 sm:columns-3 lg:columns-4">
+          <Rotulo>Marcas que criamos</Rotulo>
+          <ul className="flex flex-wrap justify-center gap-3">
             {marcas.map((m) => {
               const card = (
                 <>
-                  <Image src={m.src} alt={m.alt} width={m.w} height={m.h} sizes="(min-width: 1024px) 18vw, 30vw" className="h-auto w-full rounded-lg" />
-                  <span className="mt-1.5 block text-[12px] leading-snug text-ink/55">{m.nome}</span>
+                  <div className="relative aspect-square overflow-hidden rounded-lg">
+                    <Image src={`/portfolio-media/ident-${m.slug}.webp`} alt={`Identidade visual ${m.nome}`} fill sizes="(min-width: 1024px) 14vw, 30vw" className="object-cover" />
+                  </div>
+                  <span className="mt-1.5 block text-center text-[12px] leading-snug text-ink/60">{m.nome}</span>
                 </>
               )
               return (
-                <li key={m.slug} className="mb-3 break-inside-avoid">
+                <li key={m.slug} className="w-[calc((100%-24px)/3)] sm:w-[calc((100%-36px)/4)] lg:w-[calc((100%-60px)/6)]">
                   {m.href ? <Link href={m.href} className="block">{card}</Link> : card}
                 </li>
               )
             })}
           </ul>
-          <p className="mt-2 text-[13px] leading-relaxed text-ink/55">
-            E também: ARMC, Salobra, Clínica Cães e Gatos, Health CoWorking, UK Imports, Di Casa Açaí, Reset, Pousada da Praia, EcoUtil, Boulevard Náutico, Zen Sushi e Movimenta Angra.
-          </p>
         </div>
       </div>
     ),
