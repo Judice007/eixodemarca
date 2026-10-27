@@ -47,7 +47,7 @@ const clientesIG: ClienteIG[] = [
   { nome: 'ARMC', handle: 'armc.marina', logo: 'armc' },
   { nome: 'Clínica Cães e Gatos', handle: 'caesgatosveterinaria', logo: 'caes' },
   { nome: 'GST Veículos Elétricos', handle: 'gstveiculoseletricos', logo: 'gst' },
-  { nome: 'Salobra', handle: 'sa.lo.bra', logo: 'salobra' },
+  { nome: 'Salobra', handle: 'sa.lo.bra', logo: 'salobra-2' },
 ]
 
 // Design: a melhor arte de cada cliente (escolhidas a dedo), para mostrar a variedade
@@ -106,7 +106,7 @@ const exLanding = [
 const marcas = [
   ...identities.map((i) => ({ slug: i.slug, nome: i.name, href: `/identidade-visual/${i.slug}` as string | undefined })),
   { slug: 'forno-da-vila', nome: 'Forno da Vila', href: undefined },
-  { slug: 'pausa-cafe', nome: 'Pausa Café', href: undefined },
+  { slug: 'pausa-cafe-2', nome: 'Pausa Café', href: undefined },
 ]
 
 const resultados = [
