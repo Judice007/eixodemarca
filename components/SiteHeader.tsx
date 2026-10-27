@@ -11,6 +11,7 @@ import PontoCegoCta from '@/components/PontoCegoCta'
 // rolar até a seção.
 const NAV_LINKS = [
   ['Serviços', '/#servicos'],
+  ['Lista de serviços', '/servicos'],
   ['Portfólio', '/#portfolio'],
   ['Método', '/#metodo'],
   ['Contato', '/#contato'],
