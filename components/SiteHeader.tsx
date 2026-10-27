@@ -10,8 +10,7 @@ import PontoCegoCta from '@/components/PontoCegoCta'
 // páginas dedicadas de portfólio — de lá, precisa voltar pra home antes de
 // rolar até a seção.
 const NAV_LINKS = [
-  ['Serviços', '/#servicos'],
-  ['Lista de serviços', '/servicos'],
+  ['Serviços', '/servicos'],
   ['Portfólio', '/#portfolio'],
   ['Método', '/#metodo'],
   ['Contato', '/#contato'],
